@@ -1,4 +1,4 @@
-import styles from "scss/App.module.scss";
+import styles from "scss/components/App.module.scss";
 import "scss/reset.scss";
 import "scss/global.scss";
 import { useState } from "react";

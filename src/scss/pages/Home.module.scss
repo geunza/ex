@@ -1,0 +1,15 @@
+@import "scss/utils";
+
+.Home {
+  > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .sec01 {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    > * {
+      width: 30%;
+    }
+  }
+}

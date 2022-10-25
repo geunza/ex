@@ -9,19 +9,23 @@ import {
 import Home from "pages/Home";
 import Header from "components/Header";
 import Footer from "components/Footer";
-const AppRouter = ({ isLoggedIn, userImages }) => {
+import styles from "scss/components/Router.module.scss";
+
+const AppRouter = ({ isLoggedIn }) => {
   const [headerOn, setHeaderOn] = useState(true);
   return (
     <div id="wrap">
       <Router>
-        <Header
-          isLoggedIn={isLoggedIn}
-          headerOn={headerOn}
-          setHeaderOn={setHeaderOn}
-        />
-        <Routes>
-          <Route exact path="/" element={<Home />}></Route>
-        </Routes>
+        <Header isLoggedIn={isLoggedIn} />
+        <div className={`${styles.inner} inner`}>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={<Home isLoggedIn={isLoggedIn} />}
+            ></Route>
+          </Routes>
+        </div>
         <Footer />
       </Router>
     </div>

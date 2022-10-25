@@ -1,1 +1,48 @@
-@import "var";
+@import "./utils";
+
+img {
+  max-width: 100%;
+}
+input,
+button,
+select {
+  font-family: inherit;
+}
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+button {
+  background: transparent;
+
+  cursor: pointer;
+}
+a {
+  color: inherit;
+}
+body {
+  background: #f1f1f1;
+  @include mobile {
+    background: #f1f1f1;
+  }
+  @include tablet {
+    background: #f1f1f1;
+  }
+  @include desktop {
+    background: #f1f1f1;
+  }
+  line-height: 1.5;
+}
+.inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+  position: relative;
+}

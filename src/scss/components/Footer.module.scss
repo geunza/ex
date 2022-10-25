@@ -1,0 +1,65 @@
+@import "scss/utils";
+
+.Footer {
+  background: #fff;
+  padding: 10px 0;
+  .footerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    .terms {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      li {
+        //
+        a {
+          //
+        }
+      }
+    }
+    .sns {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      li {
+        //
+        button {
+          //
+        }
+      }
+    }
+  }
+  .footerCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .leftArea {
+      ul {
+        li {
+          span {
+            padding-right: 15px;
+          }
+        }
+      }
+    }
+    .rightArea {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        li {
+          button {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}

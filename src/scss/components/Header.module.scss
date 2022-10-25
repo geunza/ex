@@ -1,0 +1,50 @@
+@import "scss/utils";
+
+.Header {
+  background: #fff;
+  padding: 20px 0;
+  :global .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .headerLogo {
+    img {
+      display: block;
+    }
+  }
+  nav {
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      li {
+        a {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+  .searchForm {
+    position: relative;
+    input[type="text"] {
+      padding-left: 40px;
+      border-radius: 50px;
+      height: 30px;
+      width: 350px;
+      border: 1px solid #000;
+    }
+    button[type="submit"] {
+      background: #e6e6e6;
+      border: none;
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 90%;
+      aspect-ratio: 1 / 1;
+      font-size: 0;
+      border-radius: 50%;
+    }
+  }
+}

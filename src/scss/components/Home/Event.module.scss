@@ -1,0 +1,30 @@
+@import "scss/utils";
+
+.Event {
+  background: #fff;
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+  h4 {
+    //
+    flex: 0 1 auto;
+    margin-bottom: 10px;
+  }
+  ul {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    li {
+      width: 49%;
+      height: 49%;
+      border: 1px solid #000;
+      margin-bottom: 2%;
+      border-radius: $box-radius;
+      a {
+        display: block;
+        height: 100%;
+      }
+    }
+  }
+}

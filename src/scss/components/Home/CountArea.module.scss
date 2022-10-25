@@ -1,0 +1,18 @@
+@import "scss/utils";
+
+.CountArea {
+  background-color: #fff;
+  padding: 10px 0;
+  border-radius: $box-radius;
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    li {
+      span {
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}
