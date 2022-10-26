@@ -1,8 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styles from "scss/components/Home/CountArea.module.scss";
+import axios from "axios";
 const CountArea = () => {
-  const [count, setCount] = useState([12111, 433, 114, 11444]);
+  const [count, setCount] = useState([]);
+  const getCount = () => {
+    axios("/db/countData.json").then((res) => setCount(res.data.count));
+  };
   const [newCount, setNewCount] = useState([]);
   const changeCount = () => {
     let newArr = [...count].map((v) =>
@@ -13,6 +17,9 @@ const CountArea = () => {
   useEffect(() => {
     setNewCount(changeCount);
   }, [count]);
+  useEffect(() => {
+    getCount();
+  }, []);
   return (
     <div className={styles.CountArea}>
       <ul>

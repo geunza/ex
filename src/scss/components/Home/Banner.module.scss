@@ -8,12 +8,18 @@
     position: relative;
     padding-top: 50%;
     background: #ccc;
-    span {
-      color: #fff;
+    a {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      left: 0;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      span {
+        color: #fff;
+      }
     }
   }
   .pagination {

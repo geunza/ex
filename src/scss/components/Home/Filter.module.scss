@@ -1,0 +1,65 @@
+@import "scss/utils";
+.Filter {
+  background: #fff;
+  border-radius: $box-radius;
+  padding: 15px;
+  .custom {
+    display: flex;
+    justify-content: space-between;
+    .leftArea {
+      ul {
+        //
+
+        > li {
+          padding: 10px 0;
+          display: flex;
+          align-items: center;
+          span {
+            width: 100px;
+          }
+          &.btnItem {
+            //
+          }
+          &.sltItem {
+            //
+            display: flex;
+            justify-content: space-between;
+            > div {
+              display: flex;
+              width: 50%;
+            }
+          }
+          ol {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            li {
+              button {
+                //
+                &[data-clicked="true"] {
+                  background: red;
+                }
+              }
+              :global button.active {
+                background: red;
+              }
+            }
+          }
+        }
+      }
+    }
+    .rightArea {
+      display: flex;
+      flex-flow: column;
+      gap: 10px;
+      button {
+        flex: 1;
+        span {
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

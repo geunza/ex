@@ -5,7 +5,7 @@ const SnsLogin = ({ isLoggedIn }) => {
   return (
     <>
       <div className={styles.SnsLogin}>
-        {!isLoggedIn ? (
+        {isLoggedIn ? (
           <div className={styles.loggedIn}>
             <p>
               <span>주식회사 씨티엔에스 대표님.</span>
