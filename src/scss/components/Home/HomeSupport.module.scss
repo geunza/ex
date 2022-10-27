@@ -1,0 +1,17 @@
+@import "scss/utils";
+
+.HomeSupport {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 2%;
+  .supportBox {
+    background: #fff;
+    margin-bottom: 2%;
+    width: 49%;
+    // border-radius: $box-radius;
+    .supportCate {
+      margin-bottom: 20px;
+    }
+  }
+}

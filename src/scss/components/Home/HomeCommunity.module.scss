@@ -1,0 +1,32 @@
+@import "scss/utils";
+.HomeCommunity {
+  //
+  padding: 20px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .leftArea {
+    //
+    width: 50%;
+    display: flex;
+    align-items: center;
+    h3 {
+      flex: 0 1 auto;
+      //
+    }
+    p {
+      text-align: center;
+      flex: 1 1 auto;
+      //
+    }
+  }
+  .rightArea {
+    //
+    overflow: hidden;
+    height: 100%;
+    ul {
+      //
+    }
+  }
+}

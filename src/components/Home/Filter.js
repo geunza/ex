@@ -90,11 +90,13 @@ const Filter = ({ isLoggedIn }) => {
             <span>맞춤 지원사업</span>
             <span>조회하기</span>
           </button>
-          <button type="submit" name="noLogin" onClick={clickSubmit}>
-            <span>비회원으로</span>
-            <span>전체 지원사업</span>
-            <span>조회하기</span>
-          </button>
+          {isLoggedIn == false ? (
+            <button type="submit" name="noLogin" onClick={clickSubmit}>
+              <span>비회원으로</span>
+              <span>전체 지원사업</span>
+              <span>조회하기</span>
+            </button>
+          ) : null}
         </div>
       </div>
     </form>

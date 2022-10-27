@@ -9,7 +9,6 @@ const Header = ({ isLoggedIn }) => {
       target: { value },
     } = e;
     setSearchVal(value);
-    console.log(value);
   };
   const searchSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +17,44 @@ const Header = ({ isLoggedIn }) => {
   };
   return (
     <>
+      <div
+        style={{ position: "fixed", left: 0, top: 0, background: "#e6e6e6" }}
+      >
+        <ul>
+          <li>
+            <Link
+              style={{ padding: "0 10px" }}
+              to="/community/communityList/전체"
+            >
+              전체
+            </Link>
+            <Link
+              style={{ padding: "0 10px" }}
+              to="/community/communityList/정보공유"
+            >
+              정보공유
+            </Link>
+            <Link
+              style={{ padding: "0 10px" }}
+              to="/community/communityList/QnA"
+            >
+              QnA
+            </Link>
+            <Link
+              style={{ padding: "0 10px" }}
+              to="/community/communityList/기업매칭"
+            >
+              기업 매칭
+            </Link>
+            <Link
+              style={{ padding: "0 10px" }}
+              to="/community/communityList/자유게시판"
+            >
+              자유 게시판
+            </Link>
+          </li>
+        </ul>
+      </div>
       <div className={styles.Header}>
         <div className="inner">
           <h1 className={styles.headerLogo}>

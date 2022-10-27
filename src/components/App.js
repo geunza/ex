@@ -3,6 +3,7 @@ import "scss/reset.scss";
 import "scss/global.scss";
 import { useState } from "react";
 import AppRouter from "components/Router";
+import axios from "axios";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

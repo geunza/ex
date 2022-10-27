@@ -1,0 +1,19 @@
+@import "scss/utils";
+.HomeListItem {
+  //
+  a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    h4 {
+      //
+    }
+    p {
+      span {
+        //
+        padding: 0 5px;
+      }
+    }
+  }
+}
