@@ -1,3 +1,5 @@
+@import "scss/utils";
+
 .CommunityList {
   > * {
     margin-bottom: 20px;
@@ -49,5 +51,20 @@
   .listCategory {
     display: flex;
     gap: 10px;
+    a {
+      &[data-selected="selected"] {
+        background: red;
+      }
+    }
+  }
+  .listSorting {
+    button {
+      &[data-selected="selected"] {
+        background: red;
+      }
+    }
+  }
+  .listCont {
+    //
   }
 }

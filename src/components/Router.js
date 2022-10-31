@@ -35,7 +35,7 @@ const AppRouter = ({ isLoggedIn }) => {
               element={<CommunityList />}
             ></Route>
             <Route
-              path="/community/communitiView/:id"
+              path="/community/communityView/:id"
               element={<CommunityView />}
             ></Route>
             <Route path="*" element={<Navigate replace to="/" />}></Route>

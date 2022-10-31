@@ -1,0 +1,45 @@
+@import "scss/utils";
+
+.CommunityView {
+  //
+  .btns {
+    margin-bottom: 15px;
+    button {
+      border: 1px solid #000;
+    }
+  }
+  .contWrap {
+    border: 1px solid #000;
+    border-radius: $box-radius;
+    padding: 15px;
+    background-color: #fff;
+    .contTop {
+      .titleArea {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h3 {
+          //
+          font-size: 20px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        button {
+          //
+        }
+      }
+      .writer {
+      }
+    }
+    .cont {
+      //
+    }
+    .btnLike {
+      text-align: center;
+    }
+    .filearea {
+      //
+    }
+  }
+}

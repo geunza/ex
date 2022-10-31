@@ -21,7 +21,7 @@ const HomeSupport = () => {
             <h4 className={styles.supportCate}>{item.category}</h4>
             <ul>
               {item.Item.map((list, idx) => (
-                <HomeListItem item={list} likeShow={false} />
+                <HomeListItem key={idx} item={list} likeShow={false} />
               ))}
             </ul>
           </div>

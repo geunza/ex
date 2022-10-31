@@ -4,20 +4,66 @@ import { Link, match, useParams } from "react-router-dom";
 import styles from "scss/pages/CommunityList.module.scss";
 import Banner from "components/MainBanner";
 import axios from "axios";
+import CommunityListItem from "components/community/CommunityListItem";
+import Pagination from "components/Pagination";
 const CommunityList = ({}) => {
   const { category } = useParams();
-  const [communityList, setCommunityList] = useState([]);
+  const [postData, setPostData] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+  const [cate, setCate] = useState(category);
+  const [ord, setOrd] = useState("전체");
   useEffect(() => {
-    axios(
-      `/mobile/community/all?select_cat=${category}&ord=최신순&cnt_sql=0`
-    ).then((res) => {
-      return setCommunityList(res.data);
-    });
-  }, [category]);
+    axios(`/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`).then(
+      (res) => {
+        const data = res.data;
+        return setPostData(data);
+      }
+    );
+    if (sessionStorage.ord != undefined) {
+      setOrd(sessionStorage.ord);
+    }
+  }, []);
 
   useEffect(() => {
-    console.log(communityList);
-  }, [communityList]);
+    setPosts(postData);
+  }, [postData]);
+
+  const postSort = () => {
+    let copy = [];
+    category === "전체"
+      ? (copy = [...postData])
+      : (copy = [...postData].filter((e) => e.category === category));
+
+    if (ord === "전체") {
+    } else if (ord === "인기순") {
+      copy.sort((a, b) => b.view_count - a.view_count);
+    } else if (ord === "최신순") {
+      copy.sort((a, b) => {
+        let date1 = new Date(a.cret_dt).getTime();
+        let date2 = new Date(b.cret_dt).getTime();
+        return date2 - date1;
+      });
+    } else if (ord === "댓글") {
+      copy.sort((a, b) => b.comment_cnt - a.comment_cnt);
+    }
+    setPosts(copy);
+  };
+
+  useEffect(() => {
+    sessionStorage.setItem("category", category);
+    sessionStorage.setItem("ord", ord);
+    postSort();
+  }, [category, ord]);
+
+  const btnSorting = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setOrd(value);
+  };
   return (
     <div className={styles.CommunityList}>
       <div className={styles.titleArea}>
@@ -44,11 +90,99 @@ const CommunityList = ({}) => {
         </div>
       </div>
       <div className={styles.listCategory}>
-        <Link to="/community/communityList/전체">전체</Link>
-        <Link to="/community/communityList/정보공유">정보공유</Link>
-        <Link to="/community/communityList/QnA">QnA</Link>
-        <Link to="/community/communityList/기업매칭">기업 매칭</Link>
-        <Link to="/community/communityList/자유게시판">자유 게시판</Link>
+        <Link
+          to="/community/communityList/전체"
+          name="cate"
+          value="전체"
+          data-selected={category === "전체" ? "selected" : null}
+        >
+          전체
+        </Link>
+        <Link
+          to="/community/communityList/정보공유"
+          name="cate"
+          value="정보공유"
+          data-selected={category === "정보공유" ? "selected" : null}
+        >
+          정보공유
+        </Link>
+        <Link
+          to="/community/communityList/QnA"
+          name="cate"
+          value="QnA"
+          data-selected={category === "QnA" ? "selected" : null}
+        >
+          QnA
+        </Link>
+        <Link
+          to="/community/communityList/기업매칭"
+          name="cate"
+          value="기업매칭"
+          data-selected={category === "기업매칭" ? "selected" : null}
+        >
+          기업 매칭
+        </Link>
+        <Link
+          to="/community/communityList/자유게시판"
+          name="cate"
+          value="자유게시판"
+          data-selected={category === "자유게시판" ? "selected" : null}
+        >
+          자유 게시판
+        </Link>
+      </div>
+      <div className={styles.listSorting}>
+        <button
+          type="button"
+          data-selected={ord === "전체" ? "selected" : null}
+          onClick={btnSorting}
+          value="전체"
+        >
+          전체
+        </button>
+        <button
+          type="button"
+          data-selected={ord === "인기순" ? "selected" : null}
+          onClick={btnSorting}
+          value="인기순"
+        >
+          인기순
+        </button>
+        <button
+          type="button"
+          data-selected={ord === "최신순" ? "selected" : null}
+          onClick={btnSorting}
+          value="최신순"
+        >
+          최신순
+        </button>
+        <button
+          type="button"
+          data-selected={ord === "댓글" ? "selected" : null}
+          onClick={btnSorting}
+          value="댓글"
+        >
+          댓글 많은 순
+        </button>
+      </div>
+      <div className={styles.listCont}>
+        <ul>
+          {posts.length > 0 ? (
+            posts.slice(offset, offset + limit).map((post, i) => {
+              return <CommunityListItem post={post} key={i} styles={styles} />;
+            })
+          ) : (
+            <div>없어용</div>
+          )}
+        </ul>
+        {posts.length > 0 && (
+          <Pagination
+            total={posts.length}
+            postLimit={limit}
+            page={page}
+            setPage={setPage}
+          />
+        )}
       </div>
     </div>
   );

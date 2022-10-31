@@ -17,44 +17,6 @@ const Header = ({ isLoggedIn }) => {
   };
   return (
     <>
-      <div
-        style={{ position: "fixed", left: 0, top: 0, background: "#e6e6e6" }}
-      >
-        <ul>
-          <li>
-            <Link
-              style={{ padding: "0 10px" }}
-              to="/community/communityList/전체"
-            >
-              전체
-            </Link>
-            <Link
-              style={{ padding: "0 10px" }}
-              to="/community/communityList/정보공유"
-            >
-              정보공유
-            </Link>
-            <Link
-              style={{ padding: "0 10px" }}
-              to="/community/communityList/QnA"
-            >
-              QnA
-            </Link>
-            <Link
-              style={{ padding: "0 10px" }}
-              to="/community/communityList/기업매칭"
-            >
-              기업 매칭
-            </Link>
-            <Link
-              style={{ padding: "0 10px" }}
-              to="/community/communityList/자유게시판"
-            >
-              자유 게시판
-            </Link>
-          </li>
-        </ul>
-      </div>
       <div className={styles.Header}>
         <div className="inner">
           <h1 className={styles.headerLogo}>
@@ -74,7 +36,7 @@ const Header = ({ isLoggedIn }) => {
                 <Link to="###">지원사업</Link>
               </li>
               <li>
-                <Link to="###">커뮤니티</Link>
+                <Link to="/community/communityList/">커뮤니티</Link>
               </li>
               <li>
                 <Link to="###">공지사항</Link>

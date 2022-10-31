@@ -1,0 +1,59 @@
+@import "scss/utils";
+
+.CommunityListItem {
+  //
+  background: #e6e6e6;
+  border-radius: $box-radius;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+
+    .leftArea {
+      width: 60%;
+      .cate {
+        text-decoration: underline;
+        font-weight: 600;
+      }
+      .title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .content {
+        //
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .write {
+        //
+        font-weight: 300;
+        color: #999;
+        .name {
+          //
+        }
+        .time {
+        }
+      }
+    }
+    .rightArea {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        text-align: center;
+        span {
+          display: block;
+        }
+      }
+    }
+  }
+}
