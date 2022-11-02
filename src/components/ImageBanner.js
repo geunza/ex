@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import styles from "scss/components/Home/Banner.module.scss";
 import { useState } from "react";
 import { useEffect } from "react";
-const Banner = () => {
+const ImageBanner = () => {
   const [banner, setBanner] = useState([]);
   const getBannerData = () => {
     axios({
@@ -77,4 +77,4 @@ const Banner = () => {
     </>
   );
 };
-export default Banner;
+export default ImageBanner;

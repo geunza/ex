@@ -4,7 +4,7 @@ import styles from "scss/components/Home/HomeListItem.module.scss";
 const HomeListItem = ({ item, likeShow }) => {
   return (
     <>
-      <li className={styles.HomeListItem}>
+      <div className={styles.HomeListItem}>
         <Link to="###">
           <h4>{item.title}</h4>
           <p>
@@ -12,7 +12,7 @@ const HomeListItem = ({ item, likeShow }) => {
             {likeShow && <span>Like {item.like_count}</span>}
           </p>
         </Link>
-      </li>
+      </div>
     </>
   );
 };

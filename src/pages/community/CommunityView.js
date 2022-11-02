@@ -8,6 +8,7 @@ const CommunityView = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState({});
   const [cont, setCont] = useState("");
+  const [cmtText, setCmtText] = useState("");
   useEffect(() => {
     axios(`/mobile/community/one?id=${id}`).then((res) => {
       const data = res.data;
@@ -16,6 +17,15 @@ const CommunityView = () => {
       setCont(data.content);
     });
   }, []);
+  const submitTest = (a) => {
+    console.log(a);
+  };
+  const commentChange = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setCmtText(value);
+  };
   return (
     <>
       <div className={styles.CommunityView}>
@@ -52,10 +62,18 @@ const CommunityView = () => {
         </div>
         <div className={styles.commentArea}>
           <h4>댓글 작성</h4>
-          <form className={styles.iptArea}>
+          <form
+            className={styles.iptArea}
+            onSubmit={(e) => {
+              e.preventDefault();
+              submitTest();
+            }}
+          >
             <textarea
               rows="4"
               placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
+              value={cmtText}
+              onChange={commentChange}
             ></textarea>
             <button type="submit">댓글 등록</button>
           </form>

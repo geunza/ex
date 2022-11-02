@@ -1,13 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, match, useParams } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import styles from "scss/pages/CommunityList.module.scss";
-import Banner from "components/MainBanner";
+import Banner from "components/ImageBanner";
 import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
 const CommunityList = ({}) => {
   const { category } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const [postData, setPostData] = useState([]);
   const [posts, setPosts] = useState([]);
   const [limit, setLimit] = useState(5);
@@ -26,10 +35,6 @@ const CommunityList = ({}) => {
       setOrd(sessionStorage.ord);
     }
   }, []);
-
-  useEffect(() => {
-    setPosts(postData);
-  }, [postData]);
 
   const postSort = () => {
     let copy = [];
@@ -58,14 +63,33 @@ const CommunityList = ({}) => {
     postSort();
   }, [category, ord]);
 
+  useEffect(() => {
+    setPosts(postData);
+  }, [postData]);
   const btnSorting = (e) => {
     const {
       target: { value },
     } = e;
+    navigate("?page=1");
     setOrd(value);
   };
+  useEffect(() => {
+    let currentPage = searchParams.get("page");
+    if (currentPage == null) {
+      currentPage = 1;
+    }
+    setPage(parseInt(currentPage));
+  }, [searchParams]);
   return (
     <div className={styles.CommunityList}>
+      <button
+        onClick={() => {
+          searchParams.set("ord", "2");
+          navigate("?" + searchParams.toString());
+        }}
+      >
+        TESTBTN
+      </button>
       <div className={styles.titleArea}>
         <div className={styles.leftArea}>
           <h3>커뮤니티</h3>
@@ -179,10 +203,23 @@ const CommunityList = ({}) => {
           <Pagination
             total={posts.length}
             postLimit={limit}
+            numLimit={10}
             page={page}
-            setPage={setPage}
+            searchParams={searchParams}
+            cate={cate}
+            ord={ord}
           />
         )}
+        {/* {posts.length > 0 && (
+          <Pagination
+            total={posts.length}
+            postLimit={limit}
+            page={page}
+            searchParams={searchParams}
+            setPage={setPage}
+            numLimit={10}
+          />
+        )} */}
       </div>
     </div>
   );

@@ -1,0 +1,85 @@
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import styles from "scss/components/Pagination.module.scss";
+
+const Pagination = ({
+  total,
+  postLimit,
+  page,
+  setPage,
+  searchParams,
+  numLimit,
+  cate,
+  ord,
+}) => {
+  const navigate = useNavigate();
+
+  const numPages = Math.ceil(total / postLimit);
+  const [currentPagesArr, setCurrentPagesArr] = useState([]);
+  const location = useLocation();
+
+  const changeCurrent = () => {
+    let countArr = [];
+    let count = parseInt((page - 1) / numLimit);
+    let countStart = count * numLimit;
+    let countEnd = count * numLimit + numLimit;
+    if (countEnd > numPages) {
+      countEnd = numPages;
+    }
+    for (let i = countStart; i < countEnd; i++) {
+      countArr.push(i);
+    }
+    setCurrentPagesArr(countArr);
+  };
+  const btnPage = (e) => {
+    const {
+      target: { value },
+    } = e;
+    navigate(`?page=${value}`);
+  };
+  useEffect(() => {
+    let currentPage = searchParams.get("page");
+    if (currentPage == null) {
+      currentPage = 1;
+    }
+    setPage(parseInt(currentPage));
+  }, [searchParams]);
+  useEffect(() => {
+    changeCurrent();
+  }, [cate, ord]);
+  return (
+    <nav className={styles.Pagination}>
+      <button onClick={btnPage} disabled={page === 1} value={1}>
+        &lt;&lt;
+      </button>
+      <button onClick={btnPage} disabled={page === 1} value={page - 1}>
+        &lt;
+      </button>
+      {currentPagesArr.map((v, i) => {
+        return (
+          <button
+            key={v + 1}
+            onClick={btnPage}
+            value={v + 1}
+            data-current={page == v + 1 ? "current" : null}
+          >
+            {v + 1}
+          </button>
+        );
+      })}
+      <button
+        onClick={btnPage}
+        value={parseInt(page) + 1}
+        disabled={page === numPages}
+      >
+        &gt;
+      </button>
+      <button onClick={btnPage} value={numPages} disabled={page === numPages}>
+        &gt;&gt;
+      </button>
+    </nav>
+  );
+};
+export default Pagination;

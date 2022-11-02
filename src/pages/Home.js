@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CountArea from "components/Home/CountArea";
 import SnsLogin from "components/Home/LoginArea";
-import Banner from "components/MainBanner";
+import Banner from "components/ImageBanner";
 import Event from "components/Home/Event";
 import Filter from "components/Home/Filter";
 import HomeCommunity from "components/Home/HomeCommunity";

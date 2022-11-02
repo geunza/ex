@@ -13,6 +13,7 @@ import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
 import CommunityList from "pages/community/CommunityList";
 import CommunityView from "pages/community/CommunityView";
+import Loading from "components/Loading";
 
 const AppRouter = ({ isLoggedIn }) => {
   return (
