@@ -1,0 +1,94 @@
+@import "scss/utils";
+.FilterModal {
+  //
+  .modalInner {
+    //
+  }
+  .btnStepWrap {
+    display: flex;
+    li {
+      flex: 1 1 auto;
+    }
+    .btnStep {
+      width: 100%;
+      padding: 20px 0;
+      border: none;
+      font-size: 20px;
+      span {
+        position: relative;
+        font-weight: 700;
+        color: #aaa;
+        &[data-selected="selected"] {
+          color: #000;
+          border-bottom: 2px solid #000;
+        }
+      }
+    }
+  }
+  .contArea {
+    //
+    .tabCont {
+      //
+      padding: 25px;
+      .title {
+        //
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        h5 {
+          font-size: 20px;
+          &.required {
+            //
+            &:after {
+              content: "*";
+              color: red;
+              margin-left: 5px;
+            }
+          }
+        }
+        span {
+          margin-left: 20px;
+        }
+      }
+      .itemWrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        &:not(:last-of-type) {
+          margin-bottom: 20px;
+        }
+        .item {
+          // margin-bottom: 5px;
+          button {
+            border: 1px solid green;
+            padding: 5px;
+            border-radius: 5px;
+            &[data-selected="selected"] {
+              //
+            }
+          }
+        }
+      }
+    }
+  }
+  .confirmArea {
+    display: flex;
+    button {
+      border: none;
+      height: 50px;
+      &.btnClose {
+        //
+        width: 20%;
+        background: #aaa;
+        color: #fff;
+      }
+      &.btnSubmit {
+        //
+        width: 80%;
+        background: green;
+        color: #fff;
+      }
+    }
+  }
+}

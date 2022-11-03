@@ -1,5 +1,12 @@
 import React from "react";
-const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
+const FilterButton = ({
+  v,
+  i,
+  styles,
+  selectedItems,
+  setSelectedItems,
+  isLoggedIn,
+}) => {
   const btnClick = (e) => {
     const {
       target: { value },

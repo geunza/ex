@@ -41,8 +41,8 @@ const HomeCommunity = ({}) => {
           >
             {community.map((item, i) => {
               return (
-                <SwiperSlide className={styles.swiperSlide}>
-                  <HomeListItem key={item.id} item={item} likeShow={true} />
+                <SwiperSlide className={styles.swiperSlide} key={item.id}>
+                  <HomeListItem item={item} likeShow={true} />
                 </SwiperSlide>
               );
             })}
