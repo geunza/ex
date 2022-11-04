@@ -12,7 +12,6 @@ const CommunityView = () => {
   useEffect(() => {
     axios(`/mobile/community/one?id=${id}`).then((res) => {
       const data = res.data;
-      console.log(data);
       setPost(data);
       setCont(data.content);
     });
