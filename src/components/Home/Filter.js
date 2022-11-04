@@ -47,14 +47,8 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
     e.preventDefault();
   };
   useEffect(() => {
-    console.log(selectedItems);
-  }, [selectedItems]);
-  useEffect(() => {
     getFilterData();
   }, []);
-  useEffect(() => {
-    console.log(modalOn);
-  }, [modalOn]);
   return (
     <>
       <form className={styles.Filter} onSubmit={filterSubmit}>
