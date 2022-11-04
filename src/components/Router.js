@@ -50,6 +50,7 @@ const AppRouter = ({}) => {
           </Routes>
         </div>
         <Footer />
+        <Loading />
       </Router>
     </div>
   );

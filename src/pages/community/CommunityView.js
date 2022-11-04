@@ -3,18 +3,26 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "scss/components/Community/CommunityView.module.scss";
+import { useDispatch } from "react-redux";
+import { loadingStart, loadingEnd } from "store";
 const CommunityView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState({});
   const [cont, setCont] = useState("");
   const [cmtText, setCmtText] = useState("");
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios(`/mobile/community/one?id=${id}`).then((res) => {
-      const data = res.data;
-      setPost(data);
-      setCont(data.content);
-    });
+    dispatch(loadingStart());
+    axios(`/mobile/community/one?id=${id}`)
+      .then((res) => {
+        const data = res.data;
+        setPost(data);
+        setCont(data.content);
+      })
+      .then(() => {
+        dispatch(loadingEnd());
+      });
   }, []);
   const submitTest = (a) => {
     console.log(a);

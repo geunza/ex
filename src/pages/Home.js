@@ -7,6 +7,7 @@ import Filter from "components/Home/Filter";
 import HomeCommunity from "components/Home/HomeCommunity";
 import HomeSupport from "components/Home/HomeSupport";
 import EventModal from "components/Home/EventModal";
+import Loading from "components/Loading";
 import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
 const Home = ({}) => {

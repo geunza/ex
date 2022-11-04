@@ -12,6 +12,8 @@ import Banner from "components/ImageBanner";
 import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
+import { useDispatch } from "react-redux";
+import { loadingStart, loadingEnd } from "store";
 const CommunityList = ({}) => {
   const { category } = useParams();
   const navigate = useNavigate();
@@ -24,13 +26,18 @@ const CommunityList = ({}) => {
   const offset = (page - 1) * limit;
   const [cate, setCate] = useState(category);
   const [ord, setOrd] = useState("전체");
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios(`/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`).then(
-      (res) => {
+    dispatch(loadingStart());
+
+    axios(`/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`)
+      .then((res) => {
         const data = res.data;
         return setPostData(data);
-      }
-    );
+      })
+      .then(() => {
+        dispatch(loadingEnd());
+      });
     if (sessionStorage.ord != undefined) {
       setOrd(sessionStorage.ord);
     }

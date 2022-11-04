@@ -1,15 +1,22 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadingStart, loadingEnd } from "store";
 import HomeListItem from "components/Home/HomeListItem";
-
 import styles from "scss/components/Home/HomeSupport.module.scss";
 const HomeSupport = ({}) => {
   const [homeSupport, setHomeSupport] = useState([]);
+  const dispatch = useDispatch();
   const getHomeSupport = () => {
-    axios("/db/HomeSupport.json").then((res) => {
-      setHomeSupport(res.data);
-    });
+    dispatch(loadingStart());
+    axios("/db/HomeSupport.json")
+      .then((res) => {
+        setHomeSupport(res.data);
+      })
+      .then(() => {
+        dispatch(loadingEnd());
+      });
   };
   useEffect(() => {
     getHomeSupport();

@@ -33,9 +33,24 @@ let isLoggedIn = createSlice({
 });
 export let { signIn } = isLoggedIn.actions;
 
+let isLoading = createSlice({
+  name: "isLoading",
+  initialState: false,
+  reducers: {
+    loadingStart() {
+      return true;
+    },
+    loadingEnd() {
+      return false;
+    },
+  },
+});
+export let { loadingStart, loadingEnd } = isLoading.actions;
+
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
+    isLoading: isLoading.reducer,
   },
 });
