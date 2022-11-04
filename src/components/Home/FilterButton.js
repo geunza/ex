@@ -1,12 +1,7 @@
 import React from "react";
-const FilterButton = ({
-  v,
-  i,
-  styles,
-  selectedItems,
-  setSelectedItems,
-  isLoggedIn,
-}) => {
+import { useSelector } from "react-redux";
+
+const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
   const btnClick = (e) => {
     const {
       target: { value },
@@ -15,6 +10,8 @@ const FilterButton = ({
     copy[i] = value;
     setSelectedItems(copy);
   };
+
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <>
       <li className={styles.btnItem}>

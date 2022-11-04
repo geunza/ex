@@ -14,19 +14,17 @@ import styles from "scss/components/Router.module.scss";
 import CommunityList from "pages/community/CommunityList";
 import CommunityView from "pages/community/CommunityView";
 import Loading from "components/Loading";
+import { useSelector } from "react-redux";
 
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({}) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <div id="wrap">
       <Router>
-        <Header isLoggedIn={isLoggedIn} />
+        <Header />
         <div className={`${styles.inner} inner`}>
           <Routes>
-            <Route
-              exact
-              path="/"
-              element={<Home isLoggedIn={isLoggedIn} />}
-            ></Route>
+            <Route exact path="/" element={<Home />}></Route>
             <Route
               path="/community/communityList/"
               element={<Navigate replace to="/community/communityList/전체" />}

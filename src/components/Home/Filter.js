@@ -6,7 +6,9 @@ import FilterSelect from "components/Home/FilterSelect";
 import FilterModal from "components/Home/FilterModal";
 import axios from "axios";
 import styles from "scss/components/Home/Filter.module.scss";
-const Filter = ({ isLoggedIn, modalOpener, setModalOn, modalOn, Modal1 }) => {
+import { useSelector } from "react-redux";
+const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState([
     "0-0",
@@ -72,7 +74,6 @@ const Filter = ({ isLoggedIn, modalOpener, setModalOn, modalOn, Modal1 }) => {
                     styles={styles}
                     selectedItems={selectedItems}
                     setSelectedItems={setSelectedItems}
-                    isLoggedIn={isLoggedIn}
                   />
                 );
               })}

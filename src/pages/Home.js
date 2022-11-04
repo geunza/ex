@@ -8,9 +8,10 @@ import HomeCommunity from "components/Home/HomeCommunity";
 import HomeSupport from "components/Home/HomeSupport";
 import EventModal from "components/Home/EventModal";
 import styles from "scss/pages/Home.module.scss";
-
 import axios from "axios";
-const Home = ({ isLoggedIn }) => {
+import { useSelector } from "react-redux";
+
+const Home = ({}) => {
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
@@ -43,17 +44,18 @@ const Home = ({ isLoggedIn }) => {
       };
     }
   }, [modalOn]);
+
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <>
       <div className={styles.Home}>
         <CountArea />
         <section className={styles.sec01}>
-          <SnsLogin isLoggedIn={isLoggedIn} />
+          <SnsLogin />
           <Banner />
           <Event />
         </section>
         <Filter
-          isLoggedIn={isLoggedIn}
           modalOpener={modalOpener}
           setModalOn={setModalOn}
           modalOn={modalOn}

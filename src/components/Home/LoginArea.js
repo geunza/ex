@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "scss/components/Home/LoginArea.module.scss";
 import { Link } from "react-router-dom";
-const SnsLogin = ({ isLoggedIn }) => {
+import { useSelector } from "react-redux";
+const SnsLogin = ({}) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <>
       <div className={styles.SnsLogin}>

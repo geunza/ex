@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styles from "scss/components/Header.module.scss";
 import { useNavigate, Link } from "react-router-dom";
-const Header = ({ isLoggedIn }) => {
+import { useSelector } from "react-redux";
+const Header = ({}) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const navigate = useNavigate();
   const [searchVal, setSearchVal] = useState("");
   const onChange = (e) => {
