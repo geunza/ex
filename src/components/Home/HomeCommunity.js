@@ -15,7 +15,6 @@ const HomeCommunity = ({}) => {
       method: "GET",
       url: "/mobile/community/all?select_cat=전체&ord=인기순&cnt_sql=1",
     }).then((res) => {
-      console.log(res);
       setCommunity(res.data.slice(0, 3));
     });
   };
