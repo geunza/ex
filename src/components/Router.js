@@ -13,9 +13,10 @@ import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
 import CommunityList from "pages/community/CommunityList";
 import CommunityView from "pages/community/CommunityView";
+import SupportList from "pages/support/SupportList";
+import SupportView from "pages/support/SupportView";
 import Loading from "components/Loading";
 import { useSelector } from "react-redux";
-
 const AppRouter = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
@@ -36,6 +37,14 @@ const AppRouter = ({}) => {
             <Route
               path="/community/communityView/:id"
               element={<CommunityView />}
+            ></Route>
+            <Route
+              path="/support/supportList"
+              element={<SupportList />}
+            ></Route>
+            <Route
+              path="/support/supportView/"
+              element={<SupportView />}
             ></Route>
             <Route path="*" element={<Navigate replace to="/" />}></Route>
           </Routes>
