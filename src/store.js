@@ -5,17 +5,6 @@ createSlice({
   name : 'state이름~~',
   initialState:'값'
 })
-*/
-let isLoggedIn = createSlice({
-  name: "isLoggedIn",
-  initialState: false,
-  reducers: {
-    signIn(state, action) {
-      return true;
-    },
-  },
-});
-export let { signIn } = isLoggedIn.actions;
 let cart = createSlice({
   name: "cart",
   initialState: [
@@ -30,9 +19,23 @@ let cart = createSlice({
   },
 });
 export let { changeCount } = cart.actions;
+*/
+let isLoggedIn = createSlice({
+  name: "isLoggedIn",
+  initialState: false,
+  reducers: {
+    signIn(state, action) {
+      console.log(state);
+      console.log(action.payload);
+      return true;
+    },
+  },
+});
+export let { signIn } = isLoggedIn.actions;
+
 export default configureStore({
   reducer: {
-    cart: cart.reducer,
+    // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
   },
 });
