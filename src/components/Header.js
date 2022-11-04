@@ -14,6 +14,11 @@ const Header = ({}) => {
   };
   const searchSubmit = (e) => {
     e.preventDefault();
+    const searchValue = e.target.searchText.value;
+    if (searchValue == "") {
+      alert("검색어를 입력하세요.");
+      return false;
+    }
     alert("검색 시작");
     setSearchVal("");
   };
@@ -35,7 +40,7 @@ const Header = ({}) => {
                 <Link to="###">찜</Link>
               </li>
               <li>
-                <Link to="###">지원사업</Link>
+                <Link to="/support/supportList">지원사업</Link>
               </li>
               <li>
                 <Link to="/community/communityList/">커뮤니티</Link>
