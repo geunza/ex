@@ -24,15 +24,14 @@ const HomeCommunity = ({}) => {
   return (
     <>
       <div className={styles.HomeCommunity}>
-        <div className={styles.leftArea}>
-          <h3>커뮤니티 &gt; </h3>
+        <div className={styles.topArea}>
           <p>기업 운영에 관한 모든 것들을 커뮤니티에서 공유해봐요!</p>
         </div>
-        <div className={styles.rightArea}>
+        <div className={styles.contArea}>
           <Swiper
             direction={"vertical"}
             autoplay={{
-              delay: 1000,
+              delay: 3000,
               disableOnInteraction: false,
             }}
             className={styles.mySwiper}
@@ -41,7 +40,7 @@ const HomeCommunity = ({}) => {
             {community.map((item, i) => {
               return (
                 <SwiperSlide className={styles.swiperSlide} key={item.id}>
-                  <HomeListItem item={item} likeShow={true} />
+                  <HomeListItem item={item} likeShow={true} styles={styles} />
                 </SwiperSlide>
               );
             })}

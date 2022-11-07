@@ -28,11 +28,16 @@ const HomeSupport = ({}) => {
           return (
             <div key={item.category} className={styles.supportBox}>
               <h4 className={styles.supportCate}>{item.category}</h4>
-              <ul>
+              <div className={styles.supportList}>
                 {item.Item.map((list, idx) => (
-                  <HomeListItem key={idx} item={list} likeShow={false} />
+                  <HomeListItem
+                    key={idx}
+                    item={list}
+                    likeShow={false}
+                    styles={styles}
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
           );
         })}

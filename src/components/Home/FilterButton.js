@@ -2,20 +2,26 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   const btnClick = (e) => {
     const {
       target: { value },
     } = e;
+    if (!isLoggedIn) {
+      alert("로그인X");
+      return false;
+    }
     let copy = [...selectedItems];
+
     copy[i] = value;
     setSelectedItems(copy);
   };
 
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <>
       <li className={styles.btnItem}>
-        <span>{v.name}</span>
+        <p>{v.name}</p>
         <ol>
           {v.btns.map((v2, i2) => {
             const clicked = selectedItems.includes(v2.value);

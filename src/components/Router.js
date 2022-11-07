@@ -23,32 +23,24 @@ const AppRouter = ({}) => {
     <div id="wrap">
       <Router>
         <Header />
-        <div className={`${styles.inner} inner`}>
-          <Routes>
-            <Route exact path="/" element={<Home />}></Route>
-            <Route
-              path="/community/communityList/"
-              element={<Navigate replace to="/community/communityList/전체" />}
-            ></Route>
-            <Route
-              path="/community/communityList/:category"
-              element={<CommunityList />}
-            ></Route>
-            <Route
-              path="/community/communityView/:id"
-              element={<CommunityView />}
-            ></Route>
-            <Route
-              path="/support/supportList"
-              element={<SupportList />}
-            ></Route>
-            <Route
-              path="/support/supportView/"
-              element={<SupportView />}
-            ></Route>
-            <Route path="*" element={<Navigate replace to="/" />}></Route>
-          </Routes>
-        </div>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route
+            path="/community/communityList/"
+            element={<Navigate replace to="/community/communityList/전체" />}
+          ></Route>
+          <Route
+            path="/community/communityList/:category"
+            element={<CommunityList />}
+          ></Route>
+          <Route
+            path="/community/communityView/:id"
+            element={<CommunityView />}
+          ></Route>
+          <Route path="/support/supportList" element={<SupportList />}></Route>
+          <Route path="/support/supportView/" element={<SupportView />}></Route>
+          <Route path="*" element={<Navigate replace to="/" />}></Route>
+        </Routes>
         <Footer />
         <Loading />
       </Router>

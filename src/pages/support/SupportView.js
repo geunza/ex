@@ -3,7 +3,9 @@ import React from "react";
 const SupportView = ({}) => {
   return (
     <>
-      <div>SupportView</div>
+      <div className={`inner`}>
+        <div>SupportView</div>
+      </div>
     </>
   );
 };

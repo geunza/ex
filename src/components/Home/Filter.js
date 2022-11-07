@@ -57,7 +57,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
       </button> */}
         <h3>맞춤 지원사업 조회</h3>
         <div className={styles.custom}>
-          <div className={styles.leftArea}>
+          <div className={styles.topArea}>
             <ul>
               {data1.map((v, i) => {
                 return (
@@ -77,6 +77,9 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
                   name="Modal1"
                   value={true}
                   onClick={modalOpener}
+                  style={{
+                    position: "absolute",
+                  }}
                 >
                   모달1 오픈
                 </button>
@@ -96,17 +99,13 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.rightArea}>
+          <div className={styles.bottomArea}>
             <button type="submit" name="login" onClick={clickSubmit}>
-              <span>로그인하고</span>
-              <span>맞춤 지원사업</span>
-              <span>조회하기</span>
+              <span>로그인하고 맞춤 지원사업 조회하기</span>
             </button>
             {isLoggedIn == false ? (
               <button type="submit" name="noLogin" onClick={clickSubmit}>
-                <span>비회원으로</span>
-                <span>전체 지원사업</span>
-                <span>조회하기</span>
+                <span>비회원으로 조회하기</span>
               </button>
             ) : null}
           </div>

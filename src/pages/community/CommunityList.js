@@ -89,135 +89,138 @@ const CommunityList = ({}) => {
   }, [searchParams]);
   return (
     <div className={styles.CommunityList}>
-      <button
-        onClick={() => {
-          searchParams.set("ord", "2");
-          navigate("?" + searchParams.toString());
-        }}
-      >
-        TESTBTN
-      </button>
-      <div className={styles.titleArea}>
-        <div className={styles.leftArea}>
-          <h3>커뮤니티</h3>
-          <p>창업에 필요한 정보를 공유하고 얻어가세요.</p>
+      <div className={`${styles.inner} inner`}>
+        <button
+          onClick={() => {
+            searchParams.set("ord", "2");
+            navigate("?" + searchParams.toString());
+          }}
+        >
+          TESTBTN
+        </button>
+        <div className={styles.titleArea}>
+          <div className={styles.leftArea}>
+            <h3>커뮤니티</h3>
+            <p>창업에 필요한 정보를 공유하고 얻어가세요.</p>
+          </div>
+          <div className={styles.rightArea}>
+            <Link to="###">내가 작성한 게시글/댓글</Link>
+            <Link to="###">차단 회원 관리</Link>
+          </div>
         </div>
-        <div className={styles.rightArea}>
-          <Link to="###">내가 작성한 게시글/댓글</Link>
-          <Link to="###">차단 회원 관리</Link>
+        <div className={styles.listTop}>
+          <div className={styles.popular}>
+            <h4>인기 글</h4>
+            <ul>
+              <li>글 입니다.</li>
+              <li>글 입니다.</li>
+              <li>글 입니다.</li>
+            </ul>
+          </div>
+          <div className={styles.banner}>
+            <Banner />
+          </div>
         </div>
-      </div>
-      <div className={styles.listTop}>
-        <div className={styles.popular}>
-          <h4>인기 글</h4>
+        <div className={styles.listCategory}>
+          <Link
+            to="/community/communityList/전체"
+            name="cate"
+            value="전체"
+            data-selected={category === "전체" ? "selected" : null}
+          >
+            전체
+          </Link>
+          <Link
+            to="/community/communityList/정보공유"
+            name="cate"
+            value="정보공유"
+            data-selected={category === "정보공유" ? "selected" : null}
+          >
+            정보공유
+          </Link>
+          <Link
+            to="/community/communityList/QnA"
+            name="cate"
+            value="QnA"
+            data-selected={category === "QnA" ? "selected" : null}
+          >
+            QnA
+          </Link>
+          <Link
+            to="/community/communityList/기업매칭"
+            name="cate"
+            value="기업매칭"
+            data-selected={category === "기업매칭" ? "selected" : null}
+          >
+            기업 매칭
+          </Link>
+          <Link
+            to="/community/communityList/자유게시판"
+            name="cate"
+            value="자유게시판"
+            data-selected={category === "자유게시판" ? "selected" : null}
+          >
+            자유 게시판
+          </Link>
+        </div>
+        <div className={styles.listSorting}>
+          <button
+            type="button"
+            data-selected={ord === "전체" ? "selected" : null}
+            onClick={btnSorting}
+            value="전체"
+          >
+            전체
+          </button>
+          <button
+            type="button"
+            data-selected={ord === "인기순" ? "selected" : null}
+            onClick={btnSorting}
+            value="인기순"
+          >
+            인기순
+          </button>
+          <button
+            type="button"
+            data-selected={ord === "최신순" ? "selected" : null}
+            onClick={btnSorting}
+            value="최신순"
+          >
+            최신순
+          </button>
+          <button
+            type="button"
+            data-selected={ord === "댓글" ? "selected" : null}
+            onClick={btnSorting}
+            value="댓글"
+          >
+            댓글 많은 순
+          </button>
+        </div>
+        <div className={styles.listCont}>
           <ul>
-            <li>글 입니다.</li>
-            <li>글 입니다.</li>
-            <li>글 입니다.</li>
+            {posts.length > 0 ? (
+              posts.slice(offset, offset + limit).map((post, i) => {
+                return (
+                  <CommunityListItem post={post} key={i} styles={styles} />
+                );
+              })
+            ) : (
+              <div>없어용</div>
+            )}
           </ul>
-        </div>
-        <div className={styles.banner}>
-          <Banner />
-        </div>
-      </div>
-      <div className={styles.listCategory}>
-        <Link
-          to="/community/communityList/전체"
-          name="cate"
-          value="전체"
-          data-selected={category === "전체" ? "selected" : null}
-        >
-          전체
-        </Link>
-        <Link
-          to="/community/communityList/정보공유"
-          name="cate"
-          value="정보공유"
-          data-selected={category === "정보공유" ? "selected" : null}
-        >
-          정보공유
-        </Link>
-        <Link
-          to="/community/communityList/QnA"
-          name="cate"
-          value="QnA"
-          data-selected={category === "QnA" ? "selected" : null}
-        >
-          QnA
-        </Link>
-        <Link
-          to="/community/communityList/기업매칭"
-          name="cate"
-          value="기업매칭"
-          data-selected={category === "기업매칭" ? "selected" : null}
-        >
-          기업 매칭
-        </Link>
-        <Link
-          to="/community/communityList/자유게시판"
-          name="cate"
-          value="자유게시판"
-          data-selected={category === "자유게시판" ? "selected" : null}
-        >
-          자유 게시판
-        </Link>
-      </div>
-      <div className={styles.listSorting}>
-        <button
-          type="button"
-          data-selected={ord === "전체" ? "selected" : null}
-          onClick={btnSorting}
-          value="전체"
-        >
-          전체
-        </button>
-        <button
-          type="button"
-          data-selected={ord === "인기순" ? "selected" : null}
-          onClick={btnSorting}
-          value="인기순"
-        >
-          인기순
-        </button>
-        <button
-          type="button"
-          data-selected={ord === "최신순" ? "selected" : null}
-          onClick={btnSorting}
-          value="최신순"
-        >
-          최신순
-        </button>
-        <button
-          type="button"
-          data-selected={ord === "댓글" ? "selected" : null}
-          onClick={btnSorting}
-          value="댓글"
-        >
-          댓글 많은 순
-        </button>
-      </div>
-      <div className={styles.listCont}>
-        <ul>
-          {posts.length > 0 ? (
-            posts.slice(offset, offset + limit).map((post, i) => {
-              return <CommunityListItem post={post} key={i} styles={styles} />;
-            })
-          ) : (
-            <div>없어용</div>
+          {posts.length > 0 && (
+            <Pagination
+              total={posts.length}
+              postLimit={limit}
+              numLimit={10}
+              page={page}
+              searchParams={searchParams}
+              cate={cate}
+              ord={ord}
+            />
           )}
-        </ul>
-        {posts.length > 0 && (
-          <Pagination
-            total={posts.length}
-            postLimit={limit}
-            numLimit={10}
-            page={page}
-            searchParams={searchParams}
-            cate={cate}
-            ord={ord}
-          />
-        )}
-        {/* {posts.length > 0 && (
+          {/* {posts.length > 0 && (
           <Pagination
             total={posts.length}
             postLimit={limit}
@@ -227,6 +230,7 @@ const CommunityList = ({}) => {
             numLimit={10}
           />
         )} */}
+        </div>
       </div>
     </div>
   );

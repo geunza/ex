@@ -10,16 +10,12 @@ const FilterSelect = ({ v, i, idx, selectedItems, setSelectedItems }) => {
   };
   return (
     <div key={idx}>
-      <span>{v.name}</span>
-      <select name={v.name} key={idx} onChange={(e) => sltChange(e, idx)}>
-        {v.opts.map((v2, i2) => {
-          return (
-            <option value={v2.value} key={v2.value}>
-              {v2.text}
-            </option>
-          );
-        })}
-      </select>
+      <p>{v.name}</p>
+      <ol>
+        <li>
+          <button type="button">전체</button>
+        </li>
+      </ol>
     </div>
   );
 };

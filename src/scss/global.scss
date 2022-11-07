@@ -1,32 +1,38 @@
 @import "./utils";
 @font-face {
   font-family: "GmarketSans";
-  src: url("../../public/public_assets/fonts/GmarketSansBold.eot"); 
-  src: url("../../public/public_assets/fonts/GmarketSansBold.ttf") format("truetype"), 
-    url("../../public/public_assets/fonts/GmarketSansBold.woff") format("woff"), 
-    url("../../public/public_assets/fonts/GmarketSansBold.woff2") format("woff2"); 
+  src: url("../../public/public_assets/fonts/GmarketSansBold.eot");
+  src: url("../../public/public_assets/fonts/GmarketSansBold.ttf")
+      format("truetype"),
+    url("../../public/public_assets/fonts/GmarketSansBold.woff") format("woff"),
+    url("../../public/public_assets/fonts/GmarketSansBold.woff2")
+      format("woff2");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "GmarketSans";
-  src: url("../../public/public_assets/fonts/GmarketSansMedium.eot"); 
-  src: url("../../public/public_assets/fonts/GmarketSansMedium.ttf") format("truetype"), 
-    url("../../public/public_assets/fonts/GmarketSansMedium.woff") format("woff"), 
-    url("../../public/public_assets/fonts/GmarketSansMedium.woff2") format("woff2"); 
+  src: url("../../public/public_assets/fonts/GmarketSansMedium.eot");
+  src: url("../../public/public_assets/fonts/GmarketSansMedium.ttf")
+      format("truetype"),
+    url("../../public/public_assets/fonts/GmarketSansMedium.woff")
+      format("woff"),
+    url("../../public/public_assets/fonts/GmarketSansMedium.woff2")
+      format("woff2");
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
   font-family: "GmarketSans";
-  src: url("../../public/public_assets/fonts/GmarketSansLight.eot"); 
-  src: url("../../public/public_assets/fonts/GmarketSansLight.ttf") format("truetype"), 
-    url("../../public/public_assets/fonts/GmarketSansLight.woff") format("woff"), 
-    url("../../public/public_assets/fonts/GmarketSansLight.woff2") format("woff2"); 
+  src: url("../../public/public_assets/fonts/GmarketSansLight.eot");
+  src: url("../../public/public_assets/fonts/GmarketSansLight.ttf")
+      format("truetype"),
+    url("../../public/public_assets/fonts/GmarketSansLight.woff") format("woff"),
+    url("../../public/public_assets/fonts/GmarketSansLight.woff2")
+      format("woff2");
   font-weight: 300;
   font-style: normal;
 }
-body{font-family:"GmarketSans", sans-serif;}
 img {
   max-width: 100%;
 }
@@ -54,21 +60,22 @@ a {
   color: inherit;
 }
 body {
-  background: #f1f1f1;
+  background: $color-lightGray;
+  font-family: "GmarketSans", sans-serif;
   @include mobile {
-    background: #f1f1f1;
+    background: $color-lightGray;
   }
   @include tablet {
-    background: #f1f1f1;
+    background: $color-lightGray;
   }
   @include desktop {
-    background: #f1f1f1;
+    background: $color-lightGray;
   }
   line-height: 1.5;
 }
 .inner {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
   padding: 0 20px;
   margin: 0 auto;
   position: relative;

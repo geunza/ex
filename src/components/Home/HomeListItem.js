@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "scss/components/Home/HomeListItem.module.scss";
-const HomeListItem = ({ item, likeShow }) => {
+const HomeListItem = ({ item, /*likeShow,*/ styles }) => {
   return (
     <>
       <div className={styles.HomeListItem}>
         <Link to="###">
-          <h4>{item.title}</h4>
+          <h5>{item.title}</h5>
           <p>
             <span>View {item.view_count}</span>
-            {likeShow && <span>Like {item.like_count}</span>}
+            {/* {likeShow && <span>Like {item.like_count}</span>} */}
           </p>
         </Link>
       </div>

@@ -2,18 +2,27 @@
 
 .Footer {
   background: #fff;
-  padding: 10px 0;
+  padding: 20px 0 15px;
+  margin-top: 50px;
+  > * {
+    padding: 20px 40px;
+  }
   .footerTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+
     .terms {
       display: flex;
       align-items: center;
-      gap: 15px;
       li {
         //
+        &:not(:last-child):after {
+          content: "/";
+          display: inline-block;
+          margin: 0 10px;
+        }
         a {
           //
         }
@@ -31,10 +40,10 @@
       }
     }
   }
-  .footerCont {
+  .footerMid {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     .leftArea {
       ul {
         li {
@@ -61,5 +70,8 @@
         }
       }
     }
+  }
+  .footerBottom {
+    border-top: 1px solid $color-borderGray;
   }
 }

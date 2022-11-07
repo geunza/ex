@@ -1,36 +1,52 @@
 @import "scss/utils";
 .HomeCommunity {
   //
-  padding: 20px;
+  padding: 45px 35px 30px;
   background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .leftArea {
+  background-color: $color-sub;
+  border-radius: $box-radius;
+  color: #fff;
+  .topArea {
     //
-    width: 50%;
-    display: flex;
-    align-items: center;
-    h3 {
-      flex: 0 1 auto;
-      //
-    }
+    background-color: $color-main;
+
     p {
-      text-align: center;
-      flex: 1 1 auto;
       //
+      color: rgba(255, 255, 255, 0.8);
     }
   }
-  .rightArea {
+  .contArea {
     //
     overflow: hidden;
     height: auto;
     .mySwiper {
-      height: 30px;
+      height: 250px;
       .swiperSlide {
         display: flex;
         align-items: center;
-        h4{
+        .HomeListItem {
+          width: 100%;
+          a {
+            display: block;
+            h5 {
+              font-size: 32px;
+              text-align: center;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            p {
+              //
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              span {
+                //
+              }
+            }
+          }
+        }
+        h4 {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;

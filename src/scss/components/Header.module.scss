@@ -1,13 +1,11 @@
 @import "scss/utils";
 
 .Header {
-  background: #fff;
-  padding: 20px 0;
-  :global .inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $color-sub;
   .headerLogo {
     img {
       display: block;
@@ -21,6 +19,7 @@
       li {
         a {
           padding: 0 10px;
+          color: #fff;
         }
       }
     }
@@ -28,23 +27,25 @@
   .searchForm {
     position: relative;
     input[type="text"] {
-      padding-left: 40px;
-      border-radius: 50px;
-      height: 30px;
+      padding-left: 60px;
+      height: 45px;
       width: 350px;
-      border: 1px solid #000;
+      background-color: #3939c7;
+      border: none;
+      color: #fff;
+      &::placeholder {
+        color: inherit;
+      }
     }
     button[type="submit"] {
       background: #e6e6e6;
       border: none;
       position: absolute;
-      left: 5px;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 90%;
-      aspect-ratio: 1 / 1;
+      left: 0;
+      top: 0;
+      width: 45px;
+      height: 45px;
       font-size: 0;
-      border-radius: 50%;
     }
   }
 }

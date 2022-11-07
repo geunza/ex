@@ -1,15 +1,27 @@
 @import "scss/utils";
 
 .Home {
-  > *:not(:last-child) {
-    margin-bottom: 20px;
+  > .inner > *:not(:last-child) {
+    margin-bottom: 60px;
   }
   .sec01 {
+    background: $color-sub;
+    margin-bottom: 60px;
+    padding: 30px 0 50px;
+    .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    .inner > * {
+      width: 30%;
+    }
+  }
+  .sec02 {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
     > * {
-      width: 30%;
+      width: 49%;
     }
   }
 }

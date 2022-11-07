@@ -3,7 +3,9 @@ import React from "react";
 const SupportList = ({}) => {
   return (
     <>
-      <div>SupportList</div>
+      <div className={`inner`}>
+        <div>SupportList</div>
+      </div>
     </>
   );
 };

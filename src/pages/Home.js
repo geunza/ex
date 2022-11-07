@@ -46,28 +46,34 @@ const Home = ({}) => {
   return (
     <>
       <div className={styles.Home}>
-        <CountArea />
         <section className={styles.sec01}>
-          <SnsLogin />
-          <Banner />
-          <Event />
+          <div className={`inner ${styles.inner}`}>
+            <SnsLogin />
+            <Banner />
+            <Event />
+          </div>
         </section>
-        <Filter
-          modalOpener={modalOpener}
-          setModalOn={setModalOn}
-          modalOn={modalOn}
-          Modal1={Modal1}
-        />
-        <HomeCommunity />
-        <HomeSupport />
-        {modalOn && Modal2 ? (
-          <EventModal
+        <div className={`inner ${styles.inner}`}>
+          <Filter
+            modalOpener={modalOpener}
             setModalOn={setModalOn}
             modalOn={modalOn}
-            modalOpener={modalOpener}
-            Modal2={Modal2}
+            Modal1={Modal1}
           />
-        ) : null}
+          <div className={styles.sec02}>
+            <HomeCommunity />
+            <CountArea />
+          </div>
+          <HomeSupport />
+          {modalOn && Modal2 ? (
+            <EventModal
+              setModalOn={setModalOn}
+              modalOn={modalOn}
+              modalOpener={modalOpener}
+              Modal2={Modal2}
+            />
+          ) : null}
+        </div>
       </div>
     </>
   );
