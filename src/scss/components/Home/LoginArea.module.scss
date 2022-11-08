@@ -1,5 +1,59 @@
 @import "scss/utils";
 .SnsLogin {
-  border-radius: $box-radius;
-  background: #fff;
+  .noLoggedIn {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    h4 {
+      color: #fff;
+      font-size: 24px;
+      line-height: 1.2;
+      span {
+        display: block;
+      }
+    }
+    p {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .sns,
+    .dibs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        width: 48%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .sns {
+      button {
+        border: none;
+        border-radius: 100px;
+      }
+      .btnKakao {
+        background-color: #ffd109;
+      }
+      .btnApple {
+        background-color: #ffffff;
+      }
+    }
+    .dibs {
+      button {
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 5px;
+        background-color: #4444d5;
+        color: #fff;
+      }
+      .btnDib {
+        //
+      }
+      .btnCompany {
+        //
+      }
+    }
+  }
 }

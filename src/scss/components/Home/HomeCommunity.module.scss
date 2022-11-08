@@ -8,7 +8,7 @@
   color: #fff;
   .topArea {
     //
-    background-color: $color-main;
+    // background-color: $color-sub;
 
     p {
       //
@@ -34,6 +34,7 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
+              padding-bottom: 50px;
             }
             p {
               //

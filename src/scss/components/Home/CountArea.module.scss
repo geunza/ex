@@ -2,16 +2,45 @@
 
 .CountArea {
   background-color: #fff;
-  padding: 10px 0;
+  padding: 45px 50px 30px;
   border-radius: $box-radius;
-  ul {
+  display: flex;
+  flex-flow: column;
+  .all {
+    flex: 1 1 auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    li {
+    .tit {
+      font-size: 30px;
+      line-height: 1.3;
       span {
         display: block;
-        text-align: center;
+      }
+    }
+    .numb {
+      font-size: 60px;
+      color: $color-sub;
+      font-weight: 900;
+    }
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    li {
+      text-align: center;
+      width: 33.33%;
+      &:not(:last-child) {
+        border-right: 1px solid $color-borderGray;
+      }
+      .tit {
+        color: $color-fontGray;
+      }
+      .numb {
+        display: block;
+        font-weight: 900;
+        font-size: 30px;
       }
     }
   }

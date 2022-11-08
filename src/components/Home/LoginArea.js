@@ -21,15 +21,40 @@ const SnsLogin = ({}) => {
           </div>
         ) : (
           <div className={styles.noLoggedIn}>
-            <h4>기업의 성공에 한 발자국 가까워지는 방법!</h4>
+            <h4>
+              <span>기업의 성공에 한발짝</span>
+              <span>가까워지는 방법!</span>
+            </h4>
             <p>1초만에 로그인하기</p>
             <div className={styles.sns}>
-              <button type="button">카카오</button>
-              <button type="button">애플</button>
+              <button type="button" className={styles.btnKakao}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/Home/sns_kakao.png"
+                  }
+                  alt="Kakao Icon"
+                />
+                <span>카카오로그인</span>
+              </button>
+              <button type="button" className={styles.btnApple}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/Home/sns_apple.png"
+                  }
+                  alt="Apple Icon"
+                />
+                <span>Apple로그인</span>
+              </button>
             </div>
             <div className={styles.dibs}>
-              <button type="button">찜</button>
-              <button type="button">기업정보</button>
+              <button type="button" className={styles.btnDib}>
+                찜
+              </button>
+              <button type="button" className={styles.btnCompany}>
+                기업정보
+              </button>
             </div>
           </div>
         )}

@@ -45,7 +45,7 @@ const ImageBanner = () => {
             return (
               <SwiperSlide className={styles.slide} key={i}>
                 <Link to={v.link}>
-                  <span>{v.text}</span>
+                  <img src={process.env.PUBLIC_URL + v.src} alt={v.text} />
                 </Link>
               </SwiperSlide>
             );

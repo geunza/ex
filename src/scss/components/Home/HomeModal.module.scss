@@ -1,6 +1,7 @@
 @import "scss/utils";
 .FilterModal {
   //
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
   .modalInner {
     //
   }
@@ -17,10 +18,26 @@
       span {
         position: relative;
         font-weight: 700;
-        color: #aaa;
+        opacity: 0.5;
         &[data-selected="selected"] {
           color: #000;
           border-bottom: 2px solid #000;
+          opacity: 1;
+        }
+        i {
+          position: absolute;
+          left: 100%;
+          top: 50%;
+          transform: translate(5px, -50%);
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 10px;
+          padding-top: 2px;
+          border: 1px solid #000;
+          border-radius: 50%;
         }
       }
     }

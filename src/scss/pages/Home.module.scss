@@ -13,8 +13,16 @@
       justify-content: space-between;
       align-items: stretch;
     }
+    .inner > [class^="LoginArea"],
+    .inner > [class^="Event"] {
+      width: 25%;
+    }
+    .inner > [class^="Banner"] {
+      width: 37%;
+      border-radius: $box-radius;
+    }
     .inner > * {
-      width: 30%;
+      // overflow: hidden;
     }
   }
   .sec02 {

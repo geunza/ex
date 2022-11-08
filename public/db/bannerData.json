@@ -1,8 +1,24 @@
 {
   "banner": [
-    { "text": "SLIDE 1", "link": "###" },
-    { "text": "SLIDE 2", "link": "###" },
-    { "text": "SLIDE 3", "link": "###" },
-    { "text": "SLIDE 4", "link": "###" }
+    {
+      "text": "SLIDE 1",
+      "link": "###",
+      "src": "/public_assets/img/banner/banner_01.png"
+    },
+    {
+      "text": "SLIDE 2",
+      "link": "###",
+      "src": "/public_assets/img/banner/banner_01.png"
+    },
+    {
+      "text": "SLIDE 3",
+      "link": "###",
+      "src": "/public_assets/img/banner/banner_01.png"
+    },
+    {
+      "text": "SLIDE 4",
+      "link": "###",
+      "src": "/public_assets/img/banner/banner_01.png"
+    }
   ]
 }

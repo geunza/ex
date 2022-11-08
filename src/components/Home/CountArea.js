@@ -4,40 +4,44 @@ import styles from "scss/components/Home/CountArea.module.scss";
 import axios from "axios";
 const CountArea = () => {
   const [count, setCount] = useState([]);
+  const [newCount, setNewCount] = useState([]);
   const getCount = () => {
     axios("/db/countData.json").then((res) => setCount(res.data.count));
   };
-  const [newCount, setNewCount] = useState([]);
-  const changeCount = () => {
-    let newArr = [...count].map((v) =>
+  const changeCount = (arr) => {
+    const newArr = [...arr].map((v) =>
       v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     );
     return newArr;
   };
+
   useEffect(() => {
-    setNewCount(changeCount);
+    setNewCount(() => changeCount(count));
   }, [count]);
   useEffect(() => {
     getCount();
   }, []);
   return (
     <div className={styles.CountArea}>
+      <div className={styles.all}>
+        <p className={styles.tit}>
+          <span>전체누적</span>
+          <span>지원사업 개수</span>
+        </p>
+        <span className={styles.numb}>{newCount[0]}개</span>
+      </div>
       <ul>
         <li>
-          <span>누적 지원사업 개수</span>
-          <span>{newCount[0]}개</span>
+          <p className={styles.tit}>이번주 지원사업</p>
+          <span className={styles.numb}>{newCount[1]}개</span>
         </li>
         <li>
-          <span>이번주 지원사업</span>
-          <span>{newCount[1]}개</span>
+          <p className={styles.tit}>정보 제공기관</p>
+          <span className={styles.numb}>{newCount[2]}개</span>
         </li>
         <li>
-          <span>정보 제공기관</span>
-          <span>{newCount[2]}개</span>
-        </li>
-        <li>
-          <span>누적 가입 기업</span>
-          <span>{newCount[3]}개</span>
+          <p className={styles.tit}>누적 가입 기업</p>
+          <span className={styles.numb}>{newCount[3]}개</span>
         </li>
       </ul>
     </div>

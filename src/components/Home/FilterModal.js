@@ -10,9 +10,10 @@ const FilterModal = ({ setModalOn, modalOpener }) => {
     } = e;
     setStep(value);
   };
-  useEffect(() => {
-    console.log(step);
-  }, [step]);
+  const tooltipOpen = (e) => {
+    e.stopPropagation();
+    console.log(e.target.dataset.text);
+  };
 
   return (
     <div className={`modalWrap ${styles.FilterModal}`}>
@@ -39,6 +40,9 @@ const FilterModal = ({ setModalOn, modalOpener }) => {
             >
               <span data-selected={step == 1 ? "selected" : null}>
                 기술분야
+                <i onClick={tooltipOpen} data-text="Hi">
+                  i
+                </i>
               </span>
             </button>
           </li>

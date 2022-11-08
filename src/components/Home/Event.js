@@ -12,26 +12,53 @@ const Event = () => {
   return (
     <>
       <div className={styles.Event}>
-        <h4>엑시토 이벤트</h4>
         <ul>
           <li>
             <button type="button" onClick={btnModal} value="modal_01">
-              지원사업 메일링 서비스
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/Home/event_01.png"
+                }
+                alt="지원사업 정기배송"
+              />
+              <span>지원사업 정기배송</span>
             </button>
           </li>
           <li>
             <button type="button" onClick={btnModal} value="modal_01">
-              APP/WEB 제작
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/Home/event_02.png"
+                }
+                alt="키워드 정기배송"
+              />
+              <span>키워드 정기배송</span>
             </button>
           </li>
           <li>
             <button type="button" onClick={btnModal} value="modal_01">
-              창업자 네트워킹
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/Home/event_03.png"
+                }
+                alt="창업자 네트워킹"
+              />
+              <span>창업자 네트워킹</span>
             </button>
           </li>
           <li>
             <button type="button" onClick={btnModal} value="modal_01">
-              사업계획서 교육
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/Home/event_04.png"
+                }
+                alt="사업계획서 교육"
+              />
+              <span>사업계획서 교육</span>
             </button>
           </li>
         </ul>
