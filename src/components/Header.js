@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from "scss/components/Header.module.scss";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { signIn, signOut } from "store";
 const Header = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchVal, setSearchVal] = useState("");
   const onChange = (e) => {
@@ -21,6 +23,12 @@ const Header = ({}) => {
     }
     alert("검색 시작");
     setSearchVal("");
+  };
+  const temporarysignIn = () => {
+    dispatch(signIn());
+  };
+  const temporarysignOut = () => {
+    dispatch(signOut());
   };
   return (
     <>
@@ -63,11 +71,11 @@ const Header = ({}) => {
           {isLoggedIn ? (
             <>
               <span>유저아이콘</span>
-              <button>로그아웃</button>
+              <button onClick={temporarysignOut}>로그아웃</button>
             </>
           ) : (
             <>
-              <button>로그인</button>
+              <button onClick={temporarysignIn}>로그인</button>
             </>
           )}
         </div>

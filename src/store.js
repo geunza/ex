@@ -29,9 +29,14 @@ let isLoggedIn = createSlice({
       console.log(action.payload);
       return true;
     },
+    signOut(state, action) {
+      console.log(state);
+      console.log(action.payload);
+      return false;
+    },
   },
 });
-export let { signIn } = isLoggedIn.actions;
+export let { signIn, signOut } = isLoggedIn.actions;
 
 let isLoading = createSlice({
   name: "isLoading",

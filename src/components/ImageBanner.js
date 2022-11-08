@@ -38,6 +38,7 @@ const ImageBanner = () => {
           modules={[Autoplay, Pagination]}
           autoplay={swiperParam.autoplay}
           pagination={swiperParam.pagination}
+          className={styles.swiper}
           // onSwiper={(swiper) => console.log(swiper)}
           // onSlideChange={() => console.log("slide change")}
         >
@@ -50,16 +51,10 @@ const ImageBanner = () => {
               </SwiperSlide>
             );
           })}
-          <div
-            id="pagination"
-            className={styles.pagination}
-            style={{
-              animationDuration: swiperParam.autoplay.delay / 1000 + "s",
-            }}
-          ></div>
         </Swiper>
+        <div id="pagination" className={styles.pagination}></div>
 
-        <style>{`
+        {/* <style>{`
           @keyframes paging {
             0% {
               width:0;
@@ -72,7 +67,7 @@ const ImageBanner = () => {
               width:100%;
             }
           }
-        `}</style>
+        `}</style> */}
       </div>
     </>
   );

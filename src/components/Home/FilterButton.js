@@ -32,7 +32,10 @@ const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
                   name={v.name}
                   value={v2.value}
                   data-clicked={clicked}
-                  onClick={btnClick}
+                  onClick={() => {
+                    !isLoggedIn && i2 != 0 ? alert("로그인하세요") : btnClick();
+                  }}
+                  data-disabled={!isLoggedIn && i2 != 0 ? "disabled" : null}
                 >
                   {v2.text}
                 </button>

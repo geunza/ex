@@ -11,10 +11,10 @@
     li {
       width: 49%;
       height: 49%;
-      border: 1px solid #6a6af3;
-      background-color: #4444d5;
-      margin-bottom: 2%;
-      border-radius: $box-radius;
+
+      &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
+        margin-bottom: 2%;
+      }
       button {
         display: flex;
         justify-content: space-evenly;
@@ -22,7 +22,9 @@
         flex-flow: column;
         width: 100%;
         height: 100%;
-        border: none;
+        border: 1px solid #6a6af3;
+        background-color: #4444d5;
+        border-radius: $radius-wrap;
         span {
           color: #fff;
           font-size: 16px;

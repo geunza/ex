@@ -6,7 +6,7 @@
     font-weight: 700;
   }
   .custom {
-    border-radius: $box-radius;
+    border-radius: $radius-wrap;
     background: #fff;
     padding: 0 50px;
     .topArea {
@@ -62,9 +62,12 @@
                 background: $color-lightGray;
                 padding: 0 10px;
                 border: none;
-                border-radius: 5px;
+                border-radius: $radius-btn;
                 &[data-clicked="true"] {
                   background: $color-main;
+                }
+                &[data-disabled="disabled"] {
+                  opacity: 0.5;
                 }
               }
               :global button.active {
@@ -83,7 +86,7 @@
       button {
         flex: 1;
         border: none;
-        border-radius: $box-radius;
+        border-radius: $radius-wrap;
         height: 80px;
         &[name="login"] {
           background-color: $color-main;

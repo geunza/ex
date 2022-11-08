@@ -47,6 +47,9 @@
     }
     .banner {
       width: 30%;
+      :global #pagination {
+        display: none;
+      }
     }
   }
   .listCategory {

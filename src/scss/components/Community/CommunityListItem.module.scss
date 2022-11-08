@@ -3,7 +3,7 @@
 .CommunityListItem {
   //
   background: #e6e6e6;
-  border-radius: $box-radius;
+  border-radius: $radius-wrap;
   &:not(:last-child) {
     margin-bottom: 20px;
   }

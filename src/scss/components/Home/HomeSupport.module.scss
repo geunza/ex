@@ -23,7 +23,7 @@
       > .HomeListItem {
         background-color: #fff;
         width: 49%;
-        border-radius: $box-radius;
+        border-radius: $radius-wrap;
         &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
           margin-bottom: 2%;
         }
@@ -35,7 +35,7 @@
           align-items: flex-start;
           padding: 30px;
           height: 230px;
-          border-radius: $box-radius;
+          border-radius: $radius-wrap;
           h5 {
             display: -webkit-box;
             -webkit-line-clamp: 3;
