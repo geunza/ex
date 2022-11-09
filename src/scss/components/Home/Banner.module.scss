@@ -33,6 +33,11 @@
     width: 100%;
     :global .swiper-pagination-bullet {
       display: block;
+      opacity: 0.4;
+      background: $color-main;
+      &[class*="active"] {
+        opacity: 1;
+      }
     }
   }
 }

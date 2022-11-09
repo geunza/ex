@@ -101,7 +101,11 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
           </div>
           <div className={styles.bottomArea}>
             <button type="submit" name="login" onClick={clickSubmit}>
-              <span>로그인하고 맞춤 지원사업 조회하기</span>
+              <span>
+                {isLoggedIn
+                  ? "맞춤 지원사업 조회하기"
+                  : "로그인하고 맞춤 지원사업 조회하기"}
+              </span>
             </button>
             {isLoggedIn == false ? (
               <button type="submit" name="noLogin" onClick={clickSubmit}>

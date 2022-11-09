@@ -20,6 +20,21 @@ let cart = createSlice({
 });
 export let { changeCount } = cart.actions;
 */
+
+let isLoading = createSlice({
+  name: "isLoading",
+  initialState: false,
+  reducers: {
+    loadingStart() {
+      return true;
+    },
+    loadingEnd() {
+      return false;
+    },
+  },
+});
+export let { loadingStart, loadingEnd } = isLoading.actions;
+
 let isLoggedIn = createSlice({
   name: "isLoggedIn",
   initialState: false,
@@ -38,24 +53,26 @@ let isLoggedIn = createSlice({
 });
 export let { signIn, signOut } = isLoggedIn.actions;
 
-let isLoading = createSlice({
-  name: "isLoading",
-  initialState: false,
+let userInfo = createSlice({
+  name: "userInfo",
+  initialState: [],
   reducers: {
-    loadingStart() {
+    setInfo(state, action) {
+      console.log(state);
+      console.log(action.payload);
       return true;
     },
-    loadingEnd() {
-      return false;
+    removeInfo(state, action) {
+      return [];
     },
   },
 });
-export let { loadingStart, loadingEnd } = isLoading.actions;
-
+export let { setInfo, removeInfo } = userInfo.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
     isLoading: isLoading.reducer,
+    userInfo: userInfo.reducer,
   },
 });

@@ -17,7 +17,7 @@ const Home = ({}) => {
   const [homeSelect, setHomeSelect] = useState([]);
   const modalOpener = (e) => {
     const {
-      target: { name, value },
+      currentTarget: { name, value },
     } = e;
     const isTrue = value == "true";
     // name, value, target
@@ -50,7 +50,12 @@ const Home = ({}) => {
           <div className={`inner ${styles.inner}`}>
             <SnsLogin />
             <Banner />
-            <Event />
+            <Event
+              setModalOn={setModalOn}
+              modalOn={modalOn}
+              modalOpener={modalOpener}
+              Modal1={Modal1}
+            />
           </div>
         </section>
         <div className={`inner ${styles.inner}`}>

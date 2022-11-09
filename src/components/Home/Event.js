@@ -1,20 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "scss/components/Home/Event.module.scss";
 import { Link } from "react-router-dom";
-const Event = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [currentModal, setCurrentModal] = useState("");
-  const btnModal = (e) => {
+import EventModal from "components/Home/EventModal";
+import { useState, useEffect } from "react";
+const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
+  const [modalTab, setModalTab] = useState(0);
+  const modalTabControl = (e) => {
     const {
-      target: { value },
+      currentTarget: {
+        dataset: { tab },
+      },
     } = e;
+    // setModalTab(tab);
   };
+  useEffect(() => {
+    console.log(modalTab);
+  }, [modalTab]);
   return (
     <>
       <div className={styles.Event}>
         <ul>
           <li>
-            <button type="button" onClick={btnModal} value="modal_01">
+            <button
+              type="button"
+              name="Modal2"
+              value={true}
+              data-tab="0"
+              onClick={(e) => {
+                modalTabControl(e);
+                modalOpener(e);
+              }}
+            >
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -26,7 +42,16 @@ const Event = () => {
             </button>
           </li>
           <li>
-            <button type="button" onClick={btnModal} value="modal_01">
+            <button
+              type="button"
+              name="Modal2"
+              value={true}
+              data-tab="1"
+              onClick={(e) => {
+                modalTabControl(e);
+                modalOpener(e);
+              }}
+            >
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -38,7 +63,16 @@ const Event = () => {
             </button>
           </li>
           <li>
-            <button type="button" onClick={btnModal} value="modal_01">
+            <button
+              type="button"
+              name="Modal2"
+              value={true}
+              data-tab="2"
+              onClick={(e) => {
+                modalTabControl(e);
+                modalOpener(e);
+              }}
+            >
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -50,7 +84,16 @@ const Event = () => {
             </button>
           </li>
           <li>
-            <button type="button" onClick={btnModal} value="modal_01">
+            <button
+              type="button"
+              name="Modal2"
+              value={true}
+              data-tab="3"
+              onClick={(e) => {
+                modalTabControl(e);
+                modalOpener(e);
+              }}
+            >
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -63,6 +106,15 @@ const Event = () => {
           </li>
         </ul>
       </div>
+
+      {modalOn && Modal2 ? (
+        <EventModal
+          setModalOn={setModalOn}
+          modalOpener={modalOpener}
+          numb={"1"}
+          AAA={"BBB"}
+        />
+      ) : null}
     </>
   );
 };

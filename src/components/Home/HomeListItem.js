@@ -4,7 +4,7 @@ const HomeListItem = ({ item, /*likeShow,*/ styles }) => {
   return (
     <>
       <div className={styles.HomeListItem}>
-        <Link to="###">
+        <Link to={`/community/communityView/${item.id}`}>
           <h5>{item.title}</h5>
           <p>
             <span>View {item.view_count}</span>
