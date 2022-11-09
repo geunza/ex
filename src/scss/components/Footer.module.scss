@@ -4,6 +4,7 @@
   background: #fff;
   padding: 20px 0 15px;
   margin-top: 50px;
+  color: $color-fontGray;
   > * {
     padding: 20px 40px;
   }
@@ -23,8 +24,11 @@
           display: inline-block;
           margin: 0 10px;
         }
+        &:first-child a {
+          padding: 0 20px 0 0;
+        }
         a {
-          //
+          padding: 0 20px;
         }
       }
     }
@@ -49,6 +53,7 @@
         li {
           span {
             padding-right: 15px;
+            font-size: 12px;
           }
         }
       }
@@ -63,9 +68,12 @@
         gap: 10px;
         li {
           button {
-            display: flex;
-            gap: 5px;
-            align-items: center;
+            padding: 0;
+            border: none;
+            display: block;
+            img {
+              display: block;
+            }
           }
         }
       }
@@ -73,5 +81,6 @@
   }
   .footerBottom {
     border-top: 1px solid $color-borderGray;
+    font-size: 12px;
   }
 }

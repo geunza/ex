@@ -3,8 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
-import HomeListItem from "components/Home/HomeListItem";
-import styles from "scss/components/Home/HomeSupport.module.scss";
+import HomeListItem from "components/home/HomeListItem";
+import styles from "scss/components/home/HomeSupport.module.scss";
 const HomeSupport = ({}) => {
   const [homeSupport, setHomeSupport] = useState([]);
   const dispatch = useDispatch();

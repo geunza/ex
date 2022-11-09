@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "swiper/css";
 import "swiper/css/pagination";
-import styles from "scss/components/Home/Banner.module.scss";
+import styles from "scss/components/home/Banner.module.scss";
 import { useState } from "react";
 import { useEffect } from "react";
 const ImageBanner = () => {

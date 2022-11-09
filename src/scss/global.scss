@@ -60,16 +60,16 @@ a {
   color: inherit;
 }
 body {
-  background: $color-lightGray;
+  // background: $color-lightGray;
   font-family: "GmarketSans", sans-serif;
   @include mobile {
-    background: $color-lightGray;
+    // background: $color-lightGray;
   }
   @include tablet {
-    background: $color-lightGray;
+    // background: $color-lightGray;
   }
   @include desktop {
-    background: $color-lightGray;
+    // background: $color-lightGray;
   }
   line-height: 1.5;
 }

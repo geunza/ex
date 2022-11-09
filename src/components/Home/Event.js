@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "scss/components/Home/Event.module.scss";
+import styles from "scss/components/home/Event.module.scss";
 import { Link } from "react-router-dom";
-import EventModal from "components/Home/EventModal";
+import EventModal from "components/home/EventModal";
 import { useState, useEffect } from "react";
 const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
   const [modalTab, setModalTab] = useState(0);
@@ -31,7 +31,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               <img
                 src={
                   process.env.PUBLIC_URL +
-                  "/public_assets/img/Home/event_01.png"
+                  "/public_assets/img/home/event_01.png"
                 }
                 alt="지원사업 정기배송"
               />
@@ -52,7 +52,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               <img
                 src={
                   process.env.PUBLIC_URL +
-                  "/public_assets/img/Home/event_02.png"
+                  "/public_assets/img/home/event_02.png"
                 }
                 alt="키워드 정기배송"
               />
@@ -73,7 +73,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               <img
                 src={
                   process.env.PUBLIC_URL +
-                  "/public_assets/img/Home/event_03.png"
+                  "/public_assets/img/home/event_03.png"
                 }
                 alt="창업자 네트워킹"
               />
@@ -94,7 +94,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               <img
                 src={
                   process.env.PUBLIC_URL +
-                  "/public_assets/img/Home/event_04.png"
+                  "/public_assets/img/home/event_04.png"
                 }
                 alt="사업계획서 교육"
               />

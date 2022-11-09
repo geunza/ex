@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import styles from "scss/components/Home/HomeModal.module.scss";
+import styles from "scss/components/home/HomeModal.module.scss";
 const FilterModal = ({ modalOpener }) => {
   const [step, setStep] = useState(0);
   const btnStep = (e) => {

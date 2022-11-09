@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "scss/components/Community/CommunityListItem.module.scss";
+import styles from "scss/components/community/CommunityListItem.module.scss";
 const CommunityListItem = ({ post }) => {
   return (
     <li key={post.cret_dt} className={styles.CommunityListItem}>

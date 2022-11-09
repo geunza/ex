@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import HomeListItem from "components/Home/HomeListItem";
-import styles from "scss/components/Home/HomeCommunity.module.scss";
+import HomeListItem from "components/home/HomeListItem";
+import styles from "scss/components/home/HomeCommunity.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import "swiper/css";

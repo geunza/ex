@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "scss/components/Home/HomeModal.module.scss";
+import styles from "scss/components/home/HomeModal.module.scss";
 const EventModal = ({ modalOpener, modalTab }) => {
   return (
     <div className={`modalWrap ${styles.EventModal}`}>

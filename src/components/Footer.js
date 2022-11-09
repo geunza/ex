@@ -40,7 +40,6 @@ const Footer = () => {
         <div className={styles.leftArea}>
           <ul>
             <li>
-              <span>엑시토</span>
               <span>대표 : 권기정</span>
               <span>개인정보 책임자 : (주)CTNS</span>
               <span>사업자등록번호 : 307-81-50055</span>
@@ -55,23 +54,56 @@ const Footer = () => {
               </span>
             </li>
             <li>
-              <span>지사 : 경기도 화성시 영천동 283-1 금강펜테리움 IX</span>
+              <span>
+                지사 : 경기도 화성시 영천동 283-1 금강펜테리움 IX 타워
+              </span>
             </li>
           </ul>
         </div>
         <div className={styles.rightArea}>
-          <span>앱다운로드</span>
           <ul>
             <li>
               <button onClick={() => window.open("###", "_blank")}>
-                <span>스토어이미지</span>
-                <span>Android</span>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico_appstore.png"
+                  }
+                  alt=""
+                />
               </button>
             </li>
             <li>
               <button onClick={() => window.open("###", "_blank")}>
-                <span>스토어이미지</span>
-                <span>iOS</span>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico_playstore.png"
+                  }
+                  alt=""
+                />
+              </button>
+            </li>
+            <li>
+              <button onClick={() => window.open("###", "_blank")}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico_blog.png"
+                  }
+                  alt=""
+                />
+              </button>
+            </li>
+            <li>
+              <button onClick={() => window.open("###", "_blank")}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico_instagram.png"
+                  }
+                  alt=""
+                />
               </button>
             </li>
           </ul>

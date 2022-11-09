@@ -1,0 +1,34 @@
+@import "scss/utils";
+.SupportList {
+  .tit {
+    text-align: center;
+    margin-bottom: 70px;
+    h4 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 20px;
+      mark {
+        color: $color-sub;
+      }
+    }
+  }
+  .contArea {
+    display: flex;
+    justify-content: space-between;
+
+    .filterArea {
+      width: 14%;
+      background-color: red;
+    }
+    .listArea {
+      width: 60%;
+      background-color: blue;
+    }
+    .recentArea {
+      width: 20%;
+      background-color: green;
+    }
+  }
+}

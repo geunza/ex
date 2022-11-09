@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FilterButton from "components/Home/FilterButton";
-import FilterSelect from "components/Home/FilterSelect";
-import FilterModal from "components/Home/FilterModal";
+import FilterButton from "components/home/FilterButton";
+import FilterSelect from "components/home/FilterSelect";
+import FilterModal from "components/home/FilterModal";
 import axios from "axios";
-import styles from "scss/components/Home/Filter.module.scss";
+import styles from "scss/components/home/Filter.module.scss";
 import { useSelector } from "react-redux";
 const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/components/Home/LoginArea.module.scss";
+import styles from "scss/components/home/LoginArea.module.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const SnsLogin = ({}) => {
@@ -31,7 +31,7 @@ const SnsLogin = ({}) => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/Home/sns_kakao.png"
+                    "/public_assets/img/home/sns_kakao.png"
                   }
                   alt="Kakao Icon"
                 />
@@ -41,7 +41,7 @@ const SnsLogin = ({}) => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/Home/sns_apple.png"
+                    "/public_assets/img/home/sns_apple.png"
                   }
                   alt="Apple Icon"
                 />

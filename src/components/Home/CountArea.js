@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "scss/components/Home/CountArea.module.scss";
+import styles from "scss/components/home/CountArea.module.scss";
 import axios from "axios";
 const CountArea = () => {
   const [count, setCount] = useState([]);

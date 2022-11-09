@@ -1,6 +1,12 @@
 @import "scss/utils";
 
 .Home {
+  background: $color-lightGray;
+  padding-bottom: 50px;
+  margin-top: -60px;
+  & + [class*="Footer"] {
+    margin-top: 0;
+  }
   > .inner > *:not(:last-child) {
     margin-bottom: 60px;
   }
