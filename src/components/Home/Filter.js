@@ -115,9 +115,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
           </div>
         </div>
       </form>
-      {modalOn && Modal1 ? (
-        <FilterModal setModalOn={setModalOn} modalOpener={modalOpener} />
-      ) : null}
+      {modalOn && Modal1 ? <FilterModal modalOpener={modalOpener} /> : null}
     </>
   );
 };

@@ -1,19 +1,31 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import styles from "scss/components/Home/HomeModal.module.scss";
-
-const EventModal = ({ setModalOn, modalOpener, numb, AAA }) => {
-  console.log(setModalOn);
-  console.log(modalOpener);
-  console.log(numb);
-  console.log(AAA);
+const EventModal = ({ modalOpener, modalTab }) => {
   return (
     <div className={`modalWrap ${styles.EventModal}`}>
       <div className="modalInner">
         <div className={styles.contArea}>
-          <div style={{ backgroundColor: "#fff" }}>
-            <p>numb : {numb}</p>
-            <p>AAA : {AAA}</p>
-          </div>
+          {modalTab === 0 && (
+            <>
+              <div className={styles.tab01}>CONT0</div>
+            </>
+          )}
+          {modalTab === 1 && (
+            <>
+              <div className={styles.tab02}>CONT1</div>
+            </>
+          )}
+          {modalTab === 2 && (
+            <>
+              <div className={styles.tab03}>CONT2</div>
+            </>
+          )}
+          {modalTab === 3 && (
+            <>
+              <div className={styles.tab04}>CONT3</div>
+            </>
+          )}
         </div>
         <div className={styles.confirmArea}>
           <button

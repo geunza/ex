@@ -33,6 +33,15 @@
       button {
         border: none;
         border-radius: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        img {
+        }
+        span {
+          padding-top: 2px;
+        }
       }
       .btnKakao {
         background-color: #ffd109;

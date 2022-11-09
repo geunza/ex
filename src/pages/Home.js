@@ -54,7 +54,7 @@ const Home = ({}) => {
               setModalOn={setModalOn}
               modalOn={modalOn}
               modalOpener={modalOpener}
-              Modal1={Modal1}
+              Modal2={Modal2}
             />
           </div>
         </section>
@@ -70,14 +70,6 @@ const Home = ({}) => {
             <CountArea />
           </div>
           <HomeSupport />
-          {modalOn && Modal2 ? (
-            <EventModal
-              setModalOn={setModalOn}
-              modalOn={modalOn}
-              modalOpener={modalOpener}
-              Modal2={Modal2}
-            />
-          ) : null}
         </div>
       </div>
     </>

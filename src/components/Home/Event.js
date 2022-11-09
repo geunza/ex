@@ -11,11 +11,8 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
         dataset: { tab },
       },
     } = e;
-    // setModalTab(tab);
+    setModalTab(tab);
   };
-  useEffect(() => {
-    console.log(modalTab);
-  }, [modalTab]);
   return (
     <>
       <div className={styles.Event}>
@@ -25,7 +22,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               type="button"
               name="Modal2"
               value={true}
-              data-tab="0"
+              data-tab={0}
               onClick={(e) => {
                 modalTabControl(e);
                 modalOpener(e);
@@ -46,7 +43,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               type="button"
               name="Modal2"
               value={true}
-              data-tab="1"
+              data-tab={1}
               onClick={(e) => {
                 modalTabControl(e);
                 modalOpener(e);
@@ -67,7 +64,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               type="button"
               name="Modal2"
               value={true}
-              data-tab="2"
+              data-tab={2}
               onClick={(e) => {
                 modalTabControl(e);
                 modalOpener(e);
@@ -88,7 +85,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
               type="button"
               name="Modal2"
               value={true}
-              data-tab="3"
+              data-tab={3}
               onClick={(e) => {
                 modalTabControl(e);
                 modalOpener(e);
@@ -108,12 +105,7 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
       </div>
 
       {modalOn && Modal2 ? (
-        <EventModal
-          setModalOn={setModalOn}
-          modalOpener={modalOpener}
-          numb={"1"}
-          AAA={"BBB"}
-        />
+        <EventModal modalOpener={modalOpener} modalTab={parseInt(modalTab)} />
       ) : null}
     </>
   );

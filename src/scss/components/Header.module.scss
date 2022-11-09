@@ -7,11 +7,13 @@
   align-items: center;
   background: $color-sub;
   .headerLogo {
+    margin-right: 60px;
     img {
       display: block;
     }
   }
   nav {
+    margin-right: auto;
     ul {
       display: flex;
       justify-content: center;
@@ -47,5 +49,8 @@
       height: 45px;
       font-size: 0;
     }
+  }
+  .loginArea {
+    margin-left: 60px;
   }
 }
