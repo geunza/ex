@@ -1,1 +1,80 @@
 @import "scss/utils";
+
+.SupportFilter {
+  h4 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    font-weight: 700;
+  }
+  .chkArea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    label {
+      padding-top: 3px;
+      color: $color-deepGray;
+      font-size: 18px;
+    }
+  }
+  .filterBox {
+    border: 1px solid $color-borderGray;
+    border-radius: $radius-btn;
+    padding: 30px 20px;
+    .filterList {
+      //
+      .filterItem {
+        //
+        margin-bottom: 25px;
+        .itemTit {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 16px;
+          margin-bottom: 10px;
+          button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            border: 1px solid $color-deepGray;
+            border-radius: 50%;
+            span {
+              //
+              padding-top: 2px;
+            }
+            img {
+              display: block;
+            }
+          }
+        }
+        p {
+          font-size: 20px;
+          color: $color-main;
+        }
+      }
+    }
+    .submitArea {
+      //
+      padding-top: 20px;
+      border-top: 1px solid $color-borderGray;
+      button {
+        display: block;
+        width: 100%;
+        font-size: 18px;
+        border: 1px solid #222;
+        border-radius: $radius-btn;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+          padding-top: 2px;
+        }
+      }
+    }
+  }
+}

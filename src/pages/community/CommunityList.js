@@ -43,7 +43,7 @@ const CommunityList = ({}) => {
 
   const btnSorting = (e) => {
     const {
-      target: { name, value },
+      currentTarget: { name, value },
     } = e;
     searchParams.set(name, value);
     searchParams.set("page", 1);
@@ -62,9 +62,12 @@ const CommunityList = ({}) => {
     navigate("?" + searchParams.toString());
   };
   const setParams = (param, setParam) => {
-    const current = searchParams.get(param);
-    if (param == "page") {
-      setPage(current);
+    let current = searchParams.get(param);
+    if (current == null) {
+      current = "전체";
+      if (param == "page") {
+        current = 1;
+      }
     }
     setParam(current);
   };
@@ -85,9 +88,6 @@ const CommunityList = ({}) => {
     getParams("page");
     getParams("ord");
   }, []);
-  useEffect(() => {
-    console.log(cate);
-  }, [cate]);
   return (
     <div className={styles.CommunityList}>
       <div className={`${styles.inner} inner`}>

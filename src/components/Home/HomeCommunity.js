@@ -30,10 +30,10 @@ const HomeCommunity = ({}) => {
         <div className={styles.contArea}>
           <Swiper
             direction={"vertical"}
-            // autoplay={{
-            //   delay: 3000,
-            //   disableOnInteraction: false,
-            // }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
             className={styles.mySwiper}
             modules={[Autoplay]}
           >

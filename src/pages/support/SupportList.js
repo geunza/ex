@@ -18,7 +18,7 @@ const SupportList = ({}) => {
           </div>
           <div className={styles.contArea}>
             <div className={styles.filterArea}>
-              <SupportFilter />
+              <SupportFilter styles={styles} />
             </div>
             <div className={styles.listArea}>
               <SupportItems />

@@ -19,22 +19,6 @@ const Footer = () => {
             <Link to="###">마케팅수신동의약관</Link>
           </li>
         </ul>
-        <ul className={styles.sns}>
-          <li>
-            <button
-              onClick={() => window.open("https://blog.naver.com", "_blank")}
-            >
-              네이버 블로그
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => window.open("https://instagram.com", "_blank")}
-            >
-              인스타
-            </button>
-          </li>
-        </ul>
       </div>
       <div className={styles.footerMid}>
         <div className={styles.leftArea}>

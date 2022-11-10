@@ -41,16 +41,7 @@ button,
 select {
   font-family: inherit;
   color: inherit;
-}
-input {
-  appearance: none;
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
-}
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  margin:0; 
 }
 button {
   background: transparent;

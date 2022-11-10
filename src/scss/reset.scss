@@ -81,7 +81,7 @@ hr {
   padding: 0;
 }
 
-input, select {
+input[type="text"],input[type="email"],input[type="password"], select {
   vertical-align: middle;
   -webkit-appearance: none;
   -webkit-border-radius: 0;

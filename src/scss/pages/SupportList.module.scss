@@ -20,15 +20,14 @@
 
     .filterArea {
       width: 14%;
-      background-color: red;
     }
     .listArea {
       width: 60%;
-      background-color: blue;
+      border: 1px solid blue;
     }
     .recentArea {
       width: 20%;
-      background-color: green;
+      border: 1px solid green;
     }
   }
 }
