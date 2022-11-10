@@ -23,25 +23,30 @@
         a {
           padding: 0 10px;
           color: #fff;
+          font-size: 20px;
         }
       }
     }
   }
   .searchForm {
     position: relative;
+    border-radius: $radius-btn;
+    overflow: hidden;
     input[type="text"] {
       padding-left: 60px;
       height: 45px;
-      width: 350px;
+      width: 290px;
       background-color: #3939c7;
       border: none;
       color: #fff;
+      font-size: 15px;
+
       &::placeholder {
         color: inherit;
       }
     }
     button[type="submit"] {
-      background: #e6e6e6;
+      background: transparent;
       border: none;
       position: absolute;
       left: 0;
@@ -49,9 +54,23 @@
       width: 45px;
       height: 45px;
       font-size: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: auto;
+      }
     }
   }
   .loginArea {
     margin-left: 60px;
+    button {
+      font-size: 14px;
+      border: none;
+      background-color: $color-main;
+      border-radius: $radius-btn;
+      padding: 10px 20px 8px;
+      color: #fff;
+    }
   }
 }

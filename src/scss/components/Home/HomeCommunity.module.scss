@@ -12,7 +12,7 @@
 
     p {
       //
-      color: rgba(255, 255, 255, 0.8);
+      color: #b5b5ff;
     }
   }
   .contArea {
@@ -29,20 +29,30 @@
           a {
             display: block;
             h5 {
-              font-size: 32px;
+              font-size: $font-title_big;
               text-align: center;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
               padding-bottom: 50px;
             }
-            p {
+            .countArea {
               //
               position: absolute;
               left: 0;
               bottom: 0;
+              width: 100%;
+              display: flex;
+              gap: 15px;
+              font-size: 14px;
+              p {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+                justify-content: center;
+              }
               span {
-                //
+                padding-top: 5px;
               }
             }
           }

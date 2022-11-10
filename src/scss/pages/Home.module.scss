@@ -2,7 +2,7 @@
 
 .Home {
   background: $color-lightGray;
-  padding-bottom: 50px;
+  padding-bottom: 110px;
   margin-top: -60px;
   & + [class*="Footer"] {
     margin-top: 0;
@@ -13,7 +13,7 @@
   .sec01 {
     background: $color-sub;
     margin-bottom: 60px;
-    padding: 30px 0 50px;
+    padding: 30px 0 45px;
     .inner {
       display: flex;
       justify-content: space-between;

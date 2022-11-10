@@ -11,20 +11,21 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
 
   const btnPage = (e) => {
     const {
-      target: { value },
+      currentTarget: { value },
     } = e;
-    navigate(`?page=${value}`);
+    searchParams.set("page", parseInt(value));
+    navigate("?" + searchParams.toString());
   };
   const changeCurrentPages = () => {
     let countArr = [];
-    let count = parseInt((page - 1) / numLimit);
+    let count = parseInt((parseInt(page) - 1) / numLimit);
     let countStart = count * numLimit;
     let countEnd = count * numLimit + numLimit;
     if (countEnd > numPages) {
       countEnd = numPages;
     }
     for (let i = countStart; i < countEnd; i++) {
-      countArr.push(i);
+      countArr.push(parseInt(i));
     }
     setCurrentPages(countArr);
   };
@@ -35,11 +36,26 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
   return (
     <>
       <div className={styles.Pagination}>
-        <button onClick={btnPage} value={1} disabled={page === 1}>
-          &lt;&lt;
+        <button
+          onClick={btnPage}
+          value={1}
+          disabled={page === 1}
+          className={styles.first}
+        >
+          <span>First Page</span>
         </button>
-        <button onClick={btnPage} value={page - 1} disabled={page === 1}>
-          &lt;
+        <button
+          onClick={btnPage}
+          value={page - 1}
+          disabled={page === 1}
+          className={styles.prev}
+        >
+          <img
+            src={
+              process.env.PUBLIC_URL + "/public_assets/img/global/btn_prev.png"
+            }
+            alt="prev button"
+          />
         </button>
         {currentPages.map((pageValue, i) => {
           return (
@@ -49,15 +65,37 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
               value={pageValue + 1}
               data-current={page == pageValue + 1 ? "current" : null}
             >
-              {pageValue + 1}
+              <span>{pageValue + 1}</span>
             </button>
           );
         })}
-        <button onClick={btnPage} value={page + 1} disabled={page === numPages}>
-          &gt;
+        <button
+          onClick={btnPage}
+          value={page + 1}
+          disabled={page === numPages}
+          className={styles.next}
+        >
+          <img
+            src={
+              process.env.PUBLIC_URL + "/public_assets/img/global/btn_next.png"
+            }
+            alt="next button"
+          />
         </button>
-        <button onClick={btnPage} value={numPages} disabled={page === numPages}>
-          &gt;&gt;
+        {!currentPages.includes(numPages - 1) ? (
+          <>
+            <button>...</button>
+            <button>{numPages}</button>
+          </>
+        ) : null}
+
+        <button
+          onClick={btnPage}
+          value={numPages}
+          disabled={page === numPages}
+          className={styles.last}
+        >
+          <span>Last Page</span>
         </button>
       </div>
     </>

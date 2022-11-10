@@ -28,20 +28,20 @@ const CountArea = () => {
           <span>전체누적</span>
           <span>지원사업 개수</span>
         </p>
-        <span className={styles.numb}>{newCount[0]}개</span>
+        <span className={styles.numb}>{newCount[0]}</span>
       </div>
       <ul>
         <li>
           <p className={styles.tit}>이번주 지원사업</p>
-          <span className={styles.numb}>{newCount[1]}개</span>
+          <span className={styles.numb}>{newCount[1]}</span>
         </li>
         <li>
           <p className={styles.tit}>정보 제공기관</p>
-          <span className={styles.numb}>{newCount[2]}개</span>
+          <span className={styles.numb}>{newCount[2]}</span>
         </li>
         <li>
           <p className={styles.tit}>누적 가입 기업</p>
-          <span className={styles.numb}>{newCount[3]}개</span>
+          <span className={styles.numb}>{newCount[3]}</span>
         </li>
       </ul>
     </div>

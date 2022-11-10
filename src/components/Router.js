@@ -26,11 +26,7 @@ const AppRouter = ({}) => {
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
           <Route
-            path="/community/communityList/"
-            element={<Navigate replace to="/community/communityList/전체" />}
-          ></Route>
-          <Route
-            path="/community/communityList/:category"
+            path="/community/communityList"
             element={<CommunityList />}
           ></Route>
           <Route

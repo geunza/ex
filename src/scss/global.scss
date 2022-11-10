@@ -40,6 +40,7 @@ input,
 button,
 select {
   font-family: inherit;
+  color: inherit;
 }
 input {
   appearance: none;
@@ -62,6 +63,7 @@ a {
 body {
   // background: $color-lightGray;
   font-family: "GmarketSans", sans-serif;
+  color: #222222;
   @include mobile {
     // background: $color-lightGray;
   }

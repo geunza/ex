@@ -50,7 +50,7 @@ const Header = ({}) => {
               <Link to="/support/supportList">지원사업</Link>
             </li>
             <li>
-              <Link to="/community/communityList/">커뮤니티</Link>
+              <Link to="/community/communityList">커뮤니티</Link>
             </li>
             <li>
               <Link to="###">공지사항</Link>
@@ -65,7 +65,15 @@ const Header = ({}) => {
             onChange={onChange}
             value={searchVal}
           />
-          <button type="submit">SEARCH</button>
+          <button type="submit">
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "/public_assets/img/global/ico_search.png"
+              }
+              alt="SEARCH"
+            />
+          </button>
         </form>
         <div className={styles.loginArea}>
           {isLoggedIn ? (

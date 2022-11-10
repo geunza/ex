@@ -2,7 +2,7 @@
 .Filter {
   h3 {
     margin-bottom: 30px;
-    font-size: 24px;
+    font-size: $font-title;
     font-weight: 700;
   }
   .custom {
@@ -27,6 +27,8 @@
             padding-right: 50px;
           }
           p {
+            font-size: 20px;
+            font-weight: 700;
             width: 100px;
             margin-bottom: 15px;
           }
@@ -63,8 +65,10 @@
                 padding: 0 10px;
                 border: none;
                 border-radius: $radius-btn;
+                font-size: 16px;
                 &[data-clicked="true"] {
                   background: $color-main;
+                  color: #fff;
                 }
                 &[data-disabled="disabled"] {
                   opacity: 0.5;
@@ -88,13 +92,15 @@
         border: none;
         border-radius: $radius-wrap;
         height: 80px;
+        font-size: 25px;
         &[name="login"] {
+          font-weight: 700;
           background-color: $color-main;
           color: #fff;
         }
         &[name="noLogin"] {
+          font-weight: 500;
           background-color: $color-lightGray;
-          color: #000;
         }
         span {
           display: block;

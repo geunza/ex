@@ -1,13 +1,50 @@
 @import "scss/utils";
 
 .Pagination {
-  text-align: center;
-  padding: 30px 0;
+  padding: 60px 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   button {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    border: 1px solid $color-borderGray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      font-size: 14px;
+      padding-top: 2px;
+    }
     &[data-current] {
-      background: red;
+      background: $color-main;
+      color: #fff;
+    }
+    &:hover {
+      &:not([disabled]):not([data-current]) {
+        background: $color-lightGray;
+      }
+    }
+    &.first,
+    &.last {
+      width: auto;
+      padding: 0 10px;
+      white-space: nowrap;
+    }
+    &.first {
+      border-radius: $radius-btn 0 0 $radius-btn;
+    }
+    &.last {
+      border-radius: 0 $radius-btn $radius-btn 0;
+    }
+    &.prev {
+    }
+    &.next {
+    }
+    &[disabled] {
+      color: $color-fontGray;
     }
   }
 }

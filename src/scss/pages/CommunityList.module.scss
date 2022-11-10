@@ -55,7 +55,7 @@
   .listCategory {
     display: flex;
     gap: 10px;
-    a {
+    button {
       &[data-selected="selected"] {
         background: red;
       }

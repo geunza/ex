@@ -5,32 +5,33 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+    padding-top: 10px;
     h4 {
       color: #fff;
       font-size: 24px;
-      line-height: 1.2;
+      line-height: 1.3;
+      text-align: center;
       span {
         display: block;
       }
-    }
-    p {
-      color: rgba(255, 255, 255, 0.5);
     }
     .sns,
     .dibs {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
       button {
-        height: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
     }
     .sns {
+      margin: auto auto 15px;
       button {
         width: 50%;
+        height: 50px;
         border: none;
         display: flex;
         justify-content: center;
@@ -40,6 +41,8 @@
         }
         span {
           padding-top: 2px;
+          font-size: 14px;
+          font-weight: 500;
         }
       }
       .btnKakao {
@@ -66,10 +69,19 @@
     .dibs {
       button {
         width: 48%;
-        border: 1px solid rgba(255, 255, 255, 0.7);
+        height: 55px;
+        border: 1px solid #6a6af3;
         border-radius: $radius-btn;
-        background-color: #4444d5;
+        background-color: #3939c7;
         color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        span {
+          font-size: 20px;
+          padding: 3px 0 0 0;
+        }
       }
       .btnDib {
         //
