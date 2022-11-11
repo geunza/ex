@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-
+import supportInfo from "store/supportInfoSlice";
 /*
 createSlice({
   name : 'state이름~~',
@@ -69,29 +69,6 @@ let userInfo = createSlice({
 });
 export let { setUserInfo, removeUserInfo } = userInfo.actions;
 
-let supportInfo = createSlice({
-  name: "supportInfo",
-  initialState: [
-    { target: [] },
-    { period: [] },
-    { category: [] },
-    { region: [] },
-    { field: [] },
-  ],
-  reducers: {
-    setSupportInfo(state, action) {
-      console.log(state);
-      console.log(action.payload);
-      return true;
-    },
-    removeSupportInfo(state, action) {
-      console.log(state);
-      console.log(action.payload);
-      return true;
-    },
-  },
-});
-export let { setSupportInfo, removeSupportInfo } = supportInfo.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,

@@ -7,6 +7,8 @@ import FilterModal from "components/home/FilterModal";
 import axios from "axios";
 import styles from "scss/components/home/Filter.module.scss";
 import { useSelector } from "react-redux";
+import data1 from "store/supportInfoSlice";
+import data2 from "store/supportInfoSlice";
 const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const navigate = useNavigate();

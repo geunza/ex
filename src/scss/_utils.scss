@@ -12,7 +12,18 @@ $font-title-big: 45px;
 $font-title-mid: 36px;
 $font-title-small: 24px;
 
-$box-shadow: 0px 12px 20px 0px rgba(78, 78, 83, 0.09);
+$shadow-default: 0px 5px 10px 0px rgba(78, 78, 78, 0.1);
+
+@mixin shadowBox($radius-wrap: 10px) {
+  box-shadow: $shadow-default;
+  border-radius: $radius-wrap;
+}
+@mixin flexCenter($gap: 0) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
 
 $mobile: 767px;
 $tablet: 1023px;

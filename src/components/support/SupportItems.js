@@ -60,7 +60,7 @@ const SupportItems = () => {
           </button>
         </div>
         <div className={styles.contArea}>
-          <p className={styles.contTop}>
+          <div className={styles.contTop}>
             <p className={styles.total}>전체 40개</p>
             <div className={styles.countWrap}>
               <p
@@ -98,14 +98,14 @@ const SupportItems = () => {
                 </ul>
               )}
             </div>
-          </p>
+          </div>
           <div className={styles.itemWrap}>
             <ul>
               {Array(10)
                 .fill()
                 .map((_, idx) => {
                   return (
-                    <li className={styles.item}>
+                    <li className={styles.item} key={idx}>
                       <div className={styles.leftArea}>
                         <div className={styles.itemTop}>
                           <ol>
@@ -124,8 +124,10 @@ const SupportItems = () => {
                             </Link>
                           </h4>
                           <p>
-                            <span class={styles.moneyTit}>지원금</span>
-                            <span class={styles.moneyAmount}>6,000,000원</span>
+                            <span className={styles.moneyTit}>지원금</span>
+                            <span className={styles.moneyAmount}>
+                              6,000,000원
+                            </span>
                           </p>
                         </div>
                       </div>
@@ -139,7 +141,7 @@ const SupportItems = () => {
                               }
                               alt="마감일"
                             />
-                            <span>09.15 (일)</span>
+                            <span className={styles.dueDate}>09.15 (일)</span>
                           </li>
                           <li>
                             <img

@@ -1,0 +1,35 @@
+@import "scss/utils";
+
+.Event {
+  display: flex;
+  flex-flow: column;
+  ul {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    li {
+      width: 49%;
+      height: 49%;
+
+      &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
+        margin-bottom: 2%;
+      }
+      button {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-flow: column;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #6a6af3;
+        background-color: #3939c7;
+        border-radius: $radius-wrap;
+        span {
+          color: #fff;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

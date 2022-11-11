@@ -1,1 +1,66 @@
 @import "scss/utils";
+.SupportRecent {
+  h4 {
+    font-size: $font-title-small;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  ul {
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $color-borderGray;
+    li {
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      border: 1px solid $color-borderGray;
+      border-radius: $radius-btn;
+      background-color: #f9f9f9;
+      a {
+        padding: 25px;
+        display: block;
+      }
+      h5 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      p {
+        display: flex;
+        align-items: center;
+        line-height: 20px;
+        .dueDate {
+          font-size: 14px;
+          font-weight: 500;
+        }
+        .slash {
+          content: "/";
+          color: $color-borderGray;
+          margin: 0 10px;
+          font-size: 14px;
+        }
+        .moneyAmount {
+          font-weight: 700;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .showAll {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #222;
+    border-radius: $radius-btn;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      padding-top: 4px;
+      font-size: 18px;
+    }
+  }
+}

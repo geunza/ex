@@ -6,10 +6,8 @@
     gap: 10px;
     margin-bottom: 50px;
     button {
+      @include flexCenter(10px);
       border-radius: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 45px;
       padding: 0 30px;
       border: 1px solid $color-borderGray;
@@ -144,15 +142,12 @@
                 color: $color-deepGray;
               }
               &.btnZzim {
-                box-shadow: $box-shadow;
+                box-shadow: $shadow-default;
                 button {
+                  @include flexCenter(5px);
                   width: 100%;
                   height: 100%;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
                   border: none;
-                  gap: 5px;
                 }
               }
             }

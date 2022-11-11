@@ -3,15 +3,27 @@ import styles from "scss/pages/SupportList.module.scss";
 import SupportFilter from "components/support/SupportFilter";
 import SupportItems from "components/support/SupportItems";
 import SupportRecent from "components/support/SupportRecent";
-import { useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setSupportInfo, removeSupportInfo } from "store/supportInfoSlice";
 
 const SupportList = ({}) => {
   const supportInfo = useSelector((state) => state.supportInfo);
   const dispatch = useDispatch();
-  console.log(supportInfo);
+  useEffect(() => {
+    console.log(supportInfo);
+  }, [supportInfo]);
+  const testClick = (e) => {
+    const {
+      currentTarget: { value, name },
+    } = e;
+    dispatch(setSupportInfo({ name: name, value: value }));
+  };
   return (
     <>
+      <button onClick={testClick} name="target" value="HI">
+        asdfasdf
+      </button>
       <div className={styles.SupportList}>
         <div className={`inner`}>
           <div className={styles.tit}>
