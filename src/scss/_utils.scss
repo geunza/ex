@@ -1,16 +1,22 @@
 $radius-wrap: 10px;
 $radius-btn: 5px;
+
 $color-main: #30d6c2;
 $color-sub: #4949db;
 $color-lightGray: #eaeff3;
 $color-borderGray: #dddddd;
 $color-gray: #999999;
 $color-deepGray: #666666;
+
+$font-title-big: 45px;
+$font-title-mid: 36px;
+$font-title-small: 24px;
+
+$box-shadow: 0px 12px 20px 0px rgba(78, 78, 83, 0.09);
+
 $mobile: 767px;
 $tablet: 1023px;
 $desktop: 1024px;
-$font-title: 36px;
-$font-title_big: 45px;
 
 @mixin mobile {
   @media (max-width: $mobile) {

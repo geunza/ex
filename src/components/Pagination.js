@@ -52,7 +52,8 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
         >
           <img
             src={
-              process.env.PUBLIC_URL + "/public_assets/img/global/btn_prev.png"
+              process.env.PUBLIC_URL +
+              "/public_assets/img/global/btn/btn_prev.png"
             }
             alt="prev button"
           />
@@ -69,6 +70,15 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
             </button>
           );
         })}
+
+        {!currentPages.includes(numPages - 1) ? (
+          <>
+            <button>...</button>
+            <button value={numPages} onClick={btnPage}>
+              {numPages}
+            </button>
+          </>
+        ) : null}
         <button
           onClick={btnPage}
           value={page + 1}
@@ -77,18 +87,12 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
         >
           <img
             src={
-              process.env.PUBLIC_URL + "/public_assets/img/global/btn_next.png"
+              process.env.PUBLIC_URL +
+              "/public_assets/img/global/btn/btn_next.png"
             }
             alt="next button"
           />
         </button>
-        {!currentPages.includes(numPages - 1) ? (
-          <>
-            <button>...</button>
-            <button>{numPages}</button>
-          </>
-        ) : null}
-
         <button
           onClick={btnPage}
           value={numPages}

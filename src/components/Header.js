@@ -69,7 +69,7 @@ const Header = ({}) => {
             <img
               src={
                 process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico_search.png"
+                "/public_assets/img/global/ico/ico_search.png"
               }
               alt="SEARCH"
             />

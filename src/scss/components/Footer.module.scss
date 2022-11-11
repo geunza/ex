@@ -5,8 +5,9 @@
   padding: 20px 0 15px;
   margin-top: 110px;
   color: $color-gray;
+  border-top: 1px solid $color-borderGray;
   > * {
-    padding: 20px 40px;
+    padding: 15px 40px;
   }
   .footerTop {
     display: flex;

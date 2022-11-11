@@ -51,7 +51,7 @@ const Footer = () => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico_appstore.png"
+                    "/public_assets/img/global/ico/ico_appstore.png"
                   }
                   alt=""
                 />
@@ -62,7 +62,7 @@ const Footer = () => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico_playstore.png"
+                    "/public_assets/img/global/ico/ico_playstore.png"
                   }
                   alt=""
                 />
@@ -73,7 +73,7 @@ const Footer = () => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico_blog.png"
+                    "/public_assets/img/global/ico/ico_blog.png"
                   }
                   alt=""
                 />
@@ -84,7 +84,7 @@ const Footer = () => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico_instagram.png"
+                    "/public_assets/img/global/ico/ico_instagram.png"
                   }
                   alt=""
                 />

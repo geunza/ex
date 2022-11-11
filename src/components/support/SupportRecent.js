@@ -3,7 +3,14 @@ import styles from "scss/components/support/SupportRecent.module.scss";
 const SupportRecent = () => {
   return (
     <>
-      <div className="SupportRecent">SupportRecent</div>
+      <div className="SupportRecent">
+        <h4>최근 본 지원사업</h4>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
     </>
   );
 };

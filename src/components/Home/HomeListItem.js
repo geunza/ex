@@ -12,7 +12,7 @@ const HomeListItem = ({ item, likeShow, styles }) => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/home/ico_view.png"
+                    "/public_assets/img/global/ico/ico_view.png"
                   }
                   alt="like count"
                 />
@@ -20,7 +20,7 @@ const HomeListItem = ({ item, likeShow, styles }) => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/home/ico_view_black.png"
+                    "/public_assets/img/global/ico/ico_view_black.png"
                   }
                   alt="like count"
                 />
@@ -33,7 +33,7 @@ const HomeListItem = ({ item, likeShow, styles }) => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/home/ico_star.png"
+                    "/public_assets/img/global/ico/ico_star.png"
                   }
                   alt="View count"
                 />

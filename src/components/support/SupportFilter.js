@@ -18,7 +18,7 @@ const SupportFilter = ({}) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn_arr.png"
+                      "/public_assets/img/global/btn/btn_arr.png"
                     }
                     alt="Select"
                   />
@@ -33,7 +33,7 @@ const SupportFilter = ({}) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn_arr.png"
+                      "/public_assets/img/global/btn/btn_arr.png"
                     }
                     alt="Select"
                   />
@@ -48,7 +48,7 @@ const SupportFilter = ({}) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn_arr.png"
+                      "/public_assets/img/global/btn/btn_arr.png"
                     }
                     alt="Select"
                   />
@@ -63,7 +63,7 @@ const SupportFilter = ({}) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn_arr.png"
+                      "/public_assets/img/global/btn/btn_arr.png"
                     }
                     alt="Select"
                   />
@@ -78,7 +78,7 @@ const SupportFilter = ({}) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn_arr.png"
+                      "/public_assets/img/global/btn/btn_arr.png"
                     }
                     alt="Select"
                   />

@@ -3,7 +3,6 @@ import "scss/reset.scss";
 import "scss/global.scss";
 import { useState } from "react";
 import AppRouter from "components/Router";
-import axios from "axios";
 import { useSelector } from "react-redux";
 function App() {
   return (

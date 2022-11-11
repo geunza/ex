@@ -14,7 +14,7 @@ const SnsLogin = ({}) => {
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
             </p>
             <Link to="###">기업 정보 입력하고 혜택 받자! &gt;</Link>
-            <div className={styles.dibs}>
+            <div className={styles.zzim}>
               <button type="button">찜</button>
               <button type="button">기업정보</button>
             </div>
@@ -47,12 +47,12 @@ const SnsLogin = ({}) => {
                 <span>Apple로그인</span>
               </button>
             </div>
-            <div className={styles.dibs}>
+            <div className={styles.zzim}>
               <button type="button" className={styles.btnDib}>
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/home/ico_dib.png"
+                    "/public_assets/img/global/ico/ico_zzim.png"
                   }
                   alt="Apple Icon"
                 />
@@ -63,7 +63,7 @@ const SnsLogin = ({}) => {
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/public_assets/img/home/ico_setting.png"
+                    "/public_assets/img/global/ico/ico_setting.png"
                   }
                   alt="Apple Icon"
                 />

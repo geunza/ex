@@ -57,22 +57,47 @@ let userInfo = createSlice({
   name: "userInfo",
   initialState: [],
   reducers: {
-    setInfo(state, action) {
+    setUserInfo(state, action) {
       console.log(state);
       console.log(action.payload);
       return true;
     },
-    removeInfo(state, action) {
+    removeUserInfo(state, action) {
       return [];
     },
   },
 });
-export let { setInfo, removeInfo } = userInfo.actions;
+export let { setUserInfo, removeUserInfo } = userInfo.actions;
+
+let supportInfo = createSlice({
+  name: "supportInfo",
+  initialState: [
+    { target: [] },
+    { period: [] },
+    { category: [] },
+    { region: [] },
+    { field: [] },
+  ],
+  reducers: {
+    setSupportInfo(state, action) {
+      console.log(state);
+      console.log(action.payload);
+      return true;
+    },
+    removeSupportInfo(state, action) {
+      console.log(state);
+      console.log(action.payload);
+      return true;
+    },
+  },
+});
+export let { setSupportInfo, removeSupportInfo } = supportInfo.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
+    supportInfo: supportInfo.reducer,
   },
 });

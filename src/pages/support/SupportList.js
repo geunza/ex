@@ -3,8 +3,13 @@ import styles from "scss/pages/SupportList.module.scss";
 import SupportFilter from "components/support/SupportFilter";
 import SupportItems from "components/support/SupportItems";
 import SupportRecent from "components/support/SupportRecent";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const SupportList = ({}) => {
+  const supportInfo = useSelector((state) => state.supportInfo);
+  const dispatch = useDispatch();
+  console.log(supportInfo);
   return (
     <>
       <div className={styles.SupportList}>
@@ -29,9 +34,6 @@ const SupportList = ({}) => {
           </div>
         </div>
       </div>
-      <p>{261 / 1800}</p>
-      <p>{1091 / 1800}</p>
-      <p>{370 / 1800}</p>
     </>
   );
 };
