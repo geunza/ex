@@ -7,18 +7,31 @@ import FilterModal from "components/home/FilterModal";
 import axios from "axios";
 import styles from "scss/components/home/Filter.module.scss";
 import { useSelector } from "react-redux";
-import data1 from "store/supportInfoSlice";
-import data2 from "store/supportInfoSlice";
 const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const supportInfo = useSelector((state) => state.supportInfo);
   const navigate = useNavigate();
-  const [selectedItems, setSelectedItems] = useState([
-    "0-0",
-    "1-0",
-    "2-0",
-    "3-0",
-    "4-0",
-  ]);
+  const [selectedItems, setSelectedItems] = useState(supportInfo);
+  const [dataDummy1, setDataDummy1] = useState([]);
+  const [dataDummy2, setDataDummy2] = useState([]);
+  const getFilterDataDummy = () => {
+    axios.get("/db/supportData1.json").then((res) => {
+      const data = res.data;
+      setDataDummy1(data);
+    });
+    axios.get("/db/supportData2.json").then((res) => {
+      const data = res.data;
+      setDataDummy2(data);
+    });
+  };
+
+  useEffect(() => {
+    getFilterDataDummy();
+  }, []);
+  //
+  //
+  //
+
   const [data1, setData1] = useState([]);
   const [data2, setData2] = useState([]);
   const getFilterData = () => {
@@ -61,7 +74,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
         <div className={styles.custom}>
           <div className={styles.topArea}>
             <ul>
-              {data1.map((v, i) => {
+              {dataDummy1.map((v, i) => {
                 return (
                   <FilterButton
                     key={v.name}
@@ -73,6 +86,8 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
                   />
                 );
               })}
+            </ul>
+            <ul>
               <li className={styles.sltItem}>
                 <button
                   type="button"
