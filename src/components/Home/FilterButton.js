@@ -37,7 +37,9 @@ const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
             const infoName = v.infoName;
             let clicked;
             v.multiply
-              ? (clicked = selectedItems[infoName].includes(v2.value))
+              ? (clicked = selectedItems[infoName].some(
+                  (item) => item.text == v2.text
+                ))
               : (clicked = selectedItems[infoName].text == v2.value);
             return (
               <li key={v2.value}>

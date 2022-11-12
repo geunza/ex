@@ -21,11 +21,14 @@ let supportInfo = createSlice({
       const multiply = data.multiply;
       const order = data.order;
       if (multiply) {
-        if (obj[name].includes(value)) {
-          obj[name] = [...obj[name]].filter((item) => item != value);
-        } else {
-          obj[name] = [...obj[name], value];
-        }
+        obj[name].some((item) => item.text == value)
+          ? (obj[name] = obj[name].filter((item) => item.text != value))
+          : (obj[name] = [...obj[name], { text: value, order: order }]);
+        // if (obj[name].includes(value)) {
+        //   obj[name] = [...obj[name]].filter((item) => item != value);
+        // } else {
+        //   obj[name] = [...obj[name], value];
+        // }
       } else {
         obj[name] = { text: value, order: order };
       }
