@@ -61,6 +61,17 @@ const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
             );
           })}
         </ol>
+        {v.multiply && (
+          <p>
+            {selectedItems[v.infoName].length > 1
+              ? `${selectedItems[v.infoName][0].text} 외 ${
+                  selectedItems[v.infoName].length - 1
+                }건`
+              : selectedItems[v.infoName].length == 1
+              ? selectedItems[v.infoName][0].text
+              : "없어용"}
+          </p>
+        )}
       </li>
     </>
   );

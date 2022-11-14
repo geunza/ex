@@ -23,16 +23,12 @@ let supportInfo = createSlice({
       if (multiply) {
         obj[name].some((item) => item.text == value)
           ? (obj[name] = obj[name].filter((item) => item.text != value))
-          : (obj[name] = [...obj[name], { text: value, order: order }]);
-        // if (obj[name].includes(value)) {
-        //   obj[name] = [...obj[name]].filter((item) => item != value);
-        // } else {
-        //   obj[name] = [...obj[name], value];
-        // }
+          : (obj[name] = [...obj[name], { text: value, order: order }].sort(
+              (a, b) => a.order - b.order
+            ));
       } else {
         obj[name] = { text: value, order: order };
       }
-      console.log(obj);
       return obj;
     },
     removeSupportInfo(state, action) {
