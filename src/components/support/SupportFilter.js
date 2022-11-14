@@ -1,6 +1,21 @@
 import React from "react";
 import styles from "scss/components/support/SupportFilter.module.scss";
+import { useSelector } from "react-redux";
+import { setSupportInfo } from "store/supportInfoSlice";
+import { useEffect, useState } from "react";
 const SupportFilter = ({}) => {
+  const supportInfo = useSelector((state) => state.supportInfo);
+  const [supportInfoArr, setSupportInfoArr] = useState([]);
+  useEffect(() => {
+    let arr = [];
+    for (let data in supportInfo) {
+      arr.push({
+        name: data,
+        data: supportInfo[data],
+      });
+    }
+    setSupportInfoArr(arr);
+  }, [supportInfo]);
   return (
     <>
       <div className={styles.SupportFilter}>
@@ -11,81 +26,33 @@ const SupportFilter = ({}) => {
         </div>
         <div className={styles.filterBox}>
           <ul className={styles.filterList}>
-            <li className={styles.filterItem}>
-              <div className={styles.itemTit}>
-                <span>신청대상</span>
-                <button type="button">
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr.png"
-                    }
-                    alt="Select"
-                  />
-                </button>
-              </div>
-              <p>예비창업자</p>
-            </li>
-            <li className={styles.filterItem}>
-              <div className={styles.itemTit}>
-                <span>창업기간</span>
-                <button type="button">
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr.png"
-                    }
-                    alt="Select"
-                  />
-                </button>
-              </div>
-              <p>3년 미만</p>
-            </li>
-            <li className={styles.filterItem}>
-              <div className={styles.itemTit}>
-                <span>카테고리</span>
-                <button type="button">
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr.png"
-                    }
-                    alt="Select"
-                  />
-                </button>
-              </div>
-              <p>사업화 외 2개</p>
-            </li>
-            <li className={styles.filterItem}>
-              <div className={styles.itemTit}>
-                <span>지역</span>
-                <button type="button">
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr.png"
-                    }
-                    alt="Select"
-                  />
-                </button>
-              </div>
-              <p>경기</p>
-            </li>
-            <li className={styles.filterItem}>
-              <div className={styles.itemTit}>
-                <span>분야</span>
-                <button type="button">
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr.png"
-                    }
-                    alt="Select"
-                  />
-                </button>
-              </div>
-              <p>제조업 외 10개</p>
-            </li>
+            {supportInfoArr.map((item, idx) => {
+              return (
+                <li className={styles.filterItem} key={idx}>
+                  <div className={styles.itemTit}>
+                    <span>{item.name}</span>
+                    <button type="button">
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/public_assets/img/global/btn/btn_arr.png"
+                        }
+                        alt="Select"
+                      />
+                    </button>
+                  </div>
+                  <p>
+                    {Array.isArray(item.data)
+                      ? item.data.length > 1
+                        ? `${item.data[0].text} 외 ${item.data.length - 1}건`
+                        : item.data.length == 1
+                        ? item.data[0].text
+                        : "없어용"
+                      : item.data.text}
+                  </p>
+                </li>
+              );
+            })}
           </ul>
           <div className={styles.submitArea}>
             <button type="button">

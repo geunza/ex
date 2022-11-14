@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 let supportInfo = createSlice({
   name: "supportInfo",
   initialState: {
-    businessType: { text: "예비창업자", order: 0 },
-    businessperiod: { text: "전체", order: 0 },
-    corporateType: [{ text: "전체", order: 0 }],
-    objective: [{ text: "전체", order: 0 }],
-    businessArea: [{ text: "전체", order: 0 }],
-    techArea: [{ text: "전체", order: 0 }],
-    region: [{ text: "전국", order: 0 }],
+    사업자형태: { text: "예비창업자", order: 0 },
+    창업기간: { text: "전체", order: 0 },
+    기업형태: [{ text: "전체", order: 0 }],
+    지원분야: [{ text: "전체", order: 0 }],
+    사업분야: [{ text: "전체", order: 0 }],
+    기술분야: [{ text: "전체", order: 0 }],
+    지역: [{ text: "전국", order: 0 }],
   },
   reducers: {
     setSupportInfo(state, action) {

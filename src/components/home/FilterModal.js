@@ -20,13 +20,12 @@ const FilterModal = ({
   };
   const tooltipOpen = (e) => {
     e.stopPropagation();
-    console.log(e.target.dataset.text);
   };
   const [modalData, setModalData] = useState({
-    objective: [],
-    businessArea: [],
-    techArea: [],
-    region: [],
+    지원분야: [],
+    사업분야: [],
+    기술분야: [],
+    지역: [],
   });
   const modalDataSubmit = (e) => {
     dispatch(setSupportInfoModal(modalData));
@@ -40,6 +39,7 @@ const FilterModal = ({
       alert("로그인X");
       return false;
     }
+    console.log(order);
     let copy = { ...modalData };
     if (copy[infoName].some((item) => item.text == value)) {
       copy[infoName] = copy[infoName].filter((item) => item.text != value);
@@ -53,15 +53,12 @@ const FilterModal = ({
   };
   useEffect(() => {
     setModalData({
-      objective: [...selectedItems.objective],
-      businessArea: [...selectedItems.businessArea],
-      techArea: [...selectedItems.techArea],
-      region: [...selectedItems.region],
+      지원분야: [...selectedItems.지원분야],
+      사업분야: [...selectedItems.사업분야],
+      기술분야: [...selectedItems.기술분야],
+      지역: [...selectedItems.지역],
     });
   }, []);
-  useEffect(() => {
-    console.log(modalData);
-  }, [modalData]);
   return (
     <div className={`modalWrap ${styles.FilterModal}`}>
       <div className="modalInner">
@@ -140,12 +137,7 @@ const FilterModal = ({
                               !isLoggedIn && idx2 != 0 ? "disabled" : null
                             }
                             onClick={(e) => {
-                              modalBtnClick(
-                                e,
-                                infoName,
-                                cate.multiply,
-                                btn.order
-                              );
+                              modalBtnClick(e, infoName, btn.order);
                             }}
                           >
                             {btn.text}

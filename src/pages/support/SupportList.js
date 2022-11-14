@@ -10,9 +10,7 @@ import { setSupportInfo } from "store/supportInfoSlice";
 const SupportList = ({}) => {
   const supportInfo = useSelector((state) => state.supportInfo);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(supportInfo);
-  }, [supportInfo]);
+
   return (
     <>
       <div className={styles.SupportList}>

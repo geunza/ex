@@ -34,13 +34,13 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
     } = e;
     if (name == "login") {
       if (isLoggedIn == true) {
-        console.log("loginO");
+        navigate("/support/supportList");
       } else {
         e.preventDefault();
-        console.log("loginX");
+        alert("로그인하세용");
       }
     } else if (name == "noLogin") {
-      console.log("noLogin");
+      navigate("/support/supportList");
     }
   };
   const filterSubmit = (e) => {
