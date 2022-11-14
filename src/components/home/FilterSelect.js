@@ -1,19 +1,29 @@
 import React from "react";
-const FilterSelect = ({ v, i, idx, selectedItems, setSelectedItems }) => {
-  const sltChange = (e, idx) => {
-    const {
-      target: { value },
-    } = e;
-    let copy = [...selectedItems];
-    copy[idx] = value;
-    setSelectedItems(copy);
-  };
+const FilterSelect = ({
+  v,
+  i,
+  modalOpener,
+  selectedItems,
+  setSelectedItems,
+  modalStep,
+  setModalStep,
+}) => {
   return (
-    <div key={idx}>
+    <div>
       <p>{v.name}</p>
       <ol>
         <li>
-          <button type="button">전체</button>
+          <button
+            type="button"
+            name="Modal1"
+            value={true}
+            onClick={(e) => {
+              setModalStep(i);
+              modalOpener(e);
+            }}
+          >
+            {v.name}
+          </button>
         </li>
       </ol>
     </div>

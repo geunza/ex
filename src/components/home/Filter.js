@@ -6,39 +6,26 @@ import FilterSelect from "components/home/FilterSelect";
 import FilterModal from "components/home/FilterModal";
 import axios from "axios";
 import styles from "scss/components/home/Filter.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSupportInfo } from "store/supportInfoSlice";
 const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportInfo = useSelector((state) => state.supportInfo);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [selectedItems, setSelectedItems] = useState(supportInfo);
-  const [dataDummy1, setDataDummy1] = useState([]);
-  const [dataDummy2, setDataDummy2] = useState([]);
-  const getFilterDataDummy = () => {
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [modalStep, setModalStep] = useState(0);
+  const [modalSet, setModalSet] = useState({});
+  const getFilterData = () => {
     axios.get("/db/supportData1.json").then((res) => {
       const data = res.data;
-      setDataDummy1(data);
+      setData1(data);
     });
     axios.get("/db/supportData2.json").then((res) => {
       const data = res.data;
-      setDataDummy2(data);
-    });
-  };
-
-  useEffect(() => {
-    getFilterDataDummy();
-  }, []);
-  //
-  //
-  //
-
-  const [data1, setData1] = useState([]);
-  const [data2, setData2] = useState([]);
-  const getFilterData = () => {
-    axios.get("/db/filterData.json").then((res) => {
-      const data = res.data;
-      setData1(data.btnData);
-      setData2(data.sltData);
+      setData2(data);
     });
   };
   const clickSubmit = (e) => {
@@ -61,6 +48,27 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
     console.log(e);
     e.preventDefault();
   };
+  const infoBtnClick = (e, infoName, multiply, order) => {
+    const {
+      target: { value },
+    } = e;
+    if (!isLoggedIn) {
+      alert("로그인X");
+      return false;
+    }
+    dispatch(
+      setSupportInfo({
+        name: infoName,
+        value: value,
+        multiply: multiply,
+        order: order,
+      })
+    );
+  };
+  useEffect(() => {
+    setSelectedItems(supportInfo);
+    console.log(selectedItems);
+  }, [supportInfo]);
   useEffect(() => {
     getFilterData();
   }, []);
@@ -74,7 +82,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
         <div className={styles.custom}>
           <div className={styles.topArea}>
             <ul>
-              {dataDummy1.map((v, i) => {
+              {data1.map((v, i) => {
                 return (
                   <FilterButton
                     key={v.name}
@@ -83,34 +91,50 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
                     styles={styles}
                     selectedItems={selectedItems}
                     setSelectedItems={setSelectedItems}
+                    infoBtnClick={infoBtnClick}
                   />
                 );
               })}
-            </ul>
-            <ul>
               <li className={styles.sltItem}>
-                <button
-                  type="button"
-                  name="Modal1"
-                  value={true}
-                  onClick={modalOpener}
-                  style={{
-                    position: "absolute",
-                  }}
-                >
-                  모달1 오픈
-                </button>
                 {data2.map((v, i) => {
-                  const idx = i + data1.length;
                   return (
-                    <FilterSelect
-                      key={v.name}
-                      v={v}
-                      i={i}
-                      idx={idx}
-                      selectedItems={selectedItems}
-                      setSelectedItems={setSelectedItems}
-                    />
+                    <div key={i}>
+                      <p>{v.name}</p>
+                      <ol>
+                        <li>
+                          <button
+                            type="button"
+                            name="Modal1"
+                            value={true}
+                            onClick={(e) => {
+                              setModalStep(i);
+                              modalOpener(e);
+                            }}
+                          >
+                            {selectedItems[v.data[v.data.length - 1].infoName]
+                              .length > 1
+                              ? `${
+                                  selectedItems[
+                                    v.data[v.data.length - 1].infoName
+                                  ][0].text
+                                } 외 ${
+                                  selectedItems[
+                                    v.data[v.data.length - 1].infoName
+                                  ].length - 1
+                                }건`
+                              : selectedItems[
+                                  v.data[v.data.length - 1].infoName
+                                ].length == 1
+                              ? `${
+                                  selectedItems[
+                                    v.data[v.data.length - 1].infoName
+                                  ][0].text
+                                }`
+                              : "없어용"}
+                          </button>
+                        </li>
+                      </ol>
+                    </div>
                   );
                 })}
               </li>
@@ -132,7 +156,15 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
           </div>
         </div>
       </form>
-      {modalOn && Modal1 ? <FilterModal modalOpener={modalOpener} /> : null}
+      {modalOn && Modal1 ? (
+        <FilterModal
+          modalOpener={modalOpener}
+          modalStep={modalStep}
+          setModalStep={setModalStep}
+          data2={data2}
+          selectedItems={selectedItems}
+        />
+      ) : null}
     </>
   );
 };

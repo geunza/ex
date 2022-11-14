@@ -1,30 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSupportInfo } from "store/supportInfoSlice";
-const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
+const FilterButton = ({
+  v,
+  i,
+  styles,
+  selectedItems,
+  setSelectedItems,
+  infoBtnClick,
+}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const supportInfo = useSelector((state) => state.supportInfo);
-  const dispatch = useDispatch();
-  const btnClick = (e, infoName, multiply, order) => {
-    const {
-      target: { value },
-    } = e;
-    if (!isLoggedIn) {
-      alert("로그인X");
-      return false;
-    }
-    dispatch(
-      setSupportInfo({
-        name: infoName,
-        value: value,
-        multiply: multiply,
-        order: order,
-      })
-    );
-  };
-  useEffect(() => {
-    setSelectedItems(supportInfo);
-  }, [supportInfo]);
+
   return (
     <>
       <li className={styles.btnItem}>
@@ -36,11 +22,13 @@ const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
           {v.btns.map((v2, i2) => {
             const infoName = v.infoName;
             let clicked;
-            v.multiply
-              ? (clicked = selectedItems[infoName].some(
-                  (item) => item.text == v2.text
-                ))
-              : (clicked = selectedItems[infoName].text == v2.value);
+            if (v.multiply) {
+              clicked = selectedItems[infoName].some(
+                (item) => item.text == v2.value
+              );
+            } else {
+              clicked = selectedItems[infoName].text == v2.value;
+            }
             return (
               <li key={v2.value}>
                 <button
@@ -51,7 +39,7 @@ const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
                   onClick={(e) => {
                     !isLoggedIn && i2 != 0
                       ? alert("로그인하세요")
-                      : btnClick(e, infoName, v.multiply, v2.order);
+                      : infoBtnClick(e, infoName, v.multiply, v2.order);
                   }}
                   data-disabled={!isLoggedIn && i2 != 0 ? "disabled" : null}
                 >
@@ -61,17 +49,6 @@ const FilterButton = ({ v, i, styles, selectedItems, setSelectedItems }) => {
             );
           })}
         </ol>
-        {v.multiply && (
-          <p>
-            {selectedItems[v.infoName].length > 1
-              ? `${selectedItems[v.infoName][0].text} 외 ${
-                  selectedItems[v.infoName].length - 1
-                }건`
-              : selectedItems[v.infoName].length == 1
-              ? selectedItems[v.infoName][0].text
-              : "없어용"}
-          </p>
-        )}
       </li>
     </>
   );

@@ -78,11 +78,19 @@
         .item {
           // margin-bottom: 5px;
           button {
-            border: 1px solid green;
-            padding: 5px;
+            //
+            height: 45px;
+            background: $color-lightGray;
+            padding: 0 10px;
+            border: none;
             border-radius: $radius-btn;
-            &[data-selected="selected"] {
-              //
+            font-size: 16px;
+            &[data-clicked="true"] {
+              background: $color-main;
+              color: #fff;
+            }
+            &[data-disabled="disabled"] {
+              opacity: 0.5;
             }
           }
         }
@@ -103,7 +111,7 @@
       &.btnSubmit {
         //
         width: 80%;
-        background: green;
+        background: $color-main;
         color: #fff;
       }
     }

@@ -5,7 +5,7 @@ import SupportItems from "components/support/SupportItems";
 import SupportRecent from "components/support/SupportRecent";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo, removeSupportInfo } from "store/supportInfoSlice";
+import { setSupportInfo } from "store/supportInfoSlice";
 
 const SupportList = ({}) => {
   const supportInfo = useSelector((state) => state.supportInfo);
@@ -13,17 +13,8 @@ const SupportList = ({}) => {
   useEffect(() => {
     console.log(supportInfo);
   }, [supportInfo]);
-  const testClick = (e) => {
-    const {
-      currentTarget: { value, name },
-    } = e;
-    dispatch(setSupportInfo({ name: name, value: value }));
-  };
   return (
     <>
-      <button onClick={testClick} name="target" value="HI">
-        asdfasdf
-      </button>
       <div className={styles.SupportList}>
         <div className={`inner`}>
           <div className={styles.tit}>

@@ -19,7 +19,7 @@
         gap: 2%;
         > li {
           width: 49%;
-          align-items: center;
+          // align-items: center;
           &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
             margin-bottom: 2%;
           }
@@ -29,8 +29,11 @@
           p {
             font-size: 20px;
             font-weight: 700;
-            width: 100px;
             margin-bottom: 15px;
+            .multiply {
+              margin-left: 5px;
+              font-weight: 500;
+            }
           }
           &.btnItem {
             //
@@ -73,9 +76,6 @@
                 &[data-disabled="disabled"] {
                   opacity: 0.5;
                 }
-              }
-              :global button.active {
-                background: $color-main;
               }
             }
           }

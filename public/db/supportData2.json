@@ -1,8 +1,10 @@
 [
   {
+    "name": "지원분야",
     "data": [
       {
         "name": "지원분야",
+        "required": true,
         "infoName": "objective",
         "multiply": true,
         "btns": [
@@ -21,9 +23,11 @@
     ]
   },
   {
+    "name": "기술분야",
     "data": [
       {
         "name": "사업분야",
+        "required": true,
         "infoName": "businessArea",
         "multiply": true,
         "btns": [
@@ -35,6 +39,7 @@
       },
       {
         "name": "기술분야",
+        "required": true,
         "infoName": "techArea",
         "multiply": true,
         "btns": [
@@ -78,9 +83,11 @@
     ]
   },
   {
+    "name": "지역",
     "data": [
       {
         "name": "지역",
+        "required": false,
         "infoName": "region",
         "multiply": true,
         "btns": [

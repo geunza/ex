@@ -31,12 +31,10 @@ let supportInfo = createSlice({
       }
       return obj;
     },
-    removeSupportInfo(state, action) {
-      console.log(state);
-      console.log(action.payload);
-      return true;
+    setSupportInfoModal(state, action) {
+      return { ...state, ...action.payload };
     },
   },
 });
-export let { setSupportInfo, removeSupportInfo } = supportInfo.actions;
+export let { setSupportInfo, setSupportInfoModal } = supportInfo.actions;
 export default supportInfo;

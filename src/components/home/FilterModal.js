@@ -1,22 +1,67 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "scss/components/home/HomeModal.module.scss";
-import { useSelector } from "react-redux";
-const FilterModal = ({ modalOpener }) => {
-  const supportInfo = useSelector((state) => state.supportInfo);
-  const [step, setStep] = useState(0);
+import { useDispatch, useSelector } from "react-redux";
+import { setSupportInfoModal } from "store/supportInfoSlice";
+const FilterModal = ({
+  modalOpener,
+  modalStep,
+  setModalStep,
+  data2,
+  selectedItems,
+}) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const dispatch = useDispatch();
   const btnStep = (e) => {
     const {
       currentTarget: { value },
     } = e;
-    setStep(value);
+    setModalStep(value);
   };
   const tooltipOpen = (e) => {
     e.stopPropagation();
     console.log(e.target.dataset.text);
   };
-
+  const [modalData, setModalData] = useState({
+    objective: [],
+    businessArea: [],
+    techArea: [],
+    region: [],
+  });
+  const modalDataSubmit = (e) => {
+    dispatch(setSupportInfoModal(modalData));
+    modalOpener({ currentTarget: { name: "Modal1", value: "false" } });
+  };
+  const modalBtnClick = (e, infoName, order) => {
+    const {
+      target: { value },
+    } = e;
+    if (!isLoggedIn) {
+      alert("로그인X");
+      return false;
+    }
+    let copy = { ...modalData };
+    if (copy[infoName].some((item) => item.text == value)) {
+      copy[infoName] = copy[infoName].filter((item) => item.text != value);
+    } else {
+      copy[infoName].push({ text: value, order: order });
+      copy[infoName].sort((a, b) => {
+        return a.order - b.order;
+      });
+    }
+    setModalData(copy);
+  };
+  useEffect(() => {
+    setModalData({
+      objective: [...selectedItems.objective],
+      businessArea: [...selectedItems.businessArea],
+      techArea: [...selectedItems.techArea],
+      region: [...selectedItems.region],
+    });
+  }, []);
+  useEffect(() => {
+    console.log(modalData);
+  }, [modalData]);
   return (
     <div className={`modalWrap ${styles.FilterModal}`}>
       <div className="modalInner">
@@ -28,7 +73,7 @@ const FilterModal = ({ modalOpener }) => {
               onClick={btnStep}
               className={styles.btnStep}
             >
-              <span data-selected={step == 0 ? "selected" : null}>
+              <span data-selected={modalStep == 0 ? "selected" : null}>
                 지원분야
               </span>
             </button>
@@ -40,7 +85,7 @@ const FilterModal = ({ modalOpener }) => {
               onClick={btnStep}
               className={styles.btnStep}
             >
-              <span data-selected={step == 1 ? "selected" : null}>
+              <span data-selected={modalStep == 1 ? "selected" : null}>
                 기술분야
                 <i onClick={tooltipOpen} data-text="Hi">
                   i
@@ -55,201 +100,64 @@ const FilterModal = ({ modalOpener }) => {
               onClick={btnStep}
               className={styles.btnStep}
             >
-              <span data-selected={step == 2 ? "selected" : null}>지역</span>
+              <span data-selected={modalStep == 2 ? "selected" : null}>
+                지역
+              </span>
             </button>
           </li>
         </ul>
         <div className={styles.contArea}>
-          {step == 0 ? (
-            <div className={styles.tabCont}>
-              <div className={styles.title}>
-                <h5 className={styles.required}>지원분야</h5>
-                <span>(중복가능)</span>
-              </div>
-              <ul className={styles.itemWrap}>
-                <li className={styles.item}>
-                  <button type="button">전체</button>
+          <ul>
+            {data2[modalStep].data.map((cate, idx) => {
+              return (
+                <li className={styles.tabCont} key={cate.name}>
+                  <div className={styles.title}>
+                    <h5 className={cate.required ? styles.required : null}>
+                      {cate.name}
+                    </h5>
+                    {cate.multiply && (
+                      <span className={styles.multiply}>(중복가능)</span>
+                    )}
+                  </div>
+                  <ol className={styles.itemWrap}>
+                    {cate.btns.map((btn, idx2) => {
+                      const infoName = cate.infoName;
+                      let clicked;
+                      // console.log(selectedItems[infoName].some((item)=>item.text ));
+                      cate.multiply
+                        ? (clicked = modalData[infoName].some(
+                            (item) => item.text == btn.value
+                          ))
+                        : (clicked = modalData[infoName].text == btn.value);
+                      return (
+                        <li className={styles.item} key={btn.value}>
+                          <button
+                            type="button"
+                            name={cate.name}
+                            value={btn.value}
+                            data-clicked={clicked}
+                            data-disabled={
+                              !isLoggedIn && idx2 != 0 ? "disabled" : null
+                            }
+                            onClick={(e) => {
+                              modalBtnClick(
+                                e,
+                                infoName,
+                                cate.multiply,
+                                btn.order
+                              );
+                            }}
+                          >
+                            {btn.text}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ol>
                 </li>
-                <li className={styles.item}>
-                  <button type="button">사업화 지원</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">시설공간</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">인건비 지원</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">마케팅 홍보</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">멘토링·교육</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">대출·융자</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">R&D</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">행사</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">기타</button>
-                </li>
-              </ul>
-            </div>
-          ) : step == 1 ? (
-            <div className={styles.tabCont}>
-              <div className={styles.title}>
-                <h5 className={styles.required}>사업분야</h5>
-                <span>(중복가능)</span>
-              </div>
-              <ul className={styles.itemWrap}>
-                <li className={styles.item}>
-                  <button type="button">전체</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">제조</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">지식서비스</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">융합</button>
-                </li>
-              </ul>
-              <div className={styles.title}>
-                <h5 className={styles.required}>기술분야</h5>
-                <span>(중복가능)</span>
-              </div>
-              <ul className={styles.itemWrap}>
-                <li className={styles.item}>
-                  <button type="button">전체</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">딥테크</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">ICT</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">제조/하드웨어</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">푸드/농업</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">커머스</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">물류/유통</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">헬스케어/바이오</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">환경/에너지</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">3D 프린팅</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">R&D</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">교육</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">홈리빙/펫</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">여행/레저/스포츠</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">금융/보험/핀테크</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">자동차/모빌리티/교통</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">통신/보안/데이터</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">공예/디자인</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">기타</button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div className={styles.tabCont}>
-              <div className={styles.title}>
-                <h5>지역선택</h5>
-                <span>(중복가능)</span>
-              </div>
-              <ul className={styles.itemWrap}>
-                <li className={styles.item}>
-                  <button type="button">전국</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">서울</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">경기</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">인천</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">강원</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">부산</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">대구</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">대전</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">광주</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">경북</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">경남</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">충북</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">충남</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">전북</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">전남</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">울산</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">세종</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">제주</button>
-                </li>
-                <li className={styles.item}>
-                  <button type="button">전체</button>
-                </li>
-              </ul>
-            </div>
-          )}
+              );
+            })}
+          </ul>
         </div>
         <div className={styles.confirmArea}>
           <button
@@ -261,7 +169,11 @@ const FilterModal = ({ modalOpener }) => {
           >
             닫기
           </button>
-          <button type="button" className={styles.btnSubmit}>
+          <button
+            type="button"
+            className={styles.btnSubmit}
+            onClick={modalDataSubmit}
+          >
             선택 완료
           </button>
         </div>
