@@ -1,7 +1,7 @@
 @import "scss/utils";
 
 .Home {
-  background: $color-lightGray;
+  background: $color-bgGray;
   padding-bottom: 110px;
   margin-top: -60px;
   & + [class*="Footer"] {

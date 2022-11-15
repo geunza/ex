@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
-import HomeListItem from "components/home/HomeListItem";
+import BoxListItem from "components/BoxListItem";
 import styles from "scss/components/home/HomeSupport.module.scss";
 const HomeSupport = ({}) => {
   const [homeSupport, setHomeSupport] = useState([]);
@@ -30,11 +30,13 @@ const HomeSupport = ({}) => {
               <h4 className={styles.supportCate}>{item.category}</h4>
               <div className={styles.supportList}>
                 {item.Item.map((list, idx) => (
-                  <HomeListItem
+                  <BoxListItem
                     key={idx}
                     item={list}
+                    commentShow={false}
+                    viewShow={true}
                     likeShow={false}
-                    styles={styles}
+                    url={"/support/supportView/"}
                   />
                 ))}
               </div>

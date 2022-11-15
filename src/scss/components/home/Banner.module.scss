@@ -4,6 +4,7 @@
   position: relative;
   .swiper {
     @include shadowBox;
+    background: $color-bgGray;
   }
   .slide {
     position: relative;

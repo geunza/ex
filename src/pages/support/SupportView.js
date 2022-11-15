@@ -6,6 +6,14 @@ const SupportView = ({}) => {
       <div className={`inner`}>
         <div>SupportView</div>
       </div>
+
+      <style>
+        {"\
+        body{\
+          background-color:#fff;\
+        }\
+      "}
+      </style>
     </>
   );
 };

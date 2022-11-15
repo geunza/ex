@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import HomeListItem from "components/home/HomeListItem";
+import BoxListItem from "components/BoxListItem";
 import styles from "scss/components/home/HomeCommunity.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
+import HomeCommunityItem from "./HomeCommunityItem";
 const HomeCommunity = ({}) => {
   const [community, setCommunity] = useState([]);
   const getCommunity = () => {
@@ -40,7 +41,7 @@ const HomeCommunity = ({}) => {
             {community.map((item, i) => {
               return (
                 <SwiperSlide className={styles.swiperSlide} key={item.id}>
-                  <HomeListItem item={item} likeShow={true} styles={styles} />
+                  <HomeCommunityItem item={item} styles={styles} />
                 </SwiperSlide>
               );
             })}

@@ -41,7 +41,7 @@ button,
 select {
   font-family: inherit;
   color: inherit;
-  margin:0; 
+  margin: 0;
 }
 button {
   background: transparent;
@@ -52,7 +52,7 @@ a {
   color: inherit;
 }
 body {
-  // background: $color-lightGray;
+  background: $color-lightGray;
   font-family: "GmarketSans", sans-serif;
   color: #222222;
   @include mobile {

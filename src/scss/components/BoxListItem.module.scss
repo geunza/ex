@@ -1,0 +1,50 @@
+@import "scss/utils";
+
+.BoxListItem {
+  background-color: #fff;
+  width: 49%;
+  border-radius: $radius-wrap;
+  &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
+    margin-bottom: 2%;
+  }
+  //
+  a {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 25px;
+    height: 100%;
+    .title {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 20px;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+    .writer {
+      margin: 10px 0 auto;
+      font-size: 15px;
+    }
+    .countArea {
+      //
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      font-size: 14px;
+      p {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+      }
+      span {
+        padding-top: 3px;
+      }
+    }
+  }
+}
