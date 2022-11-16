@@ -28,6 +28,7 @@ const CommunityList = ({}) => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadingStart());
 
@@ -234,7 +235,33 @@ const CommunityList = ({}) => {
                   댓글 많은 순
                 </button>
               </div>
-              <div className="searchAndWrite"></div>
+              <div className={styles.searchAndWrite}>
+                <form action="###">
+                  <input type="text" placeholder="키워드를 검색해 보세요." />
+                  <button type="submit">
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/ico/ico_search_black.png"
+                      }
+                      alt="SEARCH"
+                    ></img>
+                  </button>
+                </form>
+                <Link
+                  to="/community/communityWrite"
+                  className={styles.btnWrite}
+                >
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_write.png"
+                    }
+                    alt="게시글 작성"
+                  />
+                  <span>게시글 작성</span>
+                </Link>
+              </div>
             </div>
             {posts.length > 0 ? (
               <>
@@ -245,20 +272,22 @@ const CommunityList = ({}) => {
                     );
                   })}
                 </ul>
-                <Pagination
-                  total={posts.length}
-                  postLimit={limit}
-                  numLimit={5}
-                  page={parseInt(page)}
-                  searchParams={searchParams}
-                  cate={cate}
-                  ord={ord}
-                />
               </>
             ) : (
               <div>없어용</div>
             )}
-
+            <div className={styles.bottomBtns}>
+              <Link to="/community/communityWrite" className={styles.btnWrite}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_write.png"
+                  }
+                  alt="게시글 작성"
+                />
+                <span>게시글 작성</span>
+              </Link>
+            </div>
             {/* {posts.length > 0 && (
           <Pagination
             total={posts.length}
@@ -270,6 +299,15 @@ const CommunityList = ({}) => {
           />
         )} */}
           </div>
+          <Pagination
+            total={posts.length}
+            postLimit={limit}
+            numLimit={5}
+            page={parseInt(page)}
+            searchParams={searchParams}
+            cate={cate}
+            ord={ord}
+          />
         </div>
       </div>
     </div>

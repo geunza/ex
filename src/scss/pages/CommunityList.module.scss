@@ -2,7 +2,9 @@
 
 .CommunityList {
   .titleArea {
-    //
+    margin-top: -60px;
+    padding-top: 60px;
+    background: #fff;
     .inner {
       display: flex;
       justify-content: space-between;
@@ -31,6 +33,7 @@
         padding: 15px 30px;
         display: flex;
         align-items: center;
+        gap: 10px;
         span {
           padding-top: 3px;
         }
@@ -68,7 +71,10 @@
       .banner {
         width: 38%;
         :global #pagination {
-          display: none;
+          justify-content: flex-end;
+          bottom: unset;
+          bottom: none;
+          top: -20px;
         }
       }
     }
@@ -98,15 +104,18 @@
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid $color-borderGray;
+      gap: 90px;
       .btns {
         display: flex;
         gap: 10px;
         align-items: center;
+        flex: 0 1 auto;
         button {
           font-size: 18px;
           padding: 12px 32px 10px;
           border: 1px solid $color-borderGray;
           border-radius: 20px;
+          white-space: nowrap;
           &[data-selected="selected"] {
             background: #222;
             border-color: #222;
@@ -115,8 +124,59 @@
         }
       }
     }
+    .searchAndWrite {
+      display: flex;
+      align-items: center;
+      width: 50%;
+      flex: 1 1 auto;
+      gap: 35px;
+      form {
+        display: flex;
+        flex: 1 1 auto;
+        height: 100%;
+        position: relative;
+        input[type="text"] {
+          border: 1px solid $color-borderGray;
+          height: auto;
+          width: 100%;
+          padding: 0 50px 0 15px;
+          font-size: 18px;
+        }
+        button[type="submit"] {
+          border: none;
+          position: absolute;
+          right: 0;
+          height: 100%;
+          img {
+            display: block;
+          }
+        }
+      }
+    }
+    .btnWrite {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #222;
+      border-radius: 40px;
+      padding: 12px 30px;
+      white-space: nowrap;
+      img {
+      }
+      span {
+        font-size: 18px;
+        padding-top: 4px;
+      }
+    }
     .listItemWrap {
       padding: 0 50px;
+    }
+    .bottomBtns {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 35px 30px 70px;
     }
     //
   }

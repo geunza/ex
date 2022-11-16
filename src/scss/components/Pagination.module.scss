@@ -8,10 +8,11 @@
   gap: 10px;
   button {
     @include flexCenter;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: 1px solid $color-borderGray;
+    background: #fff;
     span {
       font-size: 14px;
       padding-top: 2px;
@@ -28,7 +29,7 @@
     &.first,
     &.last {
       width: auto;
-      padding: 0 10px;
+      padding: 0 8px;
       white-space: nowrap;
     }
     &.first {

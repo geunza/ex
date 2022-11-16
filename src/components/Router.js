@@ -13,6 +13,7 @@ import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
 import CommunityList from "pages/community/CommunityList";
 import CommunityView from "pages/community/CommunityView";
+import CommunityWrite from "pages/community/CommunityWrite";
 import SupportList from "pages/support/SupportList";
 import SupportView from "pages/support/SupportView";
 import Loading from "components/Loading";
@@ -32,6 +33,10 @@ const AppRouter = ({}) => {
           <Route
             path="/community/communityView/:id"
             element={<CommunityView />}
+          ></Route>
+          <Route
+            path="/community/communityWrite"
+            element={<CommunityWrite />}
           ></Route>
           <Route path="/support/supportList" element={<SupportList />}></Route>
           <Route path="/support/supportView/" element={<SupportView />}></Route>

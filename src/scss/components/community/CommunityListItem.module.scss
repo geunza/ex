@@ -67,13 +67,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    p {
+    .rightInform {
       font-size: 14px;
       color: $color-gray;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      position: relative;
       span {
         padding-top: 2px;
         font-weight: 500;
@@ -81,6 +82,25 @@
       .myPost {
         border: none;
       }
+      .controlBox {
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+        padding: 10px 0;
+        @include shadowBox;
+
+        button {
+          width: 80px;
+          border: none;
+          font-size: 16px;
+          padding: 6px 0 4px;
+          color: $color-gray;
+        }
+      }
     }
+  }
+  :global .modalWrap {
+    background: transparent;
   }
 }

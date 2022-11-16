@@ -10,7 +10,10 @@ import EventModal from "components/home/EventModal";
 import Loading from "components/Loading";
 import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { modalOverflow } from "store";
 const Home = ({}) => {
+  const dispatch = useDispatch();
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
@@ -29,19 +32,7 @@ const Home = ({}) => {
     }
   };
   useEffect(() => {
-    if (modalOn) {
-      document.body.style.cssText = `
-        position: fixed;
-        top: -${window.scrollY}px;
-        overflow-y: scroll;
-        width: 100%;
-      `;
-      return () => {
-        const scrollY = document.body.style.top;
-        document.body.style.cssText = "";
-        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-      };
-    }
+    dispatch(modalOverflow(modalOn));
   }, [modalOn]);
   return (
     <>

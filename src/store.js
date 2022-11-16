@@ -69,6 +69,29 @@ let userInfo = createSlice({
 });
 export let { setUserInfo, removeUserInfo } = userInfo.actions;
 
+let modalState = createSlice({
+  name: "modalState",
+  initialState: false,
+  reducers: {
+    modalOverflow(state, action) {
+      console.log(action.payload);
+      if (action.payload) {
+        document.body.style.cssText = `
+        position: fixed;
+        top: -${window.scrollY}px;
+        overflow-y: scroll;
+        width: 100%;
+        `;
+      } else {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = "";
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
+      return false;
+    },
+  },
+});
+export let { modalOverflow } = modalState.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
@@ -76,5 +99,6 @@ export default configureStore({
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
     supportInfo: supportInfo.reducer,
+    modalState: modalState.reducer,
   },
 });
