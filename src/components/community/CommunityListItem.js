@@ -2,24 +2,31 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "scss/components/community/CommunityListItem.module.scss";
-const CommunityListItem = ({ post }) => {
+import { useDispatch } from "react-redux";
+import { modalOverflow } from "store";
+import CommunityListModal from "components/community/CommunityListModal";
+const CommunityListItem = ({ post, modalOn, modalOpener }) => {
+  const dispatch = useDispatch();
   const [controlBox, setControlBox] = useState(false);
-
-  const modalOpener = (e) => {
+  const btnPostClick = (e) => {
     const {
-      currentTarget: { name },
+      currentTarget: { name, value },
     } = e;
+    console.log(value);
     if (name == "modify") {
-      console.log("modify입니당");
+      //수정버튼
+      console.log("btnModifyClick", value);
     } else if (name == "delete") {
-      console.log("delete입니당");
-    } else if (name == "report") {
-      console.log("report입니당");
+      //삭제버튼
+      console.log("btnDeleteClick", value);
     } else if (name == "block") {
-      console.log("block입니당");
+      //차단버튼
+      console.log("btnBlockClick", value);
+    } else {
+      //에러
+      console.log("ELSE");
     }
   };
-
   return (
     <>
       <li className={styles.CommunityListItem}>
@@ -90,16 +97,26 @@ const CommunityListItem = ({ post }) => {
                 alt="내 게시글 관리"
               />
             </button>
-            {controlBox &&
+            {!controlBox &&
               (controlBox ? ( // userInform == createInform 으로 변경예정
                 <ul className={styles.controlBox}>
                   <li>
-                    <button type="button" name="modify" onClick={modalOpener}>
+                    <button
+                      type="button"
+                      name="modify"
+                      value={post.id}
+                      onClick={btnPostClick}
+                    >
                       수정
                     </button>
                   </li>
                   <li>
-                    <button type="button" name="delete" onClick={modalOpener}>
+                    <button
+                      type="button"
+                      name="delete"
+                      value={post.id}
+                      onClick={btnPostClick}
+                    >
                       삭제
                     </button>
                   </li>
@@ -107,12 +124,23 @@ const CommunityListItem = ({ post }) => {
               ) : (
                 <ul className={styles.controlBox}>
                   <li>
-                    <button type="button" name="report" onClick={modalOpener}>
+                    <button
+                      type="button"
+                      name="report"
+                      value={true}
+                      data-id={post.id}
+                      onClick={modalOpener}
+                    >
                       신고
                     </button>
                   </li>
                   <li>
-                    <button type="button" name="block" onClick={modalOpener}>
+                    <button
+                      type="button"
+                      name="block"
+                      value={post.id}
+                      onClick={btnPostClick}
+                    >
                       차단
                     </button>
                   </li>
@@ -120,9 +148,11 @@ const CommunityListItem = ({ post }) => {
               ))}
           </div>
         </div>
-        {/* <div className="modalWrap">
-          <div className="modalInner">asdfasdf</div>
-        </div> */}
+        {modalOn.current &&
+        modalOn.type == "report" &&
+        modalOn.id == post.id ? (
+          <CommunityListModal modalOn={modalOn} modalOpener={modalOpener} />
+        ) : null}
       </li>
     </>
   );

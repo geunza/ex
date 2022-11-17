@@ -38,7 +38,8 @@ img {
 }
 input,
 button,
-select {
+select,
+textarea {
   font-family: inherit;
   color: inherit;
   margin: 0;
@@ -87,6 +88,8 @@ body {
   .modalInner {
     background: #fff;
     border-radius: $radius-wrap;
+    overflow-y: auto;
+    max-height: 100%;
     padding: 0;
     overflow: hidden;
     width: 700px;

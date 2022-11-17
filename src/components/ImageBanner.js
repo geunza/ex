@@ -42,15 +42,16 @@ const ImageBanner = () => {
           // onSwiper={(swiper) => console.log(swiper)}
           // onSlideChange={() => console.log("slide change")}
         >
-          {banner.map((v, i) => {
-            return (
-              <SwiperSlide className={styles.slide} key={i}>
-                <Link to={v.link}>
-                  <img src={process.env.PUBLIC_URL + v.src} alt={v.text} />
-                </Link>
-              </SwiperSlide>
-            );
-          })}
+          {banner &&
+            banner.map((v, i) => {
+              return (
+                <SwiperSlide className={styles.slide} key={i}>
+                  <Link to={v.link}>
+                    <img src={process.env.PUBLIC_URL + v.src} alt={v.text} />
+                  </Link>
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
         <div id="pagination" className={styles.pagination}></div>
 

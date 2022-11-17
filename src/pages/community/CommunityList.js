@@ -15,12 +15,12 @@ import Pagination from "components/Pagination";
 import { useDispatch } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
 import BoxListItem from "components/BoxListItem";
+import CommunityListModal from "components/community/CommunityListModal";
 const CommunityList = ({}) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [cate, setCate] = useState("");
   const [ord, setOrd] = useState("");
-
   const navigate = useNavigate();
   const [postData, setPostData] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -28,7 +28,25 @@ const CommunityList = ({}) => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const dispatch = useDispatch();
+  const [comSearchText, setComSearchText] = useState("");
+  const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
 
+  const modalOpener = (e) => {
+    const {
+      currentTarget: {
+        name,
+        value,
+        dataset: { id },
+      },
+    } = e;
+    const isTrue = value == "true";
+    if (isTrue) {
+      setModalOn({ current: true, type: name, id: id });
+    } else {
+      setModalOn({ current: false, type: "", id: "" });
+    }
+    // dispatch(modalOverflow(false));
+  };
   useEffect(() => {
     dispatch(loadingStart());
 
@@ -72,6 +90,16 @@ const CommunityList = ({}) => {
     }
     setParam(current);
   };
+
+  const communitySearch = (e) => {
+    e.preventDefault();
+    const value = comSearchText;
+    if (true) {
+      //검색 기준에 부합하면
+      console.log(comSearchText);
+      setComSearchText("");
+    }
+  };
   useEffect(() => {
     setPosts(postData);
   }, [postData]);
@@ -108,7 +136,12 @@ const CommunityList = ({}) => {
               />
               <span>내가 작성한 게시글/댓글</span>
             </button>
-            <button type="button">
+            <button
+              type="button"
+              name="blockedUser"
+              value={true}
+              onClick={modalOpener}
+            >
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -236,8 +269,15 @@ const CommunityList = ({}) => {
                 </button>
               </div>
               <div className={styles.searchAndWrite}>
-                <form action="###">
-                  <input type="text" placeholder="키워드를 검색해 보세요." />
+                <form action="###" onSubmit={communitySearch}>
+                  <input
+                    type="text"
+                    placeholder="키워드를 검색해 보세요."
+                    value={comSearchText}
+                    onChange={(e) => {
+                      setComSearchText(e.target.value);
+                    }}
+                  />
                   <button type="submit">
                     <img
                       src={
@@ -267,8 +307,18 @@ const CommunityList = ({}) => {
               <>
                 <ul className={styles.listItemWrap}>
                   {posts.slice(offset, offset + limit).map((post, i) => {
+                    let modalInform;
+                    modalOn.id == post.id
+                      ? (modalInform = modalOn)
+                      : (modalInform = {});
                     return (
-                      <CommunityListItem post={post} key={i} styles={styles} />
+                      <CommunityListItem
+                        post={post}
+                        key={i}
+                        styles={styles}
+                        modalOn={modalInform}
+                        modalOpener={modalOpener}
+                      />
                     );
                   })}
                 </ul>
@@ -310,6 +360,9 @@ const CommunityList = ({}) => {
           />
         </div>
       </div>
+      {modalOn.current && modalOn.type == "blockedUser" ? (
+        <CommunityListModal modalOn={modalOn} modalOpener={modalOpener} />
+      ) : null}
     </div>
   );
 };
