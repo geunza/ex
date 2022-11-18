@@ -28,13 +28,19 @@
       .filterItem {
         //
         margin-bottom: 25px;
+        button {
+          display: block;
+          border: none;
+          width: 100%;
+          text-align: left;
+        }
         .itemTit {
           display: flex;
           justify-content: space-between;
           align-items: center;
           font-size: 16px;
           margin-bottom: 10px;
-          button {
+          .arr {
             @include flexCenter;
             width: 20px;
             height: 20px;

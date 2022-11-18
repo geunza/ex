@@ -59,7 +59,6 @@ const SnsLogin = ({}) => {
                 <span>찜</span>
               </button>
               <button type="button" className={styles.btnCompany}>
-                {" "}
                 <img
                   src={
                     process.env.PUBLIC_URL +

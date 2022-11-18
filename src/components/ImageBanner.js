@@ -12,11 +12,13 @@ const ImageBanner = () => {
   const [banner, setBanner] = useState([]);
   const getBannerData = () => {
     axios({
-      method: "GET",
-      url: "/db/bannerData.json",
+      headers: {
+        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
+      },
+      method: "POST",
+      url: "/mainpage/getBannerList",
     }).then((res) => {
-      const data = res.data;
-      setBanner(data.banner);
+      setBanner(res.data);
     });
   };
   const swiperParam = {
@@ -39,15 +41,16 @@ const ImageBanner = () => {
           autoplay={swiperParam.autoplay}
           pagination={swiperParam.pagination}
           className={styles.swiper}
+          loop={true}
           // onSwiper={(swiper) => console.log(swiper)}
           // onSlideChange={() => console.log("slide change")}
         >
           {banner &&
-            banner.map((v, i) => {
+            banner.map((img, idx) => {
               return (
-                <SwiperSlide className={styles.slide} key={i}>
-                  <Link to={v.link}>
-                    <img src={process.env.PUBLIC_URL + v.src} alt={v.text} />
+                <SwiperSlide className={styles.slide} key={idx}>
+                  <Link to={img.link}>
+                    <img src={img.banner_img} alt={img.banner_title} />
                   </Link>
                 </SwiperSlide>
               );

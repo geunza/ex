@@ -14,7 +14,7 @@ import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
 import { useDispatch } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
-import BoxListItem from "components/BoxListItem";
+import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityListModal from "components/community/CommunityListModal";
 const CommunityList = ({}) => {
   const location = useLocation();
@@ -24,13 +24,15 @@ const CommunityList = ({}) => {
   const navigate = useNavigate();
   const [postData, setPostData] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [popular, setPopular] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const dispatch = useDispatch();
   const [comSearchText, setComSearchText] = useState("");
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
-
+  const [axiosLEng, setAxiosLeng] = useState(0);
+  const [controlBox, setControlBox] = useState({ id: "" });
   const modalOpener = (e) => {
     const {
       currentTarget: {
@@ -47,25 +49,40 @@ const CommunityList = ({}) => {
     }
     // dispatch(modalOverflow(false));
   };
-  useEffect(() => {
-    dispatch(loadingStart());
-
+  const getCommunityList = () => {
     axios({
       headers: {
         "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
       },
       method: "GET",
       url: `/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`,
-    })
-      .then((res) => {
-        const data = res.data;
-        return setPostData(data);
-      })
-      .then(() => {
-        dispatch(loadingEnd());
-      });
+    }).then((res) => {
+      const data = res.data;
+      setPostData(data);
+      setAxiosLeng((prev) => prev + 1);
+    });
+  };
+  const getCommunityPopular = () => {
+    axios({
+      headers: {
+        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
+      },
+      method: "POST",
+      url: `/mobile/community/popularAll`,
+    }).then((res) => {
+      setPopular(res.data);
+      setAxiosLeng((prev) => prev + 1);
+    });
+  };
+  useEffect(() => {
+    dispatch(loadingStart());
+    getCommunityList();
+    getCommunityPopular();
   }, []);
 
+  useEffect(() => {
+    axiosLEng == 2 && dispatch(loadingEnd());
+  }, [axiosLEng]);
   const btnSorting = (e) => {
     const {
       currentTarget: { name, value },
@@ -105,6 +122,7 @@ const CommunityList = ({}) => {
       setComSearchText("");
     }
   };
+
   useEffect(() => {
     setPosts(postData);
   }, [postData]);
@@ -166,9 +184,9 @@ const CommunityList = ({}) => {
             <div className={styles.topCont}>
               <div className={styles.popular}>
                 <div className={styles.listWrap}>
-                  {posts.slice(0, 3).map((item, idx) => {
+                  {popular.map((item, idx) => {
                     return (
-                      <BoxListItem
+                      <BoxListItemCommunity
                         item={item}
                         writerShow={true}
                         commentShow={true}
@@ -316,6 +334,10 @@ const CommunityList = ({}) => {
                     modalOn.id == post.id
                       ? (modalInform = modalOn)
                       : (modalInform = {});
+                    let controlBoxOpen;
+                    controlBox.id == post.id
+                      ? (controlBoxOpen = true)
+                      : (controlBoxOpen = false);
                     return (
                       <CommunityListItem
                         post={post}
@@ -323,6 +345,9 @@ const CommunityList = ({}) => {
                         styles={styles}
                         modalOn={modalInform}
                         modalOpener={modalOpener}
+                        controlBox={controlBox}
+                        setControlBox={setControlBox}
+                        controlBoxOpen={controlBoxOpen}
                       />
                     );
                   })}

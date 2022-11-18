@@ -37,7 +37,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
         navigate("/support/supportList");
       } else {
         e.preventDefault();
-        alert("로그인하세용");
+        alert("로그인이 필요합니다.");
       }
     } else if (name == "noLogin") {
       navigate("/support/supportList");
@@ -106,6 +106,10 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
                             name="Modal1"
                             value={true}
                             onClick={(e) => {
+                              if (!isLoggedIn) {
+                                alert("로그인이 필요합니다.");
+                                return false;
+                              }
                               setModalStep(i);
                               modalOpener(e);
                             }}

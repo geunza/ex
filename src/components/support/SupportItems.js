@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "scss/components/support/SupportItems.module.scss";
+import axios from "axios";
 const SupportItems = () => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const navigate = useNavigate();
@@ -22,6 +23,20 @@ const SupportItems = () => {
     } = e;
     setOrd(value);
   };
+  const getSupportData = () => {
+    axios({
+      headers: {
+        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
+      },
+      method: "POST",
+      url: "/support/getSupportInfoList?select_cat=전체&ord=전체&cnt_sql=0",
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+  useEffect(() => {
+    getSupportData();
+  }, []);
   return (
     <>
       <div className={styles.supportItems}>

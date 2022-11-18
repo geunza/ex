@@ -36,7 +36,7 @@ const FilterModal = ({
       target: { value },
     } = e;
     if (!isLoggedIn) {
-      alert("로그인X");
+      alert("로그인이 필요합니다.");
       return false;
     }
     let copy = { ...modalData };

@@ -38,7 +38,7 @@ const FilterButton = ({
                   data-clicked={clicked}
                   onClick={(e) => {
                     !isLoggedIn && i2 != 0
-                      ? alert("로그인하세요")
+                      ? alert("로그인이 필요합니다.")
                       : infoBtnClick(e, infoName, v.multiply, v2.order);
                   }}
                   data-disabled={!isLoggedIn && i2 != 0 ? "disabled" : null}

@@ -29,27 +29,29 @@ const SupportFilter = ({}) => {
             {supportInfoArr.map((item, idx) => {
               return (
                 <li className={styles.filterItem} key={idx}>
-                  <div className={styles.itemTit}>
-                    <span>{item.name}</span>
-                    <button type="button">
-                      <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/public_assets/img/global/btn/btn_arr.png"
-                        }
-                        alt="Select"
-                      />
-                    </button>
-                  </div>
-                  <p>
-                    {Array.isArray(item.data)
-                      ? item.data.length > 1
-                        ? `${item.data[0].text} 외 ${item.data.length - 1}건`
-                        : item.data.length == 1
-                        ? item.data[0].text
-                        : "없어용"
-                      : item.data.text}
-                  </p>
+                  <button type="button">
+                    <div className={styles.itemTit}>
+                      <span>{item.name}</span>
+                      <div className={styles.arr}>
+                        <img
+                          src={
+                            process.env.PUBLIC_URL +
+                            "/public_assets/img/global/btn/btn_arr.png"
+                          }
+                          alt="Select"
+                        />
+                      </div>
+                    </div>
+                    <p>
+                      {Array.isArray(item.data)
+                        ? item.data.length > 1
+                          ? `${item.data[0].text} 외 ${item.data.length - 1}건`
+                          : item.data.length == 1
+                          ? item.data[0].text
+                          : "없어용"
+                        : item.data.text}
+                    </p>
+                  </button>
                 </li>
               );
             })}

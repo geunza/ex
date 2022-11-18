@@ -3,37 +3,57 @@
 .CommunityView {
   //
   .btns {
-    margin-bottom: 15px;
-    button {
-      border: 1px solid #000;
+    margin-bottom: 55px;
+    .btnBack {
+      border: 1px solid $color-borderGray;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #fff;
+      padding: 10px 30px;
+      img {
+        display: block;
+      }
+      span {
+        padding-top: 4px;
+        font-size: 18px;
+      }
     }
   }
   .contWrap {
     border: 1px solid #000;
     border-radius: $radius-wrap;
-    padding: 15px;
+    padding: 55px 50px;
     background-color: #fff;
     .contTop {
-      .titleArea {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        h3 {
-          //
+      .writer {
+        margin-bottom: 70px;
+        .nickname {
           font-size: 20px;
+          margin-bottom: 5px;
+          line-height: 1;
+        }
+        .time {
+          font-size: 14px;
+          color: $color-gray;
+        }
+      }
+      .titleArea {
+        padding: 0 15px;
+        h3 {
+          font-size: 40px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          margin-bottom: 40px;
         }
-        button {
-          //
-        }
-      }
-      .writer {
       }
     }
     .cont {
-      //
+      padding: 0 15px;
+      color: $color-deepGray;
+      font-size: 22px;
     }
     .btnLike {
       text-align: center;

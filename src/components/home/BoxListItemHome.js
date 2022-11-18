@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "scss/components/BoxListItem.module.scss";
-const BoxListItem = ({
+const BoxListItemHome = ({
   item,
   writerShow,
   commentShow,
@@ -13,8 +13,8 @@ const BoxListItem = ({
     <>
       <div className={styles.BoxListItem}>
         <Link to={`${url}${item.id}`}>
-          <h5 className={styles.title}>{item.title}</h5>
-          {writerShow && <p className={styles.writer}>{item.usernickname}</p>}
+          <h5 className={styles.title}>{item.si_title}</h5>
+          {writerShow && <p className={styles.writer}>{item.target_name}</p>}
           <div className={styles.countArea}>
             {commentShow && (
               <p>
@@ -37,7 +37,7 @@ const BoxListItem = ({
                   }
                   alt="View count"
                 />
-                <span>{item.like_count}</span>
+                <span>{item.lovely_cnt}</span>
               </p>
             )}
             {viewShow && (
@@ -49,7 +49,7 @@ const BoxListItem = ({
                   }
                   alt="like count"
                 />
-                <span>{item.view_count}</span>
+                <span>{item.view_cnt}</span>
               </p>
             )}
           </div>
@@ -58,4 +58,4 @@ const BoxListItem = ({
     </>
   );
 };
-export default BoxListItem;
+export default BoxListItemHome;

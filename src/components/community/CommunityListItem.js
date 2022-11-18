@@ -5,9 +5,15 @@ import styles from "scss/components/community/CommunityListItem.module.scss";
 import { useDispatch } from "react-redux";
 import { modalOverflow } from "store";
 import CommunityListModal from "components/community/CommunityListModal";
-const CommunityListItem = ({ post, modalOn, modalOpener }) => {
+const CommunityListItem = ({
+  post,
+  modalOn,
+  modalOpener,
+  controlBox,
+  setControlBox,
+  controlBoxOpen,
+}) => {
   const dispatch = useDispatch();
-  const [controlBox, setControlBox] = useState(false);
   const btnPostClick = (e) => {
     const {
       currentTarget: { name, value },
@@ -26,6 +32,18 @@ const CommunityListItem = ({ post, modalOn, modalOpener }) => {
       //에러
       console.log("ELSE");
     }
+  };
+  const controlBoxClick = (id) => {
+    if (controlBox.id == id) {
+      setControlBox({ id: "" });
+      // console.log("있당");
+    } else {
+      setControlBox({ id: id });
+      // console.log("없당");
+    }
+    //console.log("id =>", id);
+    //console.log("controlBox =>", controlBox);
+    //console.log("controlBoxOpen =>", controlBoxOpen);
   };
   return (
     <>
@@ -86,7 +104,7 @@ const CommunityListItem = ({ post, modalOn, modalOpener }) => {
               type="button"
               className={styles.myPost}
               onClick={() => {
-                setControlBox((prev) => !prev);
+                controlBoxClick(post.id);
               }}
             >
               <img
@@ -97,8 +115,8 @@ const CommunityListItem = ({ post, modalOn, modalOpener }) => {
                 alt="내 게시글 관리"
               />
             </button>
-            {!controlBox &&
-              (controlBox ? ( // userInform == createInform 으로 변경예정
+            {controlBoxOpen &&
+              (controlBoxOpen ? ( // userInform == createInform 으로 변경예정
                 <ul className={styles.controlBox}>
                   <li>
                     <button

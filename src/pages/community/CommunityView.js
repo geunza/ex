@@ -9,6 +9,7 @@ const CommunityView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState({});
+  const [time, setTime] = useState("");
   const [cont, setCont] = useState("");
   const [cmtText, setCmtText] = useState("");
   const dispatch = useDispatch();
@@ -23,13 +24,26 @@ const CommunityView = () => {
     })
       .then((res) => {
         const data = res.data;
+        console.log(data);
         setPost(data);
         setCont(data.content);
+        setTime(() => getTime(data.cret_dt));
       })
       .then(() => {
         dispatch(loadingEnd());
       });
   }, []);
+  const getTime = (timeStamp) => {
+    const iso = new Date(timeStamp)
+      .toISOString()
+      .split("T")[0]
+      .replaceAll("-", ".");
+    const timeString = new Date(timeStamp)
+      .toTimeString()
+      .split(" ")[0]
+      .slice(0, 5);
+    return `${iso} ${timeString}`;
+  };
   const submitTest = (a) => {
     console.log(a);
   };
@@ -43,19 +57,26 @@ const CommunityView = () => {
     <>
       <div className={styles.CommunityView}>
         <div className={`inner ${styles.inner}`}>
-          <div>CommunityView {id}</div>
           <div className={styles.btns}>
-            <button onClick={() => navigate(-1)}>&lt; 전체 게시글</button>
+            <button onClick={() => navigate(-1)} className={styles.btnBack}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/btn/btn_back.png"
+                }
+                alt="전체 게시글"
+              />
+              <span>전체 게시글</span>
+            </button>
           </div>
           <div className={styles.contWrap}>
             <div className={styles.contTop}>
+              <div className={styles.writer}>
+                <p className={styles.nickname}>{post.usernickname}</p>
+                <p className={styles.time}>{time}</p>
+              </div>
               <div className={styles.titleArea}>
                 <h3 className={styles.title}>{post.title}</h3>
-                <button>...</button>
-              </div>
-              <div className={styles.writer}>
-                <span>{post.usernickname}</span>
-                <span>{post.cret_dt}</span>
               </div>
             </div>
             <div
