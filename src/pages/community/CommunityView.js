@@ -14,7 +14,7 @@ const CommunityView = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadingStart());
-    axios(`/mobile/community/one?id=${id}`)
+    axios(`https://exitobiz.co.kr/mobile/community/one?id=${id}`)
       .then((res) => {
         const data = res.data;
         setPost(data);

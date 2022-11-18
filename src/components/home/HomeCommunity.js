@@ -14,14 +14,18 @@ const HomeCommunity = ({}) => {
   const getCommunity = () => {
     axios({
       method: "GET",
-      url: "/mobile/community/all?select_cat=전체&ord=인기순&cnt_sql=1",
+      url: "https://exitobiz.co.kr/mobile/community/all?select_cat=전체&ord=인기순&cnt_sql=1",
     }).then((res) => {
+      console.log(res);
       setCommunity(res.data.slice(0, 3));
     });
   };
   useEffect(() => {
     getCommunity();
   }, []);
+  useEffect(() => {
+    console.log(community);
+  }, [community]);
   return (
     <>
       <div className={styles.HomeCommunity}>

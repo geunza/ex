@@ -50,7 +50,9 @@ const CommunityList = ({}) => {
   useEffect(() => {
     dispatch(loadingStart());
 
-    axios(`/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`)
+    axios(
+      `https://exitobiz.co.kr/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`
+    )
       .then((res) => {
         const data = res.data;
         return setPostData(data);
