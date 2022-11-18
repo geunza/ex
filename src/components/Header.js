@@ -32,6 +32,8 @@ const Header = ({}) => {
   };
   return (
     <>
+      <img src="/public_assets/img/home/sns_kakao.png" alt="Kakao Icon" />
+      <img src="/public_assets/img/LOGO.png" alt="HEYSOME LOGO" />
       <div className={styles.Header}>
         <h1 className={styles.headerLogo}>
           <Link to="/">
