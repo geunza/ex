@@ -26,7 +26,7 @@ const HomeCommunityItem = ({ item, likeShow, styles }) => {
                 }
                 alt="View count"
               />
-              <span>{item.like_count}</span>
+              <span>{item.like_cnt}</span>
             </p>
           </div>
         </Link>

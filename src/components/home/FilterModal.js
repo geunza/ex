@@ -39,7 +39,6 @@ const FilterModal = ({
       alert("로그인X");
       return false;
     }
-    console.log(order);
     let copy = { ...modalData };
     if (copy[infoName].some((item) => item.text == value)) {
       copy[infoName] = copy[infoName].filter((item) => item.text != value);

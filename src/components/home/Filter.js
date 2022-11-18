@@ -67,7 +67,6 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   };
   useEffect(() => {
     setSelectedItems(supportInfo);
-    console.log(selectedItems);
   }, [supportInfo]);
   useEffect(() => {
     getFilterData();

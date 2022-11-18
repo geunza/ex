@@ -102,7 +102,6 @@ const CommunityList = ({}) => {
     const value = comSearchText;
     if (true) {
       //검색 기준에 부합하면
-      console.log(comSearchText);
       setComSearchText("");
     }
   };
