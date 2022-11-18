@@ -14,7 +14,13 @@ const CommunityView = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadingStart());
-    axios(`https://exitobiz.co.kr/mobile/community/one?id=${id}`)
+    axios({
+      headers: {
+        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
+      },
+      method: "GET",
+      url: `/mobile/community/one?id=${id}`,
+    })
       .then((res) => {
         const data = res.data;
         setPost(data);
