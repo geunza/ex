@@ -18,6 +18,7 @@ import SupportList from "pages/support/SupportList";
 import SupportView from "pages/support/SupportView";
 import Loading from "components/Loading";
 import { useSelector } from "react-redux";
+import SavedRecent from "pages/saved/SavedRecent";
 const AppRouter = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
@@ -40,6 +41,7 @@ const AppRouter = ({}) => {
           ></Route>
           <Route path="/support/supportList" element={<SupportList />}></Route>
           <Route path="/support/supportView/" element={<SupportView />}></Route>
+          <Route path="/saved/savedRecent" element={<SavedRecent />}></Route>
           <Route path="*" element={<Navigate replace to="/" />}></Route>
         </Routes>
         <Footer />

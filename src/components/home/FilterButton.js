@@ -21,13 +21,12 @@ const FilterButton = ({
         <ol>
           {v.btns.map((v2, i2) => {
             const infoName = v.infoName;
+            const target = selectedItems[infoName];
             let clicked;
             if (v.multiply) {
-              clicked = selectedItems[infoName].some(
-                (item) => item.text == v2.value
-              );
+              clicked = target.some((item) => item.text == v2.value);
             } else {
-              clicked = selectedItems[infoName].text == v2.value;
+              clicked = target.text == v2.value;
             }
             return (
               <li key={v2.value}>
@@ -39,7 +38,13 @@ const FilterButton = ({
                   onClick={(e) => {
                     !isLoggedIn && i2 != 0
                       ? alert("로그인이 필요합니다.")
-                      : infoBtnClick(e, infoName, v.multiply, v2.order);
+                      : infoBtnClick(
+                          e,
+                          infoName,
+                          v.multiply,
+                          v2.order,
+                          v.required
+                        );
                   }}
                   data-disabled={!isLoggedIn && i2 != 0 ? "disabled" : null}
                 >

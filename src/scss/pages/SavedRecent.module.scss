@@ -1,0 +1,17 @@
+.SavedRecent {
+  padding-bottom: 110px;
+  margin-bottom: -110px;
+  background-color: #fff;
+  .savedCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 50px;
+  }
+  .leftArea {
+    width: 76%;
+  }
+  .rightArea {
+    width: 20%;
+  }
+}

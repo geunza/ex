@@ -8,6 +8,8 @@ import axios from "axios";
 import styles from "scss/components/home/Filter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setSupportInfo } from "store/supportInfoSlice";
+import supportData1 from "db/supportData1";
+import supportData2 from "db/supportData2";
 const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportInfo = useSelector((state) => state.supportInfo);
@@ -19,14 +21,8 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
   const [modalStep, setModalStep] = useState(0);
   const [modalSet, setModalSet] = useState({});
   const getFilterData = () => {
-    axios.get("/db/supportData1.json").then((res) => {
-      const data = res.data;
-      setData1(data);
-    });
-    axios.get("/db/supportData2.json").then((res) => {
-      const data = res.data;
-      setData2(data);
-    });
+    setData1(supportData1);
+    setData2(supportData2);
   };
   const clickSubmit = (e) => {
     const {
@@ -48,7 +44,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
     console.log(e);
     e.preventDefault();
   };
-  const infoBtnClick = (e, infoName, multiply, order) => {
+  const infoBtnClick = (e, infoName, multiply, order, required) => {
     const {
       target: { value },
     } = e;
@@ -62,6 +58,7 @@ const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {
         value: value,
         multiply: multiply,
         order: order,
+        required: required,
       })
     );
   };

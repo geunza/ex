@@ -2,6 +2,7 @@
   {
     "name": "사업자형태",
     "infoName": "사업자형태",
+    "required": true,
     "multiply": false,
     "btns": [
       { "text": "예비창업자", "value": "예비창업자", "order": 0 },
@@ -12,6 +13,7 @@
   {
     "name": "창업기간",
     "infoName": "창업기간",
+    "required": true,
     "multiply": false,
     "btns": [
       { "text": "전체", "value": "전체", "order": 0 },
@@ -24,6 +26,7 @@
   {
     "name": "기업형태",
     "infoName": "기업형태",
+    "required": true,
     "multiply": true,
     "btns": [
       { "text": "전체", "value": "전체", "order": 0 },

@@ -20,12 +20,19 @@ let supportInfo = createSlice({
       const value = data.value;
       const multiply = data.multiply;
       const order = data.order;
+      const required = data.required;
       if (multiply) {
-        obj[name].some((item) => item.text == value)
-          ? (obj[name] = obj[name].filter((item) => item.text != value))
-          : (obj[name] = [...obj[name], { text: value, order: order }].sort(
-              (a, b) => a.order - b.order
-            ));
+        if (obj[name].some((item) => item.text == value)) {
+          if (multiply && obj[name].length == 1 && required) {
+            alert("한가지 이상 선택해주세요.");
+          } else {
+            obj[name] = obj[name].filter((item) => item.text != value);
+          }
+        } else {
+          obj[name] = [...obj[name], { text: value, order: order }].sort(
+            (a, b) => a.order - b.order
+          );
+        }
       } else {
         obj[name] = { text: value, order: order };
       }

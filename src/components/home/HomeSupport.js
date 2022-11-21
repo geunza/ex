@@ -14,22 +14,6 @@ const HomeSupport = ({}) => {
     { category: "예비창업자 대상", Item: [] },
   ]);
   const dispatch = useDispatch();
-  const getHomeSupport2 = () => {
-    dispatch(loadingStart());
-    axios({
-      headers: {
-        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
-      },
-      type: "POST",
-      url: "/db/HomeSupport.json",
-    })
-      .then((res) => {
-        setHomeSupport(res.data);
-      })
-      .then(() => {
-        dispatch(loadingEnd());
-      });
-  };
   const getHomeSupport = (url, idx) => {
     console.log(idx);
     axios({

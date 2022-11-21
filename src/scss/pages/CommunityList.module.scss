@@ -2,25 +2,16 @@
 
 .CommunityList {
   .titleArea {
-    margin-top: -60px;
-    padding-top: 60px;
-    background: #fff;
     .inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 20px;
     }
     .leftArea {
       //
       .title {
-        font-size: 36px;
-        font-weight: 700;
-        margin-bottom: 10px;
       }
       p {
-        font-size: 22px;
-        color: $color-deepGray;
       }
     }
     .rightArea {

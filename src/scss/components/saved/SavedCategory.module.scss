@@ -1,0 +1,21 @@
+@import "scss/utils";
+.SavedCategory {
+  display: flex;
+  .cateItem {
+    flex: 1;
+    width: 33.33%;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      padding-top: 2px;
+      .cate {
+        color: $color-gray;
+      }
+      .numb {
+        color: $color-main;
+      }
+    }
+  }
+}

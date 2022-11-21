@@ -1,35 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "scss/components/support/SupportRecent.module.scss";
-import { Link } from "react-router-dom";
-const SupportRecent = () => {
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { compose } from "@reduxjs/toolkit";
+const SupportRecent = ({ userInfo }) => {
+  const navigate = useNavigate();
+  const [savedBook, setSavedBook] = useState([]);
+  const getRecent = () => {
+    axios({
+      headers: { user_id: userInfo.userCode },
+      data: {
+        ord: "전체",
+      },
+      method: "POST",
+      url: "/saved/getRecentlyMySavedBook",
+    })
+      .then((res) => {
+        setSavedBook(res.data.slice(0, 3));
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  useEffect(() => {
+    getRecent();
+  }, []);
   return (
     <>
       <div className={styles.SupportRecent}>
         <h4>최근 본 지원사업</h4>
         <ul>
-          {Array(3)
-            .fill()
-            .map((_, idx) => {
-              return (
-                <li key={idx}>
-                  <Link to="###">
-                    <h5 className={styles.tit}>
-                      2022년 규제자유 특구혁신 사업육성 사업화
-                      지원(기업지원)(대전) 2022년 규제자유 특구혁신 사업육성
-                      사업화 지원(기업지원)(대전)2022년 규제자유 특구혁신
-                      사업육성 사업화 지원(기업지원)(대전)
-                    </h5>
-                    <p>
-                      <span className={styles.dueDate}>09.15 (일) 마감</span>
-                      <span className={styles.slash}>/</span>
-                      <span className={styles.moneyAmount}>6,000,000원</span>
-                    </p>
-                  </Link>
-                </li>
-              );
-            })}
+          {savedBook.map((item, idx) => {
+            const offset = 1000 * 60 * 60 * 9;
+            const timeStamp = new Date(item.si_end_dt - offset);
+            const YYMMDD = timeStamp.toISOString().split("T")[0].split("-");
+            const MM = YYMMDD[1];
+            const DD = YYMMDD[2];
+            const week = ["일", "월", "화", "수", "목", "금", "토"];
+            const day = week[timeStamp.getDay()];
+            const endTime = `${MM}.${DD} (${day}) 마감`;
+            const price = item.target_cost_value
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return (
+              <li key={idx}>
+                <Link to="###">
+                  <h5 className={styles.tit}>{item.si_title}</h5>
+                  <p>
+                    <span className={styles.dueDate}>{endTime}</span>
+                    <span className={styles.slash}>/</span>
+                    <span className={styles.moneyAmount}>{price}원</span>
+                  </p>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
-        <button className={styles.showAll}>
+        <button
+          className={styles.showAll}
+          onClick={() => {
+            navigate("/saved/savedRecent");
+          }}
+        >
           <span>전체보기</span>
         </button>
       </div>

@@ -38,6 +38,7 @@ const CommunityView = () => {
       .toISOString()
       .split("T")[0]
       .replaceAll("-", ".");
+    console.log(iso);
     const timeString = new Date(timeStamp)
       .toTimeString()
       .split(" ")[0]

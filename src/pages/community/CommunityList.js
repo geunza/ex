@@ -142,10 +142,10 @@ const CommunityList = ({}) => {
   }, []);
   return (
     <div className={styles.CommunityList}>
-      <div className={styles.titleArea}>
+      <div className={`commonTitleWrap ${styles.titleArea}`}>
         <div className={`${styles.inner} inner`}>
           <div className={styles.leftArea}>
-            <h3 className={styles.title}>커뮤니티</h3>
+            <h3 className={`title ${styles.title}`}>커뮤니티</h3>
             <p>창업에 필요한 정보를 공유하고 얻어가세요.</p>
           </div>
           <div className={styles.rightArea}>

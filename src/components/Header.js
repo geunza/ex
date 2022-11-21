@@ -44,7 +44,7 @@ const Header = ({}) => {
         <nav>
           <ul>
             <li>
-              <Link to="###">찜</Link>
+              <Link to="/saved/savedRecent">찜</Link>
             </li>
             <li>
               <Link to="/support/supportList">지원사업</Link>

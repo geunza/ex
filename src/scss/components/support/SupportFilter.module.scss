@@ -80,3 +80,45 @@
     }
   }
 }
+.supportModal {
+  .itemWrap {
+    padding: 25px;
+    ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    button {
+      height: 45px;
+      background: #eaeff3;
+      padding: 0 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      &[data-clicked="true"] {
+        background: #30d6c2;
+        color: #fff;
+      }
+    }
+  }
+  .confirmArea {
+    display: flex;
+    button {
+      border: none;
+      height: 50px;
+      &.btnClose {
+        //
+        width: 20%;
+        background: #aaa;
+        color: #fff;
+      }
+      &.btnSubmit {
+        //
+        width: 80%;
+        background: $color-main;
+        color: #fff;
+      }
+    }
+  }
+}

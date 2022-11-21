@@ -23,20 +23,6 @@ const SupportItems = () => {
     } = e;
     setOrd(value);
   };
-  const getSupportData = () => {
-    axios({
-      headers: {
-        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
-      },
-      method: "POST",
-      url: "/support/getSupportInfoList?select_cat=전체&ord=전체&cnt_sql=0",
-    }).then((res) => {
-      console.log(res);
-    });
-  };
-  useEffect(() => {
-    getSupportData();
-  }, []);
   return (
     <>
       <div className={styles.supportItems}>

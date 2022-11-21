@@ -55,7 +55,9 @@ export let { signIn, signOut } = isLoggedIn.actions;
 
 let userInfo = createSlice({
   name: "userInfo",
-  initialState: [],
+  initialState: {
+    userCode: 2379586568,
+  },
   reducers: {
     setUserInfo(state, action) {
       console.log(state);
