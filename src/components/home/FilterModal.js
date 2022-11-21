@@ -31,7 +31,8 @@ const FilterModal = ({
     dispatch(setSupportInfoModal(modalData));
     modalOpener({ currentTarget: { name: "Modal1", value: "false" } });
   };
-  const modalBtnClick = (e, infoName, order) => {
+  const modalBtnClick = (e, infoName, order, required) => {
+    console.log("required", required);
     const {
       target: { value },
     } = e;
@@ -136,7 +137,12 @@ const FilterModal = ({
                               !isLoggedIn && idx2 != 0 ? "disabled" : null
                             }
                             onClick={(e) => {
-                              modalBtnClick(e, infoName, btn.order);
+                              modalBtnClick(
+                                e,
+                                infoName,
+                                btn.order,
+                                cate.required
+                              );
                             }}
                           >
                             {btn.text}
