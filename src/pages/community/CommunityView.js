@@ -9,18 +9,19 @@ import CommunityViewReplyItem from "components/community/CommunityViewReplyItem"
 const CommunityView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const [post, setPost] = useState({});
   const [time, setTime] = useState("");
   const [cont, setCont] = useState("");
   const [reply, setReply] = useState([]);
-
+  const [files, setFiles] = useState([]);
   const [cmtText, setCmtText] = useState("");
-  const dispatch = useDispatch();
+  const [controlBox, setControlBox] = useState(false);
   let loadSum = 0;
   const loadEnd = () => {
     loadSum++;
-    if (loadSum == 3) {
+    if (loadSum >= 3) {
       dispatch(loadingEnd());
     }
   };
@@ -33,6 +34,7 @@ const CommunityView = () => {
       url: `/mobile/community/one?id=${id}`,
     }).then((res) => {
       const data = res.data;
+      console.log(data);
       setPost(data);
       setCont(data.content);
       setTime(() => getTime(data.cret_dt));
@@ -63,11 +65,24 @@ const CommunityView = () => {
       loadEnd();
     });
   };
-  const getFile = () => {};
+  const getFiles = () => {
+    axios({
+      url: "/mobile/community/getFile",
+      method: "POST",
+      data: {
+        // content_id: parseInt(id),
+        content_id: 97,
+      },
+    }).then((res) => {
+      setFiles(res.data);
+      loadEnd();
+    });
+  };
   useEffect(() => {
     dispatch(loadingStart());
     getContent();
     getReply();
+    getFiles();
   }, []);
   const submitTest = (a) => {
     console.log(a);
@@ -108,26 +123,77 @@ const CommunityView = () => {
               className={styles.cont}
               dangerouslySetInnerHTML={{ __html: cont }}
             ></div>
-            <div className={styles.btnLike}>
-              <button>공감</button>
+            <div className={styles.bottomBtns}>
+              <button type="button" className={styles.btnLike}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_like.png"
+                  }
+                  alt="like icon"
+                />
+                <span>Like Count</span>
+              </button>
+              <div className={styles.controlWrap}>
+                <button
+                  type="button"
+                  className={styles.btnControl}
+                  onClick={() => {
+                    setControlBox((prev) => !prev);
+                  }}
+                >
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_more.png"
+                    }
+                    alt="게시글 관리"
+                  />
+                </button>
+                {controlBox && (
+                  <ul className={styles.controlBox}>
+                    <li>
+                      <button type="button" name="report">
+                        신고
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" name="block">
+                        차단
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
             </div>
-          </div>
-          <div className={styles.fileArea}>
-            <span>첨부파일</span>
-            <ul>
-              <li>엑시토 사업계획서.pdf</li>
-              <li>엑시토 사업계획서.pdf</li>
-              <li>엑시토 사업계획서.pdf</li>
-            </ul>
+            {files.length > 0 && (
+              <ul className={styles.fileArea}>
+                {files.map((file, idx) => {
+                  return (
+                    <li key={idx}>
+                      <a href={file.file_url} download>
+                        {file.file_name}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
           <div className={styles.commentArea}>
             <ul className={styles.mainReplyWrap}>
               {reply.length > 0 &&
                 reply.map((item) => {
-                  return <CommunityViewReplyItem item={item} key={item.id} />;
+                  return (
+                    <CommunityViewReplyItem
+                      item={item}
+                      key={item.id}
+                      getReply={getReply}
+                    />
+                  );
                 })}
             </ul>
-            <div className="writeArea">
+            <div className={styles.writeArea}>
               <h4>댓글 작성</h4>
               <form
                 className={styles.iptArea}

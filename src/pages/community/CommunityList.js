@@ -12,23 +12,25 @@ import Banner from "components/ImageBanner";
 import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityListModal from "components/community/CommunityListModal";
 const CommunityList = ({}) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const userInfo = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [cate, setCate] = useState("");
   const [ord, setOrd] = useState("");
-  const navigate = useNavigate();
   const [postData, setPostData] = useState([]);
   const [posts, setPosts] = useState([]);
   const [popular, setPopular] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  const dispatch = useDispatch();
   const [comSearchText, setComSearchText] = useState("");
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
   const [axiosLEng, setAxiosLeng] = useState(0);
@@ -51,9 +53,6 @@ const CommunityList = ({}) => {
   };
   const getCommunityList = () => {
     axios({
-      headers: {
-        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
-      },
       method: "GET",
       url: `/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`,
     }).then((res) => {
@@ -65,7 +64,7 @@ const CommunityList = ({}) => {
   const getCommunityPopular = () => {
     axios({
       headers: {
-        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
+        user_id: userInfo.userCode,
       },
       method: "POST",
       url: `/mobile/community/popularAll`,

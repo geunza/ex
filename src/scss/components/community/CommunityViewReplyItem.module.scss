@@ -1,7 +1,6 @@
 @import "scss/utils";
 
-.mainReply {
-  padding: 15px 40px;
+.replyItem {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
@@ -43,5 +42,14 @@
     color: $color-deepGray;
     font-size: 18px;
     padding: 12px 20px 10px;
+  }
+  &.mainReply {
+    padding: 20px 40px;
+  }
+}
+.reReplyWrap {
+  width: 100%;
+  .reReply {
+    padding: 0 40px 0 50px;
   }
 }
