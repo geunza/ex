@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const HomeCommunityItem = ({ item, likeShow, styles }) => {
-  console.log(item);
   return (
     <>
       <div className={styles.HomeCommunityItem}>

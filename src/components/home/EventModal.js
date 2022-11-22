@@ -27,7 +27,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
             </>
           )}
         </div>
-        <div className={styles.confirmArea}>
+        <div className={`confirmArea ${styles.confirmArea}`}>
           <button
             type="button"
             name="Modal2"

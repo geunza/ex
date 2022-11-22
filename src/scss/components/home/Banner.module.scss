@@ -12,6 +12,7 @@
     background: #ccc;
     a {
       position: absolute;
+      display: block;
       left: 0;
       top: 0;
       display: flex;
@@ -21,6 +22,9 @@
       height: 100%;
       span {
         color: #fff;
+      }
+      img {
+        display: block;
       }
     }
   }

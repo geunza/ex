@@ -7,42 +7,36 @@ import BoxListItemHome from "components/home/BoxListItemHome";
 import styles from "scss/components/home/HomeSupport.module.scss";
 const HomeSupport = ({}) => {
   let count = 0;
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
   const [homeSupport, setHomeSupport] = useState([
     { category: "실시간인기", Item: [] },
     { category: "엑시토추천", Item: [] },
     { category: "찜인기", Item: [] },
     { category: "예비창업자 대상", Item: [] },
   ]);
-  const dispatch = useDispatch();
-  const getHomeSupport = (url, idx) => {
+  const getHomeSupport = (url, idx, cat) => {
     console.log(idx);
     axios({
       headers: {
-        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
+        user_id: userInfo.userCode,
       },
+      data: { cat: cat },
       method: "POST",
       url: url,
-    })
-      .then((res) => {
-        console.log("res", res);
-        let copy = [...homeSupport];
-        copy[idx].Item = res.data;
-        setHomeSupport(copy);
-      })
-      .catch((err) => {
-        console.log("ERR => " + idx);
-      });
-    // .catch((err) => console.log(err));
+    }).then((res) => {
+      let copy = [...homeSupport];
+      copy[idx].Item = res.data;
+      setHomeSupport(copy);
+    });
   };
   useEffect(() => {
-    getHomeSupport("/mainpage/getPopularList", 0); //
-    getHomeSupport("/mainpage/getPushBookList", 1); //
-    getHomeSupport("/mainpage/getPopularList", 2); //
-    getHomeSupport("/mainpage/getPopularList", 3); //
+    getHomeSupport("/mainpage/getPopularList", 0, "실시간인기"); //
+    getHomeSupport("/mainpage/getPushBookList", 1, "엑시토추천"); //
+    getHomeSupport("/mainpage/getPopularList", 2, "찜인기"); //
+    getHomeSupport("/mainpage/getPopularList", 3, "예비창업자"); //
   }, []);
-  useEffect(() => {
-    console.log(homeSupport);
-  }, [homeSupport]);
+
   return (
     <>
       <div className={styles.HomeSupport}>

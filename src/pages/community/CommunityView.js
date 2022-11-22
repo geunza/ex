@@ -3,48 +3,72 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "scss/pages/CommunityView.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
+import CommunityViewReplyItem from "components/community/CommunityViewReplyItem";
 const CommunityView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.userInfo);
   const [post, setPost] = useState({});
   const [time, setTime] = useState("");
   const [cont, setCont] = useState("");
+  const [reply, setReply] = useState([]);
+
   const [cmtText, setCmtText] = useState("");
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadingStart());
+  let loadSum = 0;
+  const loadEnd = () => {
+    loadSum++;
+    if (loadSum == 3) {
+      dispatch(loadingEnd());
+    }
+  };
+  const getContent = () => {
     axios({
       headers: {
         "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
       },
       method: "GET",
       url: `/mobile/community/one?id=${id}`,
-    })
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        setPost(data);
-        setCont(data.content);
-        setTime(() => getTime(data.cret_dt));
-      })
-      .then(() => {
-        dispatch(loadingEnd());
-      });
-  }, []);
-  const getTime = (timeStamp) => {
-    const iso = new Date(timeStamp)
-      .toISOString()
-      .split("T")[0]
-      .replaceAll("-", ".");
-    console.log(iso);
-    const timeString = new Date(timeStamp)
-      .toTimeString()
-      .split(" ")[0]
-      .slice(0, 5);
-    return `${iso} ${timeString}`;
+    }).then((res) => {
+      const data = res.data;
+      setPost(data);
+      setCont(data.content);
+      setTime(() => getTime(data.cret_dt));
+      loadEnd();
+    });
+    const getTime = (timeStamp) => {
+      const iso = new Date(timeStamp)
+        .toISOString()
+        .split("T")[0]
+        .replaceAll("-", ".");
+      const timeString = new Date(timeStamp)
+        .toTimeString()
+        .split(" ")[0]
+        .slice(0, 5);
+      return `${iso} ${timeString}`;
+    };
   };
+  const getReply = () => {
+    axios({
+      url: "/mobile/community/comment",
+      method: "POST",
+      headers: { user_id: userInfo.userCode },
+      data: {
+        content_id: parseInt(id),
+      },
+    }).then((res) => {
+      setReply(res.data);
+      loadEnd();
+    });
+  };
+  const getFile = () => {};
+  useEffect(() => {
+    dispatch(loadingStart());
+    getContent();
+    getReply();
+  }, []);
   const submitTest = (a) => {
     console.log(a);
   };
@@ -97,22 +121,30 @@ const CommunityView = () => {
             </ul>
           </div>
           <div className={styles.commentArea}>
-            <h4>댓글 작성</h4>
-            <form
-              className={styles.iptArea}
-              onSubmit={(e) => {
-                e.preventDefault();
-                submitTest();
-              }}
-            >
-              <textarea
-                rows="4"
-                placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
-                value={cmtText}
-                onChange={commentChange}
-              ></textarea>
-              <button type="submit">댓글 등록</button>
-            </form>
+            <ul className={styles.mainReplyWrap}>
+              {reply.length > 0 &&
+                reply.map((item) => {
+                  return <CommunityViewReplyItem item={item} key={item.id} />;
+                })}
+            </ul>
+            <div className="writeArea">
+              <h4>댓글 작성</h4>
+              <form
+                className={styles.iptArea}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  submitTest();
+                }}
+              >
+                <textarea
+                  rows="4"
+                  placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
+                  value={cmtText}
+                  onChange={commentChange}
+                ></textarea>
+                <button type="submit">댓글 등록</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

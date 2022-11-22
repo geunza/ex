@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "scss/components/support/SupportFilter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo } from "store/supportInfoSlice";
+import { setSupportInfo, setSupportInfoModal } from "store/supportInfoSlice";
 import { useEffect, useState } from "react";
 import supportData1 from "db/supportData1";
 import supportData2 from "db/supportData2";
@@ -13,27 +13,56 @@ const SupportFilter = ({ supportInfo }) => {
   const [supportInfoArr, setSupportInfoArr] = useState([]);
   const [currentModal, setCurrentModal] = useState("지원분야");
   const [modalOn, setModalOn] = useState(false);
+  const [dummyInfo, setDummyInfo] = useState({ ...supportInfo });
   const modalControl = (boo, name = "") => {
     setCurrentModal(name);
     setModalOn(boo);
     dispatch(modalOverflow(boo));
   };
-  const infoBtnClick = (e, infoName, multiply, order) => {
+  const infoBtnClick = (e, infoName, multiply, order, required) => {
     const {
       target: { value },
     } = e;
     if (!isLoggedIn) {
-      alert("로그인X");
+      alert("로그인이 필요합니다.");
       return false;
     }
-    dispatch(
-      setSupportInfo({
-        name: infoName,
-        value: value,
-        multiply: multiply,
-        order: order,
-      })
-    );
+    const obj = { ...dummyInfo };
+    if (multiply) {
+      if (obj[infoName].some((item) => item.text == value)) {
+        if (multiply && obj[infoName].length == 1 && required) {
+          alert("한가지 이상 선택해주세요.");
+        } else {
+          obj[infoName] = obj[infoName].filter((item) => item.text != value);
+        }
+      } else {
+        obj[infoName] = [...obj[infoName], { text: value, order: order }].sort(
+          (a, b) => a.order - b.order
+        );
+      }
+    } else {
+      obj[infoName] = { text: value, order: order };
+    }
+    setDummyInfo(obj);
+
+    /*
+        dispatch(
+          setSupportInfo({
+            name: infoName,
+            value: value,
+            multiply: multiply,
+            order: order,
+          })
+        );*/
+  };
+
+  const modalClose = () => {
+    setDummyInfo({ ...supportInfo });
+    modalControl(false);
+  };
+  const modalSubmit = () => {
+    dispatch(setSupportInfoModal({ ...dummyInfo }));
+    modalControl(false);
   };
   useEffect(() => {
     let arr = [];
@@ -46,7 +75,6 @@ const SupportFilter = ({ supportInfo }) => {
     }
     setSupportInfoArr(arr);
   }, [supportInfo]);
-  console.log(supportData2);
   return (
     <>
       <div className={styles.SupportFilter}>
@@ -112,14 +140,21 @@ const SupportFilter = ({ supportInfo }) => {
                     <li className={styles.itemWrap}>
                       <h5 className={v.required ? styles.required : null}>
                         {v.name}
+                        {v.multiply && (
+                          <span className={styles.multiply}>
+                            (중복선택가능)
+                          </span>
+                        )}
                       </h5>
                       <ol>
                         {v.btns.map((v2, i2) => {
                           const infoName = v.infoName;
+
                           const multiply = v.multiply;
                           const order = v2.order;
+                          const required = v.required;
                           let clicked;
-                          const target = supportInfo[v.infoName];
+                          const target = dummyInfo[v.infoName];
                           if (Array.isArray(target)) {
                             if (target.some((item) => item.text == v2.value)) {
                               clicked = true;
@@ -134,7 +169,13 @@ const SupportFilter = ({ supportInfo }) => {
                                 data-clicked={clicked}
                                 value={v2.value}
                                 onClick={(e) => {
-                                  infoBtnClick(e, infoName, multiply, order);
+                                  infoBtnClick(
+                                    e,
+                                    infoName,
+                                    multiply,
+                                    order,
+                                    required
+                                  );
                                 }}
                               >
                                 {v2.text}
@@ -158,8 +199,9 @@ const SupportFilter = ({ supportInfo }) => {
                             const infoName = v2.infoName;
                             const multiply = v2.multiply;
                             const order = v3.order;
+                            const required = v2.required;
                             let clicked;
-                            const target = supportInfo[v2.infoName];
+                            const target = dummyInfo[v2.infoName];
                             if (Array.isArray(target)) {
                               if (
                                 target.some((item) => item.text == v3.value)
@@ -176,7 +218,13 @@ const SupportFilter = ({ supportInfo }) => {
                                   data-clicked={clicked}
                                   value={v3.value}
                                   onClick={(e) => {
-                                    infoBtnClick(e, infoName, multiply, order);
+                                    infoBtnClick(
+                                      e,
+                                      infoName,
+                                      multiply,
+                                      order,
+                                      required
+                                    );
                                   }}
                                 >
                                   {v3.text}
@@ -191,15 +239,21 @@ const SupportFilter = ({ supportInfo }) => {
                 })}
             </ul>
 
-            <div className={styles.confirmArea}>
-              <button type="button" className={styles.btnClose}>
+            <div className={`confirmArea ${styles.confirmArea}`}>
+              <button
+                type="button"
+                className={styles.btnClose}
+                onClick={() => {
+                  modalClose();
+                }}
+              >
                 닫기
               </button>
               <button
                 type="button"
                 className={styles.btnSubmit}
                 onClick={() => {
-                  modalControl(false);
+                  modalSubmit();
                 }}
               >
                 선택완료

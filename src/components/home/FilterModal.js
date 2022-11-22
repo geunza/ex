@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "scss/components/home/HomeModal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setSupportInfoModal } from "store/supportInfoSlice";
+import Tooltip from "components/Tooltip";
 const FilterModal = ({
   modalOpener,
   modalStep,
@@ -19,7 +20,10 @@ const FilterModal = ({
     setModalStep(value);
   };
   const tooltipOpen = (e) => {
-    e.stopPropagation();
+    const target = e.currentTarget.querySelector(".toolTipBox");
+    target.classList.contains("active")
+      ? target.classList.remove("active")
+      : target.classList.add("active");
   };
   const [modalData, setModalData] = useState({
     지원분야: [],
@@ -84,8 +88,39 @@ const FilterModal = ({
             >
               <span data-selected={modalStep == 1 ? "selected" : null}>
                 기술분야
-                <i onClick={tooltipOpen} data-text="Hi">
-                  i
+                <i onClick={tooltipOpen} className="btnToolTip" data-text="Hi">
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/btn/btn_tooltip.png"
+                    }
+                    alt="tooltip"
+                  />
+                  <div className="toolTipBox">
+                    <p className="txt">
+                      사업공고 출처기관에서 명시한 분야로 분류합니다. 해당되는
+                      분야 키워드를 중복 선택하시고 조회/추천되는 지원사업에
+                      따라 수정해 보세요!
+                    </p>
+                    <p className="exTxt">
+                      AI를 활용한 수산물 밀키트 판매 커머스
+                    </p>
+                    <div className="exBox">
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/public_assets/img/global/ico/ico_ex.png"
+                        }
+                        alt="ico_example"
+                        className="ico_ex"
+                      />
+                      <span>딥테크</span>
+                      <span>커머스</span>
+                      <span>푸드/농업</span>
+                      <span>기타(수산물</span>
+                      선택
+                    </div>
+                  </div>
                 </i>
               </span>
             </button>
@@ -127,7 +162,11 @@ const FilterModal = ({
                           ))
                         : (clicked = modalData[infoName].text == btn.value);
                       return (
-                        <li className={styles.item} key={btn.value}>
+                        <li
+                          className={styles.item}
+                          key={btn.value}
+                          data-hasTooltip={btn.hasTooltip ? true : null}
+                        >
                           <button
                             type="button"
                             name={cate.name}
@@ -147,6 +186,18 @@ const FilterModal = ({
                           >
                             {btn.text}
                           </button>
+                          {btn.hasTooltip && (
+                            <i className="btnToolTip" onClick={tooltipOpen}>
+                              <img
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "/public_assets/img/global/btn/btn_tooltip.png"
+                                }
+                                alt="tooltip"
+                              />
+                              <Tooltip cont={btn.tooltipCont} />
+                            </i>
+                          )}
                         </li>
                       );
                     })}
@@ -156,7 +207,7 @@ const FilterModal = ({
             })}
           </ul>
         </div>
-        <div className={styles.confirmArea}>
+        <div className={`confirmArea ${styles.confirmArea}`}>
           <button
             type="button"
             name="Modal1"

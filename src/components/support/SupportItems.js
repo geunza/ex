@@ -158,6 +158,11 @@ const SupportItems = () => {
                             <button
                               type="button"
                               data-selected={idx == 1 ? "selected" : null}
+                              onClick={() => {
+                                if (!isLoggedIn) {
+                                  alert("로그인이 필요합니다.");
+                                }
+                              }}
                             >
                               <img
                                 src={

@@ -88,12 +88,18 @@ body {
   .modalInner {
     background: #fff;
     border-radius: $radius-wrap;
-    overflow-y: auto;
     max-height: 100%;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     width: 700px;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+  }
+  .confirmArea {
+    border-radius: 0 0 $radius-wrap $radius-wrap;
+    overflow: hidden;
+    button {
+      font-size: 18px;
+    }
   }
 }
 .commonTitleWrap {
@@ -109,5 +115,70 @@ body {
   .title + p {
     font-size: 22px;
     color: $color-deepGray;
+  }
+}
+.btnToolTip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translate(5px, -50%);
+  width: 18px;
+  font-weight: 500;
+  z-index: 10000;
+  cursor: pointer;
+  img[alt="tooltip"] {
+    display: block;
+  }
+  .toolTipBox {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 400px;
+    padding: 15px;
+    border: 1px solid $color-sub;
+    font-size: 12px;
+    background-color: #fff;
+    text-align: left;
+    flex-flow: column;
+    align-items: stretch;
+    gap: 15px;
+    @include shadowBox;
+    &.active {
+      display: flex;
+    }
+    .exTxt {
+      font-size: 13px;
+      color: $color-sub;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      &:before {
+        content: "예시";
+        border: 1px solid $color-borderGray;
+        border-radius: 20px;
+        padding: 5px 10px;
+        color: $color-deepGray;
+      }
+    }
+    .exBox {
+      border-radius: $radius-btn;
+      background: #f5f7ff;
+      padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      color: $color-sub;
+      gap: 5px;
+      .ico_ex {
+        padding-bottom: 5px;
+        margin-right: 3px;
+      }
+      span {
+        border: 1px solid $color-sub;
+        border-radius: 20px;
+        padding: 5px 5px 3px;
+      }
+    }
   }
 }

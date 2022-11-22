@@ -22,7 +22,6 @@
     }
   }
   .contWrap {
-    border: 1px solid #000;
     border-radius: $radius-wrap;
     padding: 55px 50px;
     background-color: #fff;
@@ -60,6 +59,16 @@
     }
     .filearea {
       //
+    }
+  }
+  .commentArea {
+    background: #fff;
+    border-radius: $radius-wrap;
+    padding: 40px 0;
+    .mainReplyWrap {
+      li:nth-child(2n) {
+        background-color: #f7f8f9;
+      }
     }
   }
 }

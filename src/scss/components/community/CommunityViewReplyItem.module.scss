@@ -1,0 +1,47 @@
+@import "scss/utils";
+
+.mainReply {
+  padding: 15px 40px;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 25px;
+  .writeInform {
+    display: flex;
+    align-items: center;
+    .writer {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      &:after {
+        content: "";
+        width: 1px;
+        height: 12px;
+        display: block;
+        background: $color-borderGray;
+        margin: 0 10px 3px 10px;
+      }
+    }
+    .createTime {
+      color: $color-gray;
+      font-size: 14px;
+    }
+  }
+  .replyCont {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .leftArea {
+      font-size: 20px;
+    }
+    .rightArea {
+    }
+  }
+  .btnReReply {
+    border: 1px solid $color-borderGray;
+    border-radius: $radius-btn;
+    color: $color-deepGray;
+    font-size: 18px;
+    padding: 12px 20px 10px;
+  }
+}

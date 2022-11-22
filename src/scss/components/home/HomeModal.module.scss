@@ -15,7 +15,7 @@
       padding: 20px 0;
       border: none;
       font-size: 20px;
-      span {
+      > span {
         position: relative;
         font-weight: 700;
         opacity: 0.5;
@@ -24,20 +24,10 @@
           border-bottom: 2px solid #000;
           opacity: 1;
         }
-        i {
-          position: absolute;
-          left: 100%;
-          top: 50%;
-          transform: translate(5px, -50%);
-          width: 20px;
-          height: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 10px;
-          padding-top: 2px;
-          border: 1px solid #000;
-          border-radius: 50%;
+      }
+      :global span:not([data-selected="selected"]) {
+        .toolTipBox {
+          display: none;
         }
       }
     }
@@ -77,6 +67,10 @@
         }
         .item {
           // margin-bottom: 5px;
+          position: relative;
+          &[data-hasTooltip="true"] {
+            margin-right: 25px;
+          }
           button {
             //
             height: 45px;
@@ -99,6 +93,8 @@
   }
   .confirmArea {
     display: flex;
+    border-radius: 0 0 $radius-wrap $radius-wrap;
+    overflow: hidden;
     button {
       border: none;
       height: 50px;

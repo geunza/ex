@@ -64,6 +64,9 @@
     }
   }
   .loginArea {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-left: 60px;
     button {
       font-size: 14px;

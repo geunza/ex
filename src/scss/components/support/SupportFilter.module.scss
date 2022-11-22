@@ -83,6 +83,14 @@
 .supportModal {
   .itemWrap {
     padding: 25px;
+    h5 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      .multiply {
+        font-size: 18px;
+        margin-left: 5px;
+      }
+    }
     ol {
       display: flex;
       flex-wrap: wrap;

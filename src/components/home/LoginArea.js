@@ -8,19 +8,40 @@ const SnsLogin = ({}) => {
     <>
       <div className={styles.SnsLogin}>
         {isLoggedIn ? (
-          <div className={styles.loggedIn}>
-            <p>
+          <div className={`${styles.loggedIn} ${styles.loginBox}`}>
+            <h4>
               <span>주식회사 씨티엔에스 대표님.</span>
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
-            </p>
-            <Link to="###">기업 정보 입력하고 혜택 받자! &gt;</Link>
+            </h4>
+            <button type="button" className={styles.btnSelect}>
+              기업 정보 입력하고 혜택 받자! &gt;
+            </button>
+
             <div className={styles.zzim}>
-              <button type="button">찜</button>
-              <button type="button">기업정보</button>
+              <button type="button" className={styles.btnDib}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_zzim.png"
+                  }
+                  alt="Apple Icon"
+                />
+                <span>찜</span>
+              </button>
+              <button type="button" className={styles.btnCompany}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_setting.png"
+                  }
+                  alt="Apple Icon"
+                />
+                <span>기업정보</span>
+              </button>
             </div>
           </div>
         ) : (
-          <div className={styles.noLoggedIn}>
+          <div className={`${styles.noLoggedIn} ${styles.loginBox}`}>
             <h4>
               <span>기업의 성공에 한발짝</span>
               <span>가까워지는 방법!</span>
