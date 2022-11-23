@@ -79,6 +79,7 @@ const Header = ({}) => {
             placeholder="지원사업을 검색해보세요."
             onChange={onChange}
             value={searchVal}
+            autoComplete="off"
           />
           <button type="submit">
             <img
