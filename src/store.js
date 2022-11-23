@@ -56,16 +56,21 @@ export let { signIn, signOut } = isLoggedIn.actions;
 let userInfo = createSlice({
   name: "userInfo",
   initialState: {
-    userCode: 2379586568,
+    id: "",
+    usernickname: "",
+    useremail: "",
   },
   reducers: {
     setUserInfo(state, action) {
-      console.log(state);
-      console.log(action.payload);
-      return true;
+      return {
+        id: "2464295270",
+        usernickname: "뇽뇽타",
+        useremail: "safa940812@gmail.com",
+      };
+      // return action.payload;
     },
     removeUserInfo(state, action) {
-      return [];
+      return { id: "", usernickname: "", useremail: "" };
     },
   },
 });

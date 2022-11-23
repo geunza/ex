@@ -3,31 +3,94 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
 import CommunityViewReReplyItem from "components/community/CommunityViewReReplyItem";
-const CommunityViewReplyItem = ({ item }) => {
-  // console.log(item);
+const CommunityViewReplyItem = ({ item, getReply }) => {
   const userInfo = useSelector((state) => state.userInfo);
   const nickname = item.usernickname;
   const createTime = item.cret_dt.slice(0, -3);
   const desc = item.description;
   const cmtId = item.id;
+  const writerId = item.user_id;
+  const isWriter = writerId == userInfo.id;
   const isReply = item.comment_cnt;
-  const [reReply, setReReply] = useState([]);
   const getReReply = () => {
     axios({
       url: "/mobile/community/recomment",
       method: "POST",
       headers: {
-        user_id: userInfo.userCode,
+        user_id: userInfo.id,
       },
       data: {
         parent_comment_id: cmtId,
       },
     }).then((res) => {
       setReReply(res.data);
-      console.log(res.data[0]);
     });
   };
 
+  const [controlBoxOpen, setControlBoxOpen] = useState(false);
+  const [currentReply, setCurrentReply] = useState(desc);
+  const [reReply, setReReply] = useState([]);
+  const [modifyOpen, setModifyOpen] = useState(false);
+  const controlBtnClick = (e) => {
+    const {
+      currentTarget: { name },
+    } = e;
+    if (name == "modify") {
+      btnModify();
+    } else if (name == "delete") {
+      btnDelete();
+    } else if (name == "report") {
+      btnReport();
+    } else if (name == "block") {
+      btnBlock();
+    }
+  };
+  const btnModify = () => {
+    setModifyOpen((prev) => !prev);
+  };
+  const modifyReplySubmit = () => {
+    axios({
+      method: "POST",
+      url: "/mobile/community/updateComment",
+      data: {
+        id: cmtId,
+        description: currentReply,
+      },
+    }).then((res) => {
+      controlEnd();
+    });
+  };
+  const btnDelete = () => {
+    axios({
+      url: "/mobile/community/delComment",
+      method: "POST",
+      data: {
+        id: cmtId,
+      },
+    }).then((res) => {
+      controlEnd();
+    });
+  };
+  // CHECK : 신고기능 API
+  const btnReport = () => {};
+
+  // CHECK : 차단기능 실행여부
+  const btnBlock = () => {
+    axios({
+      method: "POST",
+      url: "/mobile/community/insertBlock",
+      headers: {
+        user_id: userInfo.id,
+        target_id: cmtId,
+      },
+    }).then((res) => {
+      controlEnd();
+    });
+  };
+  const controlEnd = () => {
+    setControlBoxOpen(false);
+    getReply();
+  };
   useEffect(() => {
     if (isReply) {
       getReReply();
@@ -35,37 +98,127 @@ const CommunityViewReplyItem = ({ item }) => {
   }, []);
   return (
     <>
-      <li className={`${styles.replyItem} ${styles.mainReply}`}>
+      <li
+        className={
+          `${styles.replyItem} ${styles.mainReply} ` +
+          (isWriter ? styles.isWriter : "")
+        }
+      >
         <div className={styles.writeInform}>
           <p className={styles.writer}>{nickname}</p>
           <span className={styles.createTime}>{createTime}</span>
         </div>
-        <div className={styles.replyCont}>
-          <div className={styles.leftArea}>{desc}</div>
-          <div className={styles.rightArea}>
-            좋아요{item.like_count}
-            <button type="button" className="">
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_more.png"
-                }
-                alt="내 게시글 관리"
-              />
+        {modifyOpen ? (
+          <>
+            <div className={styles.replyModify}>
+              <textarea
+                rows="6"
+                value={currentReply}
+                onChange={(e) => {
+                  setCurrentReply((prev) => e.target.value);
+                }}
+              ></textarea>
+              <button type="button" onClick={modifyReplySubmit}>
+                댓글수정
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.replyCont}>
+              <div className={styles.leftArea}>{desc}</div>
+              <div className={styles.rightArea}>
+                <div className={styles.likeArea}>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_like.png"
+                    }
+                    alt="like icon"
+                  />
+                  <span>{item.like_count}</span>
+                </div>
+                <div className="controlBoxWrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setControlBoxOpen((prev) => !prev);
+                    }}
+                  >
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/ico/ico_more.png"
+                      }
+                      alt="댓글 관리"
+                    />
+                  </button>
+                  {controlBoxOpen &&
+                    (isWriter ? (
+                      <ul className="controlBox">
+                        <li>
+                          <button
+                            type="button"
+                            name="modify"
+                            onClick={controlBtnClick}
+                          >
+                            수정
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            type="button"
+                            name="delete"
+                            onClick={controlBtnClick}
+                          >
+                            삭제
+                          </button>
+                        </li>
+                      </ul>
+                    ) : (
+                      <ul className="controlBox">
+                        <li>
+                          <button
+                            type="button"
+                            name="report"
+                            onClick={controlBtnClick}
+                          >
+                            신고
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            type="button"
+                            name="block"
+                            onClick={controlBtnClick}
+                          >
+                            차단
+                          </button>
+                        </li>
+                      </ul>
+                    ))}
+                </div>
+              </div>
+            </div>
+            <button type="button" className={styles.btnReReply}>
+              대댓글 달기
             </button>
-          </div>
-        </div>
-        <button type="button" className={styles.btnReReply}>
-          대댓글 달기
-        </button>
-        {reReply && (
-          <ol className={styles.reReplyWrap}>
-            {reReply.map((item, idx) => {
-              return <CommunityViewReReplyItem styles={styles} item={item} />;
-            })}
-          </ol>
+          </>
         )}
+        <button onClick={getReply}>댓글 새로고침</button>
       </li>
+      <div className={styles.writeReReply} style={{ display: "none" }}>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+      </div>
+      {reReply && (
+        <ol className={styles.reReplyWrap}>
+          {reReply.map((item, idx) => {
+            return (
+              <CommunityViewReReplyItem styles={styles} item={item} key={idx} />
+            );
+          })}
+        </ol>
+      )}
     </>
   );
 };

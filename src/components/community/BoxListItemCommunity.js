@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "scss/components/BoxListItem.module.scss";
 const BoxListItemCommunity = ({
@@ -9,10 +10,19 @@ const BoxListItemCommunity = ({
   likeShow,
   url,
 }) => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <>
       <div className={styles.BoxListItem}>
-        <Link to={`${url}${item.id}`}>
+        <Link
+          to={`${url}${item.id}`}
+          onClick={(e) => {
+            if (!isLoggedIn) {
+              e.preventDefault();
+              alert("로그인이 필요합니다.");
+            }
+          }}
+        >
           <h5 className={styles.title}>{item.title}</h5>
           {writerShow && <p className={styles.writer}>{item.usernickname}</p>}
           <div className={styles.countArea}>

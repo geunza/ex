@@ -78,6 +78,7 @@
           top: 100%;
           transform: translateX(-50%);
           padding: 10px 0;
+          background-color: #fff;
           @include shadowBox;
 
           button {
@@ -111,9 +112,39 @@
     background: #fff;
     border-radius: $radius-wrap;
     padding: 40px 0;
+    textarea {
+      width: 100%;
+      padding: 25px;
+      font-size: 16px;
+      outline: none;
+      display: block;
+      margin-bottom: 25px;
+      display: block;
+      line-height: 1.5;
+    }
     .mainReplyWrap {
-      li:nth-child(2n) {
-        background-color: #f7f8f9;
+    }
+    .writeArea {
+      padding: 0 40px;
+      h4 {
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+
+      button {
+        display: block;
+        margin: 0 0 0 auto;
+        font-size: 18px;
+        background: $color-borderGray;
+        color: $color-deepGray;
+        border: none;
+        padding: 14px 20px 11px;
+        border-radius: 50px;
+        transition: color 0.2s, background-color 0.2s;
+        &:hover {
+          color: #fff;
+          background-color: $color-sub;
+        }
       }
     }
   }

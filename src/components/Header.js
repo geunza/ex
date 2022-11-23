@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styles from "scss/components/Header.module.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signIn, signOut } from "store";
+import { signIn, signOut, setUserInfo, removeUserInfo } from "store";
+import axios from "axios";
 const Header = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
@@ -25,11 +26,25 @@ const Header = ({}) => {
     setSearchVal("");
   };
   const temporarysignIn = () => {
+    dispatch(setUserInfo());
     dispatch(signIn());
+    //   axios({
+    //     url: "/user/getUserInfo",
+    //     method: "POST",
+    //     headers: {
+    //       userID: 2464295270,
+    //     },
+    //   }).then((res) => {
+    //     const data = res.data;
+    //     dispatch(setUserInfo(data));
+    //     dispatch(signIn());
+    //   });
   };
   const temporarysignOut = () => {
+    dispatch(removeUserInfo());
     dispatch(signOut());
   };
+
   return (
     <>
       <div className={styles.Header}>

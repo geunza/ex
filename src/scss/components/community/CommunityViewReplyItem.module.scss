@@ -5,6 +5,9 @@
   flex-flow: column;
   align-items: flex-start;
   gap: 25px;
+  &.isWriter {
+    background: #f7f8f9;
+  }
   .writeInform {
     display: flex;
     align-items: center;
@@ -30,10 +33,10 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    white-space: pre-line;
     .leftArea {
       font-size: 20px;
-    }
-    .rightArea {
+      padding-right: 50px;
     }
   }
   .btnReReply {
@@ -46,10 +49,52 @@
   &.mainReply {
     padding: 20px 40px;
   }
+  .rightArea {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    .likeArea {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: $color-deepGray;
+      span {
+        padding-top: 3px;
+      }
+    }
+  }
+  .replyModify {
+    width: 100%;
+    button {
+      display: block;
+      margin: 0 0 0 auto;
+      border: none;
+      padding: 14px 20px 11px;
+      border-radius: 50px;
+      color: #fff;
+      background: $color-sub;
+      font-size: 18px;
+    }
+  }
 }
 .reReplyWrap {
   width: 100%;
+  padding: 0 40px;
   .reReply {
-    padding: 0 40px 0 50px;
+    flex-flow: row;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0;
+    .reReplyContWrap {
+      padding: 25px 30px;
+      border: 1px solid $color-borderGray;
+      border-radius: $radius-wrap;
+      flex: 1;
+      display: flex;
+      flex-flow: column;
+      gap: 25px;
+      .reReplyCont {
+      }
+    }
   }
 }

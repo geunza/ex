@@ -8,7 +8,7 @@ const SupportRecent = ({ userInfo }) => {
   const [savedBook, setSavedBook] = useState([]);
   const getRecent = () => {
     axios({
-      headers: { user_id: userInfo.userCode },
+      headers: { user_id: userInfo.id },
       data: {
         ord: "전체",
       },

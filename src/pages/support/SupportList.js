@@ -14,7 +14,7 @@ const SupportList = ({}) => {
   const getSupportData = () => {
     axios({
       headers: {
-        user_id: userInfo.userCode,
+        user_id: userInfo.id,
       },
       data: {
         ord: supportInfo.기술분야.text,

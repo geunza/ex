@@ -19,7 +19,7 @@ const HomeSupport = ({}) => {
     console.log(idx);
     axios({
       headers: {
-        user_id: userInfo.userCode,
+        user_id: userInfo.id,
       },
       data: { cat: cat },
       method: "POST",

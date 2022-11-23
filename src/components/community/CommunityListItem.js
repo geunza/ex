@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "scss/components/community/CommunityListItem.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalOverflow } from "store";
 import CommunityListModal from "components/community/CommunityListModal";
 const CommunityListItem = ({
@@ -14,6 +14,7 @@ const CommunityListItem = ({
   controlBoxOpen,
 }) => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const btnPostClick = (e) => {
     const {
       currentTarget: { name, value },
@@ -59,7 +60,15 @@ const CommunityListItem = ({
           </span>
         </div>
         <div className={styles.leftArea}>
-          <Link to={`/community/communityView/${post.id}`}>
+          <Link
+            to={`/community/communityView/${post.id}`}
+            onClick={(e) => {
+              if (!isLoggedIn) {
+                e.preventDefault();
+                alert("로그인이 필요합니다.");
+              }
+            }}
+          >
             <p className={styles.title}>{post.title}</p>
             <p className={styles.content}>{post.title}</p>
             <p className={styles.write}>
@@ -99,7 +108,7 @@ const CommunityListItem = ({
             />
             <span>{post.view_count}</span>
           </p>
-          <div className={styles.rightInform}>
+          <div className={`controlBoxWrap ${styles.rightInform}`}>
             <button
               type="button"
               className={styles.myPost}
@@ -117,7 +126,7 @@ const CommunityListItem = ({
             </button>
             {controlBoxOpen &&
               (controlBoxOpen ? ( // userInform == createInform 으로 변경예정
-                <ul className={styles.controlBox}>
+                <ul className="controlBox">
                   <li>
                     <button
                       type="button"
@@ -140,7 +149,7 @@ const CommunityListItem = ({
                   </li>
                 </ul>
               ) : (
-                <ul className={styles.controlBox}>
+                <ul className="controlBox">
                   <li>
                     <button
                       type="button"

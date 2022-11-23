@@ -11,6 +11,7 @@ import Home from "pages/Home";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
+import ScrollToTop from "components/scrollToTop";
 import CommunityList from "pages/community/CommunityList";
 import CommunityView from "pages/community/CommunityView";
 import CommunityWrite from "pages/community/CommunityWrite";
@@ -24,6 +25,7 @@ const AppRouter = ({}) => {
   return (
     <div id="wrap">
       <Router>
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />}></Route>

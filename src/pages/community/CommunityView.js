@@ -11,6 +11,7 @@ const CommunityView = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const [post, setPost] = useState({});
   const [time, setTime] = useState("");
   const [cont, setCont] = useState("");
@@ -56,7 +57,7 @@ const CommunityView = () => {
     axios({
       url: "/mobile/community/comment",
       method: "POST",
-      headers: { user_id: userInfo.userCode },
+      headers: { user_id: userInfo.id },
       data: {
         content_id: parseInt(id),
       },
@@ -70,22 +71,44 @@ const CommunityView = () => {
       url: "/mobile/community/getFile",
       method: "POST",
       data: {
-        // content_id: parseInt(id),
-        content_id: 97,
+        content_id: parseInt(id),
       },
-    }).then((res) => {
-      setFiles(res.data);
-      loadEnd();
-    });
+    })
+      .then((res) => {
+        setFiles(res.data);
+        loadEnd();
+      })
+      .catch((err) => {
+        console.log("filesError");
+        loadEnd();
+      });
   };
   useEffect(() => {
+    !isLoggedIn && navigate("/");
     dispatch(loadingStart());
     getContent();
     getReply();
     getFiles();
   }, []);
-  const submitTest = (a) => {
-    console.log(a);
+  const replySubmit = (e) => {
+    // axios({
+    //   method: "POST",
+    //   url: "/mobile/community/insertComment",
+    //   headers: {
+    //     user_id: userInfo.id,
+    //   },
+    //   data: {
+    //     c_content_id: parseInt(id),
+    //     description: cmtText,
+    //     step: 1,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
   };
   const commentChange = (e) => {
     const {
@@ -93,6 +116,7 @@ const CommunityView = () => {
     } = e;
     setCmtText(value);
   };
+
   return (
     <>
       <div className={styles.CommunityView}>
@@ -193,24 +217,24 @@ const CommunityView = () => {
                   );
                 })}
             </ul>
-            <div className={styles.writeArea}>
-              <h4>댓글 작성</h4>
-              <form
-                className={styles.iptArea}
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  submitTest();
-                }}
-              >
+            {isLoggedIn ? (
+              <div className={styles.writeArea}>
+                <h4>댓글 작성</h4>
                 <textarea
-                  rows="4"
+                  rows="6"
                   placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
                   value={cmtText}
                   onChange={commentChange}
                 ></textarea>
-                <button type="submit">댓글 등록</button>
-              </form>
-            </div>
+                <div className={styles.btnArea}>
+                  <button type="button" onClick={replySubmit}>
+                    댓글 등록
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p className={styles.needSignIn}>로그인이 필요합니다.</p>
+            )}
           </div>
         </div>
       </div>

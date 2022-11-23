@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const SnsLogin = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const userInfo = useSelector((state) => state.userInfo);
   return (
     <>
       <div className={styles.SnsLogin}>
         {isLoggedIn ? (
           <div className={`${styles.loggedIn} ${styles.loginBox}`}>
             <h4>
-              <span>주식회사 씨티엔에스 대표님.</span>
+              <span>{userInfo.usernickname}님.</span>
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
             </h4>
             <button type="button" className={styles.btnSelect}>
