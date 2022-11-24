@@ -41,11 +41,16 @@ const SavedChart = () => {
       url: "/saved/getCatList",
       method: "POST",
       headers: {
-        user_id: userInfo.id,
+        user_id: 2379586568,
       },
-    }).then((res) => {
-      setDoughnutList(dataOrder(res.data));
-    });
+    })
+      .then((res) => {
+        setDoughnutList(dataOrder(res.data));
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   };
 
   useEffect(() => {
@@ -144,7 +149,6 @@ const SavedChart = () => {
     { name: "지원", count: 0, color: "#c0cbd5" },
     { name: "선정", count: 0, color: "#c0cbd5" },
   ]);
-
   const getBarList = () => {
     barList.forEach((v, i) => {
       const name = v.name;
