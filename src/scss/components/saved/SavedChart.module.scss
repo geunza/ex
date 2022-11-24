@@ -13,7 +13,7 @@
       margin-bottom: 15px;
     }
     .canvasArea {
-      padding: 0 10px;
+      //
     }
     .legendArea {
       border-top: 1px solid $color-borderGray;
@@ -46,7 +46,13 @@
         }
       }
     }
+    .canvasArea {
+      padding: 0 10px;
+    }
   }
   .bar {
+    .canvasArea {
+      height: 240px;
+    }
   }
 }
