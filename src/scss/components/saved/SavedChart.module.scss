@@ -1,0 +1,52 @@
+@import "scss/utils";
+.chartWrap {
+  .chartArea {
+    background: $color-bgGray;
+    padding: 30px;
+    border-radius: $radius-wrap;
+    margin-bottom: 20px;
+    border: 1px solid $color-borderGray;
+    .title {
+      font-size: 24px;
+      border-bottom: 1px solid $color-borderGray;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .canvasArea {
+      padding: 0 10px;
+    }
+    .legendArea {
+      border-top: 1px solid $color-borderGray;
+      margin-top: 15px;
+      padding-top: 15px;
+    }
+  }
+  .doughtnut {
+    .legendArea {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 10px;
+      padding-right: 10px;
+      p {
+        width: 50%;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 5px 0;
+        .circle {
+          width: 20px;
+          min-width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          display: block;
+        }
+        .name {
+          font-size: 14px;
+          padding-top: 3px;
+        }
+      }
+    }
+  }
+  .bar {
+  }
+}

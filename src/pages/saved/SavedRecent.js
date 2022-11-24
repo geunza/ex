@@ -5,6 +5,7 @@ import axios from "axios";
 import SavedTitle from "components/saved/SavedTitle";
 import SavedCategory from "components/saved/SavedCategory";
 import SavedItem from "components/saved/SavedItem";
+import SavedChart from "components/saved/SavedChart";
 import styles from "scss/pages/SavedRecent.module.scss";
 const SavedRecent = () => {
   const [recentItems, setRecentItems] = useState([]);
@@ -21,7 +22,6 @@ const SavedRecent = () => {
       method: "POST",
       url: "/saved/getRecentlyMySavedBook",
     }).then((res) => {
-      console.log(res.data[0]);
       setRecentItems(res.data);
     });
   };
@@ -55,13 +55,14 @@ const SavedRecent = () => {
             </div>
             <ul className="savedItemsWrap">
               {recentItems.map((item, idx) => {
-                idx == 1 && console.log(item);
                 return <SavedItem item={item} key={item.si_idx} />;
               })}
             </ul>
           </div>
         </div>
-        <div className={styles.rightArea}>RIGHTAREA</div>
+        <div className={styles.rightArea}>
+          <SavedChart />
+        </div>
       </div>
     </div>
   );
