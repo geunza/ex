@@ -31,9 +31,9 @@ const HomeSupport = ({}) => {
     });
   };
   useEffect(() => {
-    getHomeSupport("/mainpage/getPopularList", 0, "실시간인기"); //
+    getHomeSupport("/mainpage/getPopularList", 0, "실시간"); //
     getHomeSupport("/mainpage/getPushBookList", 1, "엑시토추천"); //
-    getHomeSupport("/mainpage/getPopularList", 2, "찜인기"); //
+    getHomeSupport("/mainpage/getPopularList", 2, "찜"); //
     getHomeSupport("/mainpage/getPopularList", 3, "예비창업자"); //
   }, []);
 
