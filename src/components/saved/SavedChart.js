@@ -226,7 +226,6 @@ const SavedChart = () => {
           color: "#222222",
         },
         formatter: function (value, context) {
-          console.log(context);
           if (value == 0) {
             return "";
           }

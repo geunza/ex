@@ -26,19 +26,19 @@ const Header = ({}) => {
     setSearchVal("");
   };
   const temporarysignIn = () => {
-    dispatch(setUserInfo());
-    dispatch(signIn());
-    //   axios({
-    //     url: "/user/getUserInfo",
-    //     method: "POST",
-    //     headers: {
-    //       userID: 2464295270,
-    //     },
-    //   }).then((res) => {
-    //     const data = res.data;
-    //     dispatch(setUserInfo(data));
-    //     dispatch(signIn());
-    //   });
+    // dispatch(setUserInfo());
+    // dispatch(signIn());
+    axios({
+      url: "/user/getUserInfo",
+      method: "POST",
+      headers: {
+        userID: 2464295270,
+      },
+    }).then((res) => {
+      const data = res.data;
+      dispatch(setUserInfo(data));
+      dispatch(signIn());
+    });
   };
   const temporarysignOut = () => {
     dispatch(removeUserInfo());
@@ -68,7 +68,7 @@ const Header = ({}) => {
               <Link to="/community/communityList">커뮤니티</Link>
             </li>
             <li>
-              <Link to="###">공지사항</Link>
+              <Link to="/notice/noticeList">공지사항</Link>
             </li>
           </ul>
         </nav>

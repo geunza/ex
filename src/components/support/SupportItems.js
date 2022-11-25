@@ -26,39 +26,41 @@ const SupportItems = () => {
   return (
     <>
       <div className={styles.supportItems}>
-        <div className={styles.ordArea}>
-          <button
-            type="button"
-            value="전체"
-            onClick={ordClick}
-            data-selected={ord == "전체" && "selected"}
-          >
-            <span>전체</span>
-          </button>
-          <button
-            type="button"
-            value="인기순"
-            onClick={ordClick}
-            data-selected={ord == "인기순" && "selected"}
-          >
-            <span>인기순</span>
-          </button>
-          <button
-            type="button"
-            value="금액높은순"
-            onClick={ordClick}
-            data-selected={ord == "금액높은순" && "selected"}
-          >
-            <span>금액높은순</span>
-          </button>
-          <button
-            type="button"
-            value="마감임박순"
-            onClick={ordClick}
-            data-selected={ord == "마감임박순" && "selected"}
-          >
-            <span>마감임박순</span>
-          </button>
+        <div className={styles.ordWrap}>
+          <div className="ordBtns">
+            <button
+              type="button"
+              value="전체"
+              onClick={ordClick}
+              data-selected={ord == "전체" && "selected"}
+            >
+              <span>전체</span>
+            </button>
+            <button
+              type="button"
+              value="인기순"
+              onClick={ordClick}
+              data-selected={ord == "인기순" && "selected"}
+            >
+              <span>인기순</span>
+            </button>
+            <button
+              type="button"
+              value="금액높은순"
+              onClick={ordClick}
+              data-selected={ord == "금액높은순" && "selected"}
+            >
+              <span>금액높은순</span>
+            </button>
+            <button
+              type="button"
+              value="마감임박순"
+              onClick={ordClick}
+              data-selected={ord == "마감임박순" && "selected"}
+            >
+              <span>마감임박순</span>
+            </button>
+          </div>
         </div>
         <div className={styles.contArea}>
           <div className={styles.contTop}>

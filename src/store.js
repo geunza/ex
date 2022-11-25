@@ -1,4 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import supportInfo from "store/supportInfoSlice";
 /*
 createSlice({
@@ -40,13 +41,11 @@ let isLoggedIn = createSlice({
   initialState: false,
   reducers: {
     signIn(state, action) {
-      console.log(state);
-      console.log(action.payload);
+      localStorage.setItem("isLoggedIn", "true");
       return true;
     },
     signOut(state, action) {
-      console.log(state);
-      console.log(action.payload);
+      localStorage.removeItem("isLoggedIn");
       return false;
     },
   },
@@ -62,19 +61,17 @@ let userInfo = createSlice({
   },
   reducers: {
     setUserInfo(state, action) {
-      return {
-        id: "2464295270",
-        usernickname: "뇽뇽타",
-        useremail: "safa940812@gmail.com",
-      };
-      // return action.payload;
+      const infoString = JSON.stringify(action.payload.id);
+      localStorage.setItem("userId", infoString);
+      return action.payload;
     },
     removeUserInfo(state, action) {
+      localStorage.removeItem("userId");
       return { id: "", usernickname: "", useremail: "" };
     },
   },
 });
-export let { setUserInfo, removeUserInfo } = userInfo.actions;
+export let { setUserInfo, removeUserInfo, setDefaultSetup } = userInfo.actions;
 
 let modalState = createSlice({
   name: "modalState",

@@ -96,24 +96,6 @@
       justify-content: space-between;
       border-bottom: 1px solid $color-borderGray;
       gap: 90px;
-      .btns {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex: 0 1 auto;
-        button {
-          font-size: 18px;
-          padding: 12px 32px 10px;
-          border: 1px solid $color-borderGray;
-          border-radius: 20px;
-          white-space: nowrap;
-          &[data-selected="selected"] {
-            background: #222;
-            border-color: #222;
-            color: #fff;
-          }
-        }
-      }
     }
     .searchAndWrite {
       display: flex;

@@ -210,3 +210,26 @@ body {
     }
   }
 }
+.ordBtns {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex: 0 1 auto;
+  button {
+    @include flexCenter(10px);
+    font-size: 18px;
+    border-radius: 50px;
+    height: 45px;
+    padding: 0 30px;
+    border: 1px solid $color-borderGray;
+    &[data-selected="selected"] {
+      background: #222;
+      border-color: #222;
+      color: #fff;
+    }
+    span {
+      padding-top: 3px;
+      font-size: inherit;
+    }
+  }
+}

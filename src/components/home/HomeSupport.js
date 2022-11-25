@@ -10,33 +10,54 @@ const HomeSupport = ({}) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const [homeSupport, setHomeSupport] = useState([
-    { category: "실시간인기", Item: [] },
-    { category: "엑시토추천", Item: [] },
-    { category: "찜인기", Item: [] },
-    { category: "예비창업자 대상", Item: [] },
+    {
+      category: "실시간인기",
+      item: [],
+      url: "/mainpage/getPopularList",
+      cat_name: "실시간",
+    },
+    {
+      category: "엑시토추천",
+      item: [],
+      url: "/mainpage/getPushBookList",
+      cat_name: "엑시토추천",
+    },
+    {
+      category: "찜인기",
+      item: [],
+      url: "/mainpage/getPopularList",
+      cat_name: "찜",
+    },
+    {
+      category: "예비창업자 대상",
+      item: [],
+      url: "/mainpage/getPopularList",
+      cat_name: "예비창업자",
+    },
   ]);
-  const getHomeSupport = (url, idx, cat) => {
-    console.log(idx);
+  const getHomeSupport = (category, url, cat_name) => {
     axios({
       headers: {
         user_id: userInfo.id,
       },
-      data: { cat: cat },
+      data: { cat: cat_name },
       method: "POST",
       url: url,
     }).then((res) => {
-      let copy = [...homeSupport];
-      copy[idx].Item = res.data;
+      const data = res.data;
+      const copy = [...homeSupport];
+      copy.find((item) => item.category == category).item = data.map((v) => v);
       setHomeSupport(copy);
     });
   };
   useEffect(() => {
-    getHomeSupport("/mainpage/getPopularList", 0, "실시간"); //
-    getHomeSupport("/mainpage/getPushBookList", 1, "엑시토추천"); //
-    getHomeSupport("/mainpage/getPopularList", 2, "찜"); //
-    getHomeSupport("/mainpage/getPopularList", 3, "예비창업자"); //
+    homeSupport.forEach((v, i) => {
+      getHomeSupport(v.category, v.url, v.cat_name);
+    });
   }, []);
-
+  useEffect(() => {
+    console.log(homeSupport);
+  }, [homeSupport]);
   return (
     <>
       <div className={styles.HomeSupport}>
@@ -45,7 +66,7 @@ const HomeSupport = ({}) => {
             <div key={item.category} className={styles.supportBox}>
               <h4 className={styles.supportCate}>{item.category}</h4>
               <div className={styles.supportList}>
-                {item.Item.slice(0, 4).map((list, idx) => (
+                {item.item.slice(0, 4).map((list, idx) => (
                   <BoxListItemHome
                     key={idx}
                     item={list}

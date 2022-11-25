@@ -1,26 +1,7 @@
 @import "scss/utils";
 .supportItems {
-  .ordArea {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .ordWrap {
     margin-bottom: 50px;
-    button {
-      @include flexCenter(10px);
-      border-radius: 50px;
-      height: 45px;
-      padding: 0 30px;
-      border: 1px solid $color-borderGray;
-      span {
-        padding-top: 3px;
-        font-size: 18px;
-      }
-      &[data-selected="selected"] {
-        background: #222;
-        border-color: #222;
-        color: #fff;
-      }
-    }
   }
   .contArea {
     .contTop {

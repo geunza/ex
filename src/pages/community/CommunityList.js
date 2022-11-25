@@ -255,7 +255,7 @@ const CommunityList = ({}) => {
             </div>
             <div className={styles.listCont}>
               <div className={styles.listSorting}>
-                <div className={styles.btns}>
+                <div className="ordBtns">
                   <button
                     type="button"
                     data-selected={ord === "전체" ? "selected" : null}
@@ -263,7 +263,7 @@ const CommunityList = ({}) => {
                     name="ord"
                     value="전체"
                   >
-                    전체
+                    <span>전체</span>
                   </button>
                   <button
                     type="button"
@@ -272,7 +272,7 @@ const CommunityList = ({}) => {
                     name="ord"
                     value="인기순"
                   >
-                    인기순
+                    <span>인기순</span>
                   </button>
                   <button
                     type="button"
@@ -281,7 +281,7 @@ const CommunityList = ({}) => {
                     name="ord"
                     value="최신순"
                   >
-                    최신순
+                    <span>최신순</span>
                   </button>
                   <button
                     type="button"
@@ -290,7 +290,7 @@ const CommunityList = ({}) => {
                     name="ord"
                     value="댓글"
                   >
-                    댓글 많은 순
+                    <span>댓글 많은 순</span>
                   </button>
                 </div>
                 <div className={styles.searchAndWrite}>
