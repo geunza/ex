@@ -1,0 +1,46 @@
+@import "scss/utils";
+
+.NoticeListCont {
+  padding-top: 50px;
+  .noticeListWrap {
+    background-color: #fff;
+    border-radius: $radius-wrap;
+  }
+}
+.noticeListItem {
+  align-items: flex-end;
+  .cate {
+    span {
+      color: $color-gray;
+      background: $color-lightGray;
+      padding: 7px 9px 4px;
+      border-radius: $radius-btn;
+      font-size: 14px;
+      &.mustRead {
+        color: #fff;
+        background-color: $color-main;
+      }
+    }
+  }
+  .leftArea {
+    flex: 1 1 auto;
+    .content {
+      min-height: 27px;
+      > *:not(p),
+      p:not(:first-of-type) {
+        display: none;
+      }
+      p:first-of-type {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 27px;
+      }
+    }
+  }
+  .rightArea {
+    flex: 0 0 auto;
+    margin-bottom: 15px;
+    color: #999;
+  }
+}

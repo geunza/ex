@@ -234,89 +234,94 @@ body {
     }
   }
 }
-.commonListItem {
-  //
-  // background: #e6e6e6;
-  // border-radius: $radius-wrap;
-  border-bottom: 1px solid $color-borderGray;
-  padding: 30px 0;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-  .cateArea {
-    width: 100%;
-    margin-bottom: 15px;
-    .cate {
-      border: 1px solid $color-borderGray;
-      border-radius: 30px;
-      font-size: 14px;
-      padding: 6px 10px 4px;
-      display: inline-block;
-      color: $color-deepGray;
-    }
-  }
-  .leftArea {
-    width: 70%;
-    .title {
-      font-size: 24px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .content {
-      font-size: 18px;
-      color: $color-gray;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      height: 54px;
+.commonListItemWrap {
+  padding: 0 50px;
+  .commonListItem {
+    //
+    // background: #e6e6e6;
+    // border-radius: $radius-wrap;
+    border-bottom: 1px solid $color-borderGray;
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    .cateArea {
+      width: 100%;
       margin-bottom: 15px;
+      .cate {
+        border: 1px solid $color-borderGray;
+        border-radius: 30px;
+        font-size: 14px;
+        padding: 6px 10px 4px;
+        display: inline-block;
+        color: $color-deepGray;
+      }
     }
-    .write {
-      //
-      font-weight: 300;
-      .name {
-        font-size: 15px;
-        &:after {
-          content: "";
-          width: 1px;
-          height: 80%;
-          border-right: 1px solid $color-borderGray;
-          padding-left: 10px;
-          margin-right: 10px;
+    .leftArea {
+      .title {
+        font-size: 24px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .content {
+        font-size: 18px;
+        color: $color-gray;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 15px;
+        span,
+        strong {
+          color: $color-gray !important;
+          font-weight: 500;
         }
       }
-      .time {
-        font-size: 14px;
-        color: $color-gray;
+      .write {
+        //
+        font-weight: 300;
+        .name {
+          font-size: 15px;
+          &:after {
+            content: "";
+            width: 1px;
+            height: 80%;
+            border-right: 1px solid $color-borderGray;
+            padding-left: 10px;
+            margin-right: 10px;
+          }
+        }
+        .time {
+          font-size: 14px;
+          color: $color-gray;
+        }
       }
     }
-  }
-  .rightArea {
-    width: 22%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .rightInform {
-      font-size: 14px;
-      color: $color-gray;
+    .rightArea {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      span {
-        padding-top: 2px;
-        font-weight: 500;
-      }
-      .myPost {
-        border: none;
+      justify-content: space-between;
+      font-size: 14px;
+      .rightInform {
+        color: $color-gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        span {
+          padding-top: 2px;
+          font-weight: 500;
+        }
+        .myPost {
+          border: none;
+        }
       }
     }
-  }
-  :global .modalWrap {
-    background: transparent;
+    :global .modalWrap {
+      background: transparent;
+    }
   }
 }

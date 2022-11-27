@@ -62,7 +62,7 @@ const CommunityListItem = ({
             {post.category}
           </span>
         </div>
-        <div className="leftArea">
+        <div className={`leftArea ${styles.leftArea}`}>
           <Link
             to={`/community/communityView/${post.id}`}
             onClick={(e) => {
@@ -73,14 +73,14 @@ const CommunityListItem = ({
             }}
           >
             <p className="title">{post.title}</p>
-            <p className="content">{post.title}</p>
+            <p className={`content ${styles.content}`}>{post.title}</p>
             <p className="write">
               <span className="name">{post.usernickname}</span>
               <span className="time">{post.cret_dt}</span>
             </p>
           </Link>
         </div>
-        <div className="rightArea">
+        <div className={`rightArea ${styles.rightArea}`}>
           <p className="rightInform">
             <img
               src={

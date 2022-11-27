@@ -84,13 +84,31 @@ const CommunityView = () => {
       });
   };
   useEffect(() => {
-    !isLoggedIn && navigate("/");
+    // !isLoggedIn && navigate("/");
     dispatch(loadingStart());
     getContent();
     getReply();
     getFiles();
   }, []);
   const replySubmit = (e) => {
+    const contId = post.id;
+    const desc = cmtText;
+    const step = 1;
+    axios({
+      method: "POST",
+      url: "/mobile/community/insertComment",
+      headers: {
+        user_id: userInfo.id,
+      },
+      data: {
+        c_content_id: contId,
+        description: cmtText,
+        step: step,
+      },
+    }).then(() => {
+      setCmtText("");
+      getReply();
+    });
     // axios({
     //   method: "POST",
     //   url: "/mobile/community/insertComment",
@@ -205,18 +223,6 @@ const CommunityView = () => {
             )}
           </div>
           <div className={styles.commentArea}>
-            <ul className={styles.mainReplyWrap}>
-              {reply.length > 0 &&
-                reply.map((item) => {
-                  return (
-                    <CommunityViewReplyItem
-                      item={item}
-                      key={item.id}
-                      getReply={getReply}
-                    />
-                  );
-                })}
-            </ul>
             {isLoggedIn ? (
               <div className={styles.writeArea}>
                 <h4>댓글 작성</h4>
@@ -235,6 +241,18 @@ const CommunityView = () => {
             ) : (
               <p className={styles.needSignIn}>로그인이 필요합니다.</p>
             )}
+            <ul className={styles.mainReplyWrap}>
+              {reply.length > 0 &&
+                reply.map((item) => {
+                  return (
+                    <CommunityViewReplyItem
+                      item={item}
+                      key={item.id}
+                      getReply={getReply}
+                    />
+                  );
+                })}
+            </ul>
           </div>
         </div>
       </div>

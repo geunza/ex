@@ -57,6 +57,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
         description: currentReply,
       },
     }).then((res) => {
+      setModifyOpen((prev) => !prev);
       controlEnd();
     });
   };
@@ -90,6 +91,23 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   const controlEnd = () => {
     setControlBoxOpen(false);
     getReply();
+  };
+  const btnCmtLike = () => {
+    axios({
+      method: "POST",
+      url: "/mobile/community/insertCommentLike",
+      headers: {
+        user_id: userInfo.id,
+      },
+      data: { comment_id: cmtId },
+    })
+      .then((res) => {
+        console.log("res", res);
+        getReply();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   };
   useEffect(() => {
     if (isReply) {
@@ -128,7 +146,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
             <div className={styles.replyCont}>
               <div className={styles.leftArea}>{desc}</div>
               <div className={styles.rightArea}>
-                <div className={styles.likeArea}>
+                <button className={styles.likeArea} onClick={btnCmtLike}>
+                  {/* CHECK : 좋아요 내역 확인하는 API 필요 */}
                   <img
                     src={
                       process.env.PUBLIC_URL +
@@ -137,7 +156,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
                     alt="like icon"
                   />
                   <span>{item.like_count}</span>
-                </div>
+                </button>
                 <div className="controlBoxWrap">
                   <button
                     type="button"
@@ -205,7 +224,6 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
             </button>
           </>
         )}
-        <button onClick={getReply}>댓글 새로고침</button>
       </li>
       <div className={styles.writeReReply} style={{ display: "none" }}>
         <textarea name="" id="" cols="30" rows="10"></textarea>

@@ -1,21 +1,25 @@
-import React from "react";
-import styles from "scss/notice/NoticeListItem.module.scss";
+import React, { useEffect, useState } from "react";
+import styles from "scss/notice/NoticeList.module.scss";
 import { Link } from "react-router-dom";
 const NoticeListItem = ({ item }) => {
+  console.log(item);
+  const [mustRead, setMustRead] = useState("");
+  useEffect(() => {
+    setMustRead(item.mustYn);
+  }, []);
   return (
     <li className={`commonListItem ${styles.noticeListItem}`}>
       <div className="cateArea">
-        <span
-          className={styles.cate}
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
-          {item.category}
+        <span className={styles.cate}>
+          {mustRead == "Y" ? (
+            <span class={styles.mustRead}>필독</span>
+          ) : (
+            <span>일반</span>
+          )}
         </span>
       </div>
-      <div className="leftArea">
-        <Link to={`/community/noticeView/${item.id}`}>
+      <div className={`leftArea ${styles.leftArea}`}>
+        <Link to={`/notice/noticeView/${item.id}`}>
           <p className="title">{item.title}</p>
           <div
             className={`content ${styles.content}`}
@@ -23,8 +27,8 @@ const NoticeListItem = ({ item }) => {
           ></div>
         </Link>
       </div>
-      <div className="rightArea">
-        <span className="time">{item.cret_dt}</span>
+      <div className={`rightArea ${styles.rightArea}`}>
+        <span className="time">{item.createAt}</span>
       </div>
     </li>
   );

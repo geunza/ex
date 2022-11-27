@@ -21,6 +21,7 @@ const CommunityList = ({}) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userInfo = useSelector((state) => state.userInfo);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -122,7 +123,11 @@ const CommunityList = ({}) => {
       setComSearchText("");
     }
   };
-
+  const btnNavigateWrite = () => {
+    isLoggedIn
+      ? navigate("/community/communityWrite")
+      : alert("로그인이 필요합니다.");
+  };
   useEffect(() => {
     setPosts(postData);
   }, [postData]);
@@ -313,8 +318,8 @@ const CommunityList = ({}) => {
                       ></img>
                     </button>
                   </form>
-                  <Link
-                    to="/community/communityWrite"
+                  <button
+                    onClick={btnNavigateWrite}
                     className={styles.btnWrite}
                   >
                     <img
@@ -325,12 +330,12 @@ const CommunityList = ({}) => {
                       alt="게시글 작성"
                     />
                     <span>게시글 작성</span>
-                  </Link>
+                  </button>
                 </div>
               </div>
               {posts.length > 0 ? (
                 <>
-                  <ul className={styles.listItemWrap}>
+                  <ul className="commonListItemWrap">
                     {posts.slice(offset, offset + limit).map((post, i) => {
                       let modalInform;
                       modalOn.id == post.id
@@ -359,10 +364,7 @@ const CommunityList = ({}) => {
                 <div>없어용</div>
               )}
               <div className={styles.bottomBtns}>
-                <Link
-                  to="/community/communityWrite"
-                  className={styles.btnWrite}
-                >
+                <button onClick={btnNavigateWrite} className={styles.btnWrite}>
                   <img
                     src={
                       process.env.PUBLIC_URL +
@@ -371,7 +373,7 @@ const CommunityList = ({}) => {
                     alt="게시글 작성"
                   />
                   <span>게시글 작성</span>
-                </Link>
+                </button>
               </div>
               {/* {posts.length > 0 && (
           <Pagination

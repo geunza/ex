@@ -9,6 +9,15 @@
     display: inline-block;
     color: $color-deepGray;
   }
+  .leftArea {
+    width: 70%;
+  }
+  .rightArea {
+    width: 22%;
+  }
+  .content {
+    height: 54px;
+  }
   :global .content {
     -webkit-line-clamp: 2;
   }
