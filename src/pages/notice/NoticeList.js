@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import NoticeListItem from "../../components/notice/NoticeListItem";
 const NoticeList = () => {
   const [noticeData, setNoticeData] = useState([]);
   const getNoticeData = () => {
@@ -29,12 +30,15 @@ const NoticeList = () => {
           <ul>
             {noticeData.map((item, idx) => {
               return (
-                <li key={item.id}>
-                  <p
-                    className={`type ` + (item.mustYn == "Y" ? "must" : "")}
-                  ></p>
-                  <p>{item.title}</p>
-                </li>
+                <>
+                  <NoticeListItem item={item} />
+                  <li key={item.id}>
+                    <p
+                      className={`type ` + (item.mustYn == "Y" ? "must" : "")}
+                    ></p>
+                    <p>{item.title}</p>
+                  </li>
+                </>
               );
             })}
           </ul>

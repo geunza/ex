@@ -15,6 +15,8 @@ const CommunityListItem = ({
 }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const userInfo = useSelector((state) => state.userInfo);
+
   const btnPostClick = (e) => {
     const {
       currentTarget: { name, value },
@@ -46,10 +48,11 @@ const CommunityListItem = ({
     //console.log("controlBox =>", controlBox);
     //console.log("controlBoxOpen =>", controlBoxOpen);
   };
+  const isMine = userInfo.id == post.user_id;
   return (
     <>
-      <li className={styles.CommunityListItem}>
-        <div className={styles.cateArea}>
+      <li className={`commonListItem ${styles.CommunityListItem}`}>
+        <div className="cateArea">
           <span
             className={styles.cate}
             onClick={(e) => {
@@ -59,7 +62,7 @@ const CommunityListItem = ({
             {post.category}
           </span>
         </div>
-        <div className={styles.leftArea}>
+        <div className="leftArea">
           <Link
             to={`/community/communityView/${post.id}`}
             onClick={(e) => {
@@ -69,16 +72,16 @@ const CommunityListItem = ({
               }
             }}
           >
-            <p className={styles.title}>{post.title}</p>
-            <p className={styles.content}>{post.title}</p>
-            <p className={styles.write}>
-              <span className={styles.name}>{post.usernickname}</span>
-              <span className={styles.time}>{post.cret_dt}</span>
+            <p className="title">{post.title}</p>
+            <p className="content">{post.title}</p>
+            <p className="write">
+              <span className="name">{post.usernickname}</span>
+              <span className="time">{post.cret_dt}</span>
             </p>
           </Link>
         </div>
-        <div className={styles.rightArea}>
-          <p className={styles.rightInform}>
+        <div className="rightArea">
+          <p className="rightInform">
             <img
               src={
                 process.env.PUBLIC_URL +
@@ -88,7 +91,7 @@ const CommunityListItem = ({
             />
             <span>{post.comment_cnt}</span>
           </p>
-          <p className={styles.rightInform}>
+          <p className="rightInform">
             <img
               src={
                 process.env.PUBLIC_URL +
@@ -98,7 +101,7 @@ const CommunityListItem = ({
             />
             <span>999</span>
           </p>
-          <p className={styles.rightInform}>
+          <p className="rightInform">
             <img
               src={
                 process.env.PUBLIC_URL +
@@ -111,7 +114,7 @@ const CommunityListItem = ({
           <div className={`controlBoxWrap ${styles.rightInform}`}>
             <button
               type="button"
-              className={styles.myPost}
+              className="myPost"
               onClick={() => {
                 controlBoxClick(post.id);
               }}
@@ -125,7 +128,7 @@ const CommunityListItem = ({
               />
             </button>
             {controlBoxOpen &&
-              (controlBoxOpen ? ( // userInform == createInform 으로 변경예정
+              (isMine ? (
                 <ul className="controlBox">
                   <li>
                     <button

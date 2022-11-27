@@ -1,0 +1,13 @@
+.noticeListItem {
+  .content {
+    > p:not(:first-of-tyoe) {
+      display: none;
+    }
+    > p:first-of-type {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-line-clamp: 1;
+    }
+  }
+}
