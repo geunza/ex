@@ -35,7 +35,6 @@ const CommunityView = () => {
       url: `/mobile/community/one?id=${id}`,
     }).then((res) => {
       const data = res.data;
-      console.log(data);
       setPost(data);
       setCont(data.content);
       setTime(() => getTime(data.cret_dt));
@@ -134,7 +133,6 @@ const CommunityView = () => {
     } = e;
     setCmtText(value);
   };
-
   return (
     <>
       <div className={styles.CommunityView}>

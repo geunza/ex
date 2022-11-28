@@ -165,7 +165,7 @@ const FilterModal = ({
                         <li
                           className={styles.item}
                           key={btn.value}
-                          data-hasTooltip={btn.hasTooltip ? true : null}
+                          data-hastooltip={btn.hasTooltip ? true : null}
                         >
                           <button
                             type="button"

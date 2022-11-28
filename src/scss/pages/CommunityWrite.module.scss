@@ -40,11 +40,14 @@
     background-color: #fff;
     border-radius: $radius-wrap;
     overflow: hidden;
+    > * {
+      padding: 30px 40px;
+    }
     .cateArea {
       background: #fff;
       display: flex;
       align-items: center;
-      padding: 30px 40px;
+
       border-bottom: 1px solid $color-borderGray;
       .cateTit {
         font-size: 26px;
@@ -93,7 +96,6 @@
       }
     }
     .txtArea {
-      padding: 0 40px;
       .titleArea {
         padding: 25px 0;
         input[type="text"] {
@@ -126,6 +128,55 @@
             span {
               display: block;
             }
+          }
+        }
+      }
+    }
+    .fileArea {
+      display: flex;
+      gap: 5px;
+      align-items: flex-start;
+      font-size: 16px;
+      border-top: 1px solid $color-borderGray;
+      input[type="file"] {
+        display: none;
+      }
+      label {
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid $color-borderGray;
+        background: $color-lightGray;
+        color: $color-gray;
+        padding: 7px 15px 5px;
+        border-radius: 50px;
+        white-space: nowrap;
+        flex: 0 0 auto;
+        span {
+          padding-top: 2px;
+        }
+      }
+      .items {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid $color-sub;
+          color: $color-sub;
+          border-radius: 50px;
+          padding: 7px 15px 5px;
+          gap: 10px;
+          span {
+            padding-top: 2px;
+          }
+          img {
+            cursor: pointer;
           }
         }
       }

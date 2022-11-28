@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+import Editor from "components/community/Editor";
+import Editor2 from "components/community/Editor2";
+import FileUpload from "components/community/FileUpload";
 import styles from "scss/pages/CommunityWrite.module.scss";
 const CommunityWrite = () => {
   const [cate, setCate] = useState("정보공유"); //category
   const [openCate, setOpenCate] = useState(false);
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
+  const [fileData, setFileData] = useState([]);
   const btnSubmit = () => {
-    console.log("CATEGORY :" + cate);
-    console.log("title :" + title);
-    console.log("content :" + editorTxt);
+    // console.log("CATEGORY :" + cate);
+    // console.log("title :" + title);
+    // console.log("content :" + editorTxt);
+    if (title == "" && editorTxt == "") {
+      alert("필수 입력사항을 입력해 주세요.");
+    } else if (title == "") {
+      alert("제목은 필수 입력사항입니다.");
+    } else if (editorTxt == "") {
+      alert("내용은 필수 입력사항입니다.");
+    }
     // axios({
     //   method:"POST",
     //   url:"/mobile/community/",
@@ -104,39 +112,22 @@ const CommunityWrite = () => {
                 />
               </div>
               <div className={styles.editorArea}>
-                <CKEditor
-                  editor={ClassicEditor}
-                  data={editorTxt}
-                  placeholder="내용을 입력해 주세요."
-                  onReady={(editor) => {
-                    // You can store the "editor" and use when it is needed.
-                    console.log("Editor is ready to use!", editor);
-                  }}
-                  onChange={(event, editor) => {
-                    const data = editor.getData();
-                    setEditorTxt(data);
-                  }}
-                  onBlur={(event, editor) => {
-                    // console.log("Blur.", editor);
-                  }}
-                  onFocus={(event, editor) => {
-                    // console.log("Focus.", editor);
-                  }}
+                <Editor
+                  styles={styles}
+                  editorTxt={editorTxt}
+                  setEditorTxt={setEditorTxt}
                 />
-                {editorTxt == "" && (
-                  <div className={styles.editInform}>
-                    <p className={styles.tit}>내용을 입력해주세요.</p>
-                    <p className={styles.para}>
-                      <span>카테고리에 맞는 주세로 입력해 주세요.</span>
-                      <span>게시글 수정/삭제는 마이페이지에서 가능합니다.</span>
-                      <span>
-                        욕설/바방, 저작권 침해, 음란, 청소년 유해물, 기타
-                        위법자료 등을 게시할경우 경고 없이 삭제됩니다.{" "}
-                      </span>
-                    </p>
-                  </div>
-                )}
+                <div className="editor2">
+                  <Editor2 />
+                </div>
               </div>
+            </div>
+            <div className={styles.fileArea}>
+              <FileUpload
+                fileData={fileData}
+                setFileData={setFileData}
+                styles={styles}
+              />
             </div>
           </div>
         </div>

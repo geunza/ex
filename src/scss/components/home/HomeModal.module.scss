@@ -68,7 +68,7 @@
         .item {
           // margin-bottom: 5px;
           position: relative;
-          &[data-hasTooltip="true"] {
+          &[data-hastooltip="true"] {
             margin-right: 25px;
           }
           button {
@@ -116,6 +116,7 @@
 .EventModal {
   //
   .contArea {
+    background-color: #fff;
     //
     .tab01 {
       //
