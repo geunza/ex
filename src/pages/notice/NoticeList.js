@@ -14,6 +14,7 @@ const NoticeList = () => {
       method: "GET",
     }).then((res) => {
       setNoticeData(res.data);
+      console.log(res.data);
       dispatch(loadingEnd());
     });
   };
@@ -35,11 +36,8 @@ const NoticeList = () => {
         <div className="inner">
           <ul className={`commonListItemWrap ${styles.noticeListWrap}`}>
             {noticeData.map((item, idx) => {
-              return (
-                <>
-                  <NoticeListItem item={item} key={idx} />
-                </>
-              );
+              console.log(item);
+              return <NoticeListItem item={item} key={item.id} />;
             })}
           </ul>
         </div>

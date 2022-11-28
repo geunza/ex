@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Editor from "components/community/Editor";
-import Editor2 from "components/community/Editor2";
 import FileUpload from "components/community/FileUpload";
 import styles from "scss/pages/CommunityWrite.module.scss";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 const CommunityWrite = () => {
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.userInfo);
   const [cate, setCate] = useState("정보공유"); //category
   const [openCate, setOpenCate] = useState(false);
   const [title, setTitle] = useState(""); //title
@@ -15,16 +19,68 @@ const CommunityWrite = () => {
     // console.log("content :" + editorTxt);
     if (title == "" && editorTxt == "") {
       alert("필수 입력사항을 입력해 주세요.");
+      return;
     } else if (title == "") {
       alert("제목은 필수 입력사항입니다.");
+      return;
     } else if (editorTxt == "") {
       alert("내용은 필수 입력사항입니다.");
+      return;
     }
-    // axios({
-    //   method:"POST",
-    //   url:"/mobile/community/",
-    //   headers:"multipart/form-data",
-    // })
+
+    axios({
+      method: "POST",
+      url: "/mobile/community/",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: {
+        category: cate,
+        userId: userInfo.id,
+        title: title,
+        content: editorTxt,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        // navigate(`/community/communityView/${res.data}`);
+        return res.data;
+      })
+      .then((res) => {
+        const formData = new FormData(); // formData 객체를 생성한다.
+        formData.append("content_id", res);
+        for (let i = 0; i < fileData.length; i++) {
+          formData.append("files", fileData[i]);
+        }
+        axios
+          .post("/mobile/community/uploadFile", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(() => {
+            navigate(`/community/communityView/${res}`);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    //   axios({
+    //     method: "POST",
+    //     url: "/mobile/community/uploadFile",
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //     data: {
+    //       files: formData,
+    //       content_id: res,
+    //     },
+    //   })
+    //     .then(() => {
+    //       navigate(`/community/communityView/${res.data}`);
+    //     })
+    //     .catch((err) => console.log("err", err));
+    // });
   };
   const selectCate = (e) => {
     const {
@@ -117,9 +173,6 @@ const CommunityWrite = () => {
                   editorTxt={editorTxt}
                   setEditorTxt={setEditorTxt}
                 />
-                <div className="editor2">
-                  <Editor2 />
-                </div>
               </div>
             </div>
             <div className={styles.fileArea}>

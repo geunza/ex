@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import styles from "scss/components/community/CommunityListItem.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { modalOverflow } from "store";
+import { loadingStart, loadingEnd } from "store";
 import CommunityListModal from "components/community/CommunityListModal";
+import axios from "axios";
 const CommunityListItem = ({
   post,
   modalOn,
@@ -12,6 +14,7 @@ const CommunityListItem = ({
   controlBox,
   setControlBox,
   controlBoxOpen,
+  getCommunityList,
 }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -27,7 +30,7 @@ const CommunityListItem = ({
       console.log("btnModifyClick", value);
     } else if (name == "delete") {
       //삭제버튼
-      console.log("btnDeleteClick", value);
+      clickDelete(value);
     } else if (name == "block") {
       //차단버튼
       console.log("btnBlockClick", value);
@@ -35,6 +38,23 @@ const CommunityListItem = ({
       //에러
       console.log("ELSE");
     }
+  };
+  const clickDelete = (value) => {
+    dispatch(loadingStart());
+    const id = value.toString();
+    axios({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { id: id.toString() },
+      url: "/mobile/community/delete",
+      method: "POST",
+    })
+      .then((res) => {
+        getCommunityList();
+        dispatch(loadingEnd());
+      })
+      .catch((err) => console.log(err));
   };
   const controlBoxClick = (id) => {
     if (controlBox.id == id) {

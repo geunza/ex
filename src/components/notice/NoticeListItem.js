@@ -12,7 +12,7 @@ const NoticeListItem = ({ item }) => {
       <div className="cateArea">
         <span className={styles.cate}>
           {mustRead == "Y" ? (
-            <span class={styles.mustRead}>필독</span>
+            <span className={styles.mustRead}>필독</span>
           ) : (
             <span>일반</span>
           )}

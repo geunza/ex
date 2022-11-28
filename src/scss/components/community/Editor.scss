@@ -1,0 +1,15 @@
+@import "scss/utils";
+
+.ProseMirror {
+  font-size: 18px;
+
+  .placeholder {
+    display: none;
+  }
+}
+.toastui-editor-contents {
+  font-family: "GmarketSans", sans-serif;
+}
+.toastui-editor-contents p {
+  color: $color-deepGray;
+}

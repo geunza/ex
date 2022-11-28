@@ -1,29 +1,52 @@
-import React from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React, { useRef } from "react";
+import { Editor } from "@toast-ui/react-editor";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import "@toast-ui/editor/dist/i18n/ko-kr";
+import "scss/components/community/Editor.scss";
+import { useEffect } from "react";
 
-const Editor = ({ styles, editorTxt, setEditorTxt }) => {
+const Editor2 = ({ styles, editorTxt, setEditorTxt }) => {
+  const editorRef = useRef();
+  const onChange = () => {
+    const data = editorRef.current.getInstance().getHTML();
+    setEditorTxt(data);
+  };
   return (
     <>
-      <CKEditor
-        editor={ClassicEditor}
-        data={editorTxt}
-        placeholder="내용을 입력해 주세요."
-        onReady={(editor) => {
-          // console.log("Editor is ready to use!", editor);
+      <Editor
+        placeholder="내용을 입력해주세요."
+        previewStyle="vertical" // 미리보기 스타일 지정
+        height="600px" // 에디터 창 높이
+        initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
+        hideModeSwitch="true"
+        plugins={[
+          [
+            colorSyntax,
+            // 기본 색상 preset 적용
+            {
+              preset: ["#ff0000", "#4c5864", "#ED7675"],
+            },
+          ],
+        ]}
+        language="ko-KR"
+        ref={editorRef}
+        onLoad={() => {
+          console.log("LOADED");
         }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setEditorTxt(data);
-        }}
-        onBlur={(event, editor) => {
-          // console.log("Blur.", editor);
-        }}
-        onFocus={(event, editor) => {
-          // console.log("Focus.", editor);
-        }}
-      />
-      {editorTxt == "" && (
+        onChange={onChange}
+        toolbarItems={[
+          // 툴바 옵션 설정
+          ["heading", "bold", "italic", "strike"],
+          ["hr", "quote"],
+          ["ul", "ol", "task", "indent", "outdent"],
+          ["table", "image", "link"],
+          ["code", "codeblock"],
+        ]}
+      ></Editor>
+      {(editorTxt == "" || editorTxt == "<p><br></p>") && (
         <div className={styles.editInform}>
           <p className={styles.tit}>내용을 입력해주세요.</p>
           <p className={styles.para}>
@@ -39,4 +62,4 @@ const Editor = ({ styles, editorTxt, setEditorTxt }) => {
     </>
   );
 };
-export default Editor;
+export default Editor2;

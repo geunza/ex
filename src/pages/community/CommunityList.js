@@ -355,6 +355,7 @@ const CommunityList = ({}) => {
                           controlBox={controlBox}
                           setControlBox={setControlBox}
                           controlBoxOpen={controlBoxOpen}
+                          getCommunityList={getCommunityList}
                         />
                       );
                     })}

@@ -6,6 +6,7 @@ import styles from "scss/pages/CommunityView.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
 import CommunityViewReplyItem from "components/community/CommunityViewReplyItem";
+import "@toast-ui/editor/dist/toastui-editor.css";
 const CommunityView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -159,10 +160,12 @@ const CommunityView = () => {
                 <h3 className={styles.title}>{post.title}</h3>
               </div>
             </div>
-            <div
-              className={styles.cont}
-              dangerouslySetInnerHTML={{ __html: cont }}
-            ></div>
+            <div className="toastui-editor-contents">
+              <div
+                className={styles.cont}
+                dangerouslySetInnerHTML={{ __html: cont }}
+              ></div>
+            </div>
             <div className={styles.bottomBtns}>
               <button type="button" className={styles.btnLike}>
                 <img

@@ -1,8 +1,12 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadingStart, loadingEnd } from "store";
 const FileUpload = ({ styles, fileData, setFileData }) => {
+  useEffect(() => {
+    console.log(fileData);
+  }, [fileData]);
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState([]);
   const fileChange = () => {
@@ -22,12 +26,12 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
       const passArray = ["hwp", "word", "ppt", "pdf", "exel", "text"];
       const ext = item.name.split(".").pop().toLowerCase();
       console.log(item);
-      // if (passArray.indexOf(ext) == -1) {
-      //   alert(
-      //     "지정된 확장자 (.hwp, .word, .ppt, .pdf, .exel, .text)만 삽입할 수 있습니다."
-      //   ); // CHECK : 메시지 정리
-      //   resetFile();
-      // }
+      if (passArray.indexOf(ext) == -1) {
+        alert(
+          "지정된 확장자 (.hwp, .word, .ppt, .pdf, .exel, .text)만 삽입할 수 있습니다."
+        ); // CHECK : 메시지 정리
+        resetFile();
+      }
       if (item.size > fileSizeLimit * 1024 * 1024) {
         alert(`최대 ${fileSizeLimit}MB의 파일만 삽입 가능합니다.`); // CHECK : 메시지 정리
         resetFile();
