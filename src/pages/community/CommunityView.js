@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "scss/pages/CommunityView.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingStart, loadingEnd } from "store";
+import { loadingStart, loadingEnd } from "redux/store";
 import CommunityViewReplyItem from "components/community/CommunityViewReplyItem";
 import "@toast-ui/editor/dist/toastui-editor.css";
 const CommunityView = () => {
@@ -62,6 +62,11 @@ const CommunityView = () => {
         content_id: parseInt(id),
       },
     }).then((res) => {
+      res.data.sort((a, b) => {
+        const date1 = new Date(a.cret_dt);
+        const date2 = new Date(b.cret_dt);
+        return date1 - date2;
+      });
       setReply(res.data);
       loadEnd();
     });
@@ -83,14 +88,10 @@ const CommunityView = () => {
         loadEnd();
       });
   };
-  useEffect(() => {
-    // !isLoggedIn && navigate("/");
-    dispatch(loadingStart());
-    getContent();
-    getReply();
-    getFiles();
-  }, []);
   const replySubmit = (e) => {
+    if (!window.confirm("댓글을 등록하시겠습니까?")) {
+      return false;
+    }
     const contId = post.id;
     const desc = cmtText;
     const step = 1;
@@ -108,25 +109,8 @@ const CommunityView = () => {
     }).then(() => {
       setCmtText("");
       getReply();
+      alert("등록되었습니다.");
     });
-    // axios({
-    //   method: "POST",
-    //   url: "/mobile/community/insertComment",
-    //   headers: {
-    //     user_id: userInfo.id,
-    //   },
-    //   data: {
-    //     c_content_id: parseInt(id),
-    //     description: cmtText,
-    //     step: 1,
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log("res", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //   });
   };
   const commentChange = (e) => {
     const {
@@ -134,6 +118,16 @@ const CommunityView = () => {
     } = e;
     setCmtText(value);
   };
+  useEffect(() => {
+    getReply();
+  }, [userInfo]);
+  useEffect(() => {
+    // !isLoggedIn && navigate("/");
+    dispatch(loadingStart());
+    getContent();
+    getReply();
+    getFiles();
+  }, []);
   return (
     <>
       <div className={styles.CommunityView}>
@@ -240,7 +234,10 @@ const CommunityView = () => {
                 </div>
               </div>
             ) : (
-              <p className={styles.needSignIn}>로그인이 필요합니다.</p>
+              <p className={styles.needSignIn}>
+                로그인이 필요합니다.
+                {/* CHECK : 메시지 정리 */}
+              </p>
             )}
             <ul className={styles.mainReplyWrap}>
               {reply.length > 0 &&
