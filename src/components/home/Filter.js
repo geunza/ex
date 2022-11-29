@@ -7,7 +7,7 @@ import FilterModal from "components/home/FilterModal";
 import axios from "axios";
 import styles from "scss/components/home/Filter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo } from "store/supportInfoSlice";
+import { setSupportInfo } from "redux/store/supportInfoSlice";
 import supportData1 from "db/supportData1";
 import supportData2 from "db/supportData2";
 const Filter = ({ modalOpener, setModalOn, modalOn, Modal1 }) => {

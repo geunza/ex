@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loadingStart, loadingEnd } from "store";
+import { loadingStart, loadingEnd } from "redux/store";
 const FileUpload = ({ styles, fileData, setFileData }) => {
   useEffect(() => {
     console.log(fileData);

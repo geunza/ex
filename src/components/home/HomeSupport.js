@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingStart, loadingEnd } from "store";
+import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemHome from "components/home/BoxListItemHome";
 import styles from "scss/components/home/HomeSupport.module.scss";
 const HomeSupport = ({}) => {

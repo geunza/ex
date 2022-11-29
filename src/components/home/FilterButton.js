@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSupportInfo } from "store/supportInfoSlice";
+import { setSupportInfo } from "redux/store/supportInfoSlice";
 const FilterButton = ({
   v,
   i,

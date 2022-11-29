@@ -121,6 +121,11 @@
       margin-bottom: 25px;
       display: block;
       line-height: 1.5;
+      border: 1px solid $color-borderGray;
+      border-radius: $radius-btn;
+    }
+    .needSignIn {
+      padding: 20px 40px;
     }
     .mainReplyWrap {
     }
@@ -140,7 +145,6 @@
         border: none;
         padding: 14px 20px 11px;
         border-radius: 50px;
-        transition: color 0.2s, background-color 0.2s;
         &:hover {
           color: #fff;
           background-color: $color-sub;

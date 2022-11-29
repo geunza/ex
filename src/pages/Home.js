@@ -11,7 +11,7 @@ import Loading from "components/Loading";
 import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { modalOverflow } from "store";
+import { modalOverflow } from "redux/store";
 const Home = ({}) => {
   const dispatch = useDispatch();
   const [modalOn, setModalOn] = useState(false);

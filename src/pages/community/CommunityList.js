@@ -13,9 +13,9 @@ import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingStart, loadingEnd } from "store";
+import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
-import CommunityListModal from "components/community/CommunityListModal";
+import CommunityModal from "components/community/CommunityModal";
 
 const CommunityList = ({}) => {
   const location = useLocation();
@@ -399,7 +399,7 @@ const CommunityList = ({}) => {
           </div>
         </div>
         {modalOn.current && modalOn.type == "blockedUser" ? (
-          <CommunityListModal modalOn={modalOn} modalOpener={modalOpener} />
+          <CommunityModal modalOn={modalOn} modalOpener={modalOpener} />
         ) : null}
       </div>
     </>

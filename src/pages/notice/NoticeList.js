@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NoticeListItem from "components/notice/NoticeListItem";
 import styles from "scss/notice/NoticeList.module.scss";
-import { loadingStart, loadingEnd } from "store";
+import { loadingStart, loadingEnd } from "redux/store";
 import { useDispatch } from "react-redux";
 const NoticeList = () => {
   const dispatch = useDispatch();

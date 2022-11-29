@@ -72,20 +72,54 @@
       border: none;
       padding: 14px 20px 11px;
       border-radius: 50px;
-      color: #fff;
-      background: $color-sub;
+      background: $color-borderGray;
+      color: $color-deepGray;
       font-size: 18px;
+      &:hover {
+        color: #fff;
+        background: $color-sub;
+      }
     }
   }
 }
+.writeReReply {
+  padding: 0 40px 20px;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    .reReplyTxt {
+      margin: 0;
+    }
+  }
+  button {
+    display: block;
+    margin: 0 0 0 auto;
+    font-size: 18px;
+    background: $color-borderGray;
+    color: $color-deepGray;
+    border: none;
+    padding: 14px 20px 11px;
+    border-radius: 50px;
+    &:hover {
+      color: #fff;
+      background-color: $color-sub;
+    }
+  }
+}
+
 .reReplyWrap {
   width: 100%;
-  padding: 0 40px;
   .reReply {
     flex-flow: row;
     align-items: center;
     width: 100%;
-    margin: 15px 0;
+    padding: 15px 40px;
     .reReplyContWrap {
       padding: 25px 30px;
       border: 1px solid $color-borderGray;

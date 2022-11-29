@@ -4,7 +4,7 @@ import SupportFilter from "components/support/SupportFilter";
 import SupportItems from "components/support/SupportItems";
 import SupportRecent from "components/support/SupportRecent";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo } from "store/supportInfoSlice";
+import { setSupportInfo } from "redux/store/supportInfoSlice";
 import axios from "axios";
 
 const SupportList = ({}) => {

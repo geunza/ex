@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn, setUserInfo, setDefaultSetup } from "store";
+import { signIn, setUserInfo } from "redux/store";
 import axios from "axios";
 import Home from "pages/Home";
 import Header from "components/Header";

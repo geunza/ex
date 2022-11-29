@@ -7,7 +7,7 @@ import SavedCategory from "components/saved/SavedCategory";
 import SavedItem from "components/saved/SavedItem";
 import SavedChart from "components/saved/SavedChart";
 import styles from "scss/pages/SavedRecent.module.scss";
-import { loadingStart, loadingEnd } from "store";
+import { loadingStart, loadingEnd } from "redux/store";
 const SavedRecent = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);

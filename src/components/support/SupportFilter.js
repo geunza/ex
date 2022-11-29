@@ -1,12 +1,15 @@
 import React from "react";
 import styles from "scss/components/support/SupportFilter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo, setSupportInfoModal } from "store/supportInfoSlice";
+import {
+  setSupportInfo,
+  setSupportInfoModal,
+} from "redux/store/supportInfoSlice";
 import { useEffect, useState } from "react";
 import supportData1 from "db/supportData1";
 import supportData2 from "db/supportData2";
 import { current } from "@reduxjs/toolkit";
-import { modalOverflow } from "store";
+import { modalOverflow } from "redux/store";
 const SupportFilter = ({ supportInfo }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);

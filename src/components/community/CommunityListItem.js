@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "scss/components/community/CommunityListItem.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { modalOverflow } from "store";
-import { loadingStart, loadingEnd } from "store";
-import CommunityListModal from "components/community/CommunityListModal";
+import { modalOverflow } from "redux/store";
+import { loadingStart, loadingEnd } from "redux/store";
+import CommunityModal from "components/community/CommunityModal";
 import axios from "axios";
 const CommunityListItem = ({
   post,
@@ -19,7 +19,8 @@ const CommunityListItem = ({
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
-
+  const writerId = post.user_id;
+  console.log(post);
   const btnPostClick = (e) => {
     const {
       currentTarget: { name, value },
@@ -30,16 +31,17 @@ const CommunityListItem = ({
       console.log("btnModifyClick", value);
     } else if (name == "delete") {
       //삭제버튼
-      clickDelete(value);
+      btnDelete(value);
     } else if (name == "block") {
       //차단버튼
-      console.log("btnBlockClick", value);
+      btnBlock();
     } else {
       //에러
       console.log("ELSE");
     }
   };
-  const clickDelete = (value) => {
+  // 게시글 삭제
+  const btnDelete = (value) => {
     dispatch(loadingStart());
     const id = value.toString();
     axios({
@@ -56,6 +58,35 @@ const CommunityListItem = ({
       })
       .catch((err) => console.log(err));
   };
+  const btnReport = (e) => {
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+      return false;
+    }
+    modalOpener(e);
+  };
+
+  // 차단버튼
+  const btnBlock = () => {
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+      return false;
+    }
+    let targetId;
+    isNaN(Number(writerId))
+      ? (targetId = writerId)
+      : (targetId = parseInt(writerId));
+    axios({
+      method: "POST",
+      url: "/mobile/community/insertBlock",
+      headers: {
+        user_id: parseInt(userInfo.id),
+        target_id: targetId,
+      },
+    }).then((res) => {
+      console.log(res.data);
+    });
+  };
   const controlBoxClick = (id) => {
     if (controlBox.id == id) {
       setControlBox({ id: "" });
@@ -68,143 +99,136 @@ const CommunityListItem = ({
     //console.log("controlBox =>", controlBox);
     //console.log("controlBoxOpen =>", controlBoxOpen);
   };
-  const isMine = userInfo.id == post.user_id;
+  const loginCheck = () => {};
+  const isMine = userInfo.id == writerId;
   return (
-    <>
-      <li className={`commonListItem ${styles.CommunityListItem}`}>
-        <div className="cateArea">
-          <span
-            className={styles.cate}
-            onClick={(e) => {
-              e.preventDefault();
+    <li className={`commonListItem ${styles.CommunityListItem}`}>
+      <div className="cateArea">
+        <span
+          className={styles.cate}
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+        >
+          {post.category}
+        </span>
+      </div>
+      <div className={`leftArea ${styles.leftArea}`}>
+        <Link to={`/community/communityView/${post.id}`}>
+          <p className="title">{post.title}</p>
+          <p className={`content ${styles.content}`}>{post.title}</p>
+          <p className="write">
+            <span className="name">{post.usernickname}</span>
+            <span className="time">{post.cret_dt}</span>
+          </p>
+        </Link>
+      </div>
+      <div className={`rightArea ${styles.rightArea}`}>
+        <p className="rightInform">
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/public_assets/img/global/ico/ico_comment.png"
+            }
+            alt="코멘트"
+          />
+          <span>{post.comment_cnt}</span>
+        </p>
+        <p className="rightInform">
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/public_assets/img/global/ico/ico_like.png"
+            }
+            alt="좋아요"
+          />
+          <span>999</span>
+        </p>
+        <p className="rightInform">
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/public_assets/img/global/ico/ico_view_gray.png"
+            }
+            alt="조회수"
+          />
+          <span>{post.view_count}</span>
+        </p>
+        <div className={`controlBoxWrap ${styles.rightInform}`}>
+          <button
+            type="button"
+            className="myPost"
+            onClick={() => {
+              controlBoxClick(post.id);
             }}
           >
-            {post.category}
-          </span>
-        </div>
-        <div className={`leftArea ${styles.leftArea}`}>
-          <Link
-            to={`/community/communityView/${post.id}`}
-            onClick={(e) => {
-              if (!isLoggedIn) {
-                e.preventDefault();
-                alert("로그인이 필요합니다.");
-              }
-            }}
-          >
-            <p className="title">{post.title}</p>
-            <p className={`content ${styles.content}`}>{post.title}</p>
-            <p className="write">
-              <span className="name">{post.usernickname}</span>
-              <span className="time">{post.cret_dt}</span>
-            </p>
-          </Link>
-        </div>
-        <div className={`rightArea ${styles.rightArea}`}>
-          <p className="rightInform">
             <img
               src={
                 process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_comment.png"
+                "/public_assets/img/global/ico/ico_more.png"
               }
-              alt="코멘트"
+              alt="내 게시글 관리"
             />
-            <span>{post.comment_cnt}</span>
-          </p>
-          <p className="rightInform">
-            <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_like.png"
-              }
-              alt="좋아요"
-            />
-            <span>999</span>
-          </p>
-          <p className="rightInform">
-            <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_view_gray.png"
-              }
-              alt="조회수"
-            />
-            <span>{post.view_count}</span>
-          </p>
-          <div className={`controlBoxWrap ${styles.rightInform}`}>
-            <button
-              type="button"
-              className="myPost"
-              onClick={() => {
-                controlBoxClick(post.id);
-              }}
-            >
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_more.png"
-                }
-                alt="내 게시글 관리"
-              />
-            </button>
-            {controlBoxOpen &&
-              (isMine ? (
-                <ul className="controlBox">
-                  <li>
-                    <button
-                      type="button"
-                      name="modify"
-                      value={post.id}
-                      onClick={btnPostClick}
-                    >
-                      수정
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      name="delete"
-                      value={post.id}
-                      onClick={btnPostClick}
-                    >
-                      삭제
-                    </button>
-                  </li>
-                </ul>
-              ) : (
-                <ul className="controlBox">
-                  <li>
-                    <button
-                      type="button"
-                      name="report"
-                      value={true}
-                      data-id={post.id}
-                      onClick={modalOpener}
-                    >
-                      신고
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      name="block"
-                      value={post.id}
-                      onClick={btnPostClick}
-                    >
-                      차단
-                    </button>
-                  </li>
-                </ul>
-              ))}
-          </div>
+          </button>
+          {controlBoxOpen &&
+            (isMine ? (
+              <ul className="controlBox">
+                <li>
+                  <button
+                    type="button"
+                    name="modify"
+                    value={post.id}
+                    onClick={btnPostClick}
+                  >
+                    수정
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    name="delete"
+                    value={post.id}
+                    onClick={btnPostClick}
+                  >
+                    삭제
+                  </button>
+                </li>
+              </ul>
+            ) : (
+              <ul className="controlBox">
+                <li>
+                  <button
+                    type="button"
+                    name="report"
+                    value={true}
+                    data-id={post.id}
+                    onClick={btnReport}
+                  >
+                    신고
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    name="block"
+                    value={post.id}
+                    onClick={btnPostClick}
+                  >
+                    차단
+                  </button>
+                </li>
+              </ul>
+            ))}
         </div>
-        {modalOn.current &&
-        modalOn.type == "report" &&
-        modalOn.id == post.id ? (
-          <CommunityListModal modalOn={modalOn} modalOpener={modalOpener} />
-        ) : null}
-      </li>
-    </>
+      </div>
+      {modalOn.current && modalOn.type == "report" && modalOn.id == post.id ? (
+        <CommunityModal
+          modalOn={modalOn}
+          modalOpener={modalOpener}
+          post={post}
+        />
+      ) : null}
+    </li>
   );
 };
 export default CommunityListItem;

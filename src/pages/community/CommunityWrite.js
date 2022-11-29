@@ -39,16 +39,12 @@ const CommunityWrite = () => {
         userId: userInfo.id,
         title: title,
         content: editorTxt,
+        files: "",
       },
-    })
-      .then((res) => {
-        console.log(res);
-        // navigate(`/community/communityView/${res.data}`);
-        return res.data;
-      })
-      .then((res) => {
+    }).then((res) => {
+      if (fileData.length > 0) {
         const formData = new FormData(); // formData 객체를 생성한다.
-        formData.append("content_id", res);
+        formData.append("content_id", res.data);
         for (let i = 0; i < fileData.length; i++) {
           formData.append("files", fileData[i]);
         }
@@ -59,12 +55,16 @@ const CommunityWrite = () => {
             },
           })
           .then(() => {
-            navigate(`/community/communityView/${res}`);
+            navigate(`/community/communityView/${res.data}`);
           })
           .catch((error) => {
             console.log(error);
           });
-      });
+      } else {
+        navigate(`/community/communityView/${res.data}`);
+      }
+      return res.data;
+    });
     //   axios({
     //     method: "POST",
     //     url: "/mobile/community/uploadFile",
