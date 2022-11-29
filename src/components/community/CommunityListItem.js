@@ -5,12 +5,10 @@ import styles from "scss/components/community/CommunityListItem.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { modalOverflow } from "redux/store";
 import { loadingStart, loadingEnd } from "redux/store";
-import CommunityModal from "components/community/CommunityModal";
+import CommunityModalReport from "components/community/CommunityModalReport";
 import axios from "axios";
 const CommunityListItem = ({
   post,
-  modalOn,
-  modalOpener,
   controlBox,
   setControlBox,
   controlBoxOpen,
@@ -20,6 +18,7 @@ const CommunityListItem = ({
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const writerId = post.user_id;
+  const [modalOn, setModalOn] = useState(false);
   console.log(post);
   const btnPostClick = (e) => {
     const {
@@ -63,7 +62,7 @@ const CommunityListItem = ({
       alert("로그인이 필요합니다.");
       return false;
     }
-    modalOpener(e);
+    setModalOn((prev) => !prev);
   };
 
   // 차단버튼
@@ -99,7 +98,6 @@ const CommunityListItem = ({
     //console.log("controlBox =>", controlBox);
     //console.log("controlBoxOpen =>", controlBoxOpen);
   };
-  const loginCheck = () => {};
   const isMine = userInfo.id == writerId;
   return (
     <li className={`commonListItem ${styles.CommunityListItem}`}>
@@ -221,13 +219,7 @@ const CommunityListItem = ({
             ))}
         </div>
       </div>
-      {modalOn.current && modalOn.type == "report" && modalOn.id == post.id ? (
-        <CommunityModal
-          modalOn={modalOn}
-          modalOpener={modalOpener}
-          post={post}
-        />
-      ) : null}
+      {modalOn && <CommunityModalReport post={post} setModalOn={setModalOn} />}
     </li>
   );
 };

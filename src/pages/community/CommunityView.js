@@ -53,7 +53,7 @@ const CommunityView = () => {
       return `${iso} ${timeString}`;
     };
   };
-  const getReply = () => {
+  const getReply = (userId) => {
     axios({
       url: "/mobile/community/comment",
       method: "POST",

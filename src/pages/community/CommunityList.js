@@ -15,7 +15,6 @@ import Pagination from "components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
-import CommunityModal from "components/community/CommunityModal";
 
 const CommunityList = ({}) => {
   const location = useLocation();
@@ -398,9 +397,6 @@ const CommunityList = ({}) => {
             />
           </div>
         </div>
-        {modalOn.current && modalOn.type == "blockedUser" ? (
-          <CommunityModal modalOn={modalOn} modalOpener={modalOpener} />
-        ) : null}
       </div>
     </>
   );

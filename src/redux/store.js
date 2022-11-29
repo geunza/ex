@@ -59,7 +59,6 @@ let modalState = createSlice({
   initialState: false,
   reducers: {
     modalOverflow(state, action) {
-      console.log(action.payload);
       if (action.payload) {
         document.body.style.cssText = `
         position: fixed;

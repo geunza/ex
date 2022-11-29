@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/components/community/CommunityModal.module.scss";
 import { modalOverflow } from "redux/store";
-const CommunityModal = ({ modalOn, modalOpener, post }) => {
+const CommunityModalReport = ({ modalOn, setModalOn, modalOpener }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const writerId = post.user_id;
+  // const writerId = post.user_id;
   const [blockedUser, setBlockedUser] = useState([]);
   const [txtArea, setTxtArea] = useState("");
   // 차단유저 GET
@@ -58,38 +58,7 @@ const CommunityModal = ({ modalOn, modalOpener, post }) => {
     });
   };
   // 신고하기
-  const btnReport = (e) => {
-    let targetId;
-    isNaN(Number(writerId))
-      ? (targetId = writerId)
-      : (targetId = parseInt(writerId));
-
-    const targetIdx = post.id;
-    const category = post.category;
-    const status = "검토중";
-    let desc;
-    if (selectedReport.value == "기타이유") {
-      desc = `${selectedReport.value} : ${txtArea}`;
-    } else {
-      desc = selectedReport.value;
-    }
-    axios({
-      url: "/mobile/community/insertReport",
-      method: "POST",
-      headers: {
-        user_id: userInfo.id,
-        target_user_id: targetId,
-      },
-      data: {
-        target_idx: targetIdx,
-        category: category,
-        description: desc,
-        status: status,
-      },
-    }).then((res) => {
-      console.log(res);
-    });
-  };
+  const btnReport = (e) => {};
   const reportList = [
     { value: "욕설 및 비방" },
     { value: "도박/사행성" },
@@ -112,11 +81,14 @@ const CommunityModal = ({ modalOn, modalOpener, post }) => {
   };
 
   useEffect(() => {
-    getBlockedUser();
-    dispatch(modalOverflow(true));
     return () => {
-      dispatch(modalOverflow(false));
+      setModalOn({ current: false, type: "", id: "" });
     };
+    // getBlockedUser();
+    // dispatch(modalOverflow(true));
+    // return () => {
+    //   dispatch(modalOverflow(false));
+    // };
   }, []);
   return (
     <>
@@ -134,7 +106,7 @@ const CommunityModal = ({ modalOn, modalOpener, post }) => {
                       }
                       alt="차단 회원 관리"
                     />
-                    <p>차단 회원 관리</p>
+                    <p>차단 회원 관ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ리</p>
                   </>
                 )}
                 {modalOn.type == "report" && (
@@ -276,4 +248,4 @@ const CommunityModal = ({ modalOn, modalOpener, post }) => {
     </>
   );
 };
-export default CommunityModal;
+export default CommunityModalReport;
