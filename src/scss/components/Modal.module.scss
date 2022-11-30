@@ -1,0 +1,401 @@
+@import "scss/utils";
+.modalWrap {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  .modalInner {
+    background: #fff;
+    border-radius: $radius-wrap;
+    max-height: 100%;
+    padding: 0;
+    overflow: visible;
+    width: 700px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+  }
+
+  .modalTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid $color-borderGray;
+    .tit {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      img {
+        display: block;
+      }
+      p {
+        padding-top: 5px;
+        font-size: 24px;
+      }
+    }
+    button {
+      border: none;
+      padding: 5px;
+      img {
+        display: block;
+      }
+    }
+  }
+
+  .modalSubmit {
+    button {
+      background-color: $color-main;
+      color: #fff;
+      width: 100%;
+      padding: 14px 0 12px;
+      font-size: 20px;
+      border: none;
+    }
+  }
+  .confirmArea {
+    border-radius: 0 0 $radius-wrap $radius-wrap;
+    overflow: hidden;
+    button {
+      font-size: 18px;
+    }
+  }
+}
+
+.communityModal {
+  .modalCont {
+    padding: 25px;
+    .subTit {
+      font-size: 14px;
+      color: $color-deepGray;
+      background-color: #f0f4fd;
+      text-align: center;
+      padding: 15px 0 12px;
+      border-radius: $radius-btn;
+      margin-bottom: 25px;
+      span {
+        display: block;
+      }
+    }
+    li {
+      border-bottom: 1px solid $color-borderGray;
+      padding: 15px 0;
+    }
+    .blockedList {
+      margin-bottom: 25px;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p {
+          padding-top: 2px;
+        }
+        button {
+          border: none;
+          padding: 3px;
+          img {
+            display: block;
+          }
+        }
+      }
+    }
+    .reportList {
+      li {
+        //
+        &:last-child {
+          border: none;
+          padding: 0;
+        }
+        &:nth-last-child(2) {
+          border: none;
+        }
+        label {
+          display: flex;
+          gap: 15px;
+        }
+        input[type="radio"] {
+          display: none;
+          &:checked + .circle:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: $color-main;
+            width: 50%;
+            height: 50%;
+            border-radius: 50%;
+          }
+        }
+        .circle {
+          width: 20px;
+          height: 20px;
+          border: 1px solid $color-borderGray;
+          border-radius: 50%;
+          display: block;
+          position: relative;
+        }
+        textarea {
+          resize: none;
+          width: 100%;
+          height: auto;
+          border: 1px solid $color-borderGray;
+          padding: 10px;
+          &[disabled] {
+            background-color: $color-bgGray;
+            color: #ccc;
+          }
+        }
+      }
+    }
+    .btns {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        display: block;
+        border: 2px solid $color-borderGray;
+        border-radius: 20px;
+        color: $color-deepGray;
+        font-size: 14px;
+        padding: 8px 20px 5px;
+      }
+    }
+  }
+}
+
+.FilterModal {
+  //
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+  .modalInner {
+    //
+  }
+  .btnStepWrap {
+    display: flex;
+    li {
+      flex: 1 1 auto;
+    }
+    .btnStep {
+      width: 100%;
+      padding: 20px 0;
+      border: none;
+      font-size: 20px;
+      > span {
+        position: relative;
+        font-weight: 700;
+        opacity: 0.5;
+        &[data-selected="selected"] {
+          color: #000;
+          border-bottom: 2px solid #000;
+          opacity: 1;
+        }
+      }
+      :global span:not([data-selected="selected"]) {
+        .toolTipBox {
+          display: none;
+        }
+      }
+    }
+  }
+  .contArea {
+    //
+    .tabCont {
+      //
+      padding: 25px;
+      .title {
+        //
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        h5 {
+          font-size: 20px;
+          &.required {
+            //
+            &:after {
+              content: "*";
+              color: red;
+              margin-left: 5px;
+            }
+          }
+        }
+        span {
+          margin-left: 20px;
+        }
+      }
+      .itemWrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        &:not(:last-of-type) {
+          margin-bottom: 20px;
+        }
+        .item {
+          // margin-bottom: 5px;
+          position: relative;
+          &[data-hastooltip="true"] {
+            margin-right: 25px;
+          }
+          button {
+            //
+            height: 45px;
+            background: $color-lightGray;
+            padding: 0 10px;
+            border: none;
+            border-radius: $radius-btn;
+            font-size: 16px;
+            &[data-clicked="true"] {
+              background: $color-main;
+              color: #fff;
+            }
+            &[data-disabled="disabled"] {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+  }
+  .confirmArea {
+    display: flex;
+    border-radius: 0 0 $radius-wrap $radius-wrap;
+    overflow: hidden;
+    button {
+      border: none;
+      height: 50px;
+      &.btnClose {
+        //
+        width: 20%;
+        background: #aaa;
+        color: #fff;
+      }
+      &.btnSubmit {
+        //
+        width: 80%;
+        background: $color-main;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.EventModal {
+  //
+  .contArea {
+    background-color: #fff;
+    padding: 25px;
+    //
+    button[type="submit"] {
+      background: $color-main;
+      font-size: 18px;
+      color: #fff;
+      height: 50px;
+      padding: 3px 20px 0;
+
+      border: none;
+      border-radius: $radius-btn;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      span {
+        display: block;
+      }
+    }
+  }
+  .eventModal_01 {
+    .contArea {
+      .emailForm {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        input[type="email"] {
+          width: 80%;
+          border: none;
+          border-radius: $radius-btn;
+          background: $color-lightGray;
+          font-size: 18px;
+          padding: 0 15px;
+        }
+        button[type="submit"] {
+          width: 18%;
+        }
+      }
+    }
+  }
+  .eventModal_02 {
+  }
+  .eventModal_03 {
+    .contArea {
+      button[type="button"] {
+        height: 50px;
+        width: 100%;
+        border-radius: $radius-btn;
+        border: none;
+        background: $color-main;
+        font-size: 18px;
+        color: #fff;
+        padding-top: 3px;
+      }
+    }
+  }
+  .eventModal_04 {
+    //
+  }
+}
+
+.FilterModal {
+  .itemWrap {
+    padding: 25px;
+    h5 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      .multiply {
+        font-size: 18px;
+        margin-left: 5px;
+      }
+    }
+    ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    button {
+      height: 45px;
+      background: #eaeff3;
+      padding: 0 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      &[data-clicked="true"] {
+        background: #30d6c2;
+        color: #fff;
+      }
+    }
+  }
+  .confirmArea {
+    display: flex;
+    button {
+      border: none;
+      height: 50px;
+      &.btnClose {
+        //
+        width: 20%;
+        background: #aaa;
+        color: #fff;
+      }
+      &.btnSubmit {
+        //
+        width: 80%;
+        background: $color-main;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import styles from "scss/components/home/HomeModal.module.scss";
+import styles from "scss/components/Modal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setSupportInfoModal } from "redux/store/supportInfoSlice";
 import Tooltip from "components/Tooltip";
@@ -64,8 +64,8 @@ const FilterModal = ({
     });
   }, []);
   return (
-    <div className={`modalWrap ${styles.FilterModal}`}>
-      <div className="modalInner">
+    <div className={`${styles.modalWrap} ${styles.FilterModal}`}>
+      <div className={styles.modalInner}>
         <ul className={styles.btnStepWrap}>
           <li>
             <button

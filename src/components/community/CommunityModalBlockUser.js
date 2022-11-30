@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "scss/components/community/CommunityModal.module.scss";
+import styles from "scss/components/Modal.module.scss";
 import { modalOverflow } from "redux/store";
 const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
   const dispatch = useDispatch();
@@ -68,8 +68,8 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
   }, []);
   return (
     <>
-      <div className="modalWrap">
-        <div className="modalInner" style={{ maxWidth: "500px" }}>
+      <div className={styles.modalWrap}>
+        <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
           <div className={styles.communityModal}>
             <div className={styles.modalTop}>
               <div className={styles.tit}>

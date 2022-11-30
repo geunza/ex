@@ -75,35 +75,7 @@ body {
   margin: 0 auto;
   position: relative;
 }
-.modalWrap {
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  .modalInner {
-    background: #fff;
-    border-radius: $radius-wrap;
-    max-height: 100%;
-    padding: 0;
-    overflow: visible;
-    width: 700px;
-    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
-  }
-  .confirmArea {
-    border-radius: 0 0 $radius-wrap $radius-wrap;
-    overflow: hidden;
-    button {
-      font-size: 18px;
-    }
-  }
-}
+
 .commonTitleWrap {
   margin-top: -60px;
   padding-top: 60px;
