@@ -61,6 +61,8 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
       alert("로그인이 필요합니다.");
       return false;
     }
+    if (!window.confirm(`${item.usernickname}님을 차단하시겠습니까?`))
+      return false;
     let targetId;
     isNaN(Number(writerId))
       ? (targetId = writerId)
@@ -74,8 +76,8 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
         target_id: targetId,
       },
     }).then((res) => {
-      console.log(res.data);
       controlEnd();
+      alert(`${item.usernickname}님을 차단했습니다.`);
     });
   };
   const controlEnd = () => {

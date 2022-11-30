@@ -92,6 +92,10 @@
       .editorArea {
         position: relative;
         padding-bottom: 40px;
+        > div {
+          resize: vertical;
+          overflow: hidden;
+        }
         .editInform {
           position: absolute;
           left: 0;

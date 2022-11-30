@@ -120,8 +120,7 @@
           { "text": "전남", "value": "전남", "order": 14 },
           { "text": "울산", "value": "울산", "order": 15 },
           { "text": "세종", "value": "세종", "order": 16 },
-          { "text": "제주", "value": "제주", "order": 17 },
-          { "text": "전체", "value": "전체", "order": 18 }
+          { "text": "제주", "value": "제주", "order": 17 }
         ]
       }
     ]

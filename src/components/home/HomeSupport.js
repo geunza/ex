@@ -55,9 +55,6 @@ const HomeSupport = ({}) => {
       getHomeSupport(v.category, v.url, v.cat_name);
     });
   }, []);
-  useEffect(() => {
-    console.log(homeSupport);
-  }, [homeSupport]);
   return (
     <>
       <div className={styles.HomeSupport}>

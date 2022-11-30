@@ -7,35 +7,35 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import "@toast-ui/editor/dist/i18n/ko-kr";
 import "scss/components/community/Editor.scss";
 import { useEffect } from "react";
+import { useState } from "react";
 
-const Editor2 = ({ styles, editorTxt, setEditorTxt }) => {
+const Editor2 = ({ styles, editorTxt, setEditorTxt, defaultValue }) => {
+  const [defaultTxt, setDefaultTxt] = useState(defaultValue);
   const editorRef = useRef();
+  useEffect(() => {}, []);
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
     setEditorTxt(data);
   };
+  const onLoad = () => {
+    const htmlString = defaultValue;
+    editorRef.current?.getInstance().setHTML(htmlString);
+  };
+  useEffect(() => {
+    onLoad();
+  }, [defaultValue]);
   return (
     <>
       <Editor
         placeholder="내용을 입력해주세요."
-        previewStyle="vertical" // 미리보기 스타일 지정
-        height="600px" // 에디터 창 높이
-        initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
+        previewStyle="vertical"
+        height="600px"
+        initialEditType="wysiwyg"
         hideModeSwitch="true"
-        plugins={[
-          [
-            colorSyntax,
-            // 기본 색상 preset 적용
-            {
-              preset: ["#ff0000", "#4c5864", "#ED7675"],
-            },
-          ],
-        ]}
+        plugins={[colorSyntax]}
         language="ko-KR"
         ref={editorRef}
-        onLoad={() => {
-          console.log("LOADED");
-        }}
+        onLoad={onLoad}
         onChange={onChange}
         toolbarItems={[
           // 툴바 옵션 설정

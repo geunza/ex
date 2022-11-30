@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "scss/components/community/CommunityListItem.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { modalOverflow } from "redux/store";
@@ -15,31 +15,39 @@ const CommunityListItem = ({
   getCommunityList,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const writerId = post.user_id;
+  const isMine = userInfo.id == writerId;
   const [modalOn, setModalOn] = useState(false);
-  console.log(post);
   const btnPostClick = (e) => {
     const {
       currentTarget: { name, value },
     } = e;
-    console.log(value);
-    if (name == "modify") {
-      //수정버튼
-      console.log("btnModifyClick", value);
-    } else if (name == "delete") {
-      //삭제버튼
-      btnDelete(value);
-    } else if (name == "block") {
-      //차단버튼
-      btnBlock();
-    } else {
-      //에러
-      console.log("ELSE");
+    switch (name) {
+      case "modify":
+        btnModify(e, value);
+        break;
+      case "report":
+        btnReport(e);
+        break;
+      case "delete":
+        btnDelete(value);
+        break;
+      case "block":
+        btnBlock();
+        break;
+      default:
+        console.log("ERR");
+        break;
     }
   };
-  // 게시글 삭제
+  // 게시글수정 버튼
+  const btnModify = (e, value) => {
+    navigate(`/community/CommunityModify/${value}`);
+  };
+  // 게시글삭제 버튼
   const btnDelete = (value) => {
     dispatch(loadingStart());
     const id = value.toString();
@@ -57,6 +65,7 @@ const CommunityListItem = ({
       })
       .catch((err) => console.log(err));
   };
+  // 신고 버튼
   const btnReport = (e) => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
@@ -64,11 +73,14 @@ const CommunityListItem = ({
     }
     setModalOn((prev) => !prev);
   };
-
-  // 차단버튼
+  // 차단 버튼
   const btnBlock = () => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
+      return false;
+    }
+
+    if (!window.confirm(`${post.usernickname}님을 차단 하시겠습니까?`)) {
       return false;
     }
     let targetId;
@@ -83,9 +95,10 @@ const CommunityListItem = ({
         target_id: targetId,
       },
     }).then((res) => {
-      console.log(res.data);
+      alert(`${post.usernickname}님을 차단했습니다.`);
     });
   };
+  // 컨트롤박스 버튼
   const controlBoxClick = (id) => {
     if (controlBox.id == id) {
       setControlBox({ id: "" });
@@ -98,7 +111,7 @@ const CommunityListItem = ({
     //console.log("controlBox =>", controlBox);
     //console.log("controlBoxOpen =>", controlBoxOpen);
   };
-  const isMine = userInfo.id == writerId;
+
   return (
     <li className={`commonListItem ${styles.CommunityListItem}`}>
       <div className="cateArea">

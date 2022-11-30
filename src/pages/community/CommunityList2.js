@@ -17,7 +17,7 @@ import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityModalBlockUser from "components/community/CommunityModalBlockUser";
 
-const CommunityList = ({}) => {
+const CommunityList2 = ({}) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userInfo = useSelector((state) => state.userInfo);
@@ -39,19 +39,9 @@ const CommunityList = ({}) => {
   const [controlBox, setControlBox] = useState({ id: "" });
   const [blockedModalOn, setBlockedModalOn] = useState(false);
   const getCommunityList = () => {
-    const paramCate = searchParams.get("cate");
-    const paramOrd = searchParams.get("ord");
-    const paramPage = searchParams.get("page");
-    console.log(
-      `/mobile/community/all?select_cat=${paramCate}&ord=${paramOrd}&cnt_sql=${
-        paramPage - 1
-      }`
-    );
     axios({
       method: "GET",
-      url: `/mobile/community/all?select_cat=${paramCate}&ord=${paramOrd}&cnt_sql=${
-        paramPage - 1
-      }`,
+      url: `/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0`,
     }).then((res) => {
       const data = res.data;
       setPostData(data);
@@ -89,21 +79,26 @@ const CommunityList = ({}) => {
     navigate("?" + searchParams.toString());
   };
 
-  const getParams = () => {
-    let currentCate = searchParams.get("cate");
-    let currentPage = searchParams.get("page");
-    let currentOrd = searchParams.get("ord");
-    if (searchParams.get("cate") == null) {
-      currentCate = "전체";
+  const getParams = (param) => {
+    let current = searchParams.get(param);
+    if (current == null) {
+      current = "전체";
+      if (param == "page") {
+        current = 1;
+      }
     }
-    if (searchParams.get("page") == null) {
-      currentPage = 1;
-    }
-    if (searchParams.get("ord") == null) {
-      currentOrd = "전체";
-    }
-    const paramString = `cate=${currentCate}&ord=${currentOrd}&page=${currentPage}`;
+    searchParams.set(param, current);
     navigate("?" + searchParams.toString());
+  };
+  const setParams = (param, setParam) => {
+    let current = searchParams.get(param);
+    if (current == null) {
+      current = "전체";
+      if (param == "page") {
+        current = 1;
+      }
+    }
+    setParam(current);
   };
 
   const communitySearch = (e) => {
@@ -124,15 +119,17 @@ const CommunityList = ({}) => {
   }, [postData]);
 
   useEffect(() => {
-    setCate(searchParams.get("cate"));
-    setOrd(searchParams.get("ord"));
-    setPage(searchParams.get("page"));
-    console.log("AAA");
+    setParams("cate", setCate);
+    setParams("ord", setOrd);
+    setParams("page", setPage);
+
     //setParams(...[(cate, setCate), (ord, setOrd), (page, setPage)]);
   }, [searchParams]);
 
   useEffect(() => {
-    getParams();
+    getParams("cate");
+    getParams("page");
+    getParams("ord");
   }, []);
 
   return (
@@ -383,4 +380,4 @@ const CommunityList = ({}) => {
     </>
   );
 };
-export default CommunityList;
+export default CommunityList2;

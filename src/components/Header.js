@@ -65,7 +65,9 @@ const Header = ({}) => {
               <Link to="/support/supportList">지원사업</Link>
             </li>
             <li>
-              <Link to="/community/communityList">커뮤니티</Link>
+              <Link to="/community/communityList?cate=전체&ord=전체&page=1">
+                커뮤니티
+              </Link>
             </li>
             <li>
               <Link to="/notice/noticeList">공지사항</Link>

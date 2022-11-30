@@ -29,9 +29,6 @@ const CommunityView = () => {
   };
   const getContent = () => {
     axios({
-      headers: {
-        "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
-      },
       method: "GET",
       url: `/mobile/community/one?id=${id}`,
     }).then((res) => {
@@ -89,6 +86,10 @@ const CommunityView = () => {
       });
   };
   const replySubmit = (e) => {
+    if (cmtText.replaceAll(" ", "") == "") {
+      alert("내용을 등록해주세요."); // CHECK : 메시지 확인
+      return false;
+    }
     if (!window.confirm("댓글을 등록하시겠습니까?")) {
       return false;
     }
@@ -119,14 +120,13 @@ const CommunityView = () => {
     setCmtText(value);
   };
   useEffect(() => {
-    getReply();
-  }, [userInfo]);
-  useEffect(() => {
-    // !isLoggedIn && navigate("/");
     dispatch(loadingStart());
     getContent();
     getReply();
     getFiles();
+  }, [userInfo]);
+  useEffect(() => {
+    // !isLoggedIn && navigate("/");
   }, []);
   return (
     <>

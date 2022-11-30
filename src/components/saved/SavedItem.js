@@ -4,25 +4,31 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const SavedItem = ({ item }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const sample = {
-    target_cat_name: "사업화지원",
-    si_end_dt: 1668697200000,
-    view_cnt: 170,
-    target_name: "민간기업",
-    si_idx: 26726,
-    mb_save_yn: null,
-    tl_cret_dt: 1666588661000,
-    loc_code: "C82",
-    mobile_url: "https://s2bridge.com/apply/T9UCJ935JcQu",
-    si_title: "글로벌 Shoot-Up 1기",
-    mb_req_save_yn: null,
-    mb_done_save_yn: null,
-    target_cost_value: 0,
-  };
+  const locArr = [
+    { num: "C82", name: "전국" },
+    { num: "C02", name: "서울" },
+    { num: "C031", name: "경기" },
+    { num: "C032", name: "인천" },
+    { num: "C033", name: "강원" },
+    { num: "C041", name: "충남" },
+    { num: "C042", name: "대전" },
+    { num: "C043", name: "충북" },
+    { num: "C044", name: "세종" },
+    { num: "C051", name: "부산" },
+    { num: "C052", name: "울산" },
+    { num: "C053", name: "대구" },
+    { num: "C054", name: "경북" },
+    { num: "C055", name: "경남" },
+    { num: "C061", name: "전남" },
+    { num: "C062", name: "광주" },
+    { num: "C063", name: "전북" },
+    { num: "C064", name: "제주" },
+  ];
   const endDateSource = item.si_end_dt;
   const title = item.si_title;
   const cateName = item.target_cat_name;
-  const locName = item.loc_code;
+  const locCode = item.loc_code;
+  const locName = locArr.find((item) => item.num == locCode).name;
   const targetName = item.target_name;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const [readDate, readDay] = stringTimeToISO(item.tl_cret_dt, "all");

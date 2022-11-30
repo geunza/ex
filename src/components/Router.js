@@ -16,14 +16,17 @@ import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
 import ScrollToTop from "components/scrollToTop";
 import CommunityList from "pages/community/CommunityList";
+import CommunityList2 from "pages/community/CommunityList2";
 import CommunityView from "pages/community/CommunityView";
 import CommunityWrite from "pages/community/CommunityWrite";
+import CommunityModify from "pages/community/CommunityModify";
 import SupportList from "pages/support/SupportList";
 import SupportView from "pages/support/SupportView";
 import Loading from "components/Loading";
 import SavedRecent from "pages/saved/SavedRecent";
 import NoticeList from "pages/notice/NoticeList";
 import NoticeView from "pages/notice/NoticeView";
+
 const AppRouter = ({}) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -57,6 +60,11 @@ const AppRouter = ({}) => {
             path="/community/communityList"
             element={<CommunityList />}
           ></Route>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route
+            path="/community/communityList2"
+            element={<CommunityList2 />}
+          ></Route>
           <Route
             path="/community/communityView/:id"
             element={<CommunityView />}
@@ -64,6 +72,10 @@ const AppRouter = ({}) => {
           <Route
             path="/community/communityWrite"
             element={<CommunityWrite />}
+          ></Route>
+          <Route
+            path="/community/CommunityModify/:id"
+            element={<CommunityModify />}
           ></Route>
           <Route path="/support/supportList" element={<SupportList />}></Route>
           <Route path="/support/supportView/" element={<SupportView />}></Route>

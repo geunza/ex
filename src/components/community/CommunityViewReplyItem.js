@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
 import CommunityViewReReplyItem from "components/community/CommunityViewReReplyItem";
 const CommunityViewReplyItem = ({ item, getReply }) => {
-  // console.log(item);
+  console.log(item);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const nickname = item.usernickname;
@@ -15,25 +15,6 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   const isWriter = writerId == userInfo.id;
   const isReply = item.comment_cnt;
   const contId = item.c_content_id;
-  const getReReply = () => {
-    axios({
-      url: "/mobile/community/recomment",
-      method: "POST",
-      headers: {
-        user_id: userInfo.id,
-      },
-      data: {
-        parent_comment_id: cmtId,
-      },
-    }).then((res) => {
-      res.data.sort((a, b) => {
-        const date1 = new Date(a.cret_dt);
-        const date2 = new Date(b.cret_dt);
-        return date1 - date2;
-      });
-      setReReply(res.data);
-    });
-  };
 
   const [controlBoxOpen, setControlBoxOpen] = useState(false);
   const [currentReply, setCurrentReply] = useState(desc);
@@ -83,12 +64,32 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       return false;
     }
   };
-
+  const getReReply = () => {
+    axios({
+      url: "/mobile/community/recomment",
+      method: "POST",
+      headers: {
+        user_id: userInfo.id,
+      },
+      data: {
+        parent_comment_id: cmtId,
+      },
+    }).then((res) => {
+      res.data.sort((a, b) => {
+        const date1 = new Date(a.cret_dt);
+        const date2 = new Date(b.cret_dt);
+        return date1 - date2;
+      });
+      setReReply(res.data);
+    });
+  };
   const btnBlock = () => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
       return false;
     }
+    if (!window.confirm(`${item.usernickname}님을 차단하시겠습니까?`))
+      return false;
     let targetId;
     isNaN(Number(writerId))
       ? (targetId = writerId)
@@ -104,6 +105,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     }).then((res) => {
       console.log(res.data);
       controlEnd();
+      alert(`${item.usernickname}님을 차단했습니다.`);
     });
   };
   const btnCmtLike = () => {
@@ -159,7 +161,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     if (isReply) {
       getReReply();
     }
-  }, []);
+  }, [userInfo]);
   return (
     <>
       <li

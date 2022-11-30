@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import Editor from "components/community/Editor";
 import FileUpload from "components/community/FileUpload";
 import styles from "scss/pages/CommunityWrite.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
-const CommunityWrite = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import { loadingStart, loadingEnd } from "redux/store";
+const CommunityModify = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const userInfo = useSelector((state) => state.userInfo);
   const [cate, setCate] = useState("정보공유"); //category
   const [openCate, setOpenCate] = useState(false);
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
   const [fileData, setFileData] = useState([]);
+  const [defaultTxt, setDefaultTxt] = useState("");
   const btnSubmit = () => {
     // console.log("CATEGORY :" + cate);
     // console.log("title :" + title);
@@ -28,44 +31,43 @@ const CommunityWrite = () => {
       alert("내용은 필수 입력사항입니다.");
       return;
     }
-
-    axios({
-      method: "POST",
-      url: "/mobile/community/",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      data: {
-        category: cate,
-        userId: userInfo.id,
-        title: title,
-        content: editorTxt,
-        files: "",
-      },
-    }).then((res) => {
-      if (fileData.length > 0) {
-        const formData = new FormData(); // formData 객체를 생성한다.
-        formData.append("content_id", res.data);
-        for (let i = 0; i < fileData.length; i++) {
-          formData.append("files", fileData[i]);
-        }
-        axios
-          .post("/mobile/community/uploadFile", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then(() => {
-            navigate(`/community/communityView/${res.data}`);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        navigate(`/community/communityView/${res.data}`);
-      }
-      return res.data;
-    });
+    // axios({
+    //   method: "POST",
+    //   url: "/mobile/community/",
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   data: {
+    //     category: cate,
+    //     userId: userInfo.id,
+    //     title: title,
+    //     content: editorTxt,
+    //     files: "",
+    //   },
+    // }).then((res) => {
+    //   if (fileData.length > 0) {
+    //     const formData = new FormData(); // formData 객체를 생성한다.
+    //     formData.append("content_id", res.data);
+    //     for (let i = 0; i < fileData.length; i++) {
+    //       formData.append("files", fileData[i]);
+    //     }
+    //     axios
+    //       .post("/mobile/community/uploadFile", formData, {
+    //         headers: {
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       })
+    //       .then(() => {
+    //         navigate(`/community/communityView/${res.data}`);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   } else {
+    //     navigate(`/community/communityView/${res.data}`);
+    //   }
+    //   return res.data;
+    // });
   };
   const selectCate = (e) => {
     const {
@@ -78,12 +80,43 @@ const CommunityWrite = () => {
     const iptValue = e.currentTarget.value;
     setTitle(iptValue);
   };
+  const getCommunityData = () => {
+    dispatch(loadingStart());
+    axios({
+      method: "GET",
+      url: `/mobile/community/one?id=${id}`,
+    }).then((res) => {
+      const data = res.data;
+      const userId = data.user_id;
+      const currentId = userInfo.id;
+      if (userId != currentId) {
+        alert("잘못된 접근입니다.");
+        navigate(-1);
+      }
+      const category = data.category;
+      const title = data.title;
+      const cont = data.content;
+      setCate(category);
+      setTitle(title);
+      setDefaultTxt(cont);
+      dispatch(loadingEnd());
+    });
+  };
+  const getCommunityFiles = () => {
+    axios({
+      url: "/mobile/community/getFile",
+      method: "POST",
+      data: { content_id: parseInt(id) },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
-    if (!isLoggedIn) {
-      alert("잘못된 접근입니다.");
-      navigate(-1);
-    }
-  }, [userInfo]);
+    getCommunityData();
+    getCommunityFiles();
+  }, []);
   return (
     <>
       <div className={styles.CommunityWrite}>
@@ -162,6 +195,7 @@ const CommunityWrite = () => {
                   styles={styles}
                   editorTxt={editorTxt}
                   setEditorTxt={setEditorTxt}
+                  defaultValue={defaultTxt}
                 />
               </div>
             </div>
@@ -178,4 +212,4 @@ const CommunityWrite = () => {
     </>
   );
 };
-export default CommunityWrite;
+export default CommunityModify;
