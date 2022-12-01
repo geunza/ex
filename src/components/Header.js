@@ -96,13 +96,15 @@ const Header = ({}) => {
         <div className={styles.loginArea}>
           {isLoggedIn ? (
             <>
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_user.png"
-                }
-                alt=""
-              />
+              <Link to="/myPage">
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_user.png"
+                  }
+                  alt=""
+                />
+              </Link>
               <button onClick={temporarysignOut}>로그아웃</button>
             </>
           ) : (

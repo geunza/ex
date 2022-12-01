@@ -26,6 +26,7 @@ import Loading from "components/Loading";
 import SavedRecent from "pages/saved/SavedRecent";
 import NoticeList from "pages/notice/NoticeList";
 import NoticeView from "pages/notice/NoticeView";
+import MyPage from "pages/myPage/MyPage";
 
 const AppRouter = ({}) => {
   const dispatch = useDispatch();
@@ -62,10 +63,6 @@ const AppRouter = ({}) => {
           ></Route>
           <Route exact path="/" element={<Home />}></Route>
           <Route
-            path="/community/communityList2"
-            element={<CommunityList2 />}
-          ></Route>
-          <Route
             path="/community/communityView/:id"
             element={<CommunityView />}
           ></Route>
@@ -79,9 +76,14 @@ const AppRouter = ({}) => {
           ></Route>
           <Route path="/support/supportList" element={<SupportList />}></Route>
           <Route path="/support/supportView/" element={<SupportView />}></Route>
-          <Route path="/saved/savedRecent" element={<SavedRecent />}></Route>
+          <Route
+            path="/saved/savedRecent"
+            exact
+            element={<SavedRecent />}
+          ></Route>
           <Route path="/notice/noticeList" element={<NoticeList />}></Route>
           <Route path="/notice/noticeView/:id" element={<NoticeView />}></Route>
+          <Route path="/myPage" exact element={<MyPage />}></Route>
           <Route path="*" element={<Navigate replace to="/" />}></Route>
         </Routes>
         <Footer />
