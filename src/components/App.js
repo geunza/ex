@@ -16,19 +16,14 @@ function App() {
       method: "POST",
     }).then((res) => {
       const data = res.data;
-      console.log("a");
-      // dispatch(setSupportInfo1({ name: code, value: data }));
-      // dispatch(setSupportInfo1({ name: code, value: data }));
+      dispatch(setSupportInfo1({ name: code, value: data }));
     });
   };
   useEffect(() => {
-    for (let key in filterData1) {
-      console.log(key);
-      getFilterData(key);
-      getFilterData(key);
-      getFilterData(key);
-      getFilterData(key);
-    }
+    getFilterData("spt_cd");
+    getFilterData("biz_cd");
+    getFilterData("tech_cd");
+    getFilterData("loc_cd");
   }, []);
   useEffect(() => {
     console.log(filterData1);

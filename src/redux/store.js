@@ -104,6 +104,7 @@ let supportInfo1 = createSlice({
     setSupportInfo1(state, action) {
       let obj = { ...state };
       const data = action.payload;
+      console.log(data);
     },
     setSupportInfoModal1(state, action) {
       //
