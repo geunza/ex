@@ -11,7 +11,7 @@ const SnsLogin = ({}) => {
         {isLoggedIn ? (
           <div className={`${styles.loggedIn} ${styles.loginBox}`}>
             <h4>
-              <span>{userInfo.usernickname}님.</span>
+              <span>{userInfo.usernickname} 대표님.</span>
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
             </h4>
             <button type="button" className={styles.btnSelect}>
