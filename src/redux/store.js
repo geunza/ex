@@ -1,4 +1,9 @@
-import { configureStore, createSlice, combineReducers } from "@reduxjs/toolkit";
+import {
+  current,
+  configureStore,
+  createSlice,
+  combineReducers,
+} from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
 // 로딩창
@@ -60,11 +65,7 @@ export let { signIn, signOut } = isLoggedIn.actions;
 // 유저정보
 let userInfo = createSlice({
   name: "userInfo",
-  initialState: {
-    id: "",
-    usernickname: "",
-    useremail: "",
-  },
+  initialState: {},
   reducers: {
     setUserInfo(state, action) {
       const infoString = JSON.stringify(action.payload.id);
@@ -80,60 +81,106 @@ let userInfo = createSlice({
 export let { setUserInfo, removeUserInfo, setDefaultSetup } = userInfo.actions;
 
 // 공통코드
-let supportInfo1 = createSlice({
-  name: "supportInfo1",
+let supportInfo = createSlice({
+  name: "supportInfo",
   initialState: {
+    prd_cd: {
+      name: "창업기간",
+      multiply: false,
+      datas: [
+        {
+          code_nm: "전체",
+          code: "999",
+          ctg_cd: "prd_cd",
+          ctg_nm: "창업기간",
+        },
+      ],
+    },
     spt_cd: {
       name: "지원분야",
-      datas: [],
+      multiply: true,
+      datas: [
+        {
+          code_nm: "전체",
+          code: "01",
+          ctg_cd: "spt_cd",
+          ctg_nm: "지원분야",
+        },
+      ],
     },
     biz_cd: {
       name: "사업분야",
-      datas: [],
+      multiply: true,
+      datas: [
+        {
+          code_nm: "전체",
+          code: "01",
+          ctg_cd: "biz_cd",
+          ctg_nm: "사업분야",
+        },
+      ],
     },
     tech_cd: {
       name: "기술분야",
-      datas: [],
+      multiply: true,
+      datas: [
+        {
+          code_nm: "전체",
+          code: "01",
+          ctg_cd: "tech_cd",
+          ctg_nm: "기술분야",
+        },
+      ],
     },
     loc_cd: {
       name: "지역",
-      datas: [],
+      multiply: true,
+      datas: [
+        {
+          code_nm: "전국",
+          code: "C82",
+          ctg_cd: "loc_cd",
+          ctg_nm: "지역",
+        },
+      ],
     },
   },
   reducers: {
-    setSupportInfo1(state, action) {
+    setSupportInfo(state, action) {
       let obj = { ...state };
-      const data = action.payload;
-      console.log(data);
+      const item = action.payload;
+      const cate = item.ctg_cd;
+      if (someItem(obj[cate].datas, item)) {
+        obj[cate].datas = filterItem(obj[cate].datas, item);
+      } else {
+        obj[cate].datas = [...obj[cate].datas, item];
+      }
+      function someItem(target, item) {
+        return target.some(
+          (x) => Object.entries(x).toString() == Object.entries(item).toString()
+        );
+      }
+      function filterItem(target, item) {
+        return target.filter(
+          (x) => Object.entries(x).toString() != Object.entries(item).toString()
+        );
+      }
+      return obj;
     },
-    setSupportInfoModal1(state, action) {
+    setSupportInfoModal(state, action) {
       //
     },
   },
 });
-export let { setSupportInfo1, setSupportInfoModal1 } = supportInfo1.actions;
-let supportInfo2 = createSlice({
-  name: "supportInfo2",
-  initialState: {
-    //
-  },
-  reducers: {
-    setSupportInfo2(state, action) {
-      //
-    },
-    setSupportInfoModal2(state, action) {
-      //
-    },
-  },
-});
+export let { setSupportInfo, setSupportInfoModal } = supportInfo.actions;
+
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
-    supportInfo1: supportInfo1.reducer,
-    supportInfo2: supportInfo2.reducer,
+    supportInfo: supportInfo.reducer,
     modalState: modalState.reducer,
   },
 });
