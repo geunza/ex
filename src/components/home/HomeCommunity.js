@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
 import HomeCommunityItem from "./HomeCommunityItem";
-const HomeCommunity = ({}) => {
+const HomeCommunity = ({ setAxiosCount }) => {
   const [community, setCommunity] = useState([]);
   const getCommunity = () => {
     axios({
@@ -21,6 +21,7 @@ const HomeCommunity = ({}) => {
     })
       .then((res) => {
         setCommunity(res.data);
+        setAxiosCount((prev) => prev + 1);
       })
       .catch((err) => {
         console.log(err);

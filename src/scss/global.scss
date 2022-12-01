@@ -117,6 +117,7 @@ body {
     flex-flow: column;
     align-items: stretch;
     gap: 15px;
+    word-break: keep-all;
     @include shadowBox;
     &.active {
       display: flex;

@@ -45,36 +45,27 @@
             > div {
               width: 31%;
               li {
-                width: 100%;
                 button {
-                  border: 1px solid $color-main;
-                  background-color: #fff;
                   width: 100%;
                   display: block;
                 }
               }
-            }
-          }
-          ol {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-            li {
-              button {
-                //
-                height: 45px;
-                background: $color-lightGray;
-                padding: 0 10px;
-                border: none;
-                border-radius: $radius-btn;
-                font-size: 16px;
-                &[data-clicked="true"] {
-                  background: $color-main;
-                  color: #fff;
-                }
-                &[data-disabled="disabled"] {
-                  opacity: 0.5;
+              .filterModalList {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                flex-wrap: wrap;
+                li {
+                  width: 100%;
+                  button {
+                    //
+                    border-radius: $radius-btn;
+                    height: 45px;
+                    border: 1px solid $color-main;
+                    background-color: #fff;
+                    padding: 0 10px;
+                    font-size: 16px;
+                  }
                 }
               }
             }

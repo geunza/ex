@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemHome from "components/home/BoxListItemHome";
 import styles from "scss/components/home/HomeSupport.module.scss";
-const HomeSupport = ({}) => {
+const HomeSupport = ({ setAxiosCount }) => {
   let count = 0;
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -48,6 +48,8 @@ const HomeSupport = ({}) => {
       const copy = [...homeSupport];
       copy.find((item) => item.category == category).item = data.map((v) => v);
       setHomeSupport(copy);
+
+      setAxiosCount((prev) => prev + 1);
     });
   };
   useEffect(() => {

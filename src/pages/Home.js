@@ -11,13 +11,13 @@ import Loading from "components/Loading";
 import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { modalOverflow } from "redux/store";
+import { loadingEnd, loadingStart, modalOverflow } from "redux/store";
 const Home = ({}) => {
   const dispatch = useDispatch();
+  const [axiosCount, setAxiosCount] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
-  const [homeSelect, setHomeSelect] = useState([]);
   const modalOpener = (e) => {
     const {
       currentTarget: { name, value },
@@ -31,6 +31,14 @@ const Home = ({}) => {
       setModal2(isTrue);
     }
   };
+  useEffect(() => {
+    dispatch(loadingStart());
+  }, []);
+  useEffect(() => {
+    if (axiosCount == 3) {
+      dispatch(loadingEnd());
+    }
+  }, [axiosCount]);
   useEffect(() => {
     dispatch(modalOverflow(modalOn));
   }, [modalOn]);
@@ -57,10 +65,10 @@ const Home = ({}) => {
             Modal1={Modal1}
           />
           <div className={styles.sec02}>
-            <HomeCommunity />
-            <CountArea />
+            <HomeCommunity setAxiosCount={setAxiosCount} />
+            <CountArea setAxiosCount={setAxiosCount} />
           </div>
-          <HomeSupport />
+          <HomeSupport setAxiosCount={setAxiosCount} />
         </div>
       </div>
     </>

@@ -1,0 +1,36 @@
+@import "scss/utils";
+.FilterBtnWrap {
+  .FilterBtnTitle {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    .multiply {
+      margin-left: 5px;
+      font-weight: 500;
+    }
+  }
+  .filterList {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    li {
+      button {
+        //
+        height: 45px;
+        background: $color-lightGray;
+        padding: 0 10px;
+        border: none;
+        border-radius: $radius-btn;
+        font-size: 16px;
+        &[data-clicked="true"] {
+          background: $color-main;
+          color: #fff;
+        }
+        &[data-disabled="disabled"] {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

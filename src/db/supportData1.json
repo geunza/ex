@@ -5,9 +5,10 @@
     "required": true,
     "multiply": false,
     "btns": [
-      { "text": "예비창업자", "value": "예비창업자", "order": 0 },
-      { "text": "법인사업자", "value": "법인사업자", "order": 1 },
-      { "text": "개인사업자", "value": "개인사업자", "order": 2 }
+      { "text": "전체", "value": "전체", "order": 0 },
+      { "text": "예비창업자", "value": "예비창업자", "order": 1 },
+      { "text": "법인사업자", "value": "법인사업자", "order": 2 },
+      { "text": "개인사업자", "value": "개인사업자", "order": 3 }
     ]
   },
   {

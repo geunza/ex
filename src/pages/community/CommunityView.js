@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import styles from "scss/pages/CommunityView.module.scss";
+import styles from "scss/pages/CommonView.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
 import CommunityViewReplyItem from "components/community/CommunityViewReplyItem";
@@ -130,7 +130,7 @@ const CommunityView = () => {
   }, []);
   return (
     <>
-      <div className={styles.CommunityView}>
+      <div className={`${styles.CommunityView} ${styles.CommonView}`}>
         <div className={`inner ${styles.inner}`}>
           <div className={styles.btns}>
             <button onClick={() => navigate(-1)} className={styles.btnBack}>

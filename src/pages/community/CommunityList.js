@@ -127,7 +127,6 @@ const CommunityList = ({}) => {
     setCate(searchParams.get("cate"));
     setOrd(searchParams.get("ord"));
     setPage(searchParams.get("page"));
-    console.log("AAA");
     //setParams(...[(cate, setCate), (ord, setOrd), (page, setPage)]);
   }, [searchParams]);
 

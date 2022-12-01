@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "scss/components/home/CountArea.module.scss";
 import axios from "axios";
-const CountArea = () => {
+const CountArea = ({ setAxiosCount }) => {
   const [count, setCount] = useState({});
   const [newCount, setNewCount] = useState({});
   const getCount = () => {
@@ -20,6 +20,7 @@ const CountArea = () => {
           .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
       setCount(data);
+      setAxiosCount((prev) => prev + 1);
     });
   };
 
