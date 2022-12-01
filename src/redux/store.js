@@ -147,13 +147,23 @@ let supportInfo = createSlice({
   },
   reducers: {
     setSupportInfo(state, action) {
-      let obj = { ...state };
+      // const obj = { ...state };
       const item = action.payload;
       const cate = item.ctg_cd;
-      if (someItem(obj[cate].datas, item)) {
-        obj[cate].datas = filterItem(obj[cate].datas, item);
+      const stateCate = state[cate];
+      const multiply = stateCate.multiply;
+      if (multiply) {
+        if (someItem(stateCate.datas, item)) {
+          stateCate.datas = filterItem(stateCate.datas, item);
+        } else {
+          stateCate.datas = [...stateCate.datas, item];
+        }
       } else {
-        obj[cate].datas = [...obj[cate].datas, item];
+        if (someItem(stateCate.datas, item)) {
+          stateCate.datas = [];
+        } else {
+          stateCate.datas = [item];
+        }
       }
       function someItem(target, item) {
         return target.some(
@@ -165,7 +175,6 @@ let supportInfo = createSlice({
           (x) => Object.entries(x).toString() != Object.entries(item).toString()
         );
       }
-      return obj;
     },
     setSupportInfoModal(state, action) {
       //
