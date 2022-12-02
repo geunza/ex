@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "scss/components/support/SupportFilter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setSupportInfo,
-  setSupportInfoModal,
-} from "redux/store/supportInfoSlice";
+import { setSupportInfo, setSupportInfoModal } from "redux/store";
 import { useEffect, useState } from "react";
 import { current } from "@reduxjs/toolkit";
 import { modalOverflow } from "redux/store";

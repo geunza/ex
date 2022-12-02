@@ -2,66 +2,92 @@ import React from "react";
 import { useEffect, useState } from "react";
 import styles from "scss/components/Modal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfoModal } from "redux/store/supportInfoSlice";
+import FilterButton from "components/home/FilterButton";
 import Tooltip from "components/Tooltip";
+import { modalOverflow, setSupportInfoModal } from "redux/store";
 const FilterModal = ({
-  modalOpener,
+  filterModalOpen,
+  supportInfo,
+  supportItem,
   modalStep,
   setModalStep,
-  data2,
-  selectedItems,
 }) => {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
-  const btnStep = (e) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setModalStep(value);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const [objDummy, setObjDummy] = useState({
+    spt_cd: {
+      name: "지원분야",
+      multiply: true,
+      require: true,
+      datas: [...supportInfo.spt_cd.datas],
+    },
+    biz_cd: {
+      name: "사업분야",
+      multiply: true,
+      require: true,
+      datas: [...supportInfo.biz_cd.datas],
+    },
+    tech_cd: {
+      name: "기술분야",
+      multiply: true,
+      require: true,
+      datas: [...supportInfo.tech_cd.datas],
+    },
+    loc_cd: {
+      name: "지역",
+      multiply: true,
+      require: false,
+      datas: [...supportInfo.loc_cd.datas],
+    },
+  });
+  const filterBtnClick = (item, e) => {
+    const cate = item.ctg_cd;
+    const copy = { ...objDummy };
+    const require = copy[cate].require;
+    if (someItem(copy[cate].datas, item)) {
+      if (require && copy[cate].length == 1) {
+        alert("한가지 이상 선택해주세요.");
+      } else {
+        copy[cate].datas = filterItem(copy[cate].datas, item);
+      }
+    } else {
+      copy[cate].datas = addItem(copy[cate].datas, item);
+    }
+    setObjDummy(copy);
+    function someItem(target, item) {
+      return target.some(
+        (x) => Object.entries(x).toString() == Object.entries(item).toString()
+      );
+    }
+    function filterItem(target, item) {
+      return target.filter(
+        (x) => Object.entries(x).toString() != Object.entries(item).toString()
+      );
+    }
+    function addItem(target, item) {
+      return [...target, item].sort((a, b) => {
+        return a.code - b.code;
+      });
+    }
+  };
+  const filterModalSubmit = () => {
+    for (let key in objDummy) {
+      dispatch(setSupportInfoModal({ name: key, datas: objDummy[key].datas }));
+    }
+    filterModalOpen(false);
   };
   const tooltipOpen = (e) => {
+    e.stopPropagation();
     const target = e.currentTarget.querySelector(".toolTipBox");
     target.classList.contains("active")
       ? target.classList.remove("active")
       : target.classList.add("active");
   };
-  const [modalData, setModalData] = useState({
-    지원분야: [],
-    사업분야: [],
-    기술분야: [],
-    지역: [],
-  });
-  const modalDataSubmit = (e) => {
-    dispatch(setSupportInfoModal(modalData));
-    modalOpener({ currentTarget: { name: "Modal1", value: "false" } });
-  };
-  const modalBtnClick = (e, infoName, order, required) => {
-    console.log("required", required);
-    const {
-      target: { value },
-    } = e;
-    if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
-      return false;
-    }
-    let copy = { ...modalData };
-    if (copy[infoName].some((item) => item.text == value)) {
-      copy[infoName] = copy[infoName].filter((item) => item.text != value);
-    } else {
-      copy[infoName].push({ text: value, order: order });
-      copy[infoName].sort((a, b) => {
-        return a.order - b.order;
-      });
-    }
-    setModalData(copy);
-  };
   useEffect(() => {
-    setModalData({
-      지원분야: [...selectedItems.지원분야],
-      사업분야: [...selectedItems.사업분야],
-      기술분야: [...selectedItems.기술분야],
-      지역: [...selectedItems.지역],
-    });
+    dispatch(modalOverflow(true));
+    return () => {
+      dispatch(modalOverflow(false));
+    };
   }, []);
   return (
     <div className={`${styles.modalWrap} ${styles.FilterModal}`}>
@@ -70,8 +96,9 @@ const FilterModal = ({
           <li>
             <button
               type="button"
-              value={0}
-              onClick={btnStep}
+              onClick={() => {
+                setModalStep(0);
+              }}
               className={styles.btnStep}
             >
               <span data-selected={modalStep == 0 ? "selected" : null}>
@@ -82,8 +109,9 @@ const FilterModal = ({
           <li>
             <button
               type="button"
-              value={1}
-              onClick={btnStep}
+              onClick={() => {
+                setModalStep(1);
+              }}
               className={styles.btnStep}
             >
               <span data-selected={modalStep == 1 ? "selected" : null}>
@@ -128,8 +156,9 @@ const FilterModal = ({
           <li>
             <button
               type="button"
-              value={2}
-              onClick={btnStep}
+              onClick={() => {
+                setModalStep(2);
+              }}
               className={styles.btnStep}
             >
               <span data-selected={modalStep == 2 ? "selected" : null}>
@@ -138,89 +167,109 @@ const FilterModal = ({
             </button>
           </li>
         </ul>
-        <div className={styles.contArea}>
-          <ul>
-            {data2[modalStep].data.map((cate, idx) => {
-              return (
-                <li className={styles.tabCont} key={cate.name}>
-                  <div className={styles.title}>
-                    <h5 className={cate.required ? styles.required : null}>
-                      {cate.name}
-                    </h5>
-                    {cate.multiply && (
-                      <span className={styles.multiply}>(중복가능)</span>
-                    )}
-                  </div>
-                  <ol className={styles.itemWrap}>
-                    {cate.btns.map((btn, idx2) => {
-                      const infoName = cate.infoName;
-                      let clicked;
-                      // console.log(selectedItems[infoName].some((item)=>item.text ));
-                      cate.multiply
-                        ? (clicked = modalData[infoName].some(
-                            (item) => item.text == btn.value
-                          ))
-                        : (clicked = modalData[infoName].text == btn.value);
-                      return (
-                        <li
-                          className={styles.item}
-                          key={btn.value}
-                          data-hastooltip={btn.hasTooltip ? true : null}
-                        >
-                          <button
-                            type="button"
-                            name={cate.name}
-                            value={btn.value}
-                            data-clicked={clicked}
-                            data-disabled={
-                              !isLoggedIn && idx2 != 0 ? "disabled" : null
-                            }
-                            onClick={(e) => {
-                              modalBtnClick(
-                                e,
-                                infoName,
-                                btn.order,
-                                cate.required
-                              );
-                            }}
-                          >
-                            {btn.text}
-                          </button>
-                          {btn.hasTooltip && (
-                            <i className="btnToolTip" onClick={tooltipOpen}>
-                              <img
-                                src={
-                                  process.env.PUBLIC_URL +
-                                  "/public_assets/img/global/btn/btn_tooltip.png"
-                                }
-                                alt="tooltip"
-                              />
-                              <Tooltip cont={btn.tooltipCont} />
-                            </i>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        {objDummy && (
+          <div className={styles.contArea}>
+            {modalStep == 0 && (
+              <div className={styles.tabCont}>
+                <div className={styles.title}>
+                  <h5 className={styles.required}>지원분야</h5>
+                  <span className={styles.multiply}>(중복가능)</span>
+                </div>
+                <ol className={styles.filterItems}>
+                  {supportItem.spt_cd.map((item, idx, arr) => {
+                    return (
+                      <li className={styles.item} key={item.code}>
+                        <FilterButton
+                          baseObj={objDummy}
+                          idx={idx}
+                          item={item}
+                          onClick={filterBtnClick}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            )}
+            {modalStep == 1 && (
+              <div className={styles.tabCont}>
+                <div className={styles.title}>
+                  <h5 className={styles.required}>사업분야</h5>
+                  <span className={styles.multiply}>(중복가능)</span>
+                </div>
+                <ol className={styles.filterItems}>
+                  {supportItem.biz_cd.map((item, idx, arr) => {
+                    return (
+                      <li className={styles.item} key={item.code}>
+                        <FilterButton
+                          baseObj={objDummy}
+                          idx={idx}
+                          item={item}
+                          onClick={filterBtnClick}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
+                <div className={styles.title}>
+                  <h5 className={styles.required}>기술분야</h5>
+                  <span className={styles.multiply}>(중복가능)</span>
+                </div>
+                <ol className={styles.filterItems}>
+                  {supportItem.tech_cd.map((item, idx, arr) => {
+                    return (
+                      <li className={styles.item} key={item.code}>
+                        <FilterButton
+                          baseObj={objDummy}
+                          idx={idx}
+                          item={item}
+                          onClick={filterBtnClick}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            )}
+            {modalStep == 2 && (
+              <div className={styles.tabCont}>
+                <div className={styles.title}>
+                  <h5>지역</h5>
+                  <span className={styles.multiply}>(중복가능)</span>
+                </div>
+                <ol className={styles.filterItems}>
+                  {supportItem.loc_cd.map((item, idx, arr) => {
+                    return (
+                      <li className={styles.item} key={item.code}>
+                        <FilterButton
+                          baseObj={objDummy}
+                          idx={idx}
+                          item={item}
+                          onClick={filterBtnClick}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className={`confirmArea ${styles.confirmArea}`}>
           <button
             type="button"
-            name="Modal1"
             className={styles.btnClose}
-            value={false}
-            onClick={modalOpener}
+            onClick={() => {
+              filterModalOpen(false);
+            }}
           >
             닫기
           </button>
           <button
             type="button"
             className={styles.btnSubmit}
-            onClick={modalDataSubmit}
+            onClick={filterModalSubmit}
           >
             선택 완료
           </button>

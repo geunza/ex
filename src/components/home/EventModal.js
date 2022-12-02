@@ -180,7 +180,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_blocked.png"
+                      "/public_assets/img/home/event_modal_01.png"
                     }
                     alt="지원사업 정기배송"
                   />
@@ -227,7 +227,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_blocked.png"
+                      "/public_assets/img/home/event_modal_02.png"
                     }
                     alt="키워드 정기배송"
                   />
@@ -309,7 +309,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_blocked.png"
+                      "/public_assets/img/home/event_modal_03.png"
                     }
                     alt="창업자 네트워킹"
                   />
@@ -350,7 +350,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_blocked.png"
+                      "/public_assets/img/home/event_modal_04.png"
                     }
                     alt="사업계획서 교육"
                   />

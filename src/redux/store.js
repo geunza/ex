@@ -1,9 +1,4 @@
-import {
-  current,
-  configureStore,
-  createSlice,
-  combineReducers,
-} from "@reduxjs/toolkit";
+import { current, configureStore, createSlice } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
 // 로딩창
@@ -80,6 +75,25 @@ let userInfo = createSlice({
 });
 export let { setUserInfo, removeUserInfo, setDefaultSetup } = userInfo.actions;
 
+let supportItem = createSlice({
+  name: "supportItem",
+  initialState: {
+    prd_cd: [], // 창업기간
+    spt_cd: [], // 지원분야
+    biz_cd: [], // 사업분야
+    tech_cd: [], //기술분야
+    loc_cd: [], // 지역
+  },
+  reducers: {
+    setSupportItem(state, action) {
+      const data = action.payload;
+      const cate = data.cate;
+      const arr = data.arr;
+      state[cate] = arr;
+    },
+  },
+});
+export let { setSupportItem } = supportItem.actions;
 // 공통코드
 let supportInfo = createSlice({
   name: "supportInfo",
@@ -87,6 +101,7 @@ let supportInfo = createSlice({
     prd_cd: {
       name: "창업기간",
       multiply: false,
+      require: true,
       datas: [
         {
           code_nm: "전체",
@@ -99,6 +114,7 @@ let supportInfo = createSlice({
     spt_cd: {
       name: "지원분야",
       multiply: true,
+      require: true,
       datas: [
         {
           code_nm: "전체",
@@ -111,6 +127,7 @@ let supportInfo = createSlice({
     biz_cd: {
       name: "사업분야",
       multiply: true,
+      require: true,
       datas: [
         {
           code_nm: "전체",
@@ -123,6 +140,7 @@ let supportInfo = createSlice({
     tech_cd: {
       name: "기술분야",
       multiply: true,
+      require: true,
       datas: [
         {
           code_nm: "전체",
@@ -135,6 +153,7 @@ let supportInfo = createSlice({
     loc_cd: {
       name: "지역",
       multiply: true,
+      require: false,
       datas: [
         {
           code_nm: "전국",
@@ -151,16 +170,23 @@ let supportInfo = createSlice({
       const item = action.payload;
       const cate = item.ctg_cd;
       const stateCate = state[cate];
+      const require = stateCate.require;
       const multiply = stateCate.multiply;
       if (multiply) {
         if (someItem(stateCate.datas, item)) {
-          stateCate.datas = filterItem(stateCate.datas, item);
+          if (require && stateCate.datas.length == 1) {
+            alert("한가지 이상 선택해주세요.");
+          } else {
+            stateCate.datas = filterItem(stateCate.datas, item);
+          }
         } else {
-          stateCate.datas = [...stateCate.datas, item];
+          stateCate.datas = sortItem([...stateCate.datas, item]);
         }
       } else {
         if (someItem(stateCate.datas, item)) {
-          stateCate.datas = [];
+          if (require) {
+            alert("한가지 이상 선택해주세요.");
+          }
         } else {
           stateCate.datas = [item];
         }
@@ -175,9 +201,17 @@ let supportInfo = createSlice({
           (x) => Object.entries(x).toString() != Object.entries(item).toString()
         );
       }
+      function sortItem(target) {
+        target.sort((a, b) => {
+          return a.code - b.code;
+        });
+      }
     },
     setSupportInfoModal(state, action) {
-      //
+      const data = action.payload;
+      const cate = data.name;
+      const datas = data.datas;
+      state[cate].datas = datas;
     },
   },
 });
@@ -190,6 +224,7 @@ export default configureStore({
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
     supportInfo: supportInfo.reducer,
+    supportItem: supportItem.reducer,
     modalState: modalState.reducer,
   },
 });

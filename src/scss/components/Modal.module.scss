@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 10;
+  overflow-y: auto;
   .modalInner {
     background: #fff;
     border-radius: $radius-wrap;
@@ -18,7 +19,6 @@
     overflow: visible;
     width: 700px;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
   }
 
   .modalTop {
@@ -172,9 +172,7 @@
 .FilterModal {
   //
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
-  .modalInner {
-    //
-  }
+
   .btnStepWrap {
     display: flex;
     li {
@@ -223,11 +221,12 @@
             }
           }
         }
-        span {
+        .multiply {
           margin-left: 20px;
+          color: $color-deepGray;
         }
       }
-      .itemWrap {
+      .filterItems {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -244,12 +243,11 @@
           button {
             //
             height: 45px;
-            background: $color-lightGray;
             padding: 0 10px;
             border: none;
             border-radius: $radius-btn;
             font-size: 16px;
-            &[data-clicked="true"] {
+            &.selected {
               background: $color-main;
               color: #fff;
             }
@@ -286,9 +284,16 @@
 
 .EventModal {
   //
+  .tit {
+    img {
+      height: 32px;
+    }
+  }
   .contArea {
     background-color: #fff;
     padding: 25px;
+    border-radius: 0 $radius-wrap $radius-wrap 0;
+    overflow: hidden;
     //
     button[type="submit"] {
       background: $color-main;
