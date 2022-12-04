@@ -120,7 +120,8 @@ const CommunityList = ({}) => {
       : alert("로그인이 필요합니다.");
   };
   useEffect(() => {
-    setPosts(postData);
+    // setPosts(postData);
+    setPosts([]);
   }, [postData]);
 
   useEffect(() => {
@@ -327,32 +328,33 @@ const CommunityList = ({}) => {
                 </div>
               </div>
               {posts.length > 0 ? (
-                <>
-                  <ul className="commonListItemWrap">
-                    {posts.slice(offset, offset + limit).map((post, i) => {
-                      let modalInform;
-                      modalOn.id == post.id
-                        ? (modalInform = modalOn)
-                        : (modalInform = {});
-                      let controlBoxOpen;
-                      controlBox.id == post.id
-                        ? (controlBoxOpen = true)
-                        : (controlBoxOpen = false);
-                      return (
-                        <CommunityListItem
-                          key={i}
-                          post={post}
-                          controlBox={controlBox}
-                          setControlBox={setControlBox}
-                          controlBoxOpen={controlBoxOpen}
-                          getCommunityList={getCommunityList}
-                        />
-                      );
-                    })}
-                  </ul>
-                </>
+                <ul className="commonListItemWrap">
+                  {posts.slice(offset, offset + limit).map((post, i) => {
+                    let modalInform;
+                    modalOn.id == post.id
+                      ? (modalInform = modalOn)
+                      : (modalInform = {});
+                    let controlBoxOpen;
+                    controlBox.id == post.id
+                      ? (controlBoxOpen = true)
+                      : (controlBoxOpen = false);
+                    return (
+                      <CommunityListItem
+                        key={i}
+                        post={post}
+                        controlBox={controlBox}
+                        setControlBox={setControlBox}
+                        controlBoxOpen={controlBoxOpen}
+                        getCommunityList={getCommunityList}
+                      />
+                    );
+                  })}
+                </ul>
               ) : (
-                <div>없어용</div>
+                <div class="empty">
+                  <p className="empty_tit">커뮤니티 게시글이 없습니다.</p>
+                  <p className="empty_para">첫번째 게시글을 작성해보세요!</p>
+                </div>
               )}
               <div className={styles.bottomBtns}>
                 <button onClick={btnNavigateWrite} className={styles.btnWrite}>

@@ -15,11 +15,15 @@ const Filter = () => {
   const [modalStep, setModalStep] = useState(0);
 
   const filterModalOpen = (bool, idx) => {
-    setFilterModal(bool, idx);
+    setFilterModal(bool);
+    setModalStep(idx);
   };
   const filterBtnClick = (item, e) => {
     dispatch(setSupportInfo(item));
   };
+  useEffect(() => {
+    console.log(supportInfo);
+  }, [supportInfo]);
   return (
     <>
       <div className={styles.Filter}>
@@ -116,7 +120,11 @@ const Filter = () => {
             )}
           </div>
           <div className={styles.bottomArea}>
-            <button name="login">로그인하고 맞춤 지원사업 조회하기</button>
+            <button name="login">
+              {!isLoggedIn
+                ? "로그인하고 맞춤 지원사업 조회하기"
+                : "맞춤 지원사업 조회하기"}
+            </button>
             {!isLoggedIn && <button name="noLogin">비회원으로 조회하기</button>}
           </div>
         </div>

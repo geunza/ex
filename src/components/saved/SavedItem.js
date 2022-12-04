@@ -4,31 +4,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const SavedItem = ({ item }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const locArr = [
-    { num: "C82", name: "전국" },
-    { num: "C02", name: "서울" },
-    { num: "C031", name: "경기" },
-    { num: "C032", name: "인천" },
-    { num: "C033", name: "강원" },
-    { num: "C041", name: "충남" },
-    { num: "C042", name: "대전" },
-    { num: "C043", name: "충북" },
-    { num: "C044", name: "세종" },
-    { num: "C051", name: "부산" },
-    { num: "C052", name: "울산" },
-    { num: "C053", name: "대구" },
-    { num: "C054", name: "경북" },
-    { num: "C055", name: "경남" },
-    { num: "C061", name: "전남" },
-    { num: "C062", name: "광주" },
-    { num: "C063", name: "전북" },
-    { num: "C064", name: "제주" },
-  ];
+  const supportItem = useSelector((state) => state.supportItem);
   const endDateSource = item.si_end_dt;
   const title = item.si_title;
   const cateName = item.target_cat_name;
   const locCode = item.loc_code;
-  const locName = locArr.find((item) => item.num == locCode).name;
+  const locName = supportItem.loc_cd.find(
+    (item) => item.code == locCode
+  ).code_nm;
   const targetName = item.target_name;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const [readDate, readDay] = stringTimeToISO(item.tl_cret_dt, "all");
@@ -36,7 +19,6 @@ const SavedItem = ({ item }) => {
   const costComma = addComma(item.target_cost_value);
   const isZzim = item.mb_req_save_yn;
   const viewCount = item.view_cnt;
-
   function stringTimeToISO(stringDate, type) {
     const offset = 1000 * 60 * 60 * 9;
     // const offset = 0;

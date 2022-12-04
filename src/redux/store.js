@@ -90,6 +90,7 @@ let supportItem = createSlice({
       const cate = data.cate;
       const arr = data.arr;
       state[cate] = arr;
+      console.log(current(state));
     },
   },
 });
@@ -180,7 +181,7 @@ let supportInfo = createSlice({
             stateCate.datas = filterItem(stateCate.datas, item);
           }
         } else {
-          stateCate.datas = sortItem([...stateCate.datas, item]);
+          stateCate.datas = addItem(...stateCate.datas, item);
         }
       } else {
         if (someItem(stateCate.datas, item)) {
@@ -201,8 +202,8 @@ let supportInfo = createSlice({
           (x) => Object.entries(x).toString() != Object.entries(item).toString()
         );
       }
-      function sortItem(target) {
-        target.sort((a, b) => {
+      function addItem(target) {
+        return [...target, item].sort((a, b) => {
           return a.code - b.code;
         });
       }

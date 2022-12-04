@@ -51,7 +51,7 @@ const FilterButton = ({ item, onClick, idx, baseObj }) => {
     >
       {item.code_nm}
       {hasToolTip && (
-        <i class="btnToolTip" onClick={tooltipOpen}>
+        <i className="btnToolTip" onClick={tooltipOpen}>
           <img
             src={
               process.env.PUBLIC_URL +

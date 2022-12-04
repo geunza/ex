@@ -7,42 +7,18 @@ import Tooltip from "components/Tooltip";
 import { modalOverflow, setSupportInfoModal } from "redux/store";
 const FilterModal = ({
   filterModalOpen,
-  supportInfo,
   supportItem,
   modalStep,
   setModalStep,
 }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const [objDummy, setObjDummy] = useState({
-    spt_cd: {
-      name: "지원분야",
-      multiply: true,
-      require: true,
-      datas: [...supportInfo.spt_cd.datas],
-    },
-    biz_cd: {
-      name: "사업분야",
-      multiply: true,
-      require: true,
-      datas: [...supportInfo.biz_cd.datas],
-    },
-    tech_cd: {
-      name: "기술분야",
-      multiply: true,
-      require: true,
-      datas: [...supportInfo.tech_cd.datas],
-    },
-    loc_cd: {
-      name: "지역",
-      multiply: true,
-      require: false,
-      datas: [...supportInfo.loc_cd.datas],
-    },
-  });
+  const supportInfo = useSelector((state) => state.supportInfo);
+  const [objDummy, setObjDummy] = useState({ ...supportInfo });
   const filterBtnClick = (item, e) => {
     const cate = item.ctg_cd;
-    const copy = { ...objDummy };
+    let copy = JSON.parse(JSON.stringify(objDummy));
+
     const require = copy[cate].require;
     if (someItem(copy[cate].datas, item)) {
       if (require && copy[cate].length == 1) {
@@ -51,7 +27,11 @@ const FilterModal = ({
         copy[cate].datas = filterItem(copy[cate].datas, item);
       }
     } else {
-      copy[cate].datas = addItem(copy[cate].datas, item);
+      if (cate == "loc_cd") {
+        copy[cate].datas = addItemLoc(copy[cate].datas, item);
+      } else {
+        copy[cate].datas = addItem(copy[cate].datas, item);
+      }
     }
     setObjDummy(copy);
     function someItem(target, item) {
@@ -65,9 +45,26 @@ const FilterModal = ({
       );
     }
     function addItem(target, item) {
-      return [...target, item].sort((a, b) => {
+      const sortArr = [...target, item].sort((a, b) => {
         return a.code - b.code;
       });
+      return sortArr;
+    }
+    function addItemLoc(target, item) {
+      const sortArr = [...target, item].sort((a, b) => {
+        return a.code.replace("C", "") - b.code.replace("C", "");
+      });
+      if (sortArr.some((item) => item.code == "C82")) {
+        if (sortArr.length == 1) {
+          return sortArr;
+        } else {
+          const tObj = sortArr.find((item) => item.code == "C82");
+          const tIdx = sortArr.findIndex((item) => item.code == "C82");
+          sortArr.splice(tIdx, 1);
+          sortArr.unshift(tObj);
+        }
+      }
+      return sortArr;
     }
   };
   const filterModalSubmit = () => {
@@ -83,6 +80,9 @@ const FilterModal = ({
       ? target.classList.remove("active")
       : target.classList.add("active");
   };
+  useEffect(() => {
+    setObjDummy({ ...supportInfo });
+  }, [supportInfo]);
   useEffect(() => {
     dispatch(modalOverflow(true));
     return () => {

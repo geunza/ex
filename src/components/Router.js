@@ -16,7 +16,6 @@ import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
 import ScrollToTop from "components/scrollToTop";
 import CommunityList from "pages/community/CommunityList";
-import CommunityList2 from "pages/community/CommunityList2";
 import CommunityView from "pages/community/CommunityView";
 import CommunityWrite from "pages/community/CommunityWrite";
 import CommunityModify from "pages/community/CommunityModify";

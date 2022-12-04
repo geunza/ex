@@ -102,7 +102,7 @@ const MyCompany = () => {
                             selectedItems[v.data[v.data.length - 1].infoName][0]
                               .text
                           }`
-                        : "없어용"}
+                        : "선택"}
                     </button>
                   </li>
                 </ol>

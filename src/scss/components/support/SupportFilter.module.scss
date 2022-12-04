@@ -5,6 +5,9 @@
     font-size: $font-title-small;
     margin-bottom: 25px;
     font-weight: 700;
+    span {
+      position: relative;
+    }
   }
   .chkArea {
     display: flex;
@@ -22,12 +25,14 @@
   .filterBox {
     border: 1px solid $color-borderGray;
     border-radius: $radius-btn;
-    padding: 30px 20px;
     .filterList {
       //
+      padding: 15px 0;
       .filterItem {
         //
-        margin-bottom: 25px;
+        padding: 10px 20px;
+        position: relative;
+        // margin-bottom: 15px;
         button {
           display: block;
           border: none;
@@ -55,15 +60,63 @@
             }
           }
         }
-        p {
+        .currentSelected {
           font-size: 20px;
           color: $color-main;
+        }
+      }
+      .filterItemModal {
+        position: absolute;
+        left: calc(100% + 20px);
+        top: 0;
+        background-color: #fff;
+        padding: 15px 20px;
+        width: 550px;
+        font-size: 14px;
+        @include shadowBox;
+        .modalCont {
+          ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            &:not(:last-child) {
+              margin-bottom: 20px;
+            }
+            li {
+              button {
+                background: $color-lightGray;
+                border: 1px solid $color-lightGray;
+                border-radius: 50px;
+                padding: 10px 15px 7px;
+                &.selected {
+                  background: #fff;
+                  border: 1px solid $color-main;
+                  color: $color-main;
+                  font-weight: 700;
+                }
+              }
+            }
+          }
+        }
+        .modalConfirm {
+          padding-top: 20px;
+          margin-top: 20px;
+          display: flex;
+          justify-content: flex-end;
+          border-top: 1px solid $color-borderGray;
+          .submitBtn {
+            width: auto;
+            border-radius: $radius-btn;
+            padding: 10px 15px 7px;
+            background: $color-main;
+            color: #fff;
+          }
         }
       }
     }
     .submitArea {
       //
-      padding-top: 20px;
+      padding: 20px;
       border-top: 1px solid $color-borderGray;
       button {
         @include flexCenter();
