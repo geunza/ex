@@ -1,5 +1,18 @@
 @import "scss/utils";
-
+.MyPage {
+  .titleArea {
+    .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rightarea {
+      button {
+        border: none;
+      }
+    }
+  }
+}
 .MyPageContent {
   padding-top: 50px;
   :global .inner > div {
@@ -160,6 +173,14 @@
         height: 45px;
         flex: 1 1 auto;
         outline: none;
+      }
+    }
+    .nicknameCheck {
+      &.checkOK {
+        color: #7aa3d6;
+      }
+      &.checkX {
+        color: #d43d4e;
       }
     }
   }

@@ -24,15 +24,9 @@ const MyCompany = () => {
     dispatch(setSupportInfo(item));
   };
   useEffect(() => {
-    if (userInfo.companyname != null) {
-      setCompanyName(userInfo.companyname);
-    }
-    if (userInfo.username != null) {
-      setOwnerName(userInfo.companyname);
-    }
-    if (userInfo.companyname != null) {
-      setCompanyName(userInfo.companyname);
-    }
+    setCompanyName(userInfo.companyname);
+    setOwnerName(userInfo.companyname);
+    setCompanyName(userInfo.companyname);
   }, [userInfo]);
   return (
     <div className={styles.myPageForm}>
@@ -43,7 +37,7 @@ const MyCompany = () => {
         <input
           type="text"
           id="companyName"
-          value={companyName}
+          value={companyName || ""}
           maxLength={30}
           onChange={(e) => {
             setCompanyName(e.currentTarget.value);
@@ -57,7 +51,7 @@ const MyCompany = () => {
         <input
           type="text"
           id="ownerName"
-          value={ownerName}
+          value={ownerName || ""}
           maxLength={30}
           onChange={(e) => {
             setOwnerName(e.currentTarget.value);
@@ -66,11 +60,37 @@ const MyCompany = () => {
       </div>
       <div className={styles.fullItem}>
         <p className={styles.tit}>사업자형태</p>
-        <ol className={styles.filterItems}></ol>
+        <ol className={styles.filterItems}>
+          {supportItem.bizp_type_cd.map((item, idx, arr) => {
+            return (
+              <li key={item.code}>
+                <FilterButton
+                  baseObj={supportInfo}
+                  idx={idx}
+                  item={item}
+                  onClick={filterBtnClick}
+                />
+              </li>
+            );
+          })}
+        </ol>
       </div>
       <div className={styles.fullItem}>
         <p className={styles.tit}>기업형태</p>
-        <ol className={styles.filterItems}></ol>
+        <ol className={styles.filterItems}>
+          {supportItem.biz_type_cd.map((item, idx, arr) => {
+            return (
+              <li key={item.code}>
+                <FilterButton
+                  baseObj={supportInfo}
+                  idx={idx}
+                  item={item}
+                  onClick={filterBtnClick}
+                />
+              </li>
+            );
+          })}
+        </ol>
       </div>
       <div className={styles.fullItem}>
         <p className={styles.tit}>창업기간</p>
@@ -148,7 +168,7 @@ const MyCompany = () => {
         <input
           type="text"
           id="companyInform"
-          value={companyInform}
+          value={companyInform || ""}
           maxLength={50}
           onChange={(e) => {
             setCompanyInform(e.currentTarget.value);

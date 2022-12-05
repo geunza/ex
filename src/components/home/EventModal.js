@@ -178,6 +178,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               <div className={styles.modalTop}>
                 <div className={styles.tit}>
                   <img
+                    priority
                     src={
                       process.env.PUBLIC_URL +
                       "/public_assets/img/home/event_modal_01.png"
@@ -193,6 +194,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   className={styles.btn_close}
                 >
                   <img
+                    priority
                     src={
                       process.env.PUBLIC_URL +
                       "/public_assets/img/global/btn/btn_close_black.png"
@@ -225,6 +227,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               <div className={styles.modalTop}>
                 <div className={styles.tit}>
                   <img
+                    priority
                     src={
                       process.env.PUBLIC_URL +
                       "/public_assets/img/home/event_modal_02.png"
@@ -240,6 +243,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   className={styles.btn_close}
                 >
                   <img
+                    priority
                     src={
                       process.env.PUBLIC_URL +
                       "/public_assets/img/global/btn/btn_close_black.png"

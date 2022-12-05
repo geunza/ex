@@ -30,7 +30,20 @@ const Filter = () => {
             <ul className={styles.filterListWrap}>
               <li className={styles.filterList}>
                 <p className={styles.filterTit}>사업자형태</p>
-                <ol className={styles.filterItems}></ol>
+                <ol className={styles.filterItems}>
+                  {supportItem.bizp_type_cd.map((item, idx, arr) => {
+                    return (
+                      <li key={item.code}>
+                        <FilterButton
+                          baseObj={supportInfo}
+                          idx={idx}
+                          item={item}
+                          onClick={filterBtnClick}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
               </li>
               <li className={styles.filterList}>
                 <p className={styles.filterTit}>창업기간</p>
@@ -50,8 +63,24 @@ const Filter = () => {
                 </ol>
               </li>
               <li className={styles.filterList}>
-                <p className={styles.filterTit}>기업형태</p>
-                <ol className={styles.filterItems}></ol>
+                <p className={styles.filterTit}>
+                  기업형태
+                  <span className={styles.multiply}>(중복가능)</span>
+                </p>
+                <ol className={styles.filterItems}>
+                  {supportItem.biz_type_cd.map((item, idx, arr) => {
+                    return (
+                      <li key={item.code}>
+                        <FilterButton
+                          baseObj={supportInfo}
+                          idx={idx}
+                          item={item}
+                          onClick={filterBtnClick}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
               </li>
               <li className={styles.filterList}>
                 <div className={styles.filterModalBtnWrap}>

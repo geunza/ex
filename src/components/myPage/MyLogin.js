@@ -65,12 +65,15 @@ const MyLogin = () => {
   function encoding(string) {
     return encodeURI(string);
   }
+  useEffect(() => {
+    setNickname(userInfo.usernickname);
+  }, [userInfo]);
   return (
     <div className={styles.MyLogin}>
       <div className={styles.loginSns}>
         <p className={styles.tit}>카카오 / 애플 로그인</p>
         <div className={styles.iptArea}>
-          <input type="text" value={userInfo.useremail} disabled />
+          <input type="text" value={userInfo.useremail || ""} disabled />
           <button className={styles.btnBlue}>로그아웃</button>
           <button className={styles.btnGray}>회원탈퇴</button>
         </div>
@@ -82,7 +85,7 @@ const MyLogin = () => {
             type="text"
             placeholder="최대 8글자"
             maxLength={8}
-            value={nickname}
+            value={nickname || ""}
             onChange={nicknameChange}
           />
           <button type="submit" className={styles.btnSquareGray}>
@@ -102,17 +105,18 @@ const MyLogin = () => {
       {/* {nicknameCheck.toString()} */}
       <p
         className={
-          nicknameCheck === true
+          `${styles.nicknameCheck} ` +
+          (nicknameCheck === true
             ? styles.checkOK
             : nicknameCheck === false
             ? styles.checkX
-            : ""
+            : "")
         }
       >
         {nicknameCheck === true
-          ? "통과"
+          ? "* 사용할 수 있는 닉네임입니다."
           : nicknameCheck === false
-          ? "통과X"
+          ? "* 사용할 수 없는 닉네임입니다."
           : ` `}
         &nbsp;
       </p>

@@ -102,6 +102,23 @@ body {
     font-size: 22px;
     color: $color-deepGray;
   }
+
+  .rightArea {
+    display: flex;
+    gap: 15px;
+    button {
+      font-size: 20px;
+      border: 1px solid $color-borderGray;
+      border-radius: 100px;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      span {
+        padding-top: 3px;
+      }
+    }
+  }
 }
 
 .btnToolTip {

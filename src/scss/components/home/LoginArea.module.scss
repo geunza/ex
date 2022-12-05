@@ -99,7 +99,10 @@
       border-radius: $radius-btn;
       background-color: #3939c7;
       color: #fff;
-
+      transition: border-color 0.2s;
+      &:hover {
+        border-color: #fff;
+      }
       span {
         font-size: 20px;
         padding: 3px 0 0 0;

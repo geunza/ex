@@ -82,7 +82,9 @@ let companyInfo = createSlice({
 let supportItem = createSlice({
   name: "supportItem",
   initialState: {
+    bizp_type_cd: [], // 사업자형태
     prd_cd: [], // 창업기간
+    biz_type_cd: [], //사업형태
     spt_cd: [], // 지원분야
     biz_cd: [], // 사업분야
     tech_cd: [], //기술분야
@@ -94,7 +96,6 @@ let supportItem = createSlice({
       const cate = data.cate;
       const arr = data.arr;
       state[cate] = arr;
-      console.log(current(state));
     },
   },
 });
@@ -103,6 +104,32 @@ export let { setSupportItem } = supportItem.actions;
 let supportInfo = createSlice({
   name: "supportInfo",
   initialState: {
+    bizp_type_cd: {
+      name: "사업자형태",
+      multiply: false,
+      require: true,
+      datas: [
+        {
+          code_nm: "전체",
+          code: "01",
+          ctg_cd: "bizp_type_cd",
+          ctg_nm: "사업자형태",
+        },
+      ],
+    },
+    biz_type_cd: {
+      name: "사업형태",
+      multiply: true,
+      require: true,
+      datas: [
+        {
+          code_nm: "전체",
+          code: "01",
+          ctg_cd: "biz_type_cd",
+          ctg_nm: "사업형태",
+        },
+      ],
+    },
     prd_cd: {
       name: "창업기간",
       multiply: false,
@@ -177,6 +204,7 @@ let supportInfo = createSlice({
       const stateCate = state[cate];
       const require = stateCate.require;
       const multiply = stateCate.multiply;
+      console.log(multiply);
       if (multiply) {
         if (someItem(stateCate.datas, item)) {
           if (require && stateCate.datas.length == 1) {
@@ -185,7 +213,7 @@ let supportInfo = createSlice({
             stateCate.datas = filterItem(stateCate.datas, item);
           }
         } else {
-          stateCate.datas = addItem(...stateCate.datas, item);
+          stateCate.datas = addItem(stateCate.datas, item);
         }
       } else {
         if (someItem(stateCate.datas, item)) {
@@ -206,7 +234,7 @@ let supportInfo = createSlice({
           (x) => Object.entries(x).toString() != Object.entries(item).toString()
         );
       }
-      function addItem(target) {
+      function addItem(target, item) {
         return [...target, item].sort((a, b) => {
           return a.code - b.code;
         });

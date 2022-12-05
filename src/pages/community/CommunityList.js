@@ -30,7 +30,7 @@ const CommunityList = ({}) => {
   const [postData, setPostData] = useState([]);
   const [posts, setPosts] = useState([]);
   const [popular, setPopular] = useState([]);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(30);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const [comSearchText, setComSearchText] = useState("");
@@ -49,9 +49,8 @@ const CommunityList = ({}) => {
     );
     axios({
       method: "GET",
-      url: `/mobile/community/all?select_cat=${paramCate}&ord=${paramOrd}&cnt_sql=${
-        paramPage - 1
-      }`,
+      // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
+      url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 스타트&user_id=2464295270",
     }).then((res) => {
       const data = res.data;
       setPostData(data);
@@ -120,8 +119,7 @@ const CommunityList = ({}) => {
       : alert("로그인이 필요합니다.");
   };
   useEffect(() => {
-    // setPosts(postData);
-    setPosts([]);
+    setPosts(postData);
   }, [postData]);
 
   useEffect(() => {
@@ -144,7 +142,7 @@ const CommunityList = ({}) => {
               <h3 className={`title ${styles.title}`}>커뮤니티</h3>
               <p>창업에 필요한 정보를 공유하고 얻어가세요.</p>
             </div>
-            <div className={styles.rightArea}>
+            <div className="rightArea">
               <button type="button">
                 <img
                   src={
@@ -351,7 +349,7 @@ const CommunityList = ({}) => {
                   })}
                 </ul>
               ) : (
-                <div class="empty">
+                <div className="empty">
                   <p className="empty_tit">커뮤니티 게시글이 없습니다.</p>
                   <p className="empty_para">첫번째 게시글을 작성해보세요!</p>
                 </div>

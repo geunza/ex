@@ -18,9 +18,9 @@ function App() {
     });
   };
   useEffect(() => {
-    // 사업자형태
+    getFilterData("bizp_type_cd"); // 사업자형태
     getFilterData("prd_cd"); // 창업기간
-    // 기업형태
+    getFilterData("biz_type_cd"); // 사업형태
     getFilterData("spt_cd"); // 지원분야
     getFilterData("biz_cd"); // 사업분야
     getFilterData("tech_cd"); // 기술분야

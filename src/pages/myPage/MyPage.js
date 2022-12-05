@@ -7,6 +7,7 @@ import MyCompany from "components/myPage/MyCompany";
 import MyLogin from "components/myPage/MyLogin";
 import FilterButton from "components/home/FilterButton";
 import Tooltip from "components/Tooltip";
+import MyPageModal from "components/myPage/MyPageModal";
 const MyPage = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -30,20 +31,22 @@ const MyPage = () => {
             <h3 className={`title ${styles.title}`}>마이페이지</h3>
             <p>지원사업 조건과 로그인 정보를 수정할 수 있어요.</p>
           </div>
-          <div className={styles.rightArea}>
-            <button type="button" name="" value={"ㅁ"} onClick={() => {}}>
+          <div className="rightArea">
+            <button type="button" onClick={() => {}}>
               <img
                 src={
                   process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_blocked.png"
+                  "/public_assets/img/global/ico/ico_alarm.png"
                 }
-                alt="차단 회원 관리"
+                alt="알림설정"
               />
               <span>알림설정</span>
             </button>
           </div>
         </div>
+        <MyPageModal />
       </div>
+
       <div className={styles.MyPageContent}>
         <div className="inner">
           <div className={styles.myRecord}>

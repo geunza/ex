@@ -67,90 +67,88 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
     };
   }, []);
   return (
-    <>
-      <div className={styles.modalWrap}>
-        <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
-          <div className={styles.communityModal}>
-            <div className={styles.modalTop}>
-              <div className={styles.tit}>
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_blocked.png"
-                  }
-                  alt="차단 회원 관리"
-                />
-                <p>차단 회원 관리</p>
-              </div>
-              <button
-                type="button"
-                value={false}
-                onClick={closeModal}
-                className={styles.btn_close}
-              >
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_close_black.png"
-                  }
-                  alt="닫기"
-                />
-              </button>
+    <div className={styles.modalWrap}>
+      <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
+        <div className={styles.communityModal}>
+          <div className={styles.modalTop}>
+            <div className={styles.tit}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/ico/ico_blocked.png"
+                }
+                alt="차단 회원 관리"
+              />
+              <p>차단 회원 관리</p>
             </div>
-            <div className={styles.modalCont}>
-              {blockedUser.length > 0 ? (
-                <>
-                  <p className={styles.subTit}>
-                    <span>차단 회원을 해지할 수 있어요.</span>
-                    <span>해지 시, 해당 회원의 게시물을 볼 수 있어요.</span>
-                  </p>
-                  <ul className={styles.blockedList}>
-                    {blockedUser.map((v, i) => {
-                      return (
-                        <li className={styles.blockedUser} key={i}>
-                          <p>{v.usernickname}</p>
-                          <button
-                            onClick={() => {
-                              delBlockUser(v.blockidx);
-                            }}
-                          >
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/public_assets/img/global/btn/btn_close_white_small.png"
-                              }
-                              alt="닫기"
-                            />
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <div className={styles.btns}>
-                    <button
-                      className={styles.removeAll}
-                      type="button"
-                      onClick={delAllBlockUser}
-                    >
-                      전체삭제
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <p className={styles.subTit} style={{ marginBottom: 0 }}>
-                  <span>차단된 회원이 없습니다.</span>
+            <button
+              type="button"
+              value={false}
+              onClick={closeModal}
+              className={styles.btn_close}
+            >
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/btn/btn_close_black.png"
+                }
+                alt="닫기"
+              />
+            </button>
+          </div>
+          <div className={styles.modalCont}>
+            {blockedUser.length > 0 ? (
+              <>
+                <p className={styles.subTit}>
+                  <span>차단 회원을 해지할 수 있어요.</span>
+                  <span>해지 시, 해당 회원의 게시물을 볼 수 있어요.</span>
                 </p>
-              )}
-            </div>
-            <div className={styles.modalSubmit}>
-              <button type="button" onClick={closeModal}>
-                완료
-              </button>
-            </div>
+                <ul className={styles.blockedList}>
+                  {blockedUser.map((v, i) => {
+                    return (
+                      <li className={styles.blockedUser} key={i}>
+                        <p>{v.usernickname}</p>
+                        <button
+                          onClick={() => {
+                            delBlockUser(v.blockidx);
+                          }}
+                        >
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/public_assets/img/global/btn/btn_close_white_small.png"
+                            }
+                            alt="닫기"
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className={styles.btns}>
+                  <button
+                    className={styles.removeAll}
+                    type="button"
+                    onClick={delAllBlockUser}
+                  >
+                    전체삭제
+                  </button>
+                </div>
+              </>
+            ) : (
+              <p className={styles.subTit} style={{ marginBottom: 0 }}>
+                <span>차단된 회원이 없습니다.</span>
+              </p>
+            )}
+          </div>
+          <div className={styles.modalSubmit}>
+            <button type="button" onClick={closeModal}>
+              완료
+            </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default CommunityModalReport;
