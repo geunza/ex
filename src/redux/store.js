@@ -46,11 +46,11 @@ let isLoggedIn = createSlice({
   initialState: false,
   reducers: {
     signIn(state, action) {
-      localStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("isLoggedIn", "true");
       return true;
     },
     signOut(state, action) {
-      localStorage.removeItem("isLoggedIn");
+      sessionStorage.removeItem("isLoggedIn");
       return false;
     },
   },
@@ -64,16 +64,20 @@ let userInfo = createSlice({
   reducers: {
     setUserInfo(state, action) {
       const infoString = JSON.stringify(action.payload.id);
-      localStorage.setItem("userId", infoString);
+      sessionStorage.setItem("userId", infoString);
       return action.payload;
     },
     removeUserInfo(state, action) {
-      localStorage.removeItem("userId");
+      sessionStorage.removeItem("userId");
       return { id: "", usernickname: "", useremail: "" };
     },
   },
 });
 export let { setUserInfo, removeUserInfo, setDefaultSetup } = userInfo.actions;
+let companyInfo = createSlice({
+  name: "companyInfo",
+  initialState: {},
+});
 
 let supportItem = createSlice({
   name: "supportItem",
@@ -227,5 +231,6 @@ export default configureStore({
     supportInfo: supportInfo.reducer,
     supportItem: supportItem.reducer,
     modalState: modalState.reducer,
+    companyInfo: companyInfo.reducer,
   },
 });

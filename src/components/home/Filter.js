@@ -21,9 +21,6 @@ const Filter = () => {
   const filterBtnClick = (item, e) => {
     dispatch(setSupportInfo(item));
   };
-  useEffect(() => {
-    console.log(supportInfo);
-  }, [supportInfo]);
   return (
     <>
       <div className={styles.Filter}>

@@ -1,0 +1,166 @@
+@import "scss/utils";
+
+.MyPageContent {
+  padding-top: 50px;
+  :global .inner > div {
+    margin-bottom: 50px;
+  }
+  .mainTit {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    span {
+      position: relative;
+    }
+  }
+  .tit {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .box {
+    padding: 30px;
+    border-radius: $radius-wrap;
+    background-color: #fff;
+  }
+  .myRecord {
+    .box {
+      display: flex;
+      justify-content: space-between;
+      button {
+        width: 30%;
+        background: #f5f7ff;
+        border-radius: $radius-wrap;
+        border: none;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        gap: 20px;
+        .imgArea {
+          width: 100px;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #fff;
+          border-radius: 50%;
+          img {
+          }
+        }
+        span {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+  .myCompany {
+    .box {
+      .myPageForm {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+        .halfItem {
+          width: 48%;
+        }
+        .fullItem {
+          width: 100%;
+        }
+        label {
+          display: block;
+        }
+        input[type="text"] {
+          width: 100%;
+          padding: 0 10px;
+          border: 1px solid $color-borderGray;
+          border-radius: $radius-btn;
+          height: 45px;
+          font-size: 16px;
+          outline: none;
+        }
+        .filterItems {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          li {
+            button {
+              border-radius: 50px;
+            }
+          }
+        }
+        .btnModal {
+          width: 100%;
+          border: 1px solid $color-borderGray;
+          height: 45px;
+          border-radius: $radius-btn;
+          text-align: left;
+          font-size: 16px;
+          padding: 0 10px;
+        }
+        .submitArea {
+          width: 100%;
+          padding-top: 20px;
+          border-top: 1px solid $color-borderGray;
+          .btnSubmit {
+            background: $color-sub;
+            height: 60px;
+            font-size: 20px;
+            color: #fff;
+            border: none;
+            width: 100%;
+            border-radius: 50px;
+          }
+        }
+      }
+    }
+  }
+  .MyLogin {
+    input[type="text"] {
+    }
+    .box {
+      background: red;
+    }
+    button {
+      font-size: 14px;
+      padding-top: 3px;
+      height: 45px;
+      width: 140px;
+      border-radius: 50px;
+    }
+    .btnBlue {
+      background: #fff;
+      border: 1px solid $color-sub;
+      color: $color-sub;
+    }
+    .btnGray {
+      background: #fff;
+      border: 1px solid $color-borderGray;
+      color: $color-gray;
+    }
+    .btnSquareGray {
+      background: #fff;
+      border: 1px solid $color-lightGray;
+      height: 35px;
+      color: #222;
+      background: $color-lightGray;
+      border-radius: $radius-btn;
+      font-weight: 700;
+    }
+    .iptArea {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      input[type="text"] {
+        border: 1px solid $color-borderGray;
+        border-radius: $radius-btn;
+        padding: 0 15px;
+        font-size: 14px;
+        height: 45px;
+        flex: 1 1 auto;
+        outline: none;
+      }
+    }
+  }
+}

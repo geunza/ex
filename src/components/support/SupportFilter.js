@@ -104,7 +104,15 @@ const SupportFilter = ({}) => {
     });
     return sortArr;
   }
-  const rederItems = ["prd_cd", "spt_cd", "biz_cd", "tech_cd", "loc_cd"];
+  // const rederItems = ["prd_cd", "spt_cd", "biz_cd", "tech_cd", "loc_cd"];
+  const [renderItems, setRenderItems] = useState([]);
+
+  useEffect(() => {
+    setRenderItems([]);
+    for (let key in supportInfo) {
+      setRenderItems((prev) => [...prev, key]);
+    }
+  }, [supportInfo]);
   useEffect(() => {
     setObjDummy({ ...supportInfo });
   }, [modalIdx, modalOn]);
@@ -136,7 +144,7 @@ const SupportFilter = ({}) => {
         </div>
         <div className={styles.filterBox}>
           <ul className={styles.filterList}>
-            {rederItems.map((cate, idx) => {
+            {renderItems.map((cate, idx) => {
               if (cate == "biz_cd") return false;
               if (cate == "tech_cd") {
                 return (

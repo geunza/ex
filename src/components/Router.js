@@ -30,8 +30,8 @@ import MyPage from "pages/myPage/MyPage";
 const AppRouter = ({}) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (localStorage.getItem("isLoggedIn")) {
-      const userId = JSON.parse(localStorage.getItem("userId"));
+    if (sessionStorage.getItem("isLoggedIn")) {
+      const userId = JSON.parse(sessionStorage.getItem("userId"));
       defaultSignIn(userId);
       dispatch(signIn());
     }
@@ -44,11 +44,10 @@ const AppRouter = ({}) => {
     }).then((res) => {
       const data = res.data;
       const id = data.id;
-      localStorage.setItem("userId", id);
+      sessionStorage.setItem("userId", id);
       dispatch(setUserInfo(data));
     });
   };
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <div id="wrap">
       <Router>
