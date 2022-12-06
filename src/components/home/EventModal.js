@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 const EventModal = ({ modalOpener, modalTab }) => {
   const userInfo = useSelector((state) => state.userInfo);
-
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const openInNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -65,9 +65,12 @@ const EventModal = ({ modalOpener, modalTab }) => {
       })
       .catch((err) => console.log(err));
   };
-
   const submitDummyKeyword = (e) => {
     e.preventDefault();
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+      return false;
+    }
     const length = userKeywordDummy.length;
     if (userKeywordDummy.indexOf(keyword) >= 0) {
       alert("이미 등록된 키워드 입니다.");
@@ -171,7 +174,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
   return (
     // CHECK : TITLE IMG 체크
     <div className={`${styles.modalWrap} ${styles.EventModal}`}>
-      <div className={styles.modalInner}>
+      <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
         <div className="eventModal">
           {modalTab === 0 && (
             <div className={styles.eventModal_01}>
@@ -204,10 +207,10 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 </button>
               </div>
               <div className={styles.contArea}>
-                <p>
+                <p className={styles.para}>
                   <mark>매주 월요일</mark> 테마별 지원사업을 무료로 받아보세요!
                 </p>
-                <form className={styles.emailForm} onSubmit={checkEmail}>
+                <form className={styles.eventForm} onSubmit={checkEmail}>
                   <input
                     type="email"
                     value={email}
@@ -253,8 +256,13 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 </button>
               </div>
               <div className={styles.contArea}>
-                <p>키워드를 등록하시면 APP PUSH로 배송해 드릴게요!</p>
-                <form onSubmit={submitDummyKeyword}>
+                <p className={styles.para}>
+                  키워드를 등록하시면 APP PUSH로 배송해 드릴게요!
+                </p>
+                <form
+                  onSubmit={submitDummyKeyword}
+                  className={styles.eventForm}
+                >
                   <input
                     type="text"
                     value={keyword}
@@ -266,30 +274,44 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <button type="submit">등록</button>
                 </form>
                 {userKeywordDummy.length > 0 ? (
-                  <ul>
-                    <li>
-                      <button onClick={deleteDummyKeywordAll}>전체삭제</button>
-                    </li>
-                    {userKeywordDummy.map((item, idx) => {
-                      return (
-                        <li>
-                          {item}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              deleteDummyKeyword(item);
-                            }}
-                          >
-                            X
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <>
+                    <ul className={styles.commonList}>
+                      {userKeywordDummy.map((item, idx) => {
+                        return (
+                          <li className={styles.listWithDelete} key={idx}>
+                            <p>{item}</p>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                deleteDummyKeyword(item);
+                              }}
+                            >
+                              <img
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "/public_assets/img/global/btn/btn_close_white_small.png"
+                                }
+                                alt="닫기"
+                              />
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    <div className={styles.deleteAll}>
+                      <button
+                        className={styles.removeAll}
+                        type="button"
+                        onClick={deleteDummyKeywordAll}
+                      >
+                        전체삭제
+                      </button>
+                    </div>
+                  </>
                 ) : (
-                  <div className={styles.noKeyword}>
-                    설정한 키워드가 없습니다.
-                  </div>
+                  <p className={styles.subTit} style={{ marginBottom: 0 }}>
+                    <span>설정한 키워드가 없습니다.</span>
+                  </p>
                 )}
               </div>
               <div className={styles.modalSubmit}>
@@ -335,7 +357,9 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 </button>
               </div>
               <div className={styles.contArea}>
-                <p> 실시간 소통이 가능한 엑시토 오픈 채팅방에 초대합니다!</p>
+                <p className={styles.para}>
+                  실시간 소통이 가능한 엑시토 오픈 채팅방에 초대합니다!
+                </p>
                 <button
                   onClick={() => {
                     openInNewTab("https://example.com");

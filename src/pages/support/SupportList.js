@@ -65,11 +65,13 @@ const SupportList = ({}) => {
         </div>
       </div>
       <style>
-        {"\
+        {
+          "\
         body{\
           background-color:#fff;\
         }\
-      "}
+      "
+        }
       </style>
     </>
   );

@@ -1,6 +1,5 @@
 {
   "name": "exito",
-  "homapage": "http://heysome.co.kr/exito/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,10 +25,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-publish": "npm run build && node setupPackage.js && cd dist && npm publish",
-    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

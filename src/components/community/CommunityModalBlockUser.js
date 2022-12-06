@@ -13,7 +13,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
   // 차단유저 GET
   const getBlockedUser = () => {
     axios({
-      url: "/mobile/community/blockAll",
+      url: "http://218.38.52.223/mobile/community/blockAll",
       method: "POST",
       headers: {
         user_id: parseInt(userInfo.id),
@@ -31,7 +31,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
       return false;
     }
     axios({
-      url: "/mobile/community/delBlockUser",
+      url: "http://218.38.52.223/mobile/community/delBlockUser",
       method: "POST",
       data: {
         blockidx: idx,
@@ -49,7 +49,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
       return false;
     }
     axios({
-      url: "/mobile/community/delAllBlockUser",
+      url: "http://218.38.52.223/mobile/community/delAllBlockUser",
       method: "POST",
       headers: { user_id: userInfo.id },
     }).then((res) => {
@@ -103,10 +103,10 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
                   <span>차단 회원을 해지할 수 있어요.</span>
                   <span>해지 시, 해당 회원의 게시물을 볼 수 있어요.</span>
                 </p>
-                <ul className={styles.blockedList}>
+                <ul className={styles.commonList}>
                   {blockedUser.map((v, i) => {
                     return (
-                      <li className={styles.blockedUser} key={i}>
+                      <li className={styles.listWithDelete} key={i}>
                         <p>{v.usernickname}</p>
                         <button
                           onClick={() => {
@@ -125,7 +125,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
                     );
                   })}
                 </ul>
-                <div className={styles.btns}>
+                <div className={styles.deleteAll}>
                   <button
                     className={styles.removeAll}
                     type="button"

@@ -48,6 +48,55 @@
     }
   }
 
+  .subTit {
+    font-size: 14px;
+    color: $color-deepGray;
+    background-color: #f0f4fd;
+    text-align: center;
+    padding: 15px 0 12px;
+    border-radius: $radius-btn;
+    margin-bottom: 25px;
+    span {
+      display: block;
+    }
+  }
+
+  .commonList {
+    margin-bottom: 25px;
+    .listWithDelete {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        padding-top: 2px;
+      }
+      button {
+        border: none;
+        padding: 3px;
+        img {
+          display: block;
+        }
+      }
+    }
+  }
+  .deleteAll {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      display: block;
+      border: 2px solid $color-borderGray;
+      border-radius: 20px;
+      color: $color-deepGray;
+      font-size: 14px;
+      padding: 8px 20px 5px;
+    }
+  }
+
+  li {
+    border-bottom: 1px solid $color-borderGray;
+    padding: 15px 0;
+  }
+
   .modalSubmit {
     border-radius: 0 0 $radius-wrap $radius-wrap;
     overflow: hidden;
@@ -72,40 +121,6 @@
 .communityModal {
   .modalCont {
     padding: 25px;
-    .subTit {
-      font-size: 14px;
-      color: $color-deepGray;
-      background-color: #f0f4fd;
-      text-align: center;
-      padding: 15px 0 12px;
-      border-radius: $radius-btn;
-      margin-bottom: 25px;
-      span {
-        display: block;
-      }
-    }
-    li {
-      border-bottom: 1px solid $color-borderGray;
-      padding: 15px 0;
-    }
-    .blockedList {
-      margin-bottom: 25px;
-      li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        p {
-          padding-top: 2px;
-        }
-        button {
-          border: none;
-          padding: 3px;
-          img {
-            display: block;
-          }
-        }
-      }
-    }
     .reportList {
       li {
         //
@@ -119,6 +134,7 @@
         label {
           display: flex;
           gap: 15px;
+          cursor: pointer;
         }
         input[type="radio"] {
           display: none;
@@ -154,18 +170,6 @@
             color: #ccc;
           }
         }
-      }
-    }
-    .btns {
-      display: flex;
-      justify-content: flex-end;
-      button {
-        display: block;
-        border: 2px solid $color-borderGray;
-        border-radius: 20px;
-        color: $color-deepGray;
-        font-size: 14px;
-        padding: 8px 20px 5px;
       }
     }
   }
@@ -294,9 +298,26 @@
   .contArea {
     background-color: #fff;
     padding: 25px;
-    border-radius: 0 $radius-wrap $radius-wrap 0;
+    border-radius: 0 0 $radius-wrap $radius-wrap;
     overflow: hidden;
     //
+
+    .eventForm {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      input {
+        width: 72%;
+        border: none;
+        border-radius: $radius-btn;
+        background: $color-lightGray;
+        font-size: 18px;
+        padding: 0 15px;
+      }
+      button[type="submit"] {
+        width: 25%;
+      }
+    }
     button[type="submit"] {
       background: $color-main;
       font-size: 18px;
@@ -307,7 +328,7 @@
       border: none;
       border-radius: $radius-btn;
     }
-    p {
+    .para {
       font-size: 18px;
       margin-bottom: 20px;
       span {
@@ -317,25 +338,12 @@
   }
   .eventModal_01 {
     .contArea {
-      .emailForm {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
-        input[type="email"] {
-          width: 80%;
-          border: none;
-          border-radius: $radius-btn;
-          background: $color-lightGray;
-          font-size: 18px;
-          padding: 0 15px;
-        }
-        button[type="submit"] {
-          width: 18%;
-        }
-      }
     }
   }
   .eventModal_02 {
+    .eventForm {
+      margin-bottom: 20px;
+    }
   }
   .eventModal_03 {
     .contArea {
