@@ -13,6 +13,7 @@ const CommunityWrite = () => {
   const [openCate, setOpenCate] = useState(false);
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
+  const [editorFileData, setEditorFileData] = useState([]);
   const [fileData, setFileData] = useState([]);
   const btnSubmit = () => {
     // console.log("CATEGORY :" + cate);
@@ -162,6 +163,8 @@ const CommunityWrite = () => {
                   styles={styles}
                   editorTxt={editorTxt}
                   setEditorTxt={setEditorTxt}
+                  editorFileData={editorFileData}
+                  setEditorFileData={setEditorFileData}
                 />
               </div>
             </div>

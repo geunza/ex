@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "scss/components/Modal.module.scss";
 
-const MyPageModal = () => {
+const MyPageModal = ({ setAlaramOpen }) => {
   return (
     <div className={styles.modalWrap}>
       <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
@@ -20,7 +20,9 @@ const MyPageModal = () => {
             <button
               type="button"
               value={false}
-              onClick={() => {}}
+              onClick={() => {
+                setAlaramOpen(false);
+              }}
               className={styles.btn_close}
             >
               <img

@@ -9,24 +9,38 @@ import "scss/components/community/Editor.scss";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const Editor2 = ({ styles, editorTxt, setEditorTxt, defaultValue }) => {
+const Editor2 = ({
+  styles,
+  editorTxt,
+  setEditorTxt,
+  defaultValue,
+  setEditorFileData,
+}) => {
   const [defaultTxt, setDefaultTxt] = useState(defaultValue);
+  const [files, setFiles] = useState([]);
   const editorRef = useRef();
   useEffect(() => {}, []);
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
+    console.log(data);
     setEditorTxt(data);
   };
   const onLoad = () => {
     const htmlString = defaultValue;
     editorRef.current?.getInstance().setHTML(htmlString);
   };
+
   useEffect(() => {
     onLoad();
   }, [defaultValue]);
+  useEffect(() => {
+    console.log(files);
+    setEditorFileData(files);
+  }, [files]);
   return (
     <>
       <Editor
+        id="testEditor"
         placeholder="내용을 입력해주세요."
         previewStyle="vertical"
         height="600px"
@@ -45,6 +59,22 @@ const Editor2 = ({ styles, editorTxt, setEditorTxt, defaultValue }) => {
           ["table", "image", "link"],
           ["code", "codeblock"],
         ]}
+        hooks={{
+          addImageBlobHook: async (blob, callback) => {
+            console.log(blob);
+            setFiles((prev) => [...prev, blob]);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+              var base64data = reader.result;
+              var data = editorRef.current.getInstance().getHTML();
+              var newData = data + `<p><img src="${base64data}" /></p>`;
+              editorRef.current?.getInstance().setHTML(newData);
+              setEditorTxt(newData);
+              // editorRef.current?.getInstance().setHTML(newTxt);
+            };
+          },
+        }}
       ></Editor>
       {(editorTxt == "" || editorTxt == "<p><br></p>") && (
         <div className={styles.editInform}>

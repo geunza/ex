@@ -22,6 +22,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   const [modifyOpen, setModifyOpen] = useState(false);
   const [reReplyOpen, setReReplyOpen] = useState(false);
   const [reReplyTxt, setReReplyTxt] = useState("");
+
+  // 댓글 수정기능
   const btnModify = () => {
     setModifyOpen((prev) => !prev);
   };
@@ -40,6 +42,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       alert("수정되었습니다.");
     });
   };
+
+  // 댓글 삭제기능
   const btnDelete = (e) => {
     const {
       currentTarget: { value },
@@ -57,6 +61,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       alert("삭제되었습니다.");
     });
   };
+
   // CHECK : 신고기능 API
   const btnReport = () => {
     if (!isLoggedIn) {
@@ -64,6 +69,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       return false;
     }
   };
+
+  // 대댓글 호출
   const getReReply = () => {
     axios({
       url: "/mobile/community/recomment",
@@ -83,6 +90,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       setReReply(res.data);
     });
   };
+
+  // 댓글 삭제기능
   const btnBlock = () => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
@@ -108,6 +117,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       alert(`${item.usernickname}님을 차단했습니다.`);
     });
   };
+
+  // 댓글 좋아요기능
   const btnCmtLike = () => {
     axios({
       method: "POST",
@@ -118,7 +129,6 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       data: { comment_id: cmtId },
     })
       .then((res) => {
-        console.log("res", res);
         getReply();
       })
       .catch((err) => {
@@ -197,7 +207,9 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
                   <img
                     src={
                       process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_like.png"
+                      (item.thumb_up
+                        ? "/public_assets/img/global/ico/ico_like_selected.png"
+                        : "/public_assets/img/global/ico/ico_like.png")
                     }
                     alt="like icon"
                   />

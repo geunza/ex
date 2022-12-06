@@ -59,6 +59,10 @@
       gap: 5px;
       color: $color-deepGray;
       border: none;
+      img {
+        width: 18px;
+        display: block;
+      }
       span {
         padding-top: 3px;
       }
@@ -83,7 +87,7 @@
   }
 }
 .writeReReply {
-  padding: 0 40px 20px;
+  padding: 20px 40px;
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;

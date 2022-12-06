@@ -13,7 +13,7 @@ const MyPage = () => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
-
+  const [alarmOpen, setAlaramOpen] = useState(false);
   const tooltipOpen = (e) => {
     const target = e.currentTarget.querySelector(".toolTipBox");
     target.classList.contains("active")
@@ -32,7 +32,12 @@ const MyPage = () => {
             <p>지원사업 조건과 로그인 정보를 수정할 수 있어요.</p>
           </div>
           <div className="rightArea">
-            <button type="button" onClick={() => {}}>
+            <button
+              type="button"
+              onClick={() => {
+                setAlaramOpen(true);
+              }}
+            >
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -44,7 +49,7 @@ const MyPage = () => {
             </button>
           </div>
         </div>
-        <MyPageModal />
+        {alarmOpen && <MyPageModal setAlaramOpen={setAlaramOpen} />}
       </div>
 
       <div className={styles.MyPageContent}>

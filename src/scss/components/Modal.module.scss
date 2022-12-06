@@ -49,6 +49,8 @@
   }
 
   .modalSubmit {
+    border-radius: 0 0 $radius-wrap $radius-wrap;
+    overflow: hidden;
     button {
       background-color: $color-main;
       color: #fff;

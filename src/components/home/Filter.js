@@ -15,11 +15,15 @@ const Filter = () => {
   const [modalStep, setModalStep] = useState(0);
 
   const filterModalOpen = (bool, idx) => {
-    setFilterModal(bool);
-    setModalStep(idx);
+    if(!isLoggedIn){
+      alert("로그인이 필요합니다.")
+    }else{
+      setFilterModal(bool);
+      setModalStep(idx);
+    }
   };
   const filterBtnClick = (item, e) => {
-    dispatch(setSupportInfo(item));
+    !isLoggedIn ? alert("로그인이 필요합니다.") : dispatch(setSupportInfo(item));
   };
   return (
     <>

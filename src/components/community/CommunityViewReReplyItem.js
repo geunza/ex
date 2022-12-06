@@ -85,6 +85,24 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
     getReReply();
     setControlBoxOpen(false);
   };
+
+  // 대댓글 좋아요기능
+  const btnCmtLike = () => {
+    axios({
+      method: "POST",
+      url: "/mobile/community/insertCommentLike",
+      headers: {
+        user_id: userInfo.id,
+      },
+      data: { comment_id: cmtId },
+    })
+      .then((res) => {
+        getReReply();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
   return (
     <li
       className={
@@ -125,14 +143,16 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
               <div className={styles.leftArea}>{item.description}</div>
               <div className={styles.rightArea}>
                 <div className={styles.likeArea}>
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_like.png"
-                    }
-                    alt="like icon"
-                  />
-                  <span>{item.like_count}</span>
+                  <button className={styles.likeArea} onClick={btnCmtLike}>
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/ico/ico_like.png"
+                      }
+                      alt="like icon"
+                    />
+                    <span>{item.like_count}</span>
+                  </button>
                 </div>
                 <div className="controlBoxWrap">
                   <button
