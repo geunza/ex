@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import styles from "scss/pages/MyPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSupportInfo } from "redux/store/supportInfoSlice";
 import MyCompany from "components/myPage/MyCompany";
 import MyLogin from "components/myPage/MyLogin";
 import FilterButton from "components/home/FilterButton";
 import Tooltip from "components/Tooltip";
 import MyPageModal from "components/myPage/MyPageModal";
+import { useNavigate } from "react-router-dom";
 const MyPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
@@ -21,6 +22,11 @@ const MyPage = () => {
       : target.classList.add("active");
   };
   useEffect(() => {
+    if (!isLoggedIn) {
+      alert("잘못된 접근입니다.");
+      navigate("/");
+    }
+    console.log(isLoggedIn);
     console.log(userInfo);
   }, [userInfo]);
   return (

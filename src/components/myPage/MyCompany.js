@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import FilterButton from "components/home/FilterButton";
 import styles from "scss/pages/MyPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo } from "redux/store/supportInfoSlice";
+import { setSupportInfo } from "redux/store";
 import axios from "axios";
 import FilterModal from "components/home/FilterModal";
 const MyCompany = () => {

@@ -1,5 +1,6 @@
 import { current, configureStore, createSlice } from "@reduxjs/toolkit";
-import logger from "redux-logger";
+import supportInfo from "redux/store/support";
+import supportItem from "redux/store/support";
 
 // 로딩창
 let isLoading = createSlice({
@@ -79,185 +80,12 @@ let companyInfo = createSlice({
   initialState: {},
 });
 
-let supportItem = createSlice({
-  name: "supportItem",
-  initialState: {
-    bizp_type_cd: [], // 사업자형태
-    prd_cd: [], // 창업기간
-    biz_type_cd: [], //사업형태
-    spt_cd: [], // 지원분야
-    biz_cd: [], // 사업분야
-    tech_cd: [], //기술분야
-    loc_cd: [], // 지역
-  },
-  reducers: {
-    setSupportItem(state, action) {
-      const data = action.payload;
-      const cate = data.cate;
-      const arr = data.arr;
-      state[cate] = arr;
-    },
-  },
-});
-export let { setSupportItem } = supportItem.actions;
-// 공통코드
-let supportInfo = createSlice({
-  name: "supportInfo",
-  initialState: {
-    bizp_type_cd: {
-      name: "사업자형태",
-      multiply: false,
-      require: true,
-      datas: [
-        {
-          code_nm: "전체",
-          code: "01",
-          ctg_cd: "bizp_type_cd",
-          ctg_nm: "사업자형태",
-        },
-      ],
-    },
-    biz_type_cd: {
-      name: "사업형태",
-      multiply: true,
-      require: true,
-      datas: [
-        {
-          code_nm: "전체",
-          code: "01",
-          ctg_cd: "biz_type_cd",
-          ctg_nm: "사업형태",
-        },
-      ],
-    },
-    prd_cd: {
-      name: "창업기간",
-      multiply: false,
-      require: true,
-      datas: [
-        {
-          code_nm: "전체",
-          code: "999",
-          ctg_cd: "prd_cd",
-          ctg_nm: "창업기간",
-        },
-      ],
-    },
-    spt_cd: {
-      name: "지원분야",
-      multiply: true,
-      require: true,
-      datas: [
-        {
-          code_nm: "전체",
-          code: "01",
-          ctg_cd: "spt_cd",
-          ctg_nm: "지원분야",
-        },
-      ],
-    },
-    biz_cd: {
-      name: "사업분야",
-      multiply: true,
-      require: true,
-      datas: [
-        {
-          code_nm: "전체",
-          code: "01",
-          ctg_cd: "biz_cd",
-          ctg_nm: "사업분야",
-        },
-      ],
-    },
-    tech_cd: {
-      name: "기술분야",
-      multiply: true,
-      require: true,
-      datas: [
-        {
-          code_nm: "전체",
-          code: "01",
-          ctg_cd: "tech_cd",
-          ctg_nm: "기술분야",
-        },
-      ],
-    },
-    loc_cd: {
-      name: "지역",
-      multiply: true,
-      require: false,
-      datas: [
-        {
-          code_nm: "전국",
-          code: "C82",
-          ctg_cd: "loc_cd",
-          ctg_nm: "지역",
-        },
-      ],
-    },
-  },
-  reducers: {
-    setSupportInfo(state, action) {
-      // const obj = { ...state };
-      const item = action.payload;
-      const cate = item.ctg_cd;
-      const stateCate = state[cate];
-      const require = stateCate.require;
-      const multiply = stateCate.multiply;
-      console.log(multiply);
-      if (multiply) {
-        if (someItem(stateCate.datas, item)) {
-          if (require && stateCate.datas.length == 1) {
-            alert("한가지 이상 선택해주세요.");
-          } else {
-            stateCate.datas = filterItem(stateCate.datas, item);
-          }
-        } else {
-          stateCate.datas = addItem(stateCate.datas, item);
-        }
-      } else {
-        if (someItem(stateCate.datas, item)) {
-          if (require) {
-            alert("한가지 이상 선택해주세요.");
-          }
-        } else {
-          stateCate.datas = [item];
-        }
-      }
-      function someItem(target, item) {
-        return target.some(
-          (x) => Object.entries(x).toString() == Object.entries(item).toString()
-        );
-      }
-      function filterItem(target, item) {
-        return target.filter(
-          (x) => Object.entries(x).toString() != Object.entries(item).toString()
-        );
-      }
-      function addItem(target, item) {
-        return [...target, item].sort((a, b) => {
-          return a.code - b.code;
-        });
-      }
-    },
-    setSupportInfoModal(state, action) {
-      const data = action.payload;
-      const cate = data.name;
-      const datas = data.datas;
-      state[cate].datas = datas;
-    },
-  },
-});
-export let { setSupportInfo, setSupportInfoModal } = supportInfo.actions;
-
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
-    supportInfo: supportInfo.reducer,
-    supportItem: supportItem.reducer,
     modalState: modalState.reducer,
     companyInfo: companyInfo.reducer,
   },

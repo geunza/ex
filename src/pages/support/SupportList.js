@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "scss/pages/SupportList.module.scss";
 import SupportFilter from "components/support/SupportFilter";
-import SupportItems from "components/support/SupportItems";
+import SupportContent from "components/support/SupportContent";
 import SupportRecent from "components/support/SupportRecent";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo } from "redux/store/supportInfoSlice";
 import axios from "axios";
 
 const SupportList = ({}) => {
@@ -27,7 +26,7 @@ const SupportList = ({}) => {
         loc_code: "C02",
       },
       method: "POST",
-      url: "/support/getSupportInfoList?select_cat=전체&ord=전체&cnt_sql=0",
+      url: "/support/getSupportInfoList",
     })
       .then((res) => {
         console.log(res.data);
@@ -56,7 +55,7 @@ const SupportList = ({}) => {
               <SupportFilter supportInfo={supportInfo} />
             </div>
             <div className={styles.listArea}>
-              <SupportItems />
+              <SupportContent />
             </div>
             <div className={styles.recentArea}>
               <SupportRecent userInfo={userInfo} />

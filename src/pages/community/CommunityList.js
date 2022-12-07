@@ -50,7 +50,7 @@ const CommunityList = ({}) => {
     axios({
       method: "GET",
       // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
-      url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 스타트&user_id=2464295270",
+      url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&user_id=2464295270",
     }).then((res) => {
       const data = res.data;
       setPostData(data);
@@ -153,6 +153,7 @@ const CommunityList = ({}) => {
                 />
                 <span>내가 작성한 게시글/댓글</span>
               </button>
+
               <button
                 type="button"
                 name="blockedUser"

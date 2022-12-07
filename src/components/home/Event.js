@@ -54,9 +54,9 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
                   process.env.PUBLIC_URL +
                   "/public_assets/img/home/event_02.png"
                 }
-                alt="키워드 정기배송"
+                alt="키워드 알림"
               />
-              <span>키워드 정기배송</span>
+              <span>키워드 알림</span>
             </button>
           </li>
           <li>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "scss/components/saved/SavedItem.module.scss";
+import styles from "scss/components/support/SupportItem.module.scss";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const SavedItem = ({ item }) => {
@@ -39,7 +39,7 @@ const SavedItem = ({ item }) => {
     return numb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   return (
-    <li className={styles.savedItem}>
+    <li className={styles.supportItem}>
       <div className={styles.leftArea}>
         <div className={styles.itemTop}>
           <ol>

@@ -13,12 +13,13 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
   // 차단유저 GET
   const getBlockedUser = () => {
     axios({
-      url: "http://218.38.52.223/mobile/community/blockAll",
+      url: "/mobile/community/blockAll",
       method: "POST",
       headers: {
         user_id: parseInt(userInfo.id),
       },
     }).then((res) => {
+      console.log(res.data);
       setBlockedUser(res.data);
     });
   };
@@ -31,7 +32,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
       return false;
     }
     axios({
-      url: "http://218.38.52.223/mobile/community/delBlockUser",
+      url: "/mobile/community/delBlockUser",
       method: "POST",
       data: {
         blockidx: idx,
@@ -49,7 +50,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
       return false;
     }
     axios({
-      url: "http://218.38.52.223/mobile/community/delAllBlockUser",
+      url: "/mobile/community/delAllBlockUser",
       method: "POST",
       headers: { user_id: userInfo.id },
     }).then((res) => {
@@ -99,7 +100,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
           <div className={styles.modalCont}>
             {blockedUser.length > 0 ? (
               <>
-                <p className={styles.subTit}>
+                <p className={styles.subTit} style={{ marginBottom: "25px" }}>
                   <span>차단 회원을 해지할 수 있어요.</span>
                   <span>해지 시, 해당 회원의 게시물을 볼 수 있어요.</span>
                 </p>
@@ -136,7 +137,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
                 </div>
               </>
             ) : (
-              <p className={styles.subTit} style={{ marginBottom: 0 }}>
+              <p className={styles.subTit}>
                 <span>차단된 회원이 없습니다.</span>
               </p>
             )}

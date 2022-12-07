@@ -4,10 +4,11 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setSupportItem, setSupportInfo } from "redux/store";
 import FilterButton from "components/home/FilterButton";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import FilterModal from "components/home/FilterModal";
 const Filter = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -15,15 +16,17 @@ const Filter = () => {
   const [modalStep, setModalStep] = useState(0);
 
   const filterModalOpen = (bool, idx) => {
-    if(!isLoggedIn){
-      alert("로그인이 필요합니다.")
-    }else{
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+    } else {
       setFilterModal(bool);
       setModalStep(idx);
     }
   };
   const filterBtnClick = (item, e) => {
-    !isLoggedIn ? alert("로그인이 필요합니다.") : dispatch(setSupportInfo(item));
+    !isLoggedIn
+      ? alert("로그인이 필요합니다.")
+      : dispatch(setSupportInfo(item));
   };
   return (
     <>
@@ -150,12 +153,30 @@ const Filter = () => {
             )}
           </div>
           <div className={styles.bottomArea}>
-            <button name="login">
+            <button
+              name="login"
+              onClick={() => {
+                if (!isLoggedIn) {
+                  alert("로그인이 필요합니다.");
+                  return false;
+                }
+                navigate("/support/supportList");
+              }}
+            >
               {!isLoggedIn
                 ? "로그인하고 맞춤 지원사업 조회하기"
                 : "맞춤 지원사업 조회하기"}
             </button>
-            {!isLoggedIn && <button name="noLogin">비회원으로 조회하기</button>}
+            {!isLoggedIn && (
+              <button
+                name="noLogin"
+                onClick={() => {
+                  navigate("/support/supportList");
+                }}
+              >
+                비회원으로 조회하기
+              </button>
+            )}
           </div>
         </div>
       </div>

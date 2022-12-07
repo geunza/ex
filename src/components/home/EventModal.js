@@ -15,6 +15,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
     e.preventDefault();
     function validationEmail(email) {
       let regex =
+        // eslint-disable-next-line
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       return regex.test(email);
     }
@@ -42,7 +43,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
     }
   };
 
-  // tab_02 : 키워드 정기배송
+  // tab_02 : 키워드 알림
   const [keyword, setKeyword] = useState("");
   const [userKeyword, setUserKeyword] = useState([]);
   const [userKeywordDummy, setUserKeywordDummy] = useState([]);
@@ -235,9 +236,9 @@ const EventModal = ({ modalOpener, modalTab }) => {
                       process.env.PUBLIC_URL +
                       "/public_assets/img/home/event_modal_02.png"
                     }
-                    alt="키워드 정기배송"
+                    alt="키워드 알림"
                   />
-                  <p>키워드 정기배송</p>
+                  <p>키워드 알림</p>
                 </div>
                 <button
                   type="button"
@@ -309,7 +310,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                     </div>
                   </>
                 ) : (
-                  <p className={styles.subTit} style={{ marginBottom: 0 }}>
+                  <p className={styles.subTit}>
                     <span>설정한 키워드가 없습니다.</span>
                   </p>
                 )}
@@ -400,7 +401,45 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 </button>
               </div>
               <div className={styles.contArea}>
-                <p>asdfadsf</p>
+                <p className={styles.para}>
+                  <span>10년 이상 경력의 전문 컨설턴트와 함께라면</span>
+                  <span> 자금조달에 성공할 수 있습니다!</span>
+                </p>
+                <ul>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        alert("CHECK : 링크 적용");
+                      }}
+                    >
+                      예비창업반
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        alert("CHECK : 링크 적용");
+                      }}
+                    >
+                      초기창업반
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        alert("CHECK : 링크 적용");
+                      }}
+                    >
+                      일반기업반
+                    </button>
+                  </li>
+                </ul>
+                <p className={styles.subTit}>
+                  * 클래스 클릭 시, 해당 교육 신청서로 이동합니다.
+                </p>
               </div>
             </div>
           )}
