@@ -4,7 +4,8 @@ import styles from "scss/components/Modal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import FilterButton from "components/home/FilterButton";
 import Tooltip from "components/Tooltip";
-import { modalOverflow, setSupportInfoModal } from "redux/store";
+import { modalOverflow } from "redux/store";
+import { setSupportInfoModal } from "redux/store";
 const FilterModal = ({
   filterModalOpen,
   supportItem,
