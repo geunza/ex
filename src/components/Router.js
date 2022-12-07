@@ -29,6 +29,7 @@ import MyPage from "pages/myPage/MyPage";
 
 const AppRouter = ({}) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (sessionStorage.getItem("isLoggedIn")) {
       const userId = JSON.parse(sessionStorage.getItem("userId"));
@@ -73,7 +74,10 @@ const AppRouter = ({}) => {
             element={<CommunityModify />}
           ></Route>
           <Route path="/support/supportList" element={<SupportList />}></Route>
-          <Route path="/support/supportView/" element={<SupportView />}></Route>
+          <Route
+            path="/support/supportView/:id"
+            element={<SupportView />}
+          ></Route>
           <Route
             path="/saved/savedRecent"
             exact
