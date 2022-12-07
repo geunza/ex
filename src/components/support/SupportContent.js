@@ -18435,6 +18435,16 @@ const SupportContent = () => {
 
   const getSupportCont = () => {
     dispatch(loadingStart());
+    console.log(
+      ord,
+      supportData.bizp_type_cd.toString(),
+      supportData.prd_cd.toString(),
+      supportData.biz_type_cd.toString(),
+      supportData.spt_cd.toString(),
+      supportData.biz_cd.toString(),
+      supportData.tech_cd.toString(),
+      supportData.loc_cd.toString()
+    );
     axios({
       url: "/support/getSupportInfoList",
       method: "POST",
@@ -18452,6 +18462,8 @@ const SupportContent = () => {
         loc_code: supportData.loc_cd.toString(),
       },
     }).then((res) => {
+      console.log("BBBB");
+      console.log(res.data);
       dispatch(loadingEnd());
     });
   };

@@ -31,43 +31,6 @@ const CommunityModify = () => {
       alert("내용은 필수 입력사항입니다.");
       return;
     }
-    // axios({
-    //   method: "POST",
-    //   url: "/mobile/community/",
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   data: {
-    //     category: cate,
-    //     userId: userInfo.id,
-    //     title: title,
-    //     content: editorTxt,
-    //     files: "",
-    //   },
-    // }).then((res) => {
-    //   if (fileData.length > 0) {
-    //     const formData = new FormData(); // formData 객체를 생성한다.
-    //     formData.append("content_id", res.data);
-    //     for (let i = 0; i < fileData.length; i++) {
-    //       formData.append("files", fileData[i]);
-    //     }
-    //     axios
-    //       .post("/mobile/community/uploadFile", formData, {
-    //         headers: {
-    //           "Content-Type": "multipart/form-data",
-    //         },
-    //       })
-    //       .then(() => {
-    //         navigate(`/community/communityView/${res.data}`);
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   } else {
-    //     navigate(`/community/communityView/${res.data}`);
-    //   }
-    //   return res.data;
-    // });
   };
   const selectCate = (e) => {
     const {
@@ -115,7 +78,7 @@ const CommunityModify = () => {
   };
   useEffect(() => {
     getCommunityData();
-    getCommunityFiles();
+    // getCommunityFiles();
   }, []);
   return (
     <>
@@ -196,6 +159,7 @@ const CommunityModify = () => {
                   editorTxt={editorTxt}
                   setEditorTxt={setEditorTxt}
                   defaultValue={defaultTxt}
+                  setEditorFileData={setFileData}
                 />
               </div>
             </div>

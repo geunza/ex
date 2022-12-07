@@ -21,52 +21,61 @@ const CommunityWrite = () => {
     // console.log("content :" + editorTxt);
     if (title == "" && editorTxt == "") {
       alert("필수 입력사항을 입력해 주세요.");
-      return;
+      return false;
     } else if (title == "") {
       alert("제목은 필수 입력사항입니다.");
-      return;
+      return false;
     } else if (editorTxt == "") {
       alert("내용은 필수 입력사항입니다.");
-      return;
+      return false;
     }
-
-    axios({
-      method: "POST",
-      url: "/mobile/community/",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      data: {
-        category: cate,
-        userId: userInfo.id,
-        title: title,
-        content: editorTxt,
-        files: "",
-      },
-    }).then((res) => {
-      if (fileData.length > 0) {
-        const formData = new FormData(); // formData 객체를 생성한다.
-        formData.append("content_id", res.data);
-        for (let i = 0; i < fileData.length; i++) {
-          formData.append("files", fileData[i]);
+    // const parser = new DOMParser();
+    // const doc = parser.parseFromString(editorTxt, "text/html");
+    // doc.querySelectorAll("img").forEach((v) => {
+    //   const alt = v.getAttribute("alt");
+    //   v.setAttribute("src", alt);
+    // });
+    // const txtData = doc.querySelector("body").innerHTML;
+    const formData1 = new FormData();
+    formData1.append("category", cate);
+    formData1.append("userId", userInfo.id);
+    formData1.append("title", title);
+    // formData1.append("content", txtData);
+    formData1.append("content", editorTxt);
+    for (let i = 0; i < editorFileData.length; i++) {
+      console.log("AA");
+      formData1.append("files", editorFileData[i]);
+    }
+    axios
+      .post("/mobile/community/", formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        if (fileData.length > 0) {
+          const formData2 = new FormData();
+          formData2.append("content_id", res.data);
+          for (let i = 0; i < fileData.length; i++) {
+            formData2.append("files", fileData[i]);
+          }
+          axios
+            .post("/mobile/community/uploadFile", formData2, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(() => {
+              navigate(`/community/communityView/${res.data}`);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          navigate(`/community/communityView/${res.data}`);
         }
-        axios
-          .post("/mobile/community/uploadFile", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then(() => {
-            navigate(`/community/communityView/${res.data}`);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        navigate(`/community/communityView/${res.data}`);
-      }
-      return res.data;
-    });
+        return res.data;
+      });
   };
   const selectCate = (e) => {
     const {
