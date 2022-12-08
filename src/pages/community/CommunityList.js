@@ -50,9 +50,10 @@ const CommunityList = ({}) => {
     axios({
       method: "GET",
       // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
-      url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&user_id=2464295270",
+      url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0",
     }).then((res) => {
       const data = res.data;
+      console.log(data);
       setPostData(data);
       setAxiosLeng((prev) => prev + 1);
     });
@@ -328,7 +329,7 @@ const CommunityList = ({}) => {
               </div>
               {posts.length > 0 ? (
                 <ul className="commonListItemWrap">
-                  {posts.slice(offset, offset + limit).map((post, i) => {
+                  {posts.map((post, i) => {
                     let modalInform;
                     modalOn.id == post.id
                       ? (modalInform = modalOn)

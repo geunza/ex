@@ -59,7 +59,19 @@ const Header = ({}) => {
         <nav>
           <ul>
             <li>
-              <Link to="/saved/savedRecent">찜</Link>
+              <Link
+                to="/saved?cate=save"
+                onClick={(e) => {
+                  if (!isLoggedIn) {
+                    e.preventDefault();
+                    alert("로그인이 필요합니다.");
+                    return false;
+                  }
+                  navigate(e.currentTarget.getAttribute("to"));
+                }}
+              >
+                찜
+              </Link>
             </li>
             <li>
               <Link to="/support/supportList">지원사업</Link>

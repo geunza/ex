@@ -1,5 +1,12 @@
 @import "scss/utils";
 .chartWrap {
+  .noData {
+    padding: 50px 0;
+    text-align: center;
+    span {
+      display: block;
+    }
+  }
   .chartArea {
     background: $color-bgGray;
     padding: 30px;

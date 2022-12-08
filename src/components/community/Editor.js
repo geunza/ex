@@ -20,13 +20,58 @@ const Editor2 = ({
   useEffect(() => {}, []);
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
+    const editor = document.querySelector(".toastui-editor-ww-container");
+    const imgArr = editor.querySelectorAll("img");
+    const imgNames = Array.from(imgArr).map((v) => v.getAttribute("alt"));
+    const newFiles = files.filter((item) => {
+      return imgNames.some((x) => x == item.name + "_NEW");
+    });
+    setFiles(newFiles);
     setEditorTxt(data);
   };
   const onLoad = () => {
     const htmlString = defaultValue;
     editorRef.current?.getInstance().setHTML(htmlString);
   };
+  const uploadImage = (blob, callback) => {
+    let exist = false;
+    let sumSize = 0;
+    setFiles((prev) => {
+      for (let i = 0; i < prev.length; i++) {
+        if (prev[i].name == blob.name && prev[i].size == blob.size) {
+          alert("이미 등록된 파일입니다.");
+          exist = true;
+          return [...prev];
+        }
+      }
+      for (let i = 0; i < prev.length; i++) {
+        sumSize += prev[i].size;
+      }
+      sumSize += blob.size;
+      if (sumSize > 10485760) {
+        alert("최대 10MB까지만 업로드 할 수 있습니다.");
+        return [...prev];
+      }
+      return [...prev, blob];
+    });
+    if (!(exist == false && sumSize < 10485760)) {
+      return false;
+    }
 
+    var reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+      var base64data = reader.result;
+      var data = editorRef.current.getInstance().getHTML();
+      var newData =
+        data + `<p><img src="${base64data}" alt="${blob.name}_NEW" /></p>`;
+      editorRef.current?.getInstance().setHTML(newData);
+      setEditorTxt(newData);
+      // editorRef.current?.getInstance().setHTML(newTxt);
+      document.querySelector(".toastui-editor-popup-add-image").style.display =
+        "none";
+    };
+  };
   useEffect(() => {
     onLoad();
   }, [defaultValue]);
@@ -56,23 +101,7 @@ const Editor2 = ({
         ]}
         hooks={{
           addImageBlobHook: async (blob, callback) => {
-            setFiles((prev) => [...prev, blob]);
-            var reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = function () {
-              var base64data = reader.result;
-              var data = editorRef.current.getInstance().getHTML();
-              var newData =
-                data +
-                `<p><img src="${base64data}" alt="${blob.name}_NEW" /></p>`;
-              console.log(newData);
-              editorRef.current?.getInstance().setHTML(newData);
-              setEditorTxt(newData);
-              // editorRef.current?.getInstance().setHTML(newTxt);
-              document.querySelector(
-                ".toastui-editor-popup-add-image"
-              ).style.display = "none";
-            };
+            uploadImage(blob, callback);
           },
         }}
       ></Editor>

@@ -28,6 +28,10 @@
       span {
         padding-top: 3px;
         color: $color-gray;
+        mark {
+          color: inherit;
+          display: block;
+        }
       }
     }
   }

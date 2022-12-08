@@ -25,30 +25,25 @@ ChartJS.register(
   Legend,
   ChartDataLabels
 );
-const SavedChart = () => {
+const SavedChart = ({
+  doughnutList,
+  setDoughnutList,
+  getDoughnutList,
+  barList,
+  setBarList,
+  getBarList,
+}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
   const [doughnutTimer, setDoughnutTimer] = useState(false);
-  const [doughnutList, setDoughnutList] = useState([]);
   const [doughnutdata, setDoughnutdata] = useState({});
-  const getDoughnutList = () => {
-    axios({
-      url: "/saved/getCatList",
-      method: "POST",
-      headers: {
-        // user_id: userInfo.id,
-        user_id: 2379586568,
-      },
-    })
-      .then((res) => {
-        setDoughnutList(dataOrder(res.data));
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
+  const [doughnutSum, setDoughnutSum] = useState(0);
   useEffect(() => {
+    setDoughnutSum(0);
+    doughnutList.forEach((v) => {
+      setDoughnutSum((prev) => (prev += v.count));
+    });
     setDoughnutdata({
       labels: doughnutList.map((v) => v.target_cat_name),
       datasets: [
@@ -63,40 +58,6 @@ const SavedChart = () => {
   useEffect(() => {
     setDoughnutTimer(true);
   }, [doughnutdata]);
-  function dataOrder(arr) {
-    let newArr = [...arr].map((v, i) => {
-      const name = v.target_cat_name;
-      if (name == "사업화지원") {
-        v.order = 1;
-        v.color = "#00d9a6";
-      }
-      if (name == "인건비지원") {
-        v.order = 2;
-        v.color = "#7790fa";
-      }
-      if (name == "행사") {
-        v.order = 3;
-        v.color = "#fed51f";
-      }
-      if (name == "마케팅홍보") {
-        v.order = 4;
-        v.color = "#ff6565";
-      }
-      if (name == "시설공간") {
-        v.order = 5;
-        v.color = "#c0cbd5";
-      }
-      if (name == "기타") {
-        v.order = 6;
-        v.color = "#c777fa";
-      }
-      return v;
-    });
-    newArr = newArr.sort((a, b) => {
-      return a.order - b.order;
-    });
-    return newArr;
-  }
   const doughnutOpts = {
     plugins: {
       legend: {
@@ -133,34 +94,8 @@ const SavedChart = () => {
   };
 
   const [barTimer, setBarTimer] = useState(false);
-  const [barList, setBarList] = useState([
-    { name: "찜", count: 0, color: "#30d6c2" },
-    { name: "지원", count: 0, color: "#c0cbd5" },
-    { name: "선정", count: 0, color: "#c0cbd5" },
-  ]);
   const [barData, setBarData] = useState({});
-  const getBarList = () => {
-    barList.forEach((v, i) => {
-      const name = v.name;
-      axios({
-        url: "/saved/getMySavedBook",
-        method: "POST",
-        headers: {
-          // user_id: userInfo.id,
-          user_id: 2379586568,
-        },
-        data: {
-          cat: name,
-        },
-      }).then((res) => {
-        const data = res.data;
-        const count = data.length;
-        let copy = [...barList];
-        copy.filter((item) => item.name == name)[0].count = count;
-        setBarList(copy);
-      });
-    });
-  };
+
   useEffect(() => {
     setBarData({
       labels: barList.map((v) => v.name),
@@ -181,7 +116,7 @@ const SavedChart = () => {
   useEffect(() => {
     getDoughnutList();
     getBarList();
-  }, [isLoggedIn]);
+  }, [userInfo]);
 
   const barOpts = {
     responsive: true,
@@ -238,26 +173,37 @@ const SavedChart = () => {
     <div className={styles.chartWrap}>
       <div className={`${styles.chartArea} ${styles.doughtnut}`}>
         <p className={styles.title}>찜 분류</p>
-        {doughnutTimer && (
-          <div className={styles.canvasArea}>
-            <Doughnut data={doughnutdata} options={doughnutOpts} />
+        {doughnutSum == 0 ? (
+          <div className="empty">
+            <span>관심사업을 찜하면</span>
+            <span>분류가 제공됩니다.</span>
           </div>
+        ) : (
+          doughnutTimer && (
+            <>
+              <div className={styles.canvasArea}>
+                <Doughnut data={doughnutdata} options={doughnutOpts} />
+              </div>
+              <div className={styles.legendArea}>
+                {doughnutList.map((item, idx) => {
+                  return (
+                    <p key={item.target_cat_name}>
+                      <span
+                        className={styles.circle}
+                        style={{
+                          backgroundColor: item.color,
+                        }}
+                      ></span>
+                      <span className={styles.name}>
+                        {item.target_cat_name}
+                      </span>
+                    </p>
+                  );
+                })}
+              </div>
+            </>
+          )
         )}
-        <div className={styles.legendArea}>
-          {doughnutList.map((item, idx) => {
-            return (
-              <p key={item.target_cat_name}>
-                <span
-                  className={styles.circle}
-                  style={{
-                    backgroundColor: item.color,
-                  }}
-                ></span>
-                <span className={styles.name}>{item.target_cat_name}</span>
-              </p>
-            );
-          })}
-        </div>
       </div>
       <div className={`${styles.chartArea} ${styles.bar}`}>
         <p className={styles.title}>찜 현황</p>

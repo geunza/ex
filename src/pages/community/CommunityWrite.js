@@ -16,9 +16,6 @@ const CommunityWrite = () => {
   const [editorFileData, setEditorFileData] = useState([]);
   const [fileData, setFileData] = useState([]);
   const btnSubmit = () => {
-    // console.log("CATEGORY :" + cate);
-    // console.log("title :" + title);
-    // console.log("content :" + editorTxt);
     if (title == "" && editorTxt == "") {
       alert("필수 입력사항을 입력해 주세요.");
       return false;
@@ -29,21 +26,24 @@ const CommunityWrite = () => {
       alert("내용은 필수 입력사항입니다.");
       return false;
     }
-    // const parser = new DOMParser();
-    // const doc = parser.parseFromString(editorTxt, "text/html");
-    // doc.querySelectorAll("img").forEach((v) => {
-    //   const alt = v.getAttribute("alt");
-    //   v.setAttribute("src", alt);
-    // });
-    // const txtData = doc.querySelector("body").innerHTML;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(editorTxt, "text/html");
+    doc.querySelectorAll("img").forEach((v) => {
+      const alt = v.getAttribute("alt");
+      if (alt.slice(-4, alt.length) == "_NEW") {
+        const newAlt = alt.slice(0, alt.length - 4);
+        v.setAttribute("alt", newAlt);
+        v.setAttribute("src", newAlt);
+      }
+    });
+    const txtData = doc.querySelector("body").innerHTML;
     const formData1 = new FormData();
     formData1.append("category", cate);
     formData1.append("userId", userInfo.id);
     formData1.append("title", title);
-    // formData1.append("content", txtData);
-    formData1.append("content", editorTxt);
+    formData1.append("content", txtData);
+    // formData1.append("content", editorTxt);
     for (let i = 0; i < editorFileData.length; i++) {
-      console.log("AA");
       formData1.append("files", editorFileData[i]);
     }
     axios
@@ -75,6 +75,9 @@ const CommunityWrite = () => {
           navigate(`/community/communityView/${res.data}`);
         }
         return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   const selectCate = (e) => {

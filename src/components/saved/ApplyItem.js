@@ -2,8 +2,16 @@ import React, { useState, useEffect } from "react";
 import styles from "scss/components/support/SupportItem.module.scss";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-const SavedItem = ({ item }) => {
+import axios from "axios";
+const ApplyItem = ({
+  item,
+  getApplyItems,
+  ord,
+  getDoughnutList,
+  getBarList,
+}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const endDateSource = item.si_end_dt;
   const title = item.si_title;
@@ -14,10 +22,10 @@ const SavedItem = ({ item }) => {
   ).code_nm;
   const targetName = item.target_name;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
-  const [readDate, readDay] = stringTimeToISO(item.tl_cret_dt, "all");
+  // const [readDate, readDay] = stringTimeToISO(item.tl_cret_dt, "all");
+  const done = item.mb_done_save_yn;
   const cost = item.target_cost_value;
   const costComma = addComma(item.target_cost_value);
-  const isZzim = item.mb_req_save_yn;
   const viewCount = item.view_cnt;
   function stringTimeToISO(stringDate, type) {
     const offset = 1000 * 60 * 60 * 9;
@@ -38,6 +46,24 @@ const SavedItem = ({ item }) => {
   function addComma(numb) {
     return numb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  const doneClick = (mb_addidx, mb_done_save_yn) => {
+    axios({
+      url: "/saved/isDoneSavedMyBook",
+      method: "POSt",
+      headers: {
+        user_id: userInfo.id,
+      },
+      data: { mb_addidx: mb_addidx, mb_done_save_yn: mb_done_save_yn },
+    })
+      .then((res) => {
+        getApplyItems(ord);
+        getDoughnutList();
+        getBarList();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
   return (
     <li className={styles.supportItem}>
       <div className={styles.leftArea}>
@@ -48,7 +74,7 @@ const SavedItem = ({ item }) => {
             <li>{targetName}</li>
           </ol>
           <p>
-            {readDate} ({readDay}) 읽음
+            {"readDate"} ({"readDay"}) 읽음
           </p>
         </div>
         <div className={styles.itemInfo}>
@@ -90,23 +116,26 @@ const SavedItem = ({ item }) => {
           <li className={styles.btnZzim}>
             <button
               type="button"
-              className={isZzim ? styles.isZzim : null}
+              className={done == "Y" ? styles.isApply : null}
               onClick={() => {
                 if (!isLoggedIn) {
                   alert("로그인이 필요합니다.");
+                  return false;
                 }
+                doneClick(item.mb_addidx, item.mb_done_save_yn);
               }}
             >
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  (isZzim
-                    ? "/public_assets/img/global/ico/ico_zzim.png"
-                    : "/public_assets/img/global/ico/ico_zzim_black.png")
-                }
-                alt="찜X"
-              />
-              <span>찜</span>
+              {done == "Y" ? (
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_apply.png"
+                  }
+                  alt="신청"
+                />
+              ) : null}
+
+              <span>선정</span>
             </button>
           </li>
         </ul>
@@ -114,4 +143,4 @@ const SavedItem = ({ item }) => {
     </li>
   );
 };
-export default SavedItem;
+export default ApplyItem;

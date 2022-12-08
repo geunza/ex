@@ -5,12 +5,14 @@
   .cateItem {
     flex: 1;
     width: 33.33%;
-    a {
+    button {
+      border: none;
       display: flex;
+      width: 100%;
       justify-content: center;
       align-items: center;
       font-size: 24px;
-      padding: 9px 0 5px;
+      padding: 13px 0 10px;
       gap: 5px;
       border-radius: $radius-wrap;
       .cate {
@@ -22,7 +24,7 @@
       }
     }
     &.current {
-      a {
+      button {
         background: $color-sub;
         @include shadowBox;
         .cate {
