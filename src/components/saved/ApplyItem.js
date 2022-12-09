@@ -22,7 +22,11 @@ const ApplyItem = ({
   ).code_nm;
   const targetName = item.target_name;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
-  // const [readDate, readDay] = stringTimeToISO(item.tl_cret_dt, "all");
+  const [readDate, readDay] = [item.tl_cret_dt, getDay(item.tl_cret_dt)];
+  function getDay(date) {
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    return week[new Date(date).getDay()];
+  }
   const done = item.mb_done_save_yn;
   const cost = item.target_cost_value;
   const costComma = addComma(item.target_cost_value);
@@ -74,7 +78,7 @@ const ApplyItem = ({
             <li>{targetName}</li>
           </ol>
           <p>
-            {"readDate"} ({"readDay"}) 읽음
+            {readDate} ({readDay}) 읽음
           </p>
         </div>
         <div className={styles.itemInfo}>

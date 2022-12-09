@@ -61,6 +61,7 @@ const SupportItem = ({ item }) => {
           <ul>
             <li>
               <img
+                priority
                 src={
                   process.env.PUBLIC_URL +
                   "/public_assets/img/global/ico/ico_date.png"
@@ -73,6 +74,7 @@ const SupportItem = ({ item }) => {
             </li>
             <li>
               <img
+                priority
                 src={
                   process.env.PUBLIC_URL +
                   "/public_assets/img/global/ico/ico_view_black.png"
@@ -92,6 +94,7 @@ const SupportItem = ({ item }) => {
                 }}
               >
                 <img
+                  priority
                   src={
                     process.env.PUBLIC_URL +
                     (isZzim

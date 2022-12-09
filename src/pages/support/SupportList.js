@@ -5,40 +5,60 @@ import SupportContent from "components/support/SupportContent";
 import SupportRecent from "components/support/SupportRecent";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
+import { loadingStart, loadingEnd } from "redux/store";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setSupportData } from "redux/store";
 const SupportList = ({}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
-  const getSupportData = () => {
+  const supportItem = useSelector((state) => state.supportItem);
+  const supportData = useSelector((state) => state.supportData);
+  const [ord, setOrd] = useState("");
+  const [page, setPage] = useState("");
+
+  const getSupportCont = () => {
+    dispatch(loadingStart());
+    console.log(supportItem);
+    console.log(
+      ord,
+      supportInfo.bizp_type_cd.datas.map((v) => v.code).toString(),
+      supportInfo.prd_cd.datas.map((v) => v.code).toString(),
+      supportInfo.biz_type_cd.datas.map((v) => v.code).toString(),
+      supportInfo.spt_cd.datas.map((v) => v.code).toString(),
+      supportInfo.biz_cd.datas.map((v) => v.code).toString(),
+      supportInfo.tech_cd.datas.map((v) => v.code).toString(),
+      supportInfo.loc_cd.datas.map((v) => v.code).toString()
+    );
     axios({
+      url: "/support/getSupportInfoList",
+      method: "POST",
       headers: {
-        user_id: userInfo.id,
+        user_id: parseInt(userInfo.id),
       },
       data: {
-        ord: supportInfo.기술분야.text,
-        business_type: "예비창업자",
-        start_period: "1년 미만",
-        company_type: "중소기업",
-        target_cat_name: "사업화지원",
-        business_ctg: "제조",
-        tech_ctg: "",
-        loc_code: "C02",
+        ord: ord,
+        business_type: supportInfo.bizp_type_cd.datas
+          .map((v) => v.code)
+          .toString(),
+        start_period: supportInfo.prd_cd.datas.map((v) => v.code).toString(),
+        company_type: supportInfo.biz_type_cd.datas
+          .map((v) => v.code)
+          .toString(),
+        target_cat_name: supportInfo.spt_cd.datas.map((v) => v.code).toString(),
+        business_ctg: supportInfo.biz_cd.datas.map((v) => v.code).toString(),
+        tech_ctg: supportInfo.tech_cd.datas.map((v) => v.code).toString(),
+        loc_code: supportInfo.loc_cd.datas.map((v) => v.code).toString(),
       },
-      method: "POST",
-      url: "/support/getSupportInfoList",
-    })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+    }).then((res) => {
+      dispatch(setSupportData(res.data));
+      dispatch(loadingEnd());
+    });
   };
 
-  useEffect(() => {
-    //getSupportData();
-  }, []);
   return (
     <>
       <div className={styles.SupportList}>
@@ -52,10 +72,13 @@ const SupportList = ({}) => {
           </div>
           <div className={styles.contArea}>
             <div className={styles.filterArea}>
-              <SupportFilter supportInfo={supportInfo} />
+              <SupportFilter
+                supportInfo={supportInfo}
+                getSupportCont={getSupportCont}
+              />
             </div>
             <div className={styles.listArea}>
-              <SupportContent />
+              <SupportContent getSupportCont={getSupportCont} />
             </div>
             <div className={styles.recentArea}>
               <SupportRecent userInfo={userInfo} />

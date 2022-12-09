@@ -250,11 +250,16 @@ let supportInfo = createSlice({
 });
 export let { setSupportInfo, setSupportInfoModal } = supportInfo.actions;
 
-let supportList = createSlice({
-  name: "supportList",
+let supportData = createSlice({
+  name: "supportData",
   initialState: [],
+  reducers: {
+    setSupportData(state, action) {
+      return action.payload;
+    },
+  },
 });
-
+export let { setSupportData } = supportData.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
@@ -265,5 +270,6 @@ export default configureStore({
     supportItem: supportItem.reducer,
     modalState: modalState.reducer,
     companyInfo: companyInfo.reducer,
+    supportData: supportData.reducer,
   },
 });

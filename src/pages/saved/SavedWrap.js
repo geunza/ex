@@ -17,19 +17,38 @@ const SavedWrap = () => {
   const searchParams = new URLSearchParams(location.search);
   const [ord, setOrd] = useState("");
   const [cate, setCate] = useState("");
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    if (searchParams.get("ord") == null) {
-      setOrd("전체");
-    } else {
-      setOrd(searchParams.get("ord"));
-    }
-    if (searchParams.get("cate") == null) {
+    const searchTxt = location.search;
+    let searchObj = {};
+    const searchArr = searchTxt.replace("?", "").split("&");
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decode(arrObj[1]);
+    });
+    if (searchObj.cate == undefined) {
       setCate("save");
     } else {
-      setCate(searchParams.get("cate"));
+      setCate(searchObj.cate);
+    }
+    if (searchObj.ord == undefined) {
+      setOrd("전체");
+    } else {
+      setOrd(searchObj.ord);
+    }
+    if (searchObj.page == undefined) {
+      setPage(1);
+    } else {
+      setPage(parseInt(searchObj.page));
     }
   }, [searchParams]);
-
+  useEffect(() => {
+    console.log([cate, ord, page]);
+  }, [cate, page, ord]);
+  function decode(txt) {
+    return decodeURI(txt);
+  }
   const [doughnutList, setDoughnutList] = useState([]);
   const [barList, setBarList] = useState([
     { name: "찜", count: 0, color: "#30d6c2" },

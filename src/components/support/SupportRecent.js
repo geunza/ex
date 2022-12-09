@@ -62,7 +62,7 @@ const SupportRecent = ({ userInfo }) => {
           <button
             className={styles.showAll}
             onClick={() => {
-              navigate("/saved/savedRecent");
+              navigate("/saved?cate=recent");
             }}
           >
             <span>전체보기</span>

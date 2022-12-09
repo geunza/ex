@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSupportInfo, setSupportInfoModal } from "redux/store";
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
-const SupportFilter = ({}) => {
+const SupportFilter = ({ getSupportCont }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportItem = useSelector((state) => state.supportItem);
@@ -104,7 +104,6 @@ const SupportFilter = ({}) => {
     });
     return sortArr;
   }
-  // const rederItems = ["prd_cd", "spt_cd", "biz_cd", "tech_cd", "loc_cd"];
   const [renderItems, setRenderItems] = useState([]);
 
   useEffect(() => {
@@ -312,7 +311,7 @@ const SupportFilter = ({}) => {
             })}
           </ul>
           <div className={styles.submitArea}>
-            <button type="button">
+            <button type="button" onClick={getSupportCont}>
               <span>조회</span>
             </button>
           </div>

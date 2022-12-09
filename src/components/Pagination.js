@@ -8,7 +8,6 @@ const Pagination2 = ({ total, postLimit, numLimit, page, searchParams }) => {
   const navigate = useNavigate();
   const [currentPages, setCurrentPages] = useState([]);
   const numPages = Math.ceil(total / postLimit);
-
   const btnPage = (e) => {
     const {
       currentTarget: { value },

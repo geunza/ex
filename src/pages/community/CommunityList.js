@@ -369,7 +369,7 @@ const CommunityList = ({}) => {
                 </button>
               </div>
             </div>
-            <Pagination
+            {/* <Pagination
               total={posts.length}
               postLimit={limit}
               numLimit={5}
@@ -377,7 +377,7 @@ const CommunityList = ({}) => {
               searchParams={searchParams}
               cate={cate}
               ord={ord}
-            />
+            /> */}
           </div>
         </div>
       </div>
