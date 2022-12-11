@@ -2,9 +2,11 @@ import React from "react";
 import styles from "scss/components/home/LoginArea.module.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const SnsLogin = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.SnsLogin}>
@@ -19,7 +21,13 @@ const SnsLogin = ({}) => {
             </button>
 
             <div className={styles.zzim}>
-              <button type="button" className={styles.btnDib}>
+              <button
+                type="button"
+                className={styles.btnDib}
+                onClick={() => {
+                  navigate("/saved?cate=save");
+                }}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -29,7 +37,13 @@ const SnsLogin = ({}) => {
                 />
                 <span>찜</span>
               </button>
-              <button type="button" className={styles.btnCompany}>
+              <button
+                type="button"
+                className={styles.btnCompany}
+                onClick={() => {
+                  navigate("/myPage");
+                }}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -70,7 +84,14 @@ const SnsLogin = ({}) => {
               </button>
             </div>
             <div className={styles.zzim}>
-              <button type="button" className={styles.btnDib}>
+              <button
+                type="button"
+                className={styles.btnDib}
+                onClick={() => {
+                  //CHECK :
+                  alert("로그인이 필요합니다");
+                }}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -80,7 +101,14 @@ const SnsLogin = ({}) => {
                 />
                 <span>찜</span>
               </button>
-              <button type="button" className={styles.btnCompany}>
+              <button
+                type="button"
+                className={styles.btnCompany}
+                onClick={() => {
+                  //CHECK :
+                  alert("로그인이 필요합니다");
+                }}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +

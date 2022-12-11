@@ -1,5 +1,8 @@
 @import "scss/utils";
 .chartWrap {
+  > div {
+    margin-bottom: 20px;
+  }
   .noData {
     padding: 50px 0;
     text-align: center;
@@ -11,7 +14,6 @@
     background: $color-bgGray;
     padding: 30px;
     border-radius: $radius-wrap;
-    margin-bottom: 20px;
     border: 1px solid $color-borderGray;
     .title {
       font-size: 24px;
@@ -60,6 +62,49 @@
   .bar {
     .canvasArea {
       height: 240px;
+    }
+  }
+  .boxItem {
+    .openModal {
+      background-color: #f0f4fd;
+      border-radius: $radius-wrap;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      border: none;
+    }
+    .imgArea {
+      background: #fff;
+      width: 60px;
+      min-width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .txtArea {
+      padding-top: 3px;
+      text-align: left;
+      .subTit {
+        font-size: 16px;
+        margin-bottom: 10px;
+        line-height: 1;
+      }
+      .para {
+        display: flex;
+        align-items: flex-start;
+        img {
+          margin-right: 5px;
+        }
+        span {
+          padding-top: 1px;
+          line-height: 1.3;
+        }
+        font-size: 13px;
+      }
     }
   }
 }

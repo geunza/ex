@@ -9,7 +9,9 @@ import MyCont from "components/saved/MyCont";
 import SavedChart from "components/saved/SavedChart";
 import styles from "scss/pages/SavedWrap.module.scss";
 import axios from "axios";
+import { loadingEnd } from "redux/store";
 const SavedWrap = () => {
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const SavedWrap = () => {
   const [ord, setOrd] = useState("");
   const [cate, setCate] = useState("");
   const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState({});
 
   useEffect(() => {
     const searchTxt = location.search;
@@ -43,12 +46,21 @@ const SavedWrap = () => {
       setPage(parseInt(searchObj.page));
     }
   }, [searchParams]);
-  useEffect(() => {
-    console.log([cate, ord, page]);
-  }, [cate, page, ord]);
   function decode(txt) {
     return decodeURI(txt);
   }
+
+  const getTotalCount = () => {
+    axios({
+      headers: {
+        user_id: userInfo.id,
+      },
+      method: "POST",
+      url: "/saved/getTotalCountList",
+    }).then((res) => {
+      setTotalCount(res.data);
+    });
+  };
   const [doughnutList, setDoughnutList] = useState([]);
   const [barList, setBarList] = useState([
     { name: "찜", count: 0, color: "#30d6c2" },
@@ -126,18 +138,25 @@ const SavedWrap = () => {
     });
     return newArr;
   }
+
   return (
     <div className={styles.SavedRecent}>
       <SavedTitle />
       <div className={`inner ${styles.savedCont}`}>
         <div className={styles.leftArea}>
-          <SavedCategory cate={cate} />
+          <SavedCategory
+            cate={cate}
+            getTotalCount={getTotalCount}
+            totalCount={totalCount}
+            setTotalCount={setTotalCount}
+          />
           <div className={styles.savedItemsWrap}>
             {cate == "recent" && (
               <RecentCont
                 ord={ord}
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
+                getTotalCount={getTotalCount}
               />
             )}
             {cate == "save" && (
@@ -146,6 +165,7 @@ const SavedWrap = () => {
                 ord={ord}
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
+                getTotalCount={getTotalCount}
               />
             )}
             {cate == "apply" && (

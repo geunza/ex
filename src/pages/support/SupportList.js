@@ -22,17 +22,6 @@ const SupportList = ({}) => {
 
   const getSupportCont = () => {
     dispatch(loadingStart());
-    console.log(supportItem);
-    console.log(
-      ord,
-      supportInfo.bizp_type_cd.datas.map((v) => v.code).toString(),
-      supportInfo.prd_cd.datas.map((v) => v.code).toString(),
-      supportInfo.biz_type_cd.datas.map((v) => v.code).toString(),
-      supportInfo.spt_cd.datas.map((v) => v.code).toString(),
-      supportInfo.biz_cd.datas.map((v) => v.code).toString(),
-      supportInfo.tech_cd.datas.map((v) => v.code).toString(),
-      supportInfo.loc_cd.datas.map((v) => v.code).toString()
-    );
     axios({
       url: "/support/getSupportInfoList",
       method: "POST",
@@ -58,7 +47,9 @@ const SupportList = ({}) => {
       dispatch(loadingEnd());
     });
   };
-
+  useEffect(() => {
+    getSupportCont();
+  }, [userInfo]);
   return (
     <>
       <div className={styles.SupportList}>

@@ -69,7 +69,6 @@ const HomeSupport = ({ setAxiosCount }) => {
                   <BoxListItemHome
                     key={idx}
                     item={list}
-                    url={"/support/supportView/"}
                     viewShow={true}
                     commentShow={false}
                     likeShow={false}

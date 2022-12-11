@@ -9,6 +9,7 @@ const RecentItem = ({
   ord,
   getDoughnutList,
   getBarList,
+  getTotalCount,
 }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
@@ -29,7 +30,8 @@ const RecentItem = ({
   }
   const cost = item.target_cost_value;
   const costComma = addComma(item.target_cost_value);
-  const isZzim = item.mb_save_yn;
+
+  const isZzim = item.mb_save_yn == "Y";
   const viewCount = item.view_cnt;
   function stringTimeToISO(stringDate, type) {
     const offset = 1000 * 60 * 60 * 9;
@@ -61,6 +63,7 @@ const RecentItem = ({
         getRecentItems(ord);
         getDoughnutList();
         getBarList();
+        getTotalCount();
       })
       .catch((err) => console.log(err));
   };
@@ -116,7 +119,7 @@ const RecentItem = ({
           <li className={styles.btnZzim}>
             <button
               type="button"
-              className={isZzim == "Y" ? styles.isZzim : null}
+              className={isZzim ? styles.isZzim : null}
               onClick={() => {
                 if (!isLoggedIn) {
                   alert("로그인이 필요합니다.");
@@ -126,13 +129,22 @@ const RecentItem = ({
               }}
             >
               <img
+                priority="true"
                 src={
                   process.env.PUBLIC_URL +
-                  (isZzim == "Y"
-                    ? "/public_assets/img/global/ico/ico_zzim.png"
-                    : "/public_assets/img/global/ico/ico_zzim_black.png")
+                  "/public_assets/img/global/ico/ico_zzim_black.png"
                 }
+                style={{ display: isZzim ? "none" : null }}
                 alt="찜X"
+              />
+              <img
+                priority="true"
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/ico/ico_zzim.png"
+                }
+                style={{ display: !isZzim ? "none" : null }}
+                alt="찜O"
               />
               <span>찜</span>
             </button>

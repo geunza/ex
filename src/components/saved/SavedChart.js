@@ -15,7 +15,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styles from "scss/components/saved/SavedChart.module.scss";
-
+import EventModal from "components/home/EventModal";
+import NeedModal from "components/saved/NeedModal";
 ChartJS.register(
   ArcElement,
   CategoryScale,
@@ -169,6 +170,24 @@ const SavedChart = ({
       },
     },
   };
+
+  const [modalTab, setModalTab] = useState(0);
+  const modalTabControl = (e) => {
+    const {
+      currentTarget: {
+        dataset: { tab },
+      },
+    } = e;
+    setModalTab(tab);
+  };
+  const modalOpener = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setModalOn(value);
+  };
+  const [currentModal, setCurrentModal] = useState(0);
+  const [modalOn, setModalOn] = useState(false);
   return (
     <div className={styles.chartWrap}>
       <div className={`${styles.chartArea} ${styles.doughtnut}`}>
@@ -212,6 +231,81 @@ const SavedChart = ({
             <Bar data={barData} options={barOpts} />
           </div>
         )}
+      </div>
+      <div className={`${styles.boxItem}`}>
+        <button
+          className={styles.openModal}
+          type="button"
+          name="Modal1"
+          value={true}
+          onClick={(e) => {
+            setCurrentModal(0);
+            setModalOn(true);
+          }}
+        >
+          <div className={styles.imgArea}>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "/public_assets/img/home/event_modal_01.png"
+              }
+              alt="이메일 정기배송 신청"
+            />
+          </div>
+          <div className={styles.txtArea}>
+            <p className={styles.subTit}>이메일 정기배송 신청</p>
+            <p className={styles.para}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/ico/ico_mark.png"
+                }
+                alt="느낌표"
+              />
+              <span>주 1회 지원 사업 메일을 전달드려요!</span>
+            </p>
+          </div>
+        </button>
+        {modalOn && currentModal == 0 && (
+          <EventModal modalTab={0} modalOpener={modalOpener} />
+        )}
+      </div>
+      <div className={`${styles.boxItem}`}>
+        <button
+          className={styles.openModal}
+          type="button"
+          name="Modal2"
+          value={true}
+          data-tab={0}
+          onClick={(e) => {
+            setCurrentModal(1);
+            setModalOn(true);
+          }}
+        >
+          <div className={styles.imgArea}>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "/public_assets/img/global/ico/ico_need.png"
+              }
+              alt="우리 회사에 필요한 이것"
+            />
+          </div>
+          <div className={styles.txtArea}>
+            <p className={styles.subTit}>우리 회사에 필요한 이것!</p>
+            <p className={styles.para}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/ico/ico_mark.png"
+                }
+                alt="느낌표"
+              />
+              <span>엑시토에서 도와드릴게요.</span>
+            </p>
+          </div>
+        </button>
+        {modalOn && currentModal == 1 && <NeedModal setModalOn={setModalOn} />}
       </div>
     </div>
   );

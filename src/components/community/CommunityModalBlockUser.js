@@ -100,7 +100,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
           <div className={styles.modalCont}>
             {blockedUser.length > 0 ? (
               <>
-                <p className={styles.subTit} style={{ marginBottom: "25px" }}>
+                <p className={styles.subTit}>
                   <span>차단 회원을 해지할 수 있어요.</span>
                   <span>해지 시, 해당 회원의 게시물을 볼 수 있어요.</span>
                 </p>
@@ -137,7 +137,7 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
                 </div>
               </>
             ) : (
-              <p className={styles.subTit}>
+              <p className={styles.subTit} style={{ marginBottom: 0 }}>
                 <span>차단된 회원이 없습니다.</span>
               </p>
             )}

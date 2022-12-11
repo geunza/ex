@@ -32,7 +32,6 @@ const MyCont = ({ ord, getDoughnutList, getBarList }) => {
   useEffect(() => {
     getApplyItems();
   }, [userInfo]);
-
   return (
     <>
       <div className={styles.ordArea}>

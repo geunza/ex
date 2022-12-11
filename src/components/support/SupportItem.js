@@ -2,8 +2,10 @@ import React from "react";
 import styles from "scss/components/support/SupportItem.module.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-const SupportItem = ({ item }) => {
+import axios from "axios";
+const SupportItem = ({ item, getSupportCont }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const userInfo = useSelector((state) => state.userInfo);
   const cateName = item.target_cat_name;
   const locName = item.locname;
   const targetName = item.target_name;
@@ -13,7 +15,7 @@ const SupportItem = ({ item }) => {
   const endDateSource = item.si_end_dt;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const viewCount = item.view_cnt;
-  const isZzim = item.mb_save_yn;
+  const isZzim = item.mb_save_yn == "Y";
   function addComma(numb) {
     return numb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -33,6 +35,18 @@ const SupportItem = ({ item }) => {
       return [`${MM}.${DD}`, day];
     }
   }
+  const zzimClick = (idx, mb_save_yn) => {
+    axios({
+      method: "POST",
+      url: "/saved/isSavedMyBook",
+      headers: { user_id: userInfo.id },
+      data: { mb_addidx: idx, mb_save_yn: mb_save_yn },
+    })
+      .then((res) => {
+        getSupportCont();
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <li className={styles.supportItem}>
@@ -47,13 +61,15 @@ const SupportItem = ({ item }) => {
           </div>
           <div className={styles.itemInfo}>
             <h4>
-              <Link to="###">{title}</Link>
+              <Link to={`/support/supportView/${item.si_idx}`}>{title}</Link>
             </h4>
             <p>
-              <span className={styles.moneyTit}>지원금</span>
-              <span className={styles.moneyAmount}>
-                {cost > 0 && `${costComma}원`}
-              </span>
+              {cost > 0 && (
+                <>
+                  <span className={styles.moneyTit}>지원금</span>
+                  <span className={styles.moneyAmount}>{costComma}원</span>
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -61,7 +77,7 @@ const SupportItem = ({ item }) => {
           <ul>
             <li>
               <img
-                priority
+                priority="true"
                 src={
                   process.env.PUBLIC_URL +
                   "/public_assets/img/global/ico/ico_date.png"
@@ -74,7 +90,7 @@ const SupportItem = ({ item }) => {
             </li>
             <li>
               <img
-                priority
+                priority="true"
                 src={
                   process.env.PUBLIC_URL +
                   "/public_assets/img/global/ico/ico_view_black.png"
@@ -90,18 +106,28 @@ const SupportItem = ({ item }) => {
                 onClick={() => {
                   if (!isLoggedIn) {
                     alert("로그인이 필요합니다.");
+                    return false;
                   }
+                  zzimClick(item.si_idx, item.mb_save_yn);
                 }}
               >
                 <img
-                  priority
+                  priority="true"
                   src={
                     process.env.PUBLIC_URL +
-                    (isZzim
-                      ? "/public_assets/img/global/ico/ico_zzim.png"
-                      : "/public_assets/img/global/ico/ico_zzim_black.png")
+                    "/public_assets/img/global/ico/ico_zzim_black.png"
                   }
+                  style={{ display: isZzim ? "none" : null }}
                   alt="찜X"
+                />
+                <img
+                  priority="true"
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_zzim.png"
+                  }
+                  style={{ display: !isZzim ? "none" : null }}
+                  alt="찜O"
                 />
                 <span>찜</span>
               </button>

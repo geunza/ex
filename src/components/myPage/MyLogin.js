@@ -46,6 +46,8 @@ const MyLogin = () => {
         },
       }).then((res) => {
         userInfoUpdate(userInfo.id);
+        setNicknameCheck("");
+        alert("수정되었습니다.");
       });
     } else {
       alert("닉네임 중복확인을 해주세요.");

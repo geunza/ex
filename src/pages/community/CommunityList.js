@@ -51,27 +51,37 @@ const CommunityList = ({}) => {
       method: "GET",
       // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
       url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0",
-    }).then((res) => {
-      const data = res.data;
-      console.log(data);
-      setPostData(data);
-      setAxiosLeng((prev) => prev + 1);
-    });
+    })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        setPostData(data);
+        setAxiosLeng((prev) => prev + 1);
+      })
+      .catch((err) => {
+        setAxiosLeng((prev) => prev + 1);
+        alert(err);
+      });
   };
   const getCommunityPopular = () => {
+    dispatch(loadingStart());
     axios({
       headers: {
         user_id: userInfo.id,
       },
       method: "POST",
       url: `/mobile/community/popularAll`,
-    }).then((res) => {
-      setPopular(res.data);
-      setAxiosLeng((prev) => prev + 1);
-    });
+    })
+      .then((res) => {
+        setPopular(res.data);
+        setAxiosLeng((prev) => prev + 1);
+      })
+      .catch((err) => {
+        alert(err);
+        dispatch(loadingEnd());
+      });
   };
   useEffect(() => {
-    dispatch(loadingStart());
     getCommunityList();
     getCommunityPopular();
   }, []);

@@ -25,33 +25,23 @@ const SupportContent = ({ getSupportCont }) => {
 
   const countClick = (e) => {
     const {
-      currentTarget: { value },
+      currentTarget: { name, value },
     } = e;
-    setCount(value);
     setSltView(false);
+    navigateSearchTxt(name, value);
   };
 
   const ordClick = (e) => {
     const {
-      currentTarget: { value },
+      currentTarget: { name, value },
     } = e;
-    navigate(`?ord=${value}`);
+    navigateSearchTxt(name, value);
   };
   useEffect(() => {
-    dispatch(loadingStart());
     setSupportCont(supportData);
   }, [supportData]);
+
   useEffect(() => {
-    dispatch(loadingEnd());
-  }, [supportCont]);
-  useEffect(() => {
-    dispatch(loadingEnd());
-    if (supportData.length == 0) {
-      getSupportCont();
-    }
-  }, []);
-  useEffect(() => {
-    dispatch(loadingStart());
     if (ord == "전체") {
       setSupportCont([...supportData]);
     } else if (ord == "인기순") {
@@ -73,9 +63,12 @@ const SupportContent = ({ getSupportCont }) => {
       });
       setSupportCont(copy);
     }
-    dispatch(loadingEnd());
   }, [ord]);
-
+  useEffect(() => {
+    if (supportData.length == 0) {
+      getSupportCont();
+    }
+  }, []);
   useEffect(() => {
     const searchTxt = location.search;
     let searchObj = {};
@@ -94,14 +87,39 @@ const SupportContent = ({ getSupportCont }) => {
     } else {
       setPage(parseInt(searchObj.page));
     }
-    console.log(parseInt(searchObj.page));
+    if (searchObj.view == undefined) {
+      setCount(30);
+    } else {
+      setCount(searchObj.view);
+    }
+    window.scrollTo(0, 0);
   }, [searchParams]);
-
-  useEffect(() => {
-    console.log(page);
-  }, [page]);
   function decode(txt) {
     return decodeURI(txt);
+  }
+  function navigateSearchTxt(name, value) {
+    const searchTxt = location.search;
+    const searchArr = searchTxt.replace("?", "").split("&");
+    let searchObj = {};
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decode(arrObj[1]);
+    });
+    let newSearchTxt = "";
+    for (let key in searchObj) {
+      if (searchObj[key] == "undefined") {
+        continue;
+      }
+      if (key == "page") {
+        newSearchTxt += `page=1&`;
+      } else if (key == name) {
+        continue;
+      } else {
+        newSearchTxt += `${key}=${searchObj[key]}&`;
+      }
+    }
+    newSearchTxt += `${name}=${value}`;
+    navigate("?" + newSearchTxt);
   }
   return (
     <div className={styles.SupportContent}>
@@ -109,6 +127,7 @@ const SupportContent = ({ getSupportCont }) => {
         <div className="ordBtns">
           <button
             type="button"
+            name="ord"
             value="전체"
             onClick={ordClick}
             data-selected={ord == "전체" && "selected"}
@@ -117,6 +136,7 @@ const SupportContent = ({ getSupportCont }) => {
           </button>
           <button
             type="button"
+            name="ord"
             value="인기순"
             onClick={ordClick}
             data-selected={ord == "인기순" && "selected"}
@@ -125,6 +145,7 @@ const SupportContent = ({ getSupportCont }) => {
           </button>
           <button
             type="button"
+            name="ord"
             value="금액높은순"
             onClick={ordClick}
             data-selected={ord == "금액높은순" && "selected"}
@@ -133,6 +154,7 @@ const SupportContent = ({ getSupportCont }) => {
           </button>
           <button
             type="button"
+            name="ord"
             value="마감임박순"
             onClick={ordClick}
             data-selected={ord == "마감임박순" && "selected"}
@@ -163,17 +185,32 @@ const SupportContent = ({ getSupportCont }) => {
             {sltView && (
               <ul className={styles.selectArea}>
                 <li>
-                  <button type="button" value={30} onClick={countClick}>
+                  <button
+                    type="button"
+                    value={30}
+                    name="view"
+                    onClick={countClick}
+                  >
                     30개씩 보기
                   </button>
                 </li>
                 <li>
-                  <button type="button" value={50} onClick={countClick}>
+                  <button
+                    type="button"
+                    value={50}
+                    name="view"
+                    onClick={countClick}
+                  >
                     50개씩 보기
                   </button>
                 </li>
                 <li>
-                  <button type="button" value={100} onClick={countClick}>
+                  <button
+                    type="button"
+                    value={100}
+                    name="view"
+                    onClick={countClick}
+                  >
                     100개씩 보기
                   </button>
                 </li>
@@ -186,7 +223,13 @@ const SupportContent = ({ getSupportCont }) => {
             {supportCont
               .slice((page - 1) * count, page * count)
               .map((item, idx) => {
-                return <SupportItem key={idx} item={item} />;
+                return (
+                  <SupportItem
+                    key={idx}
+                    item={item}
+                    getSupportCont={getSupportCont}
+                  />
+                );
               })}
           </ul>
         </div>

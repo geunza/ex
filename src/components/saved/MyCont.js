@@ -1,13 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import RecentItem from "components/saved/RecentItem";
 import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/SavedWrap.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import MyItem from "components/saved/MyItem";
-const MyCont = ({ ord, getDoughnutList, getBarList }) => {
+const MyCont = ({ ord, getDoughnutList, getBarList, getTotalCount }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
@@ -122,6 +121,7 @@ const MyCont = ({ ord, getDoughnutList, getBarList }) => {
                 ord={ord}
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
+                getTotalCount={getTotalCount}
               />
             );
           })}

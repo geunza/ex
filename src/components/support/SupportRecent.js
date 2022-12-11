@@ -26,7 +26,7 @@ const SupportRecent = ({ userInfo }) => {
   };
   useEffect(() => {
     isLoggedIn && getRecent();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, userInfo]);
   return (
     <div className={styles.SupportRecent}>
       {isLoggedIn ? (

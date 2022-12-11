@@ -55,6 +55,7 @@
     text-align: center;
     padding: 15px 0 12px;
     border-radius: $radius-btn;
+    margin-bottom: 25px;
     span {
       display: block;
     }
@@ -82,6 +83,7 @@
       }
     }
   }
+
   .deleteAll {
     display: flex;
     justify-content: flex-end;
@@ -107,6 +109,10 @@
       border: none;
     }
   }
+  .modalCont {
+    padding: 25px;
+    background-color: #fff;
+  }
   .confirmArea {
     border-radius: 0 0 $radius-wrap $radius-wrap;
     overflow: hidden;
@@ -118,7 +124,6 @@
 
 .communityModal {
   .modalCont {
-    padding: 25px;
     .reportList {
       li {
         //
@@ -205,10 +210,7 @@
     }
   }
   .contArea {
-    //
-    .tabCont {
-      //
-      padding: 25px;
+    .modalCont {
       .title {
         //
         display: flex;
@@ -293,9 +295,8 @@
       height: 32px;
     }
   }
-  .contArea {
+  .modalCont {
     background-color: #fff;
-    padding: 25px;
     border-radius: 0 0 $radius-wrap $radius-wrap;
     overflow: hidden;
     //
@@ -335,16 +336,35 @@
     }
   }
   .eventModal_01 {
-    .contArea {
+    .subTit {
+      mark {
+        border-bottom: 1px solid $color-sub;
+        color: $color-sub;
+      }
+    }
+    input {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: $radius-btn;
+      background: $color-lightGray;
+      border: 1px solid $color-borderGray;
+      font-size: 18px;
+      padding: 0 15px;
+      height: 50px;
+      font-size: 16px;
     }
   }
   .eventModal_02 {
     .eventForm {
       margin-bottom: 20px;
     }
+    .subTit {
+      margin-bottom: 0;
+    }
   }
   .eventModal_03 {
-    .contArea {
+    .modalCont {
       button[type="button"] {
         height: 50px;
         width: 100%;
@@ -387,56 +407,189 @@
         }
       }
     }
+    .subTit {
+      margin-bottom: 0;
+    }
   }
 }
-
-.FilterModal {
-  .itemWrap {
-    padding: 25px;
-    h5 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      .multiply {
-        font-size: 18px;
-        margin-left: 5px;
-      }
-    }
-    ol {
+.MyPageModal {
+  input[type="checkbox"] {
+    display: none;
+  }
+  .commonList {
+    margin: 0;
+    .alarmItem {
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-    }
-    button {
-      height: 45px;
-      background: #eaeff3;
-      padding: 0 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      &[data-clicked="true"] {
-        background: #30d6c2;
-        color: #fff;
+      &.agree {
+        font-weight: 700;
+        border-color: #222;
+        .policy {
+          border: none;
+          color: $color-gray;
+          font-size: 12px;
+        }
       }
-    }
-  }
-  .confirmArea {
-    display: flex;
-    button {
-      border: none;
-      height: 50px;
-      &.btnClose {
-        //
-        width: 20%;
-        background: #aaa;
-        color: #fff;
+      &.point {
+        color: $color-main;
+        border-color: $color-main;
       }
-      &.btnSubmit {
-        //
-        width: 80%;
+      p {
+        padding-top: 2px;
+        padding-right: 15px;
+      }
+      label {
+        position: relative;
+        width: 35px;
+        min-width: 35px;
+        height: 15px;
+        background: $color-bgGray;
+        border-radius: 50px;
+        font-size: 0;
+        letter-spacing: -9999px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 0%;
+          transform: translate(-25%, -50%);
+          width: 20px;
+          height: 20px;
+          left: 0;
+          top: 50%;
+          background: #fff;
+          border: 1px solid $color-borderGray;
+          border-radius: 50%;
+          transition: border-color 0.3s, left 0.3s, transform 0.3s;
+        }
+      }
+      input:checked + label {
         background: $color-main;
-        color: #fff;
+        &:before {
+          left: 100%;
+          border-color: $color-main;
+          transform: translate(-75%, -50%);
+        }
       }
     }
   }
 }
+.NeedModal {
+  .subTit {
+    mark {
+      border-bottom: 1px solid $color-sub;
+      color: $color-sub;
+    }
+  }
+  .modalCont {
+    > div {
+      margin-bottom: 20px;
+    }
+  }
+  .flexList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .flexItem {
+    width: 46%;
+  }
+  .flexTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .item {
+    font-size: 15px;
+    button {
+      width: 100%;
+      font-size: inherit;
+      text-align: left;
+      border: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      &:before {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid $color-borderGray;
+        margin-right: 10px;
+      }
+
+      &.active {
+        &:before {
+          border-color: $color-main;
+        }
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 9px;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          background: $color-main;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+// .FilterModal {
+//   .itemWrap {
+//     padding: 25px;
+//     h5 {
+//       font-size: 24px;
+//       margin-bottom: 20px;
+//       .multiply {
+//         font-size: 18px;
+//         margin-left: 5px;
+//       }
+//     }
+//     ol {
+//       display: flex;
+//       flex-wrap: wrap;
+//       align-items: center;
+//       gap: 10px;
+//     }
+//     button {
+//       height: 45px;
+//       background: #eaeff3;
+//       padding: 0 10px;
+//       border: none;
+//       border-radius: 5px;
+//       font-size: 16px;
+//       &[data-clicked="true"] {
+//         background: #30d6c2;
+//         color: #fff;
+//       }
+//     }
+//   }
+//   .confirmArea {
+//     display: flex;
+//     button {
+//       border: none;
+//       height: 50px;
+//       &.btnClose {
+//         //
+//         width: 20%;
+//         background: #aaa;
+//         color: #fff;
+//       }
+//       &.btnSubmit {
+//         //
+//         width: 80%;
+//         background: $color-main;
+//         color: #fff;
+//       }
+//     }
+//   }
+// }

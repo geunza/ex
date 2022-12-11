@@ -3,7 +3,14 @@ import styles from "scss/components/support/SupportItem.module.scss";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const MyItem = ({ item, getMyItems, ord, getDoughnutList, getBarList }) => {
+const MyItem = ({
+  item,
+  getMyItems,
+  ord,
+  getDoughnutList,
+  getBarList,
+  getTotalCount,
+}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -59,6 +66,7 @@ const MyItem = ({ item, getMyItems, ord, getDoughnutList, getBarList }) => {
       },
     })
       .then((res) => {
+        getTotalCount();
         getDoughnutList();
         getBarList();
         getMyItems(ord);

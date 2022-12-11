@@ -14,7 +14,6 @@ const NoticeList = () => {
       method: "GET",
     }).then((res) => {
       setNoticeData(res.data);
-      console.log(res.data);
       dispatch(loadingEnd());
     });
   };

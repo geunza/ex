@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "scss/notice/NoticeList.module.scss";
 import { Link } from "react-router-dom";
 const NoticeListItem = ({ item }) => {
-  console.log(item);
   const [mustRead, setMustRead] = useState("");
   useEffect(() => {
     setMustRead(item.mustYn);

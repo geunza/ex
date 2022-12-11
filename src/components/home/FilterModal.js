@@ -171,7 +171,7 @@ const FilterModal = ({
         {objDummy && (
           <div className={styles.contArea}>
             {modalStep == 0 && (
-              <div className={styles.tabCont}>
+              <div className={styles.modalCont}>
                 <div className={styles.title}>
                   <h5 className={styles.required}>지원분야</h5>
                   <span className={styles.multiply}>(중복가능)</span>
@@ -193,7 +193,7 @@ const FilterModal = ({
               </div>
             )}
             {modalStep == 1 && (
-              <div className={styles.tabCont}>
+              <div className={styles.modalCont}>
                 <div className={styles.title}>
                   <h5 className={styles.required}>사업분야</h5>
                   <span className={styles.multiply}>(중복가능)</span>
@@ -233,7 +233,7 @@ const FilterModal = ({
               </div>
             )}
             {modalStep == 2 && (
-              <div className={styles.tabCont}>
+              <div className={styles.modalCont}>
                 <div className={styles.title}>
                   <h5>지역</h5>
                   <span className={styles.multiply}>(중복가능)</span>

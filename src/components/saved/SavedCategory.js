@@ -3,25 +3,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "scss/components/saved/SavedCategory.module.scss";
 import { useSelector } from "react-redux";
-const SavedCategory = ({ cate, ord }) => {
+const SavedCategory = ({
+  cate,
+  ord,
+  getTotalCount,
+  totalCount,
+  setTotalCount,
+}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [totalCount, setTotalCount] = useState({});
-
-  const getTotalCount = () => {
-    console.log("TOTALCOUNT START");
-    axios({
-      headers: {
-        user_id: userInfo.id,
-      },
-      method: "POST",
-      url: "/saved/getTotalCountList",
-    }).then((res) => {
-      console.log("TOTALCOUNT RES", res.data);
-      setTotalCount(res.data);
-    });
-  };
   useEffect(() => {
     getTotalCount();
   }, [userInfo]);
@@ -32,7 +23,7 @@ const SavedCategory = ({ cate, ord }) => {
     navigate(`?cate=${value}`);
   };
   useEffect(() => {
-    console.log(cate);
+    getTotalCount();
   }, [cate]);
   return (
     <ul className={styles.SavedCategory}>

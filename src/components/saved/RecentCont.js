@@ -7,7 +7,7 @@ import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/SavedWrap.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const RecentCont = ({ ord, getDoughnutList, getBarList }) => {
+const RecentCont = ({ ord, getDoughnutList, getBarList, getTotalCount }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
@@ -104,6 +104,7 @@ const RecentCont = ({ ord, getDoughnutList, getBarList }) => {
                 ord={ord}
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
+                getTotalCount={getTotalCount}
               />
             );
           })}

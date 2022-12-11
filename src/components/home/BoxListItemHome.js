@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "scss/components/BoxListItem.module.scss";
+
 const BoxListItemHome = ({
   item,
   writerShow,
   commentShow,
   viewShow,
   likeShow,
-  url,
 }) => {
+  useEffect(() => {}, []);
   return (
     <>
       <div className={styles.BoxListItem}>
-        <Link to={`${url}${item.id}`}>
+        <Link to={`/support/supportView/${item.si_idx}`}>
           <h5 className={styles.title}>{item.si_title}</h5>
           {writerShow && <p className={styles.writer}>{item.target_name}</p>}
           <div className={styles.countArea}>

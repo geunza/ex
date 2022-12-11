@@ -34,6 +34,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
           console.log(res);
           setEmail("");
           alert("신청 완료");
+          modalOpener((e = { currentTarget: { value: false } }));
         });
       } else {
         alert("취소하셨습니다.");
@@ -176,274 +177,274 @@ const EventModal = ({ modalOpener, modalTab }) => {
     // CHECK : TITLE IMG 체크
     <div className={`${styles.modalWrap} ${styles.EventModal}`}>
       <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
-        <div className="eventModal">
-          {modalTab === 0 && (
-            <div className={styles.eventModal_01}>
-              <div className={styles.modalTop}>
-                <div className={styles.tit}>
-                  <img
-                    priority="priority"
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/event_modal_01.png"
-                    }
-                    alt="지원사업 정기배송"
-                  />
-                  <p>지원사업 정기배송</p>
-                </div>
-                <button
-                  type="button"
-                  value={false}
-                  onClick={modalOpener}
-                  className={styles.btn_close}
-                >
-                  <img
-                    priority="priority"
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_close_black.png"
-                    }
-                    alt="닫기"
-                  />
-                </button>
+        {modalTab === 0 && (
+          <div className={styles.eventModal_01}>
+            <div className={styles.modalTop}>
+              <div className={styles.tit}>
+                <img
+                  priority="true"
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/home/event_modal_01.png"
+                  }
+                  alt="지원사업 정기배송"
+                />
+                <p>지원사업 정기배송</p>
               </div>
-              <div className={styles.contArea}>
-                <p className={styles.para}>
+              <button
+                type="button"
+                value={false}
+                onClick={modalOpener}
+                className={styles.btn_close}
+              >
+                <img
+                  priority="true"
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/btn/btn_close_black.png"
+                  }
+                  alt="닫기"
+                />
+              </button>
+            </div>
+            <form className={styles.eventForm} onSubmit={checkEmail}>
+              <div className={styles.modalCont}>
+                <p className={styles.subTit}>
                   <mark>매주 월요일</mark> 테마별 지원사업을 무료로 받아보세요!
                 </p>
-                <form className={styles.eventForm} onSubmit={checkEmail}>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.currentTarget.value);
-                    }}
-                  />
-                  <button type="submit" onClick={checkEmail}>
-                    신청하기
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-          {modalTab === 1 && (
-            <div className={styles.eventModal_02}>
-              <div className={styles.modalTop}>
-                <div className={styles.tit}>
-                  <img
-                    priority="priority"
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/event_modal_02.png"
-                    }
-                    alt="키워드 알림"
-                  />
-                  <p>키워드 알림</p>
-                </div>
-                <button
-                  type="button"
-                  value={false}
-                  onClick={modalOpener}
-                  className={styles.btn_close}
-                >
-                  <img
-                    priority="priority"
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_close_black.png"
-                    }
-                    alt="닫기"
-                  />
-                </button>
-              </div>
-              <div className={styles.contArea}>
-                <p className={styles.para}>
-                  키워드를 등록하시면 APP PUSH로 배송해 드릴게요!
-                </p>
-                <form
-                  onSubmit={submitDummyKeyword}
-                  className={styles.eventForm}
-                >
-                  <input
-                    type="text"
-                    value={keyword}
-                    maxLength="7"
-                    onChange={(e) => {
-                      setKeyword(e.currentTarget.value);
-                    }}
-                  />
-                  <button type="submit">등록</button>
-                </form>
-                {userKeywordDummy.length > 0 ? (
-                  <>
-                    <ul className={styles.commonList}>
-                      {userKeywordDummy.map((item, idx) => {
-                        return (
-                          <li className={styles.listWithDelete} key={idx}>
-                            <p>{item}</p>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                deleteDummyKeyword(item);
-                              }}
-                            >
-                              <img
-                                src={
-                                  process.env.PUBLIC_URL +
-                                  "/public_assets/img/global/btn/btn_close_white_small.png"
-                                }
-                                alt="닫기"
-                              />
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <div className={styles.deleteAll}>
-                      <button
-                        className={styles.removeAll}
-                        type="button"
-                        onClick={deleteDummyKeywordAll}
-                      >
-                        전체삭제
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <p className={styles.subTit}>
-                    <span>설정한 키워드가 없습니다.</span>
-                  </p>
-                )}
+
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.currentTarget.value);
+                  }}
+                  placeholder="Ex_ exito@myctns.com"
+                />
               </div>
               <div className={styles.modalSubmit}>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    submitRealKeyword();
-                    modalOpener(e);
-                  }}
-                  value={false}
-                >
-                  설정 완료
+                <button type="submit" onClick={checkEmail}>
+                  신청하기
                 </button>
               </div>
+            </form>
+          </div>
+        )}
+        {modalTab === 1 && (
+          <div className={styles.eventModal_02}>
+            <div className={styles.modalTop}>
+              <div className={styles.tit}>
+                <img
+                  priority="true"
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/home/event_modal_02.png"
+                  }
+                  alt="키워드 알림"
+                />
+                <p>키워드 알림</p>
+              </div>
+              <button
+                type="button"
+                value={false}
+                onClick={modalOpener}
+                className={styles.btn_close}
+              >
+                <img
+                  priority="true"
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/btn/btn_close_black.png"
+                  }
+                  alt="닫기"
+                />
+              </button>
             </div>
-          )}
-          {modalTab === 2 && (
-            <div className={styles.eventModal_03}>
-              <div className={styles.modalTop}>
-                <div className={styles.tit}>
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/event_modal_03.png"
-                    }
-                    alt="창업자 네트워킹"
-                  />
-                  <p>창업자 네트워킹</p>
-                </div>
-                <button
-                  type="button"
-                  value={false}
-                  onClick={modalOpener}
-                  className={styles.btn_close}
-                >
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_close_black.png"
-                    }
-                    alt="닫기"
-                  />
-                </button>
-              </div>
-              <div className={styles.contArea}>
-                <p className={styles.para}>
-                  실시간 소통이 가능한 엑시토 오픈 채팅방에 초대합니다!
-                </p>
-                <button
-                  onClick={() => {
-                    openInNewTab("https://example.com");
+            <div className={styles.modalCont}>
+              <p className={styles.para}>
+                키워드를 등록하시면 APP PUSH로 배송해 드릴게요!
+              </p>
+              <form onSubmit={submitDummyKeyword} className={styles.eventForm}>
+                <input
+                  type="text"
+                  value={keyword}
+                  maxLength="7"
+                  onChange={(e) => {
+                    setKeyword(e.currentTarget.value);
                   }}
-                  type="button"
-                >
-                  입장하기
-                </button>
-              </div>
-            </div>
-          )}
-          {modalTab === 3 && (
-            <div className={styles.eventModal_04}>
-              <div className={styles.modalTop}>
-                <div className={styles.tit}>
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/event_modal_04.png"
-                    }
-                    alt="사업계획서 교육"
-                  />
-                  <p>사업계획서 교육</p>
-                </div>
-                <button
-                  type="button"
-                  value={false}
-                  onClick={modalOpener}
-                  className={styles.btn_close}
-                >
-                  <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_close_black.png"
-                    }
-                    alt="닫기"
-                  />
-                </button>
-              </div>
-              <div className={styles.contArea}>
-                <p className={styles.para}>
-                  <span>10년 이상 경력의 전문 컨설턴트와 함께라면</span>
-                  <span> 자금조달에 성공할 수 있습니다!</span>
-                </p>
-                <ul>
-                  <li>
+                  placeholder="최대 7글자"
+                />
+                <button type="submit">등록</button>
+              </form>
+              {userKeywordDummy.length > 0 ? (
+                <>
+                  <ul className={styles.commonList}>
+                    {userKeywordDummy.map((item, idx) => {
+                      return (
+                        <li className={styles.listWithDelete} key={idx}>
+                          <p>{item}</p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              deleteDummyKeyword(item);
+                            }}
+                          >
+                            <img
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/public_assets/img/global/btn/btn_close_white_small.png"
+                              }
+                              alt="닫기"
+                            />
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <div className={styles.deleteAll}>
                     <button
+                      className={styles.removeAll}
                       type="button"
-                      onClick={() => {
-                        alert("CHECK : 링크 적용");
-                      }}
+                      onClick={deleteDummyKeywordAll}
                     >
-                      예비창업반
+                      전체삭제
                     </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        alert("CHECK : 링크 적용");
-                      }}
-                    >
-                      초기창업반
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        alert("CHECK : 링크 적용");
-                      }}
-                    >
-                      일반기업반
-                    </button>
-                  </li>
-                </ul>
+                  </div>
+                </>
+              ) : (
                 <p className={styles.subTit}>
-                  * 클래스 클릭 시, 해당 교육 신청서로 이동합니다.
+                  <span>설정한 키워드가 없습니다.</span>
                 </p>
-              </div>
+              )}
             </div>
-          )}
-        </div>
+            <div className={styles.modalSubmit}>
+              <button
+                type="button"
+                onClick={(e) => {
+                  submitRealKeyword();
+                  modalOpener(e);
+                }}
+                value={false}
+              >
+                설정 완료
+              </button>
+            </div>
+          </div>
+        )}
+        {modalTab === 2 && (
+          <div className={styles.eventModal_03}>
+            <div className={styles.modalTop}>
+              <div className={styles.tit}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/home/event_modal_03.png"
+                  }
+                  alt="창업자 네트워킹"
+                />
+                <p>창업자 네트워킹</p>
+              </div>
+              <button
+                type="button"
+                value={false}
+                onClick={modalOpener}
+                className={styles.btn_close}
+              >
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/btn/btn_close_black.png"
+                  }
+                  alt="닫기"
+                />
+              </button>
+            </div>
+            <div className={styles.modalCont}>
+              <p className={styles.para}>
+                실시간 소통이 가능한 엑시토 오픈 채팅방에 초대합니다!
+              </p>
+              <button
+                onClick={() => {
+                  openInNewTab("https://example.com");
+                }}
+                type="button"
+              >
+                입장하기
+              </button>
+            </div>
+          </div>
+        )}
+        {modalTab === 3 && (
+          <div className={styles.eventModal_04}>
+            <div className={styles.modalTop}>
+              <div className={styles.tit}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/home/event_modal_04.png"
+                  }
+                  alt="사업계획서 교육"
+                />
+                <p>사업계획서 교육</p>
+              </div>
+              <button
+                type="button"
+                value={false}
+                onClick={modalOpener}
+                className={styles.btn_close}
+              >
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/btn/btn_close_black.png"
+                  }
+                  alt="닫기"
+                />
+              </button>
+            </div>
+            <div className={styles.modalCont}>
+              <p className={styles.para}>
+                <span>10년 이상 경력의 전문 컨설턴트와 함께라면</span>
+                <span> 자금조달에 성공할 수 있습니다!</span>
+              </p>
+              <ul>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      alert("CHECK : 링크 적용");
+                    }}
+                  >
+                    예비창업반
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      alert("CHECK : 링크 적용");
+                    }}
+                  >
+                    초기창업반
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      alert("CHECK : 링크 적용");
+                    }}
+                  >
+                    일반기업반
+                  </button>
+                </li>
+              </ul>
+              <p className={styles.subTit}>
+                * 클래스 클릭 시, 해당 교육 신청서로 이동합니다.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
