@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn, setUserInfo } from "redux/store";
+
 import axios from "axios";
 import Home from "pages/Home";
 import Header from "components/Header";
@@ -26,29 +26,18 @@ import SavedWrap from "pages/saved/SavedWrap";
 import NoticeList from "pages/notice/NoticeList";
 import NoticeView from "pages/notice/NoticeView";
 import MyPage from "pages/myPage/MyPage";
-
+import SignInPolicyModal from "components/home/SignInPolicyModal";
 const AppRouter = ({}) => {
-  const dispatch = useDispatch();
-
+  const userInfo = useSelector((state) => state.userInfo);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const [lastCheck, setLastCheck] = useState(false);
   useEffect(() => {
-    if (sessionStorage.getItem("isLoggedIn")) {
-      const userId = JSON.parse(sessionStorage.getItem("userId"));
-      defaultSignIn(userId);
-      dispatch(signIn());
+    if (Object.keys(userInfo).length > 0) {
+      if (userInfo.usernickname == "" && isLoggedIn) {
+        setLastCheck(true);
+      }
     }
-  }, []);
-  const defaultSignIn = (id) => {
-    axios({
-      url: "/user/getUserInfo",
-      method: "POST",
-      headers: { userId: parseInt(id) },
-    }).then((res) => {
-      const data = res.data;
-      const id = data.id;
-      sessionStorage.setItem("userId", id);
-      dispatch(setUserInfo(data));
-    });
-  };
+  }, [userInfo]);
   return (
     <div id="wrap">
       <Router>
@@ -87,6 +76,7 @@ const AppRouter = ({}) => {
         <Footer />
         <Loading />
       </Router>
+      {lastCheck && <SignInPolicyModal setLastCheck={setLastCheck} />}
     </div>
   );
 };

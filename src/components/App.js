@@ -2,6 +2,7 @@ import styles from "scss/components/App.module.scss";
 import "scss/reset.scss";
 import "scss/global.scss";
 import { useState } from "react";
+import { signIn, setUserInfo } from "redux/store";
 import AppRouter from "components/Router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -26,6 +27,26 @@ function App() {
     getFilterData("tech_cd"); // 기술분야
     getFilterData("loc_cd"); // 지역
   }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("isLoggedIn")) {
+      const userId = JSON.parse(sessionStorage.getItem("userId"));
+      defaultSignIn(userId);
+      dispatch(signIn());
+    }
+  }, []);
+  const defaultSignIn = (id) => {
+    axios({
+      url: "/user/getUserInfo",
+      method: "POST",
+      headers: { userId: parseInt(id) },
+    }).then((res) => {
+      const data = res.data;
+      const id = data.id;
+      sessionStorage.setItem("userId", id);
+      dispatch(setUserInfo(data));
+    });
+  };
   return (
     <>
       <AppRouter />

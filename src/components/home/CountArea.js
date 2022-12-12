@@ -2,9 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "scss/components/home/CountArea.module.scss";
 import axios from "axios";
+import CountUp from "react-countup";
 const CountArea = ({ setAxiosCount }) => {
-  const [count, setCount] = useState({});
-  const [newCount, setNewCount] = useState({});
+  const [count, setCount] = useState({
+    total_cnt: 0,
+    week_cnt: 0,
+    user_cnt: 0,
+    target_cnt: 0,
+  });
   const getCount = () => {
     axios({
       headers: {
@@ -14,22 +19,12 @@ const CountArea = ({ setAxiosCount }) => {
       url: "/mainpage/getTotalCount",
     }).then((res) => {
       let data = res.data[0];
-      for (let type in data) {
-        data[type] = data[type]
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
       setCount(data);
       setAxiosCount((prev) => prev + 1);
     });
   };
 
-  const changeCount = (arr) => {
-    const newArr = [...arr].map((v) =>
-      v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    );
-    return newArr;
-  };
+  const changeCount = (arr) => {};
 
   useEffect(() => {
     getCount();
@@ -41,20 +36,40 @@ const CountArea = ({ setAxiosCount }) => {
           <span>전체누적</span>
           <span>지원사업 개수</span>
         </p>
-        <span className={styles.numb}>{count.total_cnt}</span>
+        <CountUp
+          className={styles.numb}
+          duration={2}
+          separator=","
+          end={count.total_cnt}
+        ></CountUp>
       </div>
       <ul>
         <li>
           <p className={styles.tit}>이번주 지원사업</p>
-          <span className={styles.numb}>{count.week_cnt}</span>
+          <CountUp
+            className={styles.numb}
+            duration={2}
+            separator=","
+            end={count.week_cnt}
+          ></CountUp>
         </li>
         <li>
           <p className={styles.tit}>정보 제공기관</p>
-          <span className={styles.numb}>{count.user_cnt}</span>
+          <CountUp
+            className={styles.numb}
+            duration={2}
+            separator=","
+            end={count.user_cnt}
+          ></CountUp>
         </li>
         <li>
           <p className={styles.tit}>누적 가입 기업</p>
-          <span className={styles.numb}>{count.target_cnt}</span>
+          <CountUp
+            className={styles.numb}
+            duration={2}
+            separator=","
+            end={count.target_cnt}
+          ></CountUp>
         </li>
       </ul>
     </div>

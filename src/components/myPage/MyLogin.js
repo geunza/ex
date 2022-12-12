@@ -50,7 +50,7 @@ const MyLogin = () => {
         alert("수정되었습니다.");
       });
     } else {
-      alert("닉네임 중복확인을 해주세요.");
+      alert("닉네임 중복 확인을 해주세요.");
     }
   };
   const userInfoUpdate = (id) => {

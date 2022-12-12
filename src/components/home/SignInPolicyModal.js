@@ -1,0 +1,372 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
+import styles from "scss/components/Modal.module.scss";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loadingStart, loadingEnd } from "redux/store";
+const SignInPolicyModal = ({ setLastCheck }) => {
+  const dispatch = useDispatch();
+  const [allChecked, setAllChecked] = useState(false);
+  const [policyObj, setPolicyObj] = useState({
+    policy_0: false,
+    policy_1: false,
+    policy_2: false,
+    policy_3: false,
+  });
+  const [nickname, setNickname] = useState("");
+  const [nicknameCheck, setNicknameCheck] = useState("");
+  const [email, setEmail] = useState("");
+  const nicknameChange = (e) => {
+    const {
+      currentTarget: { value, maxLength },
+    } = e;
+    const name = e.currentTarget.value;
+    if (!(name.length > maxLength)) {
+      setNickname(name);
+    }
+    setNicknameCheck("");
+  };
+  const nicknameCheckSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loadingStart());
+    axios({
+      url: "/user/checkNickname",
+      method: "POST",
+      headers: {
+        usernickname: encoding(nickname),
+      },
+    }).then((res) => {
+      dispatch(loadingEnd());
+      setNicknameCheck(res.data);
+    });
+  };
+  const chkChange = (e) => {
+    const {
+      target: { id, checked },
+    } = e;
+    let copy = { ...policyObj };
+    copy[id] = checked;
+    setPolicyObj(copy);
+  };
+  const checkAllChange = (e) => {
+    const {
+      target: { checked },
+    } = e;
+    let copy = { ...policyObj };
+    if (checked) {
+      for (let key in copy) {
+        copy[key] = true;
+      }
+      setPolicyObj(copy);
+    } else {
+      for (let key in copy) {
+        copy[key] = false;
+      }
+      setPolicyObj(copy);
+    }
+  };
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+  const lastStepSubmit = () => {
+    const emailCheck_blank = email.replaceAll(" ", "") == "";
+    const nicknameCheck_blank = nickname.replaceAll(" ", "") == "";
+    const policyCheck_blank =
+      policyObj.policy_0 + policyObj.policy_1 + policyObj.policy_2 < 3;
+    // 빈칸 검출
+    if (emailCheck_blank + nicknameCheck_blank + policyCheck_blank >= 2) {
+      alert("필수 항목을 입력해 주세요.");
+      return false;
+    } else {
+      if (emailCheck_blank) {
+        alert("이메일을 입력해 주세요.");
+        return false;
+      }
+      if (nicknameCheck_blank) {
+        alert("닉네임을 입력해 주세요.");
+        return false;
+      }
+      if (policyCheck_blank) {
+        alert("약관을 체크해 주세요.");
+        return false;
+      }
+      if (!validationEmail(email)) {
+        alert("이메일을 확인해 주세요.");
+        return false;
+      }
+      if (nicknameCheck !== true) {
+        alert("닉네임 중복 확인을 해주세요.");
+        return false;
+      }
+    }
+    setLastCheck(false);
+  };
+
+  function encoding(string) {
+    return encodeURI(string);
+  }
+  function validationEmail(email) {
+    let regex =
+      // eslint-disable-next-line
+      /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    return regex.test(email);
+  }
+  useEffect(() => {
+    setAllChecked(!Object.values(policyObj).some((item) => item == false));
+    // dispatch(loadingStart());
+  }, [policyObj]);
+  return (
+    <div className={styles.modalWrap}>
+      <div className={styles.modalInner}>
+        <div className={styles.SignInPolicyModal}>
+          <div className={styles.modalTop}>
+            <div className={styles.tit}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/ico/ico_policy.png"
+                }
+                alt="엑시토 서비스 이용을 위한 마지막 단계입니다."
+              />
+              <p>엑시토 서비스 이용을 위한 마지막 단계입니다.</p>
+            </div>
+            <button type="button" value={false} className={styles.btn_close}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/btn/btn_close_black.png"
+                }
+                alt="닫기"
+              />
+            </button>
+          </div>
+          <div className={styles.modalCont}>
+            <h4>엑시토 서비스 이용 필수 항목</h4>
+            <div className={styles.email}>
+              <p>이메일</p>
+              <input
+                type="email"
+                placeholder="Ex_exito@exito.com"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.currentTarget.value);
+                }}
+              />
+            </div>
+            <div className={styles.nickname}>
+              <p>닉네임</p>
+              <form
+                onSubmit={nicknameCheckSubmit}
+                className={styles.formWithIpt}
+              >
+                <input
+                  type="text"
+                  onChange={nicknameChange}
+                  placeholder="8자 이내"
+                  maxLength={8}
+                />
+                <button type="submit">중복확인</button>
+                <p
+                  className={
+                    `${styles.nicknameCheck} ` +
+                    (nicknameCheck === true
+                      ? styles.checkOK
+                      : nicknameCheck === false
+                      ? styles.checkX
+                      : "")
+                  }
+                >
+                  {nicknameCheck === true
+                    ? "* 사용할 수 있는 닉네임입니다."
+                    : nicknameCheck === false
+                    ? "* 사용할 수 없는 닉네임입니다."
+                    : ` `}
+                  &nbsp;
+                </p>
+              </form>
+            </div>
+            <ul className={styles.commonList}>
+              <li className={`${styles.policyItem} ${styles.point}`}>
+                <input
+                  type="checkbox"
+                  id="checkAll"
+                  onChange={checkAllChange}
+                  checked={allChecked}
+                />
+                <label htmlFor="checkAll">
+                  <img
+                    style={{ display: allChecked ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_false.png"
+                    }
+                    alt="이용약관(필수)"
+                  />
+                  <img
+                    style={{ display: !allChecked ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_true.png"
+                    }
+                    alt="이용약관(필수)"
+                  />
+                  약관전체동의 <mark>(선택사항 포함)</mark>
+                </label>
+              </li>
+              <li className={styles.policyItem}>
+                <input
+                  type="checkbox"
+                  name="policy"
+                  id="policy_0"
+                  checked={policyObj.policy_0}
+                  onChange={chkChange}
+                />
+                <label htmlFor="policy_0">
+                  <img
+                    style={{ display: policyObj.policy_0 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_false.png"
+                    }
+                    alt="이용약관(필수)"
+                  />
+                  <img
+                    style={{ display: !policyObj.policy_0 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_true.png"
+                    }
+                    alt="이용약관(필수)"
+                  />
+                  <span>이용약관(필수)</span>
+                </label>
+                <button
+                  onClick={() => {
+                    alert("CHECK : 링크 확인");
+                    openInNewTab("https://example.com");
+                  }}
+                >
+                  자세히
+                </button>
+              </li>
+              <li className={styles.policyItem}>
+                <input
+                  type="checkbox"
+                  name="policy"
+                  id="policy_1"
+                  checked={policyObj.policy_1}
+                  onChange={chkChange}
+                />
+                <label htmlFor="policy_1">
+                  <img
+                    style={{ display: policyObj.policy_1 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_false.png"
+                    }
+                    alt="개인정보 처리방침(필수)"
+                  />
+                  <img
+                    style={{ display: !policyObj.policy_1 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_true.png"
+                    }
+                    alt="개인정보 처리방침(필수)"
+                  />
+                  <span>개인정보 처리방침(필수)</span>
+                </label>
+                <button
+                  onClick={() => {
+                    alert("CHECK : 링크 확인");
+                    openInNewTab("https://example.com");
+                  }}
+                >
+                  자세히
+                </button>
+              </li>
+              <li className={styles.policyItem}>
+                <input
+                  type="checkbox"
+                  name="policy"
+                  id="policy_2"
+                  checked={policyObj.policy_2}
+                  onChange={chkChange}
+                />
+                <label htmlFor="policy_2">
+                  <img
+                    style={{ display: policyObj.policy_2 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_false.png"
+                    }
+                    alt="위치정보 수집/이용 동의(필수)"
+                  />
+                  <img
+                    style={{ display: !policyObj.policy_2 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_true.png"
+                    }
+                    alt="위치정보 수집/이용 동의(필수)"
+                  />
+                  <span>위치정보 수집/이용 동의(필수)</span>
+                </label>
+                <button
+                  onClick={() => {
+                    alert("CHECK : 링크 확인");
+                    openInNewTab("https://example.com");
+                  }}
+                >
+                  자세히
+                </button>
+              </li>
+              <li className={styles.policyItem}>
+                <input
+                  type="checkbox"
+                  name="policy"
+                  id="policy_3"
+                  checked={policyObj.policy_3}
+                  onChange={chkChange}
+                />
+                <label htmlFor="policy_3">
+                  <img
+                    style={{ display: policyObj.policy_3 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_false.png"
+                    }
+                    alt="마케팅 수신 동의(선택)"
+                  />
+                  <img
+                    style={{ display: !policyObj.policy_3 ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_check_true.png"
+                    }
+                    alt="마케팅 수신 동의(선택)"
+                  />
+                  <span>마케팅 수신 동의(선택)</span>
+                </label>
+                <button
+                  onClick={() => {
+                    alert("CHECK : 링크 확인");
+                    openInNewTab("https://example.com");
+                  }}
+                >
+                  자세히
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div className={styles.modalSubmit}>
+            <button type="submit" onClick={lastStepSubmit}>
+              동의 후 시작하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default SignInPolicyModal;

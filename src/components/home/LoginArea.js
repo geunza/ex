@@ -17,7 +17,14 @@ const SnsLogin = ({}) => {
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
             </h4>
             <button type="button" className={styles.btnSelect}>
-              기업 정보 입력하고 혜택 받자! &gt;
+              기업 정보 입력하고 혜택 받자!
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/btn/btn_next.png"
+                }
+                alt="기업 정보 입력하고 혜택 받자!"
+              />
             </button>
 
             <div className={styles.zzim}>

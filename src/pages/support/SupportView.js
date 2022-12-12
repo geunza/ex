@@ -46,6 +46,27 @@ const SupportView = ({}) => {
     }
   }, [item]);
   useEffect(() => {
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: id },
+      }).then((res) => {
+        console.log("TIMELINE", res.data);
+      });
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${id}`,
+      method: "POST",
+    }).then((res) => {
+      console.log("COUNT", res.data);
+    });
+    getSupportItem();
+  }, []);
+  useEffect(() => {
     getSupportItem();
   }, [userInfo]);
   return (

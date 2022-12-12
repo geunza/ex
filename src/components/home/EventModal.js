@@ -207,7 +207,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 />
               </button>
             </div>
-            <form className={styles.eventForm} onSubmit={checkEmail}>
+            <form onSubmit={checkEmail}>
               <div className={styles.modalCont}>
                 <p className={styles.subTit}>
                   <mark>매주 월요일</mark> 테마별 지원사업을 무료로 받아보세요!
@@ -264,7 +264,10 @@ const EventModal = ({ modalOpener, modalTab }) => {
               <p className={styles.para}>
                 키워드를 등록하시면 APP PUSH로 배송해 드릴게요!
               </p>
-              <form onSubmit={submitDummyKeyword} className={styles.eventForm}>
+              <form
+                onSubmit={submitDummyKeyword}
+                className={styles.formWithIpt}
+              >
                 <input
                   type="text"
                   value={keyword}
@@ -365,7 +368,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               </p>
               <button
                 onClick={() => {
-                  openInNewTab("https://example.com");
+                  openInNewTab("https://open.kakao.com/o/g0u3dOrc");
                 }}
                 type="button"
               >
@@ -412,7 +415,8 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <button
                     type="button"
                     onClick={() => {
-                      alert("CHECK : 링크 적용");
+                      alert("CHECK :: 링크적용");
+                      openInNewTab("https://example.com");
                     }}
                   >
                     예비창업반
@@ -422,7 +426,8 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <button
                     type="button"
                     onClick={() => {
-                      alert("CHECK : 링크 적용");
+                      alert("CHECK :: 링크적용");
+                      openInNewTab("https://example.com");
                     }}
                   >
                     초기창업반
@@ -432,7 +437,8 @@ const EventModal = ({ modalOpener, modalTab }) => {
                   <button
                     type="button"
                     onClick={() => {
-                      alert("CHECK : 링크 적용");
+                      alert("CHECK :: 링크적용");
+                      openInNewTab("https://example.com");
                     }}
                   >
                     일반기업반

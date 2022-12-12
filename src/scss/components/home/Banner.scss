@@ -10,9 +10,8 @@
     position: relative;
     padding-top: 50%;
     background: #ccc;
-    a {
+    button {
       position: absolute;
-      display: block;
       left: 0;
       top: 0;
       display: flex;
@@ -20,6 +19,8 @@
       align-items: center;
       width: 100%;
       height: 100%;
+      padding: 0;
+      border: none;
       span {
         color: #fff;
       }
@@ -47,3 +48,41 @@
     }
   }
 }
+
+// .pagination {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: absolute;
+//   left: 0;
+//   bottom: 0;
+//   width: 100%;
+//   z-index: 10;
+//   height: 10px;
+//   .swiper-pagination-bullet {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     margin: 0;
+//     width: 0;
+//     height: 100%;
+//     border-radius: 0;
+//     display: block;
+//     opacity: 1;
+//     background: $color-main;
+//     &[class*="active"] {
+//       animation: paging 3s linear;
+//       &:hover {
+//         animation-play-state: paused;
+//       }
+//     }
+//   }
+// }
+// @keyframes paging {
+//   0% {
+//     width: 0%;
+//   }
+//   100% {
+//     width: 100%;
+//   }
+// }

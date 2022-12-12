@@ -96,7 +96,29 @@
       padding: 8px 20px 5px;
     }
   }
-
+  .formWithIpt {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    input {
+      width: 72%;
+      border: none;
+      border-radius: $radius-btn;
+      background: $color-lightGray;
+      font-size: 18px;
+      padding: 0 15px;
+    }
+    button[type="submit"] {
+      width: 25%;
+      background: #30d6c2;
+      font-size: 18px;
+      color: #fff;
+      height: 50px;
+      padding: 3px 20px 0;
+      border: none;
+      border-radius: 5px;
+    }
+  }
   .modalSubmit {
     border-radius: 0 0 $radius-wrap $radius-wrap;
     overflow: hidden;
@@ -173,6 +195,76 @@
             color: #ccc;
           }
         }
+      }
+    }
+  }
+}
+
+.SignInPolicyModal {
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .nickname,
+  .email {
+    margin-bottom: 15px;
+    p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    input[type="email"] {
+      width: 72%;
+      border: none;
+      border-radius: 5px;
+      background: #eaeff3;
+      font-size: 18px;
+      padding: 0 15px;
+      height: 50px;
+    }
+    .formWithIpt {
+      flex-wrap: wrap;
+      .nicknameCheck {
+        padding: 5px 0;
+        height: 24px;
+        box-sizing: content-box;
+        margin: 0;
+        width: 100%;
+        &.checkOK {
+          color: #7aa3d6;
+        }
+        &.checkX {
+          color: #d43d4e;
+        }
+      }
+    }
+  }
+  .commonList {
+    .policyItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      &.point {
+        border-bottom: 2px solid $color-main;
+        mark {
+          color: $color-gray;
+        }
+      }
+      input[type="checkbox"] {
+        display: none;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        span {
+          padding-top: 3px;
+        }
+      }
+      button {
+        border: none;
+        font-size: 16px;
+        color: $color-gray;
       }
     }
   }
@@ -301,22 +393,6 @@
     overflow: hidden;
     //
 
-    .eventForm {
-      display: flex;
-      align-items: stretch;
-      justify-content: space-between;
-      input {
-        width: 72%;
-        border: none;
-        border-radius: $radius-btn;
-        background: $color-lightGray;
-        font-size: 18px;
-        padding: 0 15px;
-      }
-      button[type="submit"] {
-        width: 25%;
-      }
-    }
     button[type="submit"] {
       background: $color-main;
       font-size: 18px;
@@ -412,6 +488,7 @@
     }
   }
 }
+
 .MyPageModal {
   input[type="checkbox"] {
     display: none;
@@ -477,6 +554,7 @@
     }
   }
 }
+
 .NeedModal {
   .subTit {
     mark {
@@ -543,53 +621,3 @@
     }
   }
 }
-// .FilterModal {
-//   .itemWrap {
-//     padding: 25px;
-//     h5 {
-//       font-size: 24px;
-//       margin-bottom: 20px;
-//       .multiply {
-//         font-size: 18px;
-//         margin-left: 5px;
-//       }
-//     }
-//     ol {
-//       display: flex;
-//       flex-wrap: wrap;
-//       align-items: center;
-//       gap: 10px;
-//     }
-//     button {
-//       height: 45px;
-//       background: #eaeff3;
-//       padding: 0 10px;
-//       border: none;
-//       border-radius: 5px;
-//       font-size: 16px;
-//       &[data-clicked="true"] {
-//         background: #30d6c2;
-//         color: #fff;
-//       }
-//     }
-//   }
-//   .confirmArea {
-//     display: flex;
-//     button {
-//       border: none;
-//       height: 50px;
-//       &.btnClose {
-//         //
-//         width: 20%;
-//         background: #aaa;
-//         color: #fff;
-//       }
-//       &.btnSubmit {
-//         //
-//         width: 80%;
-//         background: $color-main;
-//         color: #fff;
-//       }
-//     }
-//   }
-// }
