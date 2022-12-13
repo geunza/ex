@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "scss/components/support/SupportItem.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { setLoginCheck } from "redux/store";
 const RecentItem = ({
   item,
   getRecentItems,
@@ -11,6 +12,7 @@ const RecentItem = ({
   getBarList,
   getTotalCount,
 }) => {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -85,10 +87,12 @@ const RecentItem = ({
             <Link to="###">{title}</Link>
           </h4>
           <p>
-            <span className={styles.moneyTit}>지원금</span>
-            <span className={styles.moneyAmount}>
-              {cost > 0 && `${costComma}원`}
-            </span>
+            {cost > 0 && (
+              <>
+                <span className={styles.moneyTit}>지원금</span>
+                <span className={styles.moneyAmount}>{costComma}원</span>
+              </>
+            )}
           </p>
         </div>
       </div>
@@ -122,7 +126,7 @@ const RecentItem = ({
               className={isZzim ? styles.isZzim : null}
               onClick={() => {
                 if (!isLoggedIn) {
-                  alert("로그인이 필요합니다.");
+                  dispatch(setLoginCheck(true));
                   return false;
                 }
                 zzimClick(item.si_idx, item.mb_save_yn);

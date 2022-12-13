@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "scss/components/community/CommunityListItem.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { modalOverflow } from "redux/store";
-import { loadingStart, loadingEnd } from "redux/store";
+import { loadingStart, loadingEnd, setLoginCheck } from "redux/store";
 import CommunityModalReport from "components/community/CommunityModalReport";
 import axios from "axios";
 const CommunityListItem = ({
@@ -68,7 +68,7 @@ const CommunityListItem = ({
   // 신고 버튼
   const btnReport = (e) => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
       return false;
     }
     setModalOn((prev) => !prev);
@@ -76,7 +76,7 @@ const CommunityListItem = ({
   // 차단 버튼
   const btnBlock = () => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
       return false;
     }
 

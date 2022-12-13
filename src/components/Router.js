@@ -27,9 +27,11 @@ import NoticeList from "pages/notice/NoticeList";
 import NoticeView from "pages/notice/NoticeView";
 import MyPage from "pages/myPage/MyPage";
 import SignInPolicyModal from "components/home/SignInPolicyModal";
+import LoginModal from "components/LoginModal";
 const AppRouter = ({}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const loginCheck = useSelector((state) => state.loginCheck);
   const [lastCheck, setLastCheck] = useState(false);
   useEffect(() => {
     if (Object.keys(userInfo).length > 0) {
@@ -77,6 +79,7 @@ const AppRouter = ({}) => {
         <Loading />
       </Router>
       {lastCheck && <SignInPolicyModal setLastCheck={setLastCheck} />}
+      {loginCheck && <LoginModal />}
     </div>
   );
 };

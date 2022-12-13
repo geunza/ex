@@ -19,7 +19,6 @@ const SupportList = ({}) => {
   const supportData = useSelector((state) => state.supportData);
   const [ord, setOrd] = useState("");
   const [page, setPage] = useState("");
-
   const getSupportCont = () => {
     dispatch(loadingStart());
     axios({

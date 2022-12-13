@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import styles from "scss/components/Header.module.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signIn, signOut, setUserInfo, removeUserInfo } from "redux/store";
+import {
+  signIn,
+  signOut,
+  setUserInfo,
+  removeUserInfo,
+  setLoginCheck,
+} from "redux/store";
 import axios from "axios";
 const Header = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -36,6 +42,10 @@ const Header = ({}) => {
       },
     }).then((res) => {
       const data = res.data;
+      if (data == null) {
+        alert("로그인에 실패하였습니다.");
+        return false;
+      }
       dispatch(setUserInfo(data));
       dispatch(signIn());
     });
@@ -64,7 +74,7 @@ const Header = ({}) => {
                 onClick={(e) => {
                   if (!isLoggedIn) {
                     e.preventDefault();
-                    alert("로그인이 필요합니다.");
+                    dispatch(setLoginCheck(true));
                     return false;
                   }
                   navigate(e.currentTarget.getAttribute("to"));
@@ -77,9 +87,7 @@ const Header = ({}) => {
               <Link to="/support/supportList">지원사업</Link>
             </li>
             <li>
-              <Link to="/community/communityList?cate=전체&ord=전체&page=1">
-                커뮤니티
-              </Link>
+              <Link to="/community/communityList">커뮤니티</Link>
             </li>
             <li>
               <Link to="/notice/noticeList">공지사항</Link>

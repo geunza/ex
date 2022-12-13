@@ -71,6 +71,44 @@
       }
     }
   }
+  .contTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .total {
+      font-size: 20px;
+    }
+    .countWrap {
+      position: relative;
+      font-size: 16px;
+      .count {
+        padding: 0 0 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+      }
+      .selectArea {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid $color-deepGray;
+        li {
+          //
+          button {
+            font-size: 16px;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 7px 0 5px 10px;
+          }
+        }
+      }
+    }
+  }
   .listCont {
     background: #fff;
     border-radius: $radius-wrap;

@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
 import CommunityViewReReplyItem from "components/community/CommunityViewReReplyItem";
+import { setLoginCheck } from "redux/store";
 const CommunityViewReplyItem = ({ item, getReply }) => {
-  console.log(item);
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const nickname = item.usernickname;
@@ -65,7 +66,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   // CHECK : 신고기능 API
   const btnReport = () => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
       return false;
     }
   };
@@ -94,7 +95,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   // 댓글 삭제기능
   const btnBlock = () => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
       return false;
     }
     if (!window.confirm(`${item.usernickname}님을 차단하시겠습니까?`))

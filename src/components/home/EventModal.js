@@ -2,8 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "scss/components/Modal.module.scss";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginCheck } from "redux/store";
 const EventModal = ({ modalOpener, modalTab }) => {
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const openInNewTab = (url) => {
@@ -70,7 +72,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
   const submitDummyKeyword = (e) => {
     e.preventDefault();
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
       return false;
     }
     const length = userKeywordDummy.length;

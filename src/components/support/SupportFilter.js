@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "scss/components/support/SupportFilter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSupportInfo, setSupportInfoModal } from "redux/store";
+import {
+  setSupportInfo,
+  setSupportInfoModal,
+  setLoginCheck,
+} from "redux/store";
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
 const SupportFilter = ({ getSupportCont }) => {
@@ -14,6 +18,10 @@ const SupportFilter = ({ getSupportCont }) => {
   const [modalOn, setModalOn] = useState(false);
   const modalControl = (step) => {
     // 안열려있을때
+    if (!isLoggedIn) {
+      dispatch(setLoginCheck(true));
+      return false;
+    }
     if (modalOn == false) {
       setModalOn(true);
       setModalIDx(step);
@@ -311,7 +319,16 @@ const SupportFilter = ({ getSupportCont }) => {
             })}
           </ul>
           <div className={styles.submitArea}>
-            <button type="button" onClick={getSupportCont}>
+            <button
+              type="button"
+              onClick={() => {
+                if (!isLoggedIn) {
+                  dispatch(setLoginCheck(true));
+                } else {
+                  getSupportCont();
+                }
+              }}
+            >
               <span>조회</span>
             </button>
           </div>

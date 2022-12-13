@@ -14,15 +14,7 @@ const BoxListItemCommunity = ({
   return (
     <>
       <div className={styles.BoxListItem}>
-        <Link
-          to={`${url}${item.id}`}
-          onClick={(e) => {
-            if (!isLoggedIn) {
-              e.preventDefault();
-              alert("로그인이 필요합니다.");
-            }
-          }}
-        >
+        <Link to={`${url}${item.id}`}>
           <h5 className={styles.title}>{item.title}</h5>
           {writerShow && <p className={styles.writer}>{item.usernickname}</p>}
           <div className={styles.countArea}>

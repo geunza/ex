@@ -74,10 +74,18 @@ let userInfo = createSlice({
   },
 });
 export let { setUserInfo, removeUserInfo, setDefaultSetup } = userInfo.actions;
+
+// 기업정보
 let companyInfo = createSlice({
   name: "companyInfo",
   initialState: {},
+  reducers: {
+    setCompanyInfo(state, action) {
+      return action.payload;
+    },
+  },
 });
+export let { setCompanyInfo } = companyInfo.actions;
 
 let supportItem = createSlice({
   name: "supportItem",
@@ -100,6 +108,7 @@ let supportItem = createSlice({
   },
 });
 export let { setSupportItem } = supportItem.actions;
+
 // 공통코드
 let supportInfo = createSlice({
   name: "supportInfo",
@@ -250,6 +259,7 @@ let supportInfo = createSlice({
 });
 export let { setSupportInfo, setSupportInfoModal } = supportInfo.actions;
 
+// 지원 리스트 데이터
 let supportData = createSlice({
   name: "supportData",
   initialState: [],
@@ -260,16 +270,29 @@ let supportData = createSlice({
   },
 });
 export let { setSupportData } = supportData.actions;
+
+let loginCheck = createSlice({
+  name: "loginCheck",
+  initialState: false,
+  reducers: {
+    setLoginCheck(state, action) {
+      return action.payload;
+    },
+  },
+});
+export let { setLoginCheck } = loginCheck.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
     isLoggedIn: isLoggedIn.reducer,
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
+    companyInfo: companyInfo.reducer,
     supportInfo: supportInfo.reducer,
     supportItem: supportItem.reducer,
     modalState: modalState.reducer,
     companyInfo: companyInfo.reducer,
     supportData: supportData.reducer,
+    loginCheck: loginCheck.reducer,
   },
 });

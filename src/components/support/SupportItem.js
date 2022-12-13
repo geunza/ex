@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "scss/components/support/SupportItem.module.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginCheck } from "redux/store";
 import axios from "axios";
 const SupportItem = ({ item, getSupportCont }) => {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const cateName = item.target_cat_name;
@@ -105,7 +107,7 @@ const SupportItem = ({ item, getSupportCont }) => {
                 className={isZzim ? styles.isZzim : null}
                 onClick={() => {
                   if (!isLoggedIn) {
-                    alert("로그인이 필요합니다.");
+                    dispatch(setLoginCheck(true));
                     return false;
                   }
                   zzimClick(item.si_idx, item.mb_save_yn);

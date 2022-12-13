@@ -100,6 +100,7 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
+    margin-bottom: 15px;
     input {
       width: 72%;
       border: none;
@@ -619,5 +620,29 @@
         }
       }
     }
+  }
+}
+
+.LoginModal {
+  .sns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 5px 10px;
+      border: none;
+      span {
+        padding-top: 3px;
+        font-size: 16px;
+      }
+    }
+  }
+  .modalCont {
+    border-radius: 0 0 $radius-wrap $radius-wrap;
   }
 }

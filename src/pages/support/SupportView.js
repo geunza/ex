@@ -36,6 +36,7 @@ const SupportView = ({}) => {
         setItem({});
       } else {
         setItem(item);
+        console.log(item);
       }
       dispatch(loadingEnd());
     });
@@ -54,21 +55,29 @@ const SupportView = ({}) => {
           user_id: userInfo.id,
         },
         data: { support_info: id },
-      }).then((res) => {
-        console.log("TIMELINE", res.data);
-      });
+      }).then((res) => {});
     }
     axios({
       url: `/mainpage/upViewCnt?si_idx=${id}`,
       method: "POST",
-    }).then((res) => {
-      console.log("COUNT", res.data);
-    });
+    }).then((res) => {});
     getSupportItem();
   }, []);
   useEffect(() => {
     getSupportItem();
   }, [userInfo]);
+  const obj = {
+    sp_receive_push: "Y",
+    sp_recomment_push: "Y",
+    sp_community_commentlike_push: "Y",
+    sp_community_recomment_push: "Y",
+    user_id: "1645737618",
+    sp_keyword_push: "N",
+    sp_content_comment_push: "Y",
+    marketing_push: "Y",
+    sp_bookmark_push: "N",
+    sp_commentlike_push: "Y",
+  };
   return (
     <div className={styles.SupportView}>
       <div className="inner">
@@ -78,7 +87,25 @@ const SupportView = ({}) => {
               <SupportItem item={item} getSupportCont={getSupportItem} />
             </ul>
 
-            <div className={styles.supportViewCont}>supportViewCont</div>
+            <div className={styles.supportViewCont}>
+              <p>loccode : {item.loccode}</p>
+              <p>locname : {item.locname}</p>
+              <p>mb_save_yn : {item.mb_save_yn}</p>
+              <p>mobile_url : {item.mobile_url}</p>
+              <p>pc_url : {item.pc_url}</p>
+              <p>save_cnt : {item.save_cnt}</p>
+              <p>share_cnt : {item.share_cnt}</p>
+              <p>si_active_yn : {item.si_active_yn}</p>
+              <p>si_cret_dt : {item.si_cret_dt}</p>
+              <p>si_end_dt : {item.si_end_dt}</p>
+              <p>si_idx : {item.si_idx}</p>
+              <p>si_title : {item.si_title}</p>
+              <p>target_cat_name : {item.target_cat_name}</p>
+              <p>target_cost_value : {item.target_cost_value}</p>
+              <p>target_name : {item.target_name}</p>
+              <p>totalcnt : {item.totalcnt}</p>
+              <p>view_cnt : {item.view_cnt}</p>
+            </div>
           </>
         )}
       </div>

@@ -6,6 +6,7 @@ import {
   useLocation,
   Navigate,
   useNavigate,
+  useSearchParams,
 } from "react-router-dom";
 import styles from "scss/pages/CommunityList.module.scss";
 import Banner from "components/ImageBanner";
@@ -13,58 +14,56 @@ import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingStart, loadingEnd } from "redux/store";
+import { loadingStart, loadingEnd, setLoginCheck } from "redux/store";
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityModalBlockUser from "components/community/CommunityModalBlockUser";
 
 const CommunityList = ({}) => {
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams(window.location);
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [sltView, setSltView] = useState(false);
+  const [comSearchText, setComSearchText] = useState("");
+  const [controlBox, setControlBox] = useState({ id: "" });
+  const [totalCount, setTotalCount] = useState(0);
+  const [posts, setPosts] = useState([]);
   const [cate, setCate] = useState("");
   const [ord, setOrd] = useState("");
-  const [postData, setPostData] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const [popular, setPopular] = useState([]);
-  const [limit, setLimit] = useState(30);
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
-  const [comSearchText, setComSearchText] = useState("");
+  const [popular, setPopular] = useState([]);
+  const [count, setCount] = useState(30);
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
-  const [axiosLeng, setAxiosLeng] = useState(0);
-  const [controlBox, setControlBox] = useState({ id: "" });
   const [blockedModalOn, setBlockedModalOn] = useState(false);
-  const getCommunityList = () => {
-    const paramCate = searchParams.get("cate");
-    const paramOrd = searchParams.get("ord");
-    const paramPage = searchParams.get("page");
-    console.log(
-      `/mobile/community/all?select_cat=${paramCate}&ord=${paramOrd}&cnt_sql=${
-        paramPage - 1
-      }`
-    );
+  const getCommunityLength = () => {
+    axios({
+      url: "/mobile/community/totalCnt",
+      method: "POST",
+    }).then((res) => {
+      setTotalCount(res.data.total_cnt);
+    });
+  };
+  const getCommunityList = (stringParams) => {
+    dispatch(loadingStart());
     axios({
       method: "GET",
       // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
-      url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0",
+      url: "/mobile/community/all" + stringParams,
     })
       .then((res) => {
         const data = res.data;
-        console.log(data);
-        setPostData(data);
-        setAxiosLeng((prev) => prev + 1);
+        setPosts(data);
+        dispatch(loadingEnd());
       })
       .catch((err) => {
-        setAxiosLeng((prev) => prev + 1);
         alert(err);
+        dispatch(loadingEnd());
       });
   };
   const getCommunityPopular = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       headers: {
         user_id: userInfo.id,
@@ -74,47 +73,103 @@ const CommunityList = ({}) => {
     })
       .then((res) => {
         setPopular(res.data);
-        setAxiosLeng((prev) => prev + 1);
       })
       .catch((err) => {
         alert(err);
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
       });
   };
   useEffect(() => {
-    getCommunityList();
+    getCommunityLength();
     getCommunityPopular();
   }, []);
 
-  useEffect(() => {
-    axiosLeng == 2 && dispatch(loadingEnd());
-  }, [axiosLeng]);
-
-  const btnSorting = (e) => {
+  const ordCateClick = (e) => {
     const {
       currentTarget: { name, value },
     } = e;
-    searchParams.set(name, value);
-    searchParams.set("page", 1);
-    navigate("?" + searchParams.toString());
+    navigateSearchTxt(name, value);
   };
-
-  const getParams = () => {
-    let currentCate = searchParams.get("cate");
-    let currentPage = searchParams.get("page");
-    let currentOrd = searchParams.get("ord");
-    if (searchParams.get("cate") == null) {
-      currentCate = "전체";
-    }
-    if (searchParams.get("page") == null) {
-      currentPage = 1;
-    }
-    if (searchParams.get("ord") == null) {
-      currentOrd = "전체";
-    }
-    const paramString = `cate=${currentCate}&ord=${currentOrd}&page=${currentPage}`;
-    navigate("?" + searchParams.toString());
+  const countClick = (e) => {
+    const {
+      currentTarget: { name, value },
+    } = e;
+    setSltView(false);
+    navigateSearchTxt(name, value);
   };
+  useEffect(() => {
+    const searchTxt = location.search;
+    let searchObj = {};
+    const searchArr = searchTxt.replace("?", "").split("&");
+    let cateDummy = "";
+    let ordDummy = "";
+    let pageDummy = "";
+    let viewDummy = "";
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decode(arrObj[1]);
+    });
+    if (searchObj.cate == undefined) {
+      setCate("전체");
+      cateDummy = "전체";
+    } else {
+      setCate(searchObj.cate);
+      cateDummy = searchObj.cate;
+    }
+    if (searchObj.ord == undefined) {
+      setOrd("전체");
+      ordDummy = "전체";
+    } else {
+      setOrd(searchObj.ord);
+      ordDummy = searchObj.ord;
+    }
+    if (searchObj.page == undefined) {
+      setPage(1);
+      pageDummy = 1;
+    } else {
+      setPage(parseInt(searchObj.page));
+      pageDummy = parseInt(searchObj.page);
+    }
+    if (searchObj.view == undefined) {
+      setCount(30);
+      viewDummy = 30;
+    } else {
+      setCount(searchObj.view);
+      viewDummy = searchObj.view;
+    }
+    const stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
+      (pageDummy - 1) * viewDummy
+    }`;
+    getCommunityList(stringParams);
+    window.scrollTo(0, 0);
+  }, [location]);
+  function decode(txt) {
+    return decodeURI(txt);
+  }
+  function navigateSearchTxt(name, value) {
+    const searchTxt = location.search;
+    const searchArr = searchTxt.replace("?", "").split("&");
+    let searchObj = {};
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decode(arrObj[1]);
+    });
+    let newSearchTxt = "";
+    for (let key in searchObj) {
+      if (searchObj[key] == "undefined") {
+        continue;
+      }
+      if (key == "page") {
+        newSearchTxt += `page=1&`;
+      } else if (key == name) {
+        continue;
+      } else {
+        newSearchTxt += `${key}=${searchObj[key]}&`;
+      }
+    }
+    newSearchTxt += `${name}=${value}`;
+    navigate("?" + newSearchTxt);
+  }
 
   const communitySearch = (e) => {
     e.preventDefault();
@@ -127,22 +182,8 @@ const CommunityList = ({}) => {
   const btnNavigateWrite = () => {
     isLoggedIn
       ? navigate("/community/communityWrite")
-      : alert("로그인이 필요합니다.");
+      : dispatch(setLoginCheck(true));
   };
-  useEffect(() => {
-    setPosts(postData);
-  }, [postData]);
-
-  useEffect(() => {
-    setCate(searchParams.get("cate"));
-    setOrd(searchParams.get("ord"));
-    setPage(searchParams.get("page"));
-    //setParams(...[(cate, setCate), (ord, setOrd), (page, setPage)]);
-  }, [searchParams]);
-
-  useEffect(() => {
-    getParams();
-  }, []);
 
   return (
     <>
@@ -218,8 +259,8 @@ const CommunityList = ({}) => {
             <div className={styles.listCategory}>
               <button
                 type="button"
-                onClick={btnSorting}
                 name="cate"
+                onClick={ordCateClick}
                 value="전체"
                 data-selected={cate === "전체" ? "selected" : null}
               >
@@ -227,8 +268,8 @@ const CommunityList = ({}) => {
               </button>
               <button
                 type="button"
-                onClick={btnSorting}
                 name="cate"
+                onClick={ordCateClick}
                 value="정보공유"
                 data-selected={cate === "정보공유" ? "selected" : null}
               >
@@ -236,8 +277,8 @@ const CommunityList = ({}) => {
               </button>
               <button
                 type="button"
-                onClick={btnSorting}
                 name="cate"
+                onClick={ordCateClick}
                 value="QnA"
                 data-selected={cate === "QnA" ? "selected" : null}
               >
@@ -245,8 +286,8 @@ const CommunityList = ({}) => {
               </button>
               <button
                 type="button"
-                onClick={btnSorting}
                 name="cate"
+                onClick={ordCateClick}
                 value="기업매칭"
                 data-selected={cate === "기업매칭" ? "selected" : null}
               >
@@ -254,13 +295,67 @@ const CommunityList = ({}) => {
               </button>
               <button
                 type="button"
-                onClick={btnSorting}
                 name="cate"
+                onClick={ordCateClick}
                 value="자유게시판"
                 data-selected={cate === "자유게시판" ? "selected" : null}
               >
                 자유 게시판
               </button>
+            </div>
+            <div className={styles.contTop}>
+              <p className={styles.total}>전체 {totalCount}개</p>
+              <div className={styles.countWrap}>
+                <p
+                  onClick={() => {
+                    setSltView((prev) => !prev);
+                  }}
+                  className={styles.count}
+                >
+                  <span>{count}개씩 보기</span>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/btn/btn_arr_bottom.png"
+                    }
+                    alt="열기"
+                  />
+                </p>
+                {sltView && (
+                  <ul className={styles.selectArea}>
+                    <li>
+                      <button
+                        type="button"
+                        onClick={countClick}
+                        value={30}
+                        name="view"
+                      >
+                        30개씩 보기
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        onClick={countClick}
+                        value={50}
+                        name="view"
+                      >
+                        50개씩 보기
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        onClick={countClick}
+                        value={100}
+                        name="view"
+                      >
+                        100개씩 보기
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
             </div>
             <div className={styles.listCont}>
               <div className={styles.listSorting}>
@@ -268,7 +363,7 @@ const CommunityList = ({}) => {
                   <button
                     type="button"
                     data-selected={ord === "전체" ? "selected" : null}
-                    onClick={btnSorting}
+                    onClick={ordCateClick}
                     name="ord"
                     value="전체"
                   >
@@ -277,7 +372,7 @@ const CommunityList = ({}) => {
                   <button
                     type="button"
                     data-selected={ord === "인기순" ? "selected" : null}
-                    onClick={btnSorting}
+                    onClick={ordCateClick}
                     name="ord"
                     value="인기순"
                   >
@@ -286,7 +381,7 @@ const CommunityList = ({}) => {
                   <button
                     type="button"
                     data-selected={ord === "최신순" ? "selected" : null}
-                    onClick={btnSorting}
+                    onClick={ordCateClick}
                     name="ord"
                     value="최신순"
                   >
@@ -295,7 +390,7 @@ const CommunityList = ({}) => {
                   <button
                     type="button"
                     data-selected={ord === "댓글" ? "selected" : null}
-                    onClick={btnSorting}
+                    onClick={ordCateClick}
                     name="ord"
                     value="댓글"
                   >
@@ -379,15 +474,15 @@ const CommunityList = ({}) => {
                 </button>
               </div>
             </div>
-            {/* <Pagination
-              total={posts.length}
-              postLimit={limit}
+            <Pagination
+              total={totalCount}
+              // total={5000}
+              postLimit={count}
               numLimit={5}
               page={parseInt(page)}
               searchParams={searchParams}
-              cate={cate}
               ord={ord}
-            /> */}
+            />
           </div>
         </div>
       </div>

@@ -25,50 +25,54 @@ const SupportRecent = ({ userInfo }) => {
       });
   };
   useEffect(() => {
-    isLoggedIn && getRecent();
+    getRecent();
   }, [isLoggedIn, userInfo]);
   return (
     <div className={styles.SupportRecent}>
-      {isLoggedIn ? (
-        <>
-          <h4>최근 본 지원사업</h4>
-          <ul>
-            {savedBook.map((item, idx) => {
-              const offset = 1000 * 60 * 60 * 9;
-              const timeStamp = new Date(item.si_end_dt - offset);
-              const YYMMDD = timeStamp.toISOString().split("T")[0].split("-");
-              const MM = YYMMDD[1];
-              const DD = YYMMDD[2];
-              const week = ["일", "월", "화", "수", "목", "금", "토"];
-              const day = week[timeStamp.getDay()];
-              const endTime = `${MM}.${DD} (${day}) 마감`;
-              const price = item.target_cost_value
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-              return (
-                <li key={idx}>
-                  <Link to="###">
-                    <h5 className={styles.tit}>{item.si_title}</h5>
-                    <p>
-                      <span className={styles.dueDate}>{endTime}</span>
-                      <span className={styles.slash}>/</span>
-                      <span className={styles.moneyAmount}>{price}원</span>
-                    </p>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <button
-            className={styles.showAll}
-            onClick={() => {
-              navigate("/saved?cate=recent");
-            }}
-          >
-            <span>전체보기</span>
-          </button>
-        </>
-      ) : null}
+      <>
+        <h4>최근 본 지원사업</h4>
+        {isLoggedIn ? (
+          <>
+            <ul>
+              {savedBook.map((item, idx) => {
+                const offset = 1000 * 60 * 60 * 9;
+                const timeStamp = new Date(item.si_end_dt - offset);
+                const YYMMDD = timeStamp.toISOString().split("T")[0].split("-");
+                const MM = YYMMDD[1];
+                const DD = YYMMDD[2];
+                const week = ["일", "월", "화", "수", "목", "금", "토"];
+                const day = week[timeStamp.getDay()];
+                const endTime = `${MM}.${DD} (${day}) 마감`;
+                const price = item.target_cost_value
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                return (
+                  <li key={idx}>
+                    <Link to="###">
+                      <h5 className={styles.tit}>{item.si_title}</h5>
+                      <p>
+                        <span className={styles.dueDate}>{endTime}</span>
+                        <span className={styles.slash}>/</span>
+                        <span className={styles.moneyAmount}>{price}원</span>
+                      </p>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <button
+              className={styles.showAll}
+              onClick={() => {
+                navigate("/saved?cate=recent");
+              }}
+            >
+              <span>전체보기</span>
+            </button>
+          </>
+        ) : (
+          <p className="empty">로그인이 필요합니다.</p>
+        )}
+      </>
     </div>
   );
 };

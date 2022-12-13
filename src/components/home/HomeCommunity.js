@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import HomeCommunityItem from "./HomeCommunityItem";
 const HomeCommunity = ({ setAxiosCount }) => {
   const [community, setCommunity] = useState([]);
+  let cancel;
+  const CancelToken = axios.CancelToken;
   const getCommunity = () => {
     axios({
       headers: {
@@ -18,6 +20,10 @@ const HomeCommunity = ({ setAxiosCount }) => {
       },
       method: "POST",
       url: "/mobile/community/popularAll",
+      cancelToken: new CancelToken(function executor(c) {
+        // excutor 함수는 cancel 함수를 매개 변수로 받습니다.
+        cancel = c;
+      }),
     })
       .then((res) => {
         setCommunity(res.data);
@@ -29,6 +35,9 @@ const HomeCommunity = ({ setAxiosCount }) => {
   };
   useEffect(() => {
     getCommunity();
+    return () => {
+      cancel();
+    };
   }, []);
   return (
     <>

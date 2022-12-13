@@ -6,6 +6,7 @@ import { setSupportItem, setSupportInfo } from "redux/store";
 import FilterButton from "components/home/FilterButton";
 import { redirect, useNavigate } from "react-router-dom";
 import FilterModal from "components/home/FilterModal";
+import { setLoginCheck } from "redux/store";
 const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Filter = () => {
 
   const filterModalOpen = (bool, idx) => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
     } else {
       setFilterModal(bool);
       setModalStep(idx);
@@ -25,7 +26,7 @@ const Filter = () => {
   };
   const filterBtnClick = (item, e) => {
     !isLoggedIn
-      ? alert("로그인이 필요합니다.")
+      ? dispatch(setLoginCheck(true))
       : dispatch(setSupportInfo(item));
   };
   return (
@@ -157,7 +158,7 @@ const Filter = () => {
               name="login"
               onClick={() => {
                 if (!isLoggedIn) {
-                  alert("로그인이 필요합니다.");
+                  dispatch(setLoginCheck(true));
                   return false;
                 }
                 navigate("/support/supportList");

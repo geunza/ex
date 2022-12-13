@@ -10,6 +10,8 @@ const CountArea = ({ setAxiosCount }) => {
     user_cnt: 0,
     target_cnt: 0,
   });
+  let cancel;
+  const CancelToken = axios.CancelToken;
   const getCount = () => {
     axios({
       headers: {
@@ -17,6 +19,10 @@ const CountArea = ({ setAxiosCount }) => {
       },
       method: "POST",
       url: "/mainpage/getTotalCount",
+      cancelToken: new CancelToken(function executor(c) {
+        // excutor 함수는 cancel 함수를 매개 변수로 받습니다.
+        cancel = c;
+      }),
     }).then((res) => {
       let data = res.data[0];
       setCount(data);
@@ -24,10 +30,11 @@ const CountArea = ({ setAxiosCount }) => {
     });
   };
 
-  const changeCount = (arr) => {};
-
   useEffect(() => {
     getCount();
+    return () => {
+      cancel();
+    };
   }, []);
   return (
     <div className={styles.CountArea}>

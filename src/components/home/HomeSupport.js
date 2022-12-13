@@ -7,6 +7,8 @@ import BoxListItemHome from "components/home/BoxListItemHome";
 import styles from "scss/components/home/HomeSupport.module.scss";
 const HomeSupport = ({ setAxiosCount }) => {
   let count = 0;
+  let cancel;
+  const CancelToken = axios.CancelToken;
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const [homeSupport, setHomeSupport] = useState([
@@ -43,6 +45,10 @@ const HomeSupport = ({ setAxiosCount }) => {
       data: { cat: cat_name },
       method: "POST",
       url: url,
+      cancelToken: new CancelToken(function executor(c) {
+        // excutor 함수는 cancel 함수를 매개 변수로 받습니다.
+        cancel = c;
+      }),
     }).then((res) => {
       const data = res.data;
       const copy = [...homeSupport];
@@ -56,6 +62,9 @@ const HomeSupport = ({ setAxiosCount }) => {
     homeSupport.forEach((v, i) => {
       getHomeSupport(v.category, v.url, v.cat_name);
     });
+    return () => {
+      cancel();
+    };
   }, []);
   return (
     <>

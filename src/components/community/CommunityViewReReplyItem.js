@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { setLoginCheck } from "redux/store";
 const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-
+  const dispatch = useDispatch();
   const writerId = item.user_id;
   const isWriter = userInfo.id == writerId;
   const cmtId = item.id;
@@ -58,7 +59,7 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
   // 대댓글 차단기능 완료
   const btnBlock = () => {
     if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
+      dispatch(setLoginCheck(true));
       return false;
     }
     if (!window.confirm(`${item.usernickname}님을 차단하시겠습니까?`))

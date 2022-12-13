@@ -1,12 +1,14 @@
 import React from "react";
 import styles from "scss/components/home/LoginArea.module.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setLoginCheck } from "redux/store";
 const SnsLogin = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <>
       <div className={styles.SnsLogin}>
@@ -96,7 +98,7 @@ const SnsLogin = ({}) => {
                 className={styles.btnDib}
                 onClick={() => {
                   //CHECK :
-                  alert("로그인이 필요합니다");
+                  dispatch(setLoginCheck(true));
                 }}
               >
                 <img
@@ -113,7 +115,7 @@ const SnsLogin = ({}) => {
                 className={styles.btnCompany}
                 onClick={() => {
                   //CHECK :
-                  alert("로그인이 필요합니다");
+                  dispatch(setLoginCheck(true));
                 }}
               >
                 <img
