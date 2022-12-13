@@ -22,7 +22,18 @@ const SupportContent = ({ getSupportCont }) => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(30);
   const [sltView, setSltView] = useState(false);
+  axios({
+    // `url`은 요청에 사용될 서버 URL입니다.
+    url: "/user",
+    // `method`는 요청을 할 때 사용될 메소드 이름입니다.
+    method: "get", // 기본
 
+    // `cancelToken`은 요청을 취소하는 데 사용할 수 있는 취소 토큰을 지정합니다.
+    // (자세한 내용은 해제(Cancellation) 섹션 참조).
+    cancelToken: new CancelToken(function (cancel) {
+      // ...
+    }),
+  });
   const countClick = (e) => {
     const {
       currentTarget: { name, value },
