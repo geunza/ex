@@ -28,7 +28,7 @@
       background: #fff;
       display: flex;
       align-items: center;
-
+      user-select: none;
       border-bottom: 1px solid $color-borderGray;
       .cateTit {
         font-size: 26px;
@@ -165,6 +165,41 @@
             cursor: pointer;
           }
         }
+      }
+    }
+  }
+}
+.CommunityModify {
+  .writeArea {
+    .cateArea {
+      background-color: #fafbff;
+      .cateItems {
+        .currentCate {
+          background-color: $color-bgGray;
+          border: 1px solid $color-deepGray;
+          color: $color-deepGray;
+        }
+      }
+      .modifyInform {
+        margin-left: 20px;
+        img {
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+        span {
+          display: inline-block;
+          vertical-align: middle;
+          padding-top: 5px;
+          color: $color-gray;
+        }
+      }
+    }
+    .fileArea {
+      background-color: #fafbff;
+      .items .item {
+        background-color: $color-bgGray;
+        border: 1px solid $color-deepGray;
+        color: $color-deepGray;
       }
     }
   }

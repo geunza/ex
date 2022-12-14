@@ -1,0 +1,420 @@
+[
+  {
+    "bizp_type_cd": [
+      {
+        "code_nm": "전체",
+        "code": "01",
+        "ctg_cd": "bizp_type_cd",
+        "ctg_nm": "사업자형태"
+      },
+      {
+        "code_nm": "예비창업자",
+        "code": "02",
+        "ctg_cd": "bizp_type_cd",
+        "ctg_nm": "사업자형태"
+      },
+      {
+        "code_nm": "법인사업자",
+        "code": "03",
+        "ctg_cd": "bizp_type_cd",
+        "ctg_nm": "사업자형태"
+      },
+      {
+        "code_nm": "개인사업자",
+        "code": "04",
+        "ctg_cd": "bizp_type_cd",
+        "ctg_nm": "사업자형태"
+      }
+    ],
+    "prd_cd": [
+      {
+        "code_nm": "전체",
+        "code": "999",
+        "ctg_cd": "prd_cd",
+        "ctg_nm": "창업기간"
+      },
+      {
+        "code_nm": "1년 미만",
+        "code": "10",
+        "ctg_cd": "prd_cd",
+        "ctg_nm": "창업기간"
+      },
+      {
+        "code_nm": "3년 미만",
+        "code": "30",
+        "ctg_cd": "prd_cd",
+        "ctg_nm": "창업기간"
+      },
+      {
+        "code_nm": "7년 미만",
+        "code": "70",
+        "ctg_cd": "prd_cd",
+        "ctg_nm": "창업기간"
+      },
+      {
+        "code_nm": "7년 이상",
+        "code": "72",
+        "ctg_cd": "prd_cd",
+        "ctg_nm": "창업기간"
+      }
+    ],
+    "biz_type_cd": [
+      {
+        "code_nm": "전체",
+        "code": "01",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      },
+      {
+        "code_nm": "중소기업",
+        "code": "02",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      },
+      {
+        "code_nm": "소기업",
+        "code": "03",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      },
+      {
+        "code_nm": "소상공인",
+        "code": "04",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      },
+      {
+        "code_nm": "여성기업",
+        "code": "05",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      },
+      {
+        "code_nm": "장애인기업",
+        "code": "06",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      },
+      {
+        "code_nm": "사회적기업",
+        "code": "07",
+        "ctg_cd": "biz_type_cd",
+        "ctg_nm": "사업형태"
+      }
+    ],
+    "spt_cd": [
+      {
+        "code_nm": "전체",
+        "code": "01",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "사업화 지원",
+        "code": "02",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "시설공간",
+        "code": "03",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "인건비 지원",
+        "code": "04",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "마케팅 홍보",
+        "code": "05",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "멘토링・교육",
+        "code": "06",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "R&D",
+        "code": "07",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "행사",
+        "code": "08",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      },
+      {
+        "code_nm": "기타",
+        "code": "09",
+        "ctg_cd": "spt_cd",
+        "ctg_nm": "지원분야"
+      }
+    ],
+    "biz_cd": [
+      {
+        "code_nm": "전체",
+        "code": "01",
+        "ctg_cd": "biz_cd",
+        "ctg_nm": "사업분야"
+      },
+      {
+        "code_nm": "제조",
+        "code": "02",
+        "ctg_cd": "biz_cd",
+        "ctg_nm": "사업분야"
+      },
+      {
+        "code_nm": "지식서비스",
+        "code": "03",
+        "ctg_cd": "biz_cd",
+        "ctg_nm": "사업분야"
+      },
+      {
+        "code_nm": "융합",
+        "code": "04",
+        "ctg_cd": "biz_cd",
+        "ctg_nm": "사업분야"
+      }
+    ],
+    "tech_cd": [
+      {
+        "code_nm": "전체",
+        "code": "01",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "딥테크",
+        "code": "02",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "ICT",
+        "code": "03",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "제조/하드웨어",
+        "code": "04",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "푸드/농업",
+        "code": "05",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "커머스",
+        "code": "06",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "물류/유통",
+        "code": "07",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "헬스케어/바이오",
+        "code": "08",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "환경/에너지",
+        "code": "09",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "3D 프린팅",
+        "code": "10",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "R&D",
+        "code": "11",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "교육",
+        "code": "12",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "홈리빙/펫",
+        "code": "13",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "여행/레저/스포츠",
+        "code": "14",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "금융/보험/핀테크",
+        "code": "15",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "자동차/모빌리티/교통",
+        "code": "16",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "통신/보안/데이터/개발",
+        "code": "17",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "공예/디자인",
+        "code": "18",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      },
+      {
+        "code_nm": "기타",
+        "code": "19",
+        "ctg_cd": "tech_cd",
+        "ctg_nm": "기술분야"
+      }
+    ],
+    "loc_cd": [
+      {
+        "code_nm": "전국",
+        "code": "C82",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "서울",
+        "code": "C02",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "경기",
+        "code": "C031",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "인천",
+        "code": "C032",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "강원",
+        "code": "C033",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "대전",
+        "code": "C042",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "충북",
+        "code": "C043",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "충남",
+        "code": "C041",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "세종",
+        "code": "C044",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "광주",
+        "code": "C062",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "전북",
+        "code": "C063",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "전남",
+        "code": "C061",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "부산",
+        "code": "C051",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "울산",
+        "code": "C052",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "대구",
+        "code": "C053",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "경북",
+        "code": "C054",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "경남",
+        "code": "C055",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "제주",
+        "code": "C064",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      },
+      {
+        "code_nm": "전체",
+        "code": "C99",
+        "ctg_cd": "loc_cd",
+        "ctg_nm": "지역"
+      }
+    ]
+  }
+]

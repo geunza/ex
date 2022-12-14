@@ -35,7 +35,6 @@ const NoticeList = () => {
         <div className="inner">
           <ul className={`commonListItemWrap ${styles.noticeListWrap}`}>
             {noticeData.map((item, idx) => {
-              console.log(item);
               return <NoticeListItem item={item} key={item.id} />;
             })}
           </ul>

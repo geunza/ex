@@ -26,7 +26,8 @@
       position: relative;
     }
   }
-  .tit {
+  .tit,
+  .filterTit {
     font-size: 22px;
     margin-bottom: 10px;
   }
@@ -92,13 +93,42 @@
           font-size: 16px;
           outline: none;
         }
-        .filterItems {
+        .filterListWrap {
+          width: 100%;
           display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          li {
-            button {
-              border-radius: 50px;
+          flex-flow: column;
+          gap: 20px;
+          .filterItems {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            li {
+              button {
+                border-radius: 50px;
+              }
+            }
+          }
+          > li:last-child {
+            .filterModalBtnWrap {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+
+              > div {
+                width: 48%;
+                &:last-child {
+                  margin-top: 20px;
+                }
+              }
+              button {
+                width: 100%;
+                border: 1px solid $color-borderGray;
+                height: 45px;
+                border-radius: $radius-btn;
+                text-align: left;
+                font-size: 16px;
+                padding: 0 10px;
+              }
             }
           }
         }

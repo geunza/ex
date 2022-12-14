@@ -19,10 +19,9 @@ const FilterModal = ({
   const filterBtnClick = (item, e) => {
     const cate = item.ctg_cd;
     let copy = JSON.parse(JSON.stringify(objDummy));
-
     const require = copy[cate].require;
     if (someItem(copy[cate].datas, item)) {
-      if (require && copy[cate].length == 1) {
+      if (require && copy[cate].datas.length == 1) {
         alert("한가지 이상 선택해주세요.");
       } else {
         copy[cate].datas = filterItem(copy[cate].datas, item);

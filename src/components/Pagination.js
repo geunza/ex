@@ -14,6 +14,7 @@ const Pagination2 = ({ total, postLimit, numLimit, page }) => {
     const {
       currentTarget: { name, value },
     } = e;
+
     navigateSearchTxt(name, value);
   };
   function navigateSearchTxt(name, value) {

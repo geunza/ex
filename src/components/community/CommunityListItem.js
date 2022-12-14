@@ -13,6 +13,7 @@ const CommunityListItem = ({
   setControlBox,
   controlBoxOpen,
   getCommunityList,
+  setScrollStorage,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -125,7 +126,12 @@ const CommunityListItem = ({
         </span>
       </div>
       <div className={`leftArea ${styles.leftArea}`}>
-        <Link to={`/community/communityView/${post.id}`}>
+        <Link
+          to={`/community/communityView/${post.id}`}
+          onClick={() => {
+            setScrollStorage(window.scrollY);
+          }}
+        >
           <p className="title">{post.title}</p>
           <p className={`content ${styles.content}`}>{post.title}</p>
           <p className="write">

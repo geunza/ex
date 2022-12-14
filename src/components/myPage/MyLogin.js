@@ -38,10 +38,9 @@ const MyLogin = () => {
     if (nicknameCheck) {
       dispatch(loadingStart());
       axios({
-        url: `/user/updateUserInfo?usernickname=${userInfo.usernickname}`,
+        url: `/user/updateUserInfo?usernickname=${encoding(nickname)}`,
         method: "POST",
         headers: {
-          usernickname: encoding(nickname),
           userid: userInfo.id,
         },
       }).then((res) => {

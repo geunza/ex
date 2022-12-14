@@ -25,7 +25,6 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
       // 확장자 체크
       const passArray = ["hwp", "word", "ppt", "pdf", "exel", "text"];
       const ext = item.name.split(".").pop().toLowerCase();
-      console.log(item);
       if (passArray.indexOf(ext) == -1) {
         alert(
           "지정된 확장자 (.hwp, .word, .ppt, .pdf, .exel, .text)만 삽입할 수 있습니다."

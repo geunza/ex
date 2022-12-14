@@ -103,7 +103,7 @@ const CommunityModalReport = ({ setModalOn, post }) => {
               <p className={styles.subTit}>
                 <span>아래 신고 사유를 선택해 주세요.</span>
               </p>
-              <ul className={styles.reportList}>
+              <ul className={styles.commonList}>
                 {reportList.map((v, i) => {
                   const numb = ("00" + i).slice(-2);
                   return (

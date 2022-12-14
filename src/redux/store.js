@@ -1,6 +1,6 @@
 import { current, configureStore, createSlice } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-
+import supportItems from "db/supportItems.json";
 // 로딩창
 let isLoading = createSlice({
   name: "isLoading",
@@ -76,8 +76,8 @@ let userInfo = createSlice({
 export let { setUserInfo, removeUserInfo, setDefaultSetup } = userInfo.actions;
 
 // 기업정보
-let companyInfo = createSlice({
-  name: "companyInfo",
+let userCompany = createSlice({
+  name: "userCompany",
   initialState: {},
   reducers: {
     setCompanyInfo(state, action) {
@@ -85,19 +85,11 @@ let companyInfo = createSlice({
     },
   },
 });
-export let { setCompanyInfo } = companyInfo.actions;
+export let { setCompanyInfo } = userCompany.actions;
 
 let supportItem = createSlice({
   name: "supportItem",
-  initialState: {
-    bizp_type_cd: [], // 사업자형태
-    prd_cd: [], // 창업기간
-    biz_type_cd: [], //사업형태
-    spt_cd: [], // 지원분야
-    biz_cd: [], // 사업분야
-    tech_cd: [], //기술분야
-    loc_cd: [], // 지역
-  },
+  initialState: supportItems[0],
   reducers: {
     setSupportItem(state, action) {
       const data = action.payload;
@@ -213,7 +205,6 @@ let supportInfo = createSlice({
       const stateCate = state[cate];
       const require = stateCate.require;
       const multiply = stateCate.multiply;
-      console.log(multiply);
       if (multiply) {
         if (someItem(stateCate.datas, item)) {
           if (require && stateCate.datas.length == 1) {
@@ -255,9 +246,13 @@ let supportInfo = createSlice({
       const datas = data.datas;
       state[cate].datas = datas;
     },
+    setSupportInfoDefault(state, action) {
+      return action.payload;
+    },
   },
 });
-export let { setSupportInfo, setSupportInfoModal } = supportInfo.actions;
+export let { setSupportInfo, setSupportInfoModal, setSupportInfoDefault } =
+  supportInfo.actions;
 
 // 지원 리스트 데이터
 let supportData = createSlice({
@@ -287,11 +282,10 @@ export default configureStore({
     isLoggedIn: isLoggedIn.reducer,
     isLoading: isLoading.reducer,
     userInfo: userInfo.reducer,
-    companyInfo: companyInfo.reducer,
+    userCompany: userCompany.reducer,
     supportInfo: supportInfo.reducer,
     supportItem: supportItem.reducer,
     modalState: modalState.reducer,
-    companyInfo: companyInfo.reducer,
     supportData: supportData.reducer,
     loginCheck: loginCheck.reducer,
   },

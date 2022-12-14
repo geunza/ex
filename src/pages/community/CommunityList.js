@@ -37,6 +37,17 @@ const CommunityList = ({}) => {
   const [count, setCount] = useState(30);
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
   const [blockedModalOn, setBlockedModalOn] = useState(false);
+
+  const moveScrollStorage = () => {
+    window.scrollTo({
+      top: parseInt(sessionStorage.getItem("cOffset")),
+    });
+    sessionStorage.setItem("cOffset", 0);
+  };
+  const setScrollStorage = (value) => {
+    console.log(value);
+    sessionStorage.setItem("cOffset", value);
+  };
   const getCommunityLength = () => {
     axios({
       url: "/mobile/community/totalCnt",
@@ -55,6 +66,7 @@ const CommunityList = ({}) => {
       .then((res) => {
         const data = res.data;
         setPosts(data);
+        moveScrollStorage();
         dispatch(loadingEnd());
       })
       .catch((err) => {
@@ -141,7 +153,6 @@ const CommunityList = ({}) => {
       (pageDummy - 1) * viewDummy
     }`;
     getCommunityList(stringParams);
-    window.scrollTo(0, 0);
   }, [location]);
   function decode(txt) {
     return decodeURI(txt);
@@ -229,6 +240,7 @@ const CommunityList = ({}) => {
             )}
           </div>
         </div>
+
         <div className={styles.CommunityListContent}>
           <div className={`${styles.inner} inner`}>
             <div className={styles.listTop}>
@@ -446,6 +458,7 @@ const CommunityList = ({}) => {
                     return (
                       <CommunityListItem
                         key={i}
+                        setScrollStorage={setScrollStorage}
                         post={post}
                         controlBox={controlBox}
                         setControlBox={setControlBox}

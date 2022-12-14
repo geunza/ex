@@ -36,7 +36,6 @@ const SupportView = ({}) => {
         setItem({});
       } else {
         setItem(item);
-        console.log(item);
       }
       dispatch(loadingEnd());
     });

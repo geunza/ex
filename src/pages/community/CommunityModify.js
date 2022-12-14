@@ -10,35 +10,61 @@ const CommunityModify = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const [cate, setCate] = useState("정보공유"); //category
-  const [openCate, setOpenCate] = useState(false);
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
-  const [fileData, setFileData] = useState([]);
+  const [editorFileData, setEditorFileData] = useState([]);
+  const [fileName, setFileName] = useState([]);
   const [defaultTxt, setDefaultTxt] = useState("");
   const btnSubmit = () => {
-    // console.log("CATEGORY :" + cate);
-    // console.log("title :" + title);
-    // console.log("content :" + editorTxt);
     if (title == "" && editorTxt == "") {
       alert("필수 입력사항을 입력해 주세요.");
-      return;
+      return false;
     } else if (title == "") {
       alert("제목은 필수 입력사항입니다.");
-      return;
+      return false;
     } else if (editorTxt == "") {
       alert("내용은 필수 입력사항입니다.");
-      return;
+      return false;
     }
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(editorTxt, "text/html");
+    doc.querySelectorAll("img").forEach((v) => {
+      const alt = v.getAttribute("alt");
+      if (alt.slice(-4, alt.length) == "_NEW") {
+        const newAlt = alt.slice(0, alt.length - 4);
+        v.setAttribute("alt", newAlt);
+        v.setAttribute("src", newAlt);
+      }
+    });
+    const txtData = doc.querySelector("body").innerHTML;
+    const formData1 = new FormData();
+    formData1.append("category", cate);
+    formData1.append("userId", userInfo.id);
+    formData1.append("title", title);
+    formData1.append("content", txtData);
+    formData1.append("id", id);
+    // formData1.append("content", editorTxt);
+    for (let i = 0; i < editorFileData.length; i++) {
+      formData1.append("files", editorFileData[i]);
+    }
+    axios
+      .put("/mobile/community/edit", formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("AAA");
+        navigate(`/community/communityView/${id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  const selectCate = (e) => {
-    const {
-      target: { value },
-    } = e;
-    setCate(value);
-    setOpenCate((prev) => !prev);
-  };
+
   const titleChange = (e) => {
     const iptValue = e.currentTarget.value;
     setTitle(iptValue);
@@ -72,17 +98,23 @@ const CommunityModify = () => {
       data: { content_id: parseInt(id) },
     })
       .then((res) => {
-        console.log(res.data);
+        setFileName(res.data.map((v) => v.file_name));
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     getCommunityData();
-    // getCommunityFiles();
+    getCommunityFiles();
   }, []);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      alert("잘못된 접근입니다.");
+      navigate(-1);
+    }
+  }, [userInfo]);
   return (
     <>
-      <div className={styles.CommunityWrite}>
+      <div className={`${styles.CommunityModify} ${styles.CommunityWrite}`}>
         <div className="commonTitleWrap">
           <div className={`inner ${styles.titleFlex}`}>
             <div className={``}>
@@ -103,12 +135,7 @@ const CommunityModify = () => {
             <div className={styles.cateArea}>
               <p className={styles.cateTit}>카테고리</p>
               <div className={styles.cateItems}>
-                <p
-                  className={styles.currentCate}
-                  onClick={() => {
-                    setOpenCate((prev) => !prev);
-                  }}
-                >
+                <p className={styles.currentCate}>
                   {cate}
                   <img
                     src={
@@ -118,31 +145,17 @@ const CommunityModify = () => {
                     alt="카테고리 선택"
                   />
                 </p>
-                {openCate && (
-                  <ul className={styles.cateItems}>
-                    <li className={styles.cateItem}>
-                      <button onClick={selectCate} value="정보공유">
-                        정보공유
-                      </button>
-                    </li>
-                    <li className={styles.cateItem}>
-                      <button onClick={selectCate} value="QnA">
-                        QnA
-                      </button>
-                    </li>
-                    <li className={styles.cateItem}>
-                      <button onClick={selectCate} value="기업매칭">
-                        기업매칭
-                      </button>
-                    </li>
-                    <li className={styles.cateItem}>
-                      <button onClick={selectCate} value="자유게시판">
-                        자유게시판
-                      </button>
-                    </li>
-                  </ul>
-                )}
               </div>
+              <p className={styles.modifyInform}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/ico/ico_warning.png"
+                  }
+                  alt="제목과 내용만 수정 가능합니다."
+                />
+                <span>제목과 내용만 수정 가능합니다.</span>
+              </p>
             </div>
             <div className={styles.txtArea}>
               <div className={styles.titleArea}>
@@ -159,16 +172,35 @@ const CommunityModify = () => {
                   editorTxt={editorTxt}
                   setEditorTxt={setEditorTxt}
                   defaultValue={defaultTxt}
-                  setEditorFileData={setFileData}
+                  editorFileData={editorFileData}
+                  setEditorFileData={setEditorFileData}
                 />
               </div>
             </div>
             <div className={styles.fileArea}>
-              <FileUpload
-                fileData={fileData}
-                setFileData={setFileData}
-                styles={styles}
-              />
+              <label
+                htmlFor="multipleFiles"
+                onClick={(e) => {
+                  e.preventDefault();
+                  alert("제목과 내용만 수정 가능합니다.");
+                }}
+              >
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/public_assets/img/global/btn/btn_add.png"
+                  }
+                  alt="첨부파일 추가"
+                />
+                <span>첨부파일</span>
+              </label>
+              <div className={styles.items}>
+                {fileName.map((name, idx) => (
+                  <p key={idx} className={styles.item}>
+                    <span>{name}</span>
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
