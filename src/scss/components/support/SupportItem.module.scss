@@ -66,6 +66,14 @@
       align-items: stretch;
       flex-flow: column;
       gap: 10px;
+      .dueDate {
+        &.end {
+          background: $color-deepGray;
+          span {
+            color: #fff;
+          }
+        }
+      }
       li {
         flex: 1;
         border: 1px solid $color-borderGray;

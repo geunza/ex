@@ -8,11 +8,14 @@ import {
 } from "redux/store";
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
+import { useNavigate } from "react-router-dom";
 const SupportFilter = ({ getSupportCont }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportItem = useSelector((state) => state.supportItem);
   const supportInfo = useSelector((state) => state.supportInfo);
+
   const [objDummy, setObjDummy] = useState({ ...supportInfo });
   const [modalIdx, setModalIDx] = useState(0);
   const [modalOn, setModalOn] = useState(false);
@@ -325,6 +328,7 @@ const SupportFilter = ({ getSupportCont }) => {
                 if (!isLoggedIn) {
                   dispatch(setLoginCheck(true));
                 } else {
+                  navigate("./");
                   getSupportCont();
                 }
               }}

@@ -28,7 +28,7 @@ const Header = ({}) => {
       alert("검색어를 입력하세요.");
       return false;
     }
-    alert("검색 시작");
+    navigate(`/support/supportList?keyword=${searchValue}`);
     setSearchVal("");
   };
   const temporarysignIn = () => {
@@ -100,6 +100,12 @@ const Header = ({}) => {
             name="searchText"
             placeholder="지원사업을 검색해보세요."
             onChange={onChange}
+            onFocus={() => {
+              // console.log("FOCUS");
+            }}
+            onBlur={() => {
+              // console.log("BLUR");
+            }}
             value={searchVal}
             autoComplete="off"
           />

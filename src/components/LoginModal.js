@@ -31,7 +31,18 @@ const LoginModal = () => {
             </button>
           </div>
           <div className={styles.modalCont}>
-            <p className={styles.subTit}>1초만에 로그인하기</p>
+            <div className={styles.imgArea}>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/public_assets/img/global/ico/ico_login.png"
+                }
+                alt="로그인하기"
+              />
+              <p>
+                <span>1초</span>만에 로그인하기
+              </p>
+            </div>
             <div className={styles.loginRoute}>
               <div className={styles.sns}>
                 <button type="button" className={styles.btnKakao}>
@@ -42,7 +53,14 @@ const LoginModal = () => {
                     }
                     alt="Kakao Icon"
                   />
-                  <span>Kakao</span>
+                  <span>카카오 로그인</span>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/home/sns_kakao.png"
+                    }
+                    alt="Kakao Icon"
+                  />
                 </button>
                 <button type="button" className={styles.btnApple}>
                   <img
@@ -52,7 +70,14 @@ const LoginModal = () => {
                     }
                     alt="Apple Icon"
                   />
-                  <span>Apple</span>
+                  <span>Apple 로그인</span>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/home/sns_apple.png"
+                    }
+                    alt="Apple Icon"
+                  />
                 </button>
               </div>
             </div>

@@ -14,7 +14,10 @@ const SupportItem = ({ item, getSupportCont }) => {
   const title = item.si_title;
   const cost = item.target_cost_value;
   const costComma = addComma(item.target_cost_value);
+  const readDateSource = item.tl_cret_dt;
   const endDateSource = item.si_end_dt;
+  const today = new Date();
+  const isEnd = endDateSource - today.getTime() < 0;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const viewCount = item.view_cnt;
   const isZzim = item.mb_save_yn == "Y";
@@ -59,7 +62,7 @@ const SupportItem = ({ item, getSupportCont }) => {
               <li>{locName}</li>
               <li>{targetName}</li>
             </ol>
-            <p></p>
+            <p>{readDateSource && readDateSource}</p>
           </div>
           <div className={styles.itemInfo}>
             <h4>
@@ -77,18 +80,24 @@ const SupportItem = ({ item, getSupportCont }) => {
         </div>
         <div className={styles.rightArea}>
           <ul>
-            <li>
-              <img
-                priority="true"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_date.png"
-                }
-                alt="마감일"
-              />
-              <span className={styles.dueDate}>
-                {endDate} ({endDay})
-              </span>
+            <li className={`${styles.dueDate} ` + (isEnd ? styles.end : "")}>
+              {isEnd ? (
+                <span>마감</span>
+              ) : (
+                <>
+                  <img
+                    priority="true"
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_date.png"
+                    }
+                    alt="마감일"
+                  />
+                  <span>
+                    {endDate} ({endDay})
+                  </span>
+                </>
+              )}
             </li>
             <li>
               <img

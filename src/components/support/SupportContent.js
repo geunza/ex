@@ -7,11 +7,14 @@ import styles from "scss/components/support/SupportContent.module.scss";
 import SupportItem from "components/support/SupportItem";
 import Pagination from "components/Pagination";
 import axios from "axios";
+import { setSupportData } from "redux/store";
+import EventModal from "components/home/EventModal";
 const SupportContent = ({ getSupportCont }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const keywordParam = searchParams.get("keyword");
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -21,6 +24,7 @@ const SupportContent = ({ getSupportCont }) => {
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(30);
+  const [keyword, setKeyword] = useState("");
   const [sltView, setSltView] = useState(false);
   const countClick = (e) => {
     const {
@@ -63,11 +67,40 @@ const SupportContent = ({ getSupportCont }) => {
       setSupportCont(copy);
     }
   }, [ord]);
-  useEffect(() => {
-    if (supportData.length == 0) {
-      getSupportCont();
+  const getSupportContByKeyword = () => {
+    if (keywordParam == "null") {
+      keywordParam = "";
     }
-  }, []);
+    dispatch(loadingStart());
+    axios({
+      url: "/support/getSupportInfoList",
+      method: "POST",
+      headers: {
+        user_id: parseInt(userInfo.id),
+      },
+      data: {
+        ord: ord,
+        business_type: supportInfo.bizp_type_cd.datas
+          .map((v) => v.code)
+          .toString(),
+        start_period: supportInfo.prd_cd.datas.map((v) => v.code).toString(),
+        company_type: supportInfo.biz_type_cd.datas
+          .map((v) => v.code)
+          .toString(),
+        target_cat_name: supportInfo.spt_cd.datas.map((v) => v.code).toString(),
+        business_ctg: supportInfo.biz_cd.datas.map((v) => v.code).toString(),
+        tech_ctg: supportInfo.tech_cd.datas.map((v) => v.code).toString(),
+        loc_code: supportInfo.loc_cd.datas.map((v) => v.code).toString(),
+        keyword: keywordParam,
+      },
+    }).then((res) => {
+      dispatch(setSupportData(res.data));
+      dispatch(loadingEnd());
+    });
+  };
+  useEffect(() => {
+    getSupportContByKeyword();
+  }, [keywordParam]);
   useEffect(() => {
     const searchTxt = location.search;
     let searchObj = {};
@@ -91,8 +124,13 @@ const SupportContent = ({ getSupportCont }) => {
     } else {
       setCount(searchObj.view);
     }
+    if (searchObj.keyword == undefined) {
+      setKeyword("");
+    } else {
+      setKeyword(searchObj.keyword);
+    }
     window.scrollTo(0, 0);
-  }, [searchParams]);
+  }, [location]);
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -106,13 +144,10 @@ const SupportContent = ({ getSupportCont }) => {
     });
     let newSearchTxt = "";
     for (let key in searchObj) {
-      if (searchObj[key] == "undefined") {
+      if (searchObj[key] == "undefined" || key == name) {
         continue;
-      }
-      if (key == "page") {
+      } else if (key == "page") {
         newSearchTxt += `page=1&`;
-      } else if (key == name) {
-        continue;
       } else {
         newSearchTxt += `${key}=${searchObj[key]}&`;
       }
@@ -120,6 +155,15 @@ const SupportContent = ({ getSupportCont }) => {
     newSearchTxt += `${name}=${value}`;
     navigate("?" + newSearchTxt);
   }
+  const [modalOn, setModalOn] = useState(false);
+  const [modalTab, setModalTab] = useState(0);
+  const modalOpener = (e) => {
+    const {
+      currentTarget: { name, value },
+    } = e;
+    const isTrue = value == "true";
+    setModalOn(isTrue);
+  };
   return (
     <div className={styles.SupportContent}>
       <div className={styles.ordWrap}>
@@ -218,28 +262,88 @@ const SupportContent = ({ getSupportCont }) => {
           </div>
         </div>
         <div className={styles.itemWrap}>
-          <ul>
-            {supportCont
-              .slice((page - 1) * count, page * count)
-              .map((item, idx) => {
-                return (
-                  <SupportItem
-                    key={idx}
-                    item={item}
-                    getSupportCont={getSupportCont}
-                  />
-                );
-              })}
-          </ul>
+          {supportCont.length == 0 ? (
+            <>
+              <div className="empty">
+                <p className="empty_tit">일치하는 지원사업이 없습니다.</p>
+                <p className="empty_para">
+                  <span>
+                    (키워드 알림을 설정하시면 지원사업 업로드시 앱 알림을
+                    보내드려요.)
+                  </span>
+                </p>
+                <div className="btns">
+                  <button
+                    type="button"
+                    value="true"
+                    className="emptyBtn"
+                    onClick={(e) => {
+                      setModalTab(0);
+                      modalOpener(e);
+                    }}
+                  >
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/ico/ico_mail_white.png"
+                      }
+                      alt="이메일 정기배송 신청"
+                    />
+                    <span>이메일 정기배송 신청</span>
+                  </button>
+                  <button
+                    type="button"
+                    value="true"
+                    className="emptyBtn"
+                    onClick={(e) => {
+                      setModalTab(1);
+                      modalOpener(e);
+                    }}
+                  >
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/ico/ico_alarm_white.png"
+                      }
+                      alt="키워드 알림 설정"
+                    />
+                    <span>키워드 알림 설정</span>
+                  </button>
+                </div>
+              </div>
+              {modalOn && (
+                <EventModal
+                  modalOpener={modalOpener}
+                  modalTab={parseInt(modalTab)}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              <ul>
+                {supportCont
+                  .slice((page - 1) * count, page * count)
+                  .map((item, idx) => {
+                    return (
+                      <SupportItem
+                        key={idx}
+                        item={item}
+                        getSupportCont={getSupportCont}
+                      />
+                    );
+                  })}
+              </ul>
+              <Pagination
+                total={supportCont.length}
+                postLimit={count}
+                numLimit={5}
+                page={parseInt(page)}
+                searchParams={searchParams}
+                ord={ord}
+              />
+            </>
+          )}
         </div>
-        <Pagination
-          total={supportCont.length}
-          postLimit={count}
-          numLimit={5}
-          page={parseInt(page)}
-          searchParams={searchParams}
-          ord={ord}
-        />
       </div>
     </div>
   );

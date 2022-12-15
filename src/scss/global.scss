@@ -90,6 +90,30 @@ body {
       display: block;
     }
   }
+  .btns {
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+    margin-top: 50px;
+    .emptyBtn {
+      margin: auto;
+      width: 280px;
+      height: 50px;
+      background-color: $color-main;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      border: none;
+      border-radius: $radius-btn;
+      gap: 10px;
+      span {
+        font-size: 18px;
+        padding-top: 4px;
+        color: #fff;
+      }
+    }
+  }
   a {
     color: $color-sub;
   }
@@ -331,9 +355,6 @@ body {
           border: none;
         }
       }
-    }
-    :global .modalWrap {
-      background: transparent;
     }
   }
 }

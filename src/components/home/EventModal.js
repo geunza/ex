@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "scss/components/Modal.module.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginCheck } from "redux/store";
+import { modalOverflow, setLoginCheck } from "redux/store";
 const EventModal = ({ modalOpener, modalTab }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -175,6 +175,12 @@ const EventModal = ({ modalOpener, modalTab }) => {
       getUserKeyword();
     }
   }, [userInfo]);
+  useEffect(() => {
+    dispatch(modalOverflow(true));
+    return () => {
+      dispatch(modalOverflow(false));
+    };
+  }, []);
   return (
     // CHECK : TITLE IMG 체크
     <div className={`${styles.modalWrap} ${styles.EventModal}`}>
