@@ -19,7 +19,8 @@ const SupportContent = ({ getSupportCont }) => {
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
-  const [supportCont, setSupportCont] = useState([...supportData]);
+  const [supportCont, setSupportCont] = useState([]);
+  const [supportFilterCont, setSupportFilterCont] = useState([]);
   const navigate = useNavigate();
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState(1);
@@ -33,34 +34,28 @@ const SupportContent = ({ getSupportCont }) => {
     setSltView(false);
     navigateSearchTxt(name, value);
   };
-
   const ordClick = (e) => {
     const {
       currentTarget: { name, value },
     } = e;
     navigateSearchTxt(name, value);
   };
-  useEffect(() => {
-    setSupportCont(supportData);
-  }, [supportData]);
 
   useEffect(() => {
+    let copy = [...supportCont];
     if (ord == "전체") {
       setSupportCont([...supportData]);
     } else if (ord == "인기순") {
-      let copy = [...supportData];
       copy.sort((a, b) => {
         return b.view_cnt - a.view_cnt;
       });
       setSupportCont(copy);
     } else if (ord == "금액높은순") {
-      let copy = [...supportData];
       copy.sort((a, b) => {
         return b.target_cost_value - a.target_cost_value;
       });
       setSupportCont(copy);
     } else if (ord == "마감임박순") {
-      let copy = [...supportData];
       copy.sort((a, b) => {
         return a.si_end_dt - b.si_end_dt;
       });
@@ -70,37 +65,78 @@ const SupportContent = ({ getSupportCont }) => {
   const getSupportContByKeyword = () => {
     if (keywordParam == "null") {
       keywordParam = "";
+      axios({
+        url: "/support/getSupportInfoList",
+        method: "POST",
+        headers: {
+          user_id: parseInt(userInfo.id),
+        },
+        data: {
+          ord: ord,
+          business_type: supportInfo.bizp_type_cd.datas
+            .map((v) => v.code)
+            .toString(),
+          start_period: supportInfo.prd_cd.datas.map((v) => v.code).toString(),
+          company_type: supportInfo.biz_type_cd.datas
+            .map((v) => v.code)
+            .toString(),
+          target_cat_name: supportInfo.spt_cd.datas
+            .map((v) => v.code)
+            .toString(),
+          business_ctg: supportInfo.biz_cd.datas.map((v) => v.code).toString(),
+          tech_ctg: supportInfo.tech_cd.datas.map((v) => v.code).toString(),
+          loc_code: supportInfo.loc_cd.datas.map((v) => v.code).toString(),
+          keyword: "",
+        },
+      }).then((res) => {
+        dispatch(setSupportData(res.data));
+        dispatch(loadingEnd());
+      });
+    } else {
+      console.log("keywordParam", keywordParam);
+      axios({
+        url: "/support/getSupportInfoList",
+        method: "POST",
+        headers: {
+          user_id: parseInt(userInfo.id),
+        },
+        data: {
+          ord: ord,
+          business_type: "01",
+          start_period: "999",
+          company_type: "01",
+          target_cat_name: "01",
+          business_ctg: "01",
+          tech_ctg: "01",
+          loc_code: "C82",
+          keyword: keywordParam,
+        },
+      }).then((res) => {
+        dispatch(setSupportData(res.data));
+        dispatch(loadingEnd());
+      });
     }
     dispatch(loadingStart());
-    axios({
-      url: "/support/getSupportInfoList",
-      method: "POST",
-      headers: {
-        user_id: parseInt(userInfo.id),
-      },
-      data: {
-        ord: ord,
-        business_type: supportInfo.bizp_type_cd.datas
-          .map((v) => v.code)
-          .toString(),
-        start_period: supportInfo.prd_cd.datas.map((v) => v.code).toString(),
-        company_type: supportInfo.biz_type_cd.datas
-          .map((v) => v.code)
-          .toString(),
-        target_cat_name: supportInfo.spt_cd.datas.map((v) => v.code).toString(),
-        business_ctg: supportInfo.biz_cd.datas.map((v) => v.code).toString(),
-        tech_ctg: supportInfo.tech_cd.datas.map((v) => v.code).toString(),
-        loc_code: supportInfo.loc_cd.datas.map((v) => v.code).toString(),
-        keyword: keywordParam,
-      },
-    }).then((res) => {
-      dispatch(setSupportData(res.data));
-      dispatch(loadingEnd());
-    });
   };
   useEffect(() => {
+    setSupportCont([...supportData]);
+  }, [supportData]);
+  useEffect(() => {
+    if (keyword == "") {
+      setSupportFilterCont(
+        [...supportCont].filter((x) => {
+          let endDate = x.si_end_dt;
+          let today = new Date().getTime();
+          return endDate - today > 0;
+        })
+      );
+    } else {
+      setSupportFilterCont([...supportCont]);
+    }
+  }, [supportCont, keyword]);
+  useEffect(() => {
     getSupportContByKeyword();
-  }, [keywordParam]);
+  }, [keyword]);
   useEffect(() => {
     const searchTxt = location.search;
     let searchObj = {};
@@ -208,7 +244,7 @@ const SupportContent = ({ getSupportCont }) => {
       </div>
       <div className={styles.contArea}>
         <div className={styles.contTop}>
-          <p className={styles.total}>전체 {supportCont.length}개</p>
+          <p className={styles.total}>전체 {supportFilterCont.length}개</p>
           <div className={styles.countWrap}>
             <p
               onClick={() => {
@@ -262,7 +298,7 @@ const SupportContent = ({ getSupportCont }) => {
           </div>
         </div>
         <div className={styles.itemWrap}>
-          {supportCont.length == 0 ? (
+          {supportFilterCont.length == 0 ? (
             <>
               <div className="empty">
                 <p className="empty_tit">일치하는 지원사업이 없습니다.</p>
@@ -321,20 +357,20 @@ const SupportContent = ({ getSupportCont }) => {
           ) : (
             <>
               <ul>
-                {supportCont
+                {supportFilterCont
                   .slice((page - 1) * count, page * count)
                   .map((item, idx) => {
                     return (
                       <SupportItem
                         key={idx}
                         item={item}
-                        getSupportCont={getSupportCont}
+                        getSupportCont={getSupportContByKeyword}
                       />
                     );
                   })}
               </ul>
               <Pagination
-                total={supportCont.length}
+                total={supportFilterCont.length}
                 postLimit={count}
                 numLimit={5}
                 page={parseInt(page)}

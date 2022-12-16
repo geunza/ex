@@ -21,7 +21,7 @@ const SavedWrap = () => {
   const [cate, setCate] = useState("");
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState({});
-
+  let count = 10;
   useEffect(() => {
     const searchTxt = location.search;
     let searchObj = {};
@@ -45,7 +45,8 @@ const SavedWrap = () => {
     } else {
       setPage(parseInt(searchObj.page));
     }
-  }, [searchParams]);
+    window.scrollTo(0, 0);
+  }, [location]);
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -154,9 +155,12 @@ const SavedWrap = () => {
             {cate == "recent" && (
               <RecentCont
                 ord={ord}
+                setOrd={setOrd}
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
                 getTotalCount={getTotalCount}
+                count={count}
+                page={page}
               />
             )}
             {cate == "save" && (
@@ -166,6 +170,8 @@ const SavedWrap = () => {
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
                 getTotalCount={getTotalCount}
+                count={count}
+                page={page}
               />
             )}
             {cate == "apply" && (
@@ -174,6 +180,8 @@ const SavedWrap = () => {
                 ord={ord}
                 getDoughnutList={getDoughnutList}
                 getBarList={getBarList}
+                count={count}
+                page={page}
               />
             )}
           </div>

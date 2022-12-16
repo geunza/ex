@@ -7,7 +7,7 @@
   justify-content: space-between;
   .leftArea {
     width: 80%;
-    font-size: 14px;
+    font-size: 13px;
     .itemTop {
       display: flex;
       justify-content: space-between;
@@ -29,7 +29,7 @@
     }
     .itemInfo {
       h4 {
-        font-size: 22px;
+        font-size: 20px;
         letter-spacing: -0.3px;
         margin-bottom: 25px;
         display: -webkit-box;
@@ -83,7 +83,7 @@
         align-items: center;
         gap: 5px;
         span {
-          font-size: 14px;
+          font-size: 13px;
           padding-top: 3px;
           color: $color-deepGray;
         }

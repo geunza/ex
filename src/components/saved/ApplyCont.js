@@ -7,7 +7,8 @@ import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/SavedWrap.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import ApplyItem from "components/saved/ApplyItem";
-const MyCont = ({ ord, getDoughnutList, getBarList }) => {
+import Pagination from "components/Pagination";
+const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
@@ -112,20 +113,32 @@ const MyCont = ({ ord, getDoughnutList, getBarList }) => {
           </p>
         </div>
       ) : (
-        <ul className={styles.savedItemsList}>
-          {applyItems.map((item, idx) => {
-            return (
-              <ApplyItem
-                item={item}
-                key={item.mb_idx}
-                getApplyItems={getApplyItems}
-                ord={ord}
-                getDoughnutList={getDoughnutList}
-                getBarList={getBarList}
-              />
-            );
-          })}
-        </ul>
+        <>
+          <ul className={styles.savedItemsList}>
+            {applyItems
+              .slice((page - 1) * count, page * count)
+              .map((item, idx) => {
+                return (
+                  <ApplyItem
+                    item={item}
+                    key={item.mb_idx}
+                    getApplyItems={getApplyItems}
+                    ord={ord}
+                    getDoughnutList={getDoughnutList}
+                    getBarList={getBarList}
+                  />
+                );
+              })}
+          </ul>
+          <Pagination
+            total={applyItems.length}
+            postLimit={10}
+            numLimit={5}
+            page={parseInt(page)}
+            searchParams={searchParams}
+            ord={ord}
+          />
+        </>
       )}
     </>
   );

@@ -8,10 +8,10 @@
   .supportBox {
     width: 49%;
     &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
     .supportCate {
-      font-size: $font-title-mid;
+      font-size: 24px;
       font-weight: 700;
       margin-bottom: 20px;
     }

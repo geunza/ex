@@ -19,7 +19,7 @@
     margin-bottom: 50px;
   }
   .mainTit {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 15px;
     span {
@@ -28,7 +28,7 @@
   }
   .tit,
   .filterTit {
-    font-size: 22px;
+    font-size: 18px;
     margin-bottom: 10px;
   }
   .box {
@@ -63,7 +63,7 @@
           }
         }
         span {
-          font-size: 24px;
+          font-size: 18px;
         }
       }
     }
@@ -90,7 +90,7 @@
           border: 1px solid $color-borderGray;
           border-radius: $radius-btn;
           height: 45px;
-          font-size: 16px;
+          font-size: 14px;
           outline: none;
         }
         .filterListWrap {
@@ -126,7 +126,7 @@
                 height: 45px;
                 border-radius: $radius-btn;
                 text-align: left;
-                font-size: 16px;
+                font-size: 14px;
                 padding: 0 10px;
               }
             }
@@ -138,7 +138,7 @@
           height: 45px;
           border-radius: $radius-btn;
           text-align: left;
-          font-size: 16px;
+          font-size: 14px;
           padding: 0 10px;
         }
         .submitArea {
@@ -148,7 +148,7 @@
           .btnSubmit {
             background: $color-sub;
             height: 60px;
-            font-size: 20px;
+            font-size: 18px;
             color: #fff;
             border: none;
             width: 100%;
@@ -209,6 +209,8 @@
       }
     }
     .nicknameCheck {
+      font-size: 14px;
+      padding-top: 4px;
       &.checkOK {
         color: #7aa3d6;
       }

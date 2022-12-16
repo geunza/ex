@@ -25,7 +25,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 25px;
+    padding: 15px 20px;
     border-bottom: 1px solid $color-borderGray;
     .tit {
       display: flex;
@@ -36,7 +36,7 @@
       }
       p {
         padding-top: 5px;
-        font-size: 24px;
+        font-size: 18px;
       }
     }
     button {
@@ -55,14 +55,14 @@
     text-align: center;
     padding: 15px 0 12px;
     border-radius: $radius-btn;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     span {
       display: block;
     }
   }
 
   .commonList {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     li {
       border-bottom: 1px solid $color-borderGray;
       padding: 15px 0;
@@ -106,13 +106,13 @@
       border: none;
       border-radius: $radius-btn;
       background: $color-lightGray;
-      font-size: 18px;
+      font-size: 16px;
       padding: 0 15px;
     }
     button[type="submit"] {
       width: 25%;
       background: #30d6c2;
-      font-size: 18px;
+      font-size: 16px;
       color: #fff;
       height: 50px;
       padding: 3px 20px 0;
@@ -128,19 +128,19 @@
       color: #fff;
       width: 100%;
       padding: 14px 0 12px;
-      font-size: 20px;
+      font-size: 18px;
       border: none;
     }
   }
   .modalCont {
-    padding: 25px;
+    padding: 20px;
     background-color: #fff;
   }
   .confirmArea {
     border-radius: 0 0 $radius-wrap $radius-wrap;
     overflow: hidden;
     button {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 }
@@ -203,7 +203,7 @@
 
 .SignInPolicyModal {
   h4 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     margin-bottom: 20px;
   }
@@ -211,7 +211,7 @@
   .email {
     margin-bottom: 15px;
     p {
-      font-size: 16px;
+      font-size: 14px;
       margin-bottom: 10px;
     }
     input[type="email"] {
@@ -219,7 +219,7 @@
       border: none;
       border-radius: 5px;
       background: #eaeff3;
-      font-size: 18px;
+      font-size: 16px;
       padding: 0 15px;
       height: 50px;
     }
@@ -264,7 +264,7 @@
       }
       button {
         border: none;
-        font-size: 16px;
+        font-size: 14px;
         color: $color-gray;
       }
     }
@@ -337,15 +337,15 @@
           // margin-bottom: 5px;
           position: relative;
           &[data-hastooltip="true"] {
-            margin-right: 25px;
+            margin-right: 20px;
           }
           button {
             //
-            height: 45px;
+            height: 40px;
             padding: 0 10px;
             border: none;
             border-radius: $radius-btn;
-            font-size: 16px;
+            font-size: 14px;
             &.selected {
               background: $color-main;
               color: #fff;
@@ -396,7 +396,7 @@
 
     button[type="submit"] {
       background: $color-main;
-      font-size: 18px;
+      font-size: 16px;
       color: #fff;
       height: 50px;
       padding: 3px 20px 0;
@@ -405,7 +405,7 @@
       border-radius: $radius-btn;
     }
     .para {
-      font-size: 18px;
+      font-size: 16px;
       margin-bottom: 20px;
       span {
         display: block;
@@ -426,10 +426,10 @@
       border-radius: $radius-btn;
       background: $color-lightGray;
       border: 1px solid $color-borderGray;
-      font-size: 18px;
+      font-size: 16px;
       padding: 0 15px;
       height: 50px;
-      font-size: 16px;
+      font-size: 14px;
     }
   }
   .eventModal_02 {
@@ -448,7 +448,7 @@
         border-radius: $radius-btn;
         border: none;
         background: $color-main;
-        font-size: 18px;
+        font-size: 16px;
         color: #fff;
         padding-top: 3px;
       }
@@ -478,7 +478,7 @@
           padding: 10px 0;
           width: 100%;
           text-align: center;
-          font-size: 16px;
+          font-size: 14px;
           border: none;
           color: $color-main;
         }
@@ -577,7 +577,7 @@
     width: 46%;
   }
   .flexTitle {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 10px;
     font-weight: 700;
   }
@@ -653,7 +653,7 @@
 
       span {
         padding-top: 3px;
-        font-size: 16px;
+        font-size: 14px;
       }
       img:last-child {
         opacity: 0;

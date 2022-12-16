@@ -78,7 +78,7 @@ body {
 .empty {
   padding: 200px 0;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   .empty_tit {
     font-size: 32px;
   }
@@ -108,7 +108,7 @@ body {
       border-radius: $radius-btn;
       gap: 10px;
       span {
-        font-size: 18px;
+        font-size: 16px;
         padding-top: 4px;
         color: #fff;
       }
@@ -124,12 +124,12 @@ body {
   padding-bottom: 20px;
   background: #fff;
   .title {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 700;
     margin-bottom: 10px;
   }
   .title + p {
-    font-size: 22px;
+    font-size: 20px;
     color: $color-deepGray;
   }
 
@@ -137,10 +137,10 @@ body {
     display: flex;
     gap: 15px;
     button {
-      font-size: 20px;
+      font-size: 17px;
       border: 1px solid $color-borderGray;
       border-radius: 100px;
-      padding: 15px 30px;
+      padding: 12px 25px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -225,6 +225,7 @@ body {
     padding: 8px 5px;
     img {
       display: block;
+      width: 20px;
     }
   }
   .controlBox {
@@ -239,7 +240,7 @@ body {
     button {
       width: 80px;
       border: none;
-      font-size: 16px;
+      font-size: 14px;
       padding: 6px 0 4px;
       color: $color-gray;
     }
@@ -253,10 +254,10 @@ body {
   flex: 0 1 auto;
   button {
     @include flexCenter(10px);
-    font-size: 18px;
+    font-size: 15px;
     border-radius: 50px;
-    height: 45px;
-    padding: 0 30px;
+    height: 40px;
+    padding: 0 25px;
     border: 1px solid $color-borderGray;
     &[data-selected="selected"] {
       background: #222;
@@ -296,7 +297,7 @@ body {
     }
     .leftArea {
       .title {
-        font-size: 24px;
+        font-size: 20px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -304,7 +305,7 @@ body {
         margin-bottom: 10px;
       }
       .content {
-        font-size: 18px;
+        font-size: 16px;
         color: $color-gray;
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -340,7 +341,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 14px;
+      font-size: 13px;
       .rightInform {
         color: $color-gray;
         display: flex;

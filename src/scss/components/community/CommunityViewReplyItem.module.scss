@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     .writer {
-      font-size: 16px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       &:after {
@@ -35,7 +35,7 @@
     width: 100%;
     white-space: pre-line;
     .leftArea {
-      font-size: 20px;
+      font-size: 18px;
       padding-right: 50px;
     }
   }
@@ -43,8 +43,8 @@
     border: 1px solid $color-borderGray;
     border-radius: $radius-btn;
     color: $color-deepGray;
-    font-size: 18px;
-    padding: 12px 20px 10px;
+    font-size: 14px;
+    padding: 10px 15px 8px;
   }
   &.mainReply {
     padding: 20px 40px;
@@ -52,7 +52,8 @@
   .rightArea {
     display: flex;
     align-items: center;
-    gap: 50px;
+    justify-content: space-between;
+    min-width: 120px;
     .likeArea {
       display: flex;
       align-items: center;
@@ -78,7 +79,7 @@
       border-radius: 50px;
       background: $color-borderGray;
       color: $color-deepGray;
-      font-size: 18px;
+      font-size: 16px;
       &:hover {
         color: #fff;
         background: $color-sub;
@@ -104,7 +105,7 @@
   button {
     display: block;
     margin: 0 0 0 auto;
-    font-size: 18px;
+    font-size: 16px;
     background: $color-borderGray;
     color: $color-deepGray;
     border: none;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "scss/components/Pagination.module.scss";
 
-const Pagination2 = ({ total, postLimit, numLimit, page }) => {
+const Pagination = ({ total, postLimit, numLimit, page }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(window.location);
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const Pagination2 = ({ total, postLimit, numLimit, page }) => {
 
   useEffect(() => {
     changeCurrentPages();
-  }, [page, location, total]);
+  }, [page, location, total, postLimit]);
   return (
     <>
       <div className={styles.Pagination}>
@@ -145,4 +145,4 @@ const Pagination2 = ({ total, postLimit, numLimit, page }) => {
     </>
   );
 };
-export default Pagination2;
+export default Pagination;

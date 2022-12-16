@@ -1,7 +1,7 @@
 @import "scss/utils";
 .SupportRecent {
   h4 {
-    font-size: $font-title-small;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 20px;
   }
@@ -27,7 +27,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         margin-bottom: 10px;
-        font-size: 16px;
+        font-size: 14px;
       }
       p {
         display: flex;
@@ -60,7 +60,7 @@
     align-items: center;
     span {
       padding-top: 4px;
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   :global .empty {

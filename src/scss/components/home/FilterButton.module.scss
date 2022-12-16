@@ -1,11 +1,11 @@
 @import "scss/utils";
 .filterBtn {
-  height: 45px;
+  height: 40px;
   background: $color-lightGray;
   padding: 0 20px;
   border: none;
   border-radius: $radius-btn;
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
   &.selected {
     background: $color-main;

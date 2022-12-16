@@ -7,13 +7,13 @@
   color: $color-gray;
   border-top: 1px solid $color-borderGray;
   > * {
-    padding: 15px 40px;
+    padding: 20px 40px;
   }
   .footerTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 
     .terms {
       display: flex;
@@ -31,7 +31,7 @@
         a {
           padding: 0 35px;
           color: $color-gray;
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
@@ -43,7 +43,7 @@
     .leftArea {
       ul {
         li {
-          font-size: 11px;
+          font-size: 13px;
           line-height: 2;
           span {
             padding-right: 15px;
@@ -74,6 +74,6 @@
   }
   .footerBottom {
     border-top: 1px solid $color-borderGray;
-    font-size: 11px;
+    font-size: 13px;
   }
 }

@@ -6,8 +6,15 @@ import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/SavedWrap.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-const RecentCont = ({ ord, getDoughnutList, getBarList, getTotalCount }) => {
+import Pagination from "components/Pagination";
+const RecentCont = ({
+  ord,
+  getDoughnutList,
+  getBarList,
+  getTotalCount,
+  page,
+  count,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
@@ -94,21 +101,33 @@ const RecentCont = ({ ord, getDoughnutList, getBarList, getTotalCount }) => {
           </p>
         </div>
       ) : (
-        <ul className={styles.savedItemsList}>
-          {recentItems.map((item, idx) => {
-            return (
-              <RecentItem
-                item={item}
-                key={item.si_idx}
-                getRecentItems={getRecentItems}
-                ord={ord}
-                getDoughnutList={getDoughnutList}
-                getBarList={getBarList}
-                getTotalCount={getTotalCount}
-              />
-            );
-          })}
-        </ul>
+        <>
+          <ul className={styles.savedItemsList}>
+            {recentItems
+              .slice((page - 1) * count, page * count)
+              .map((item, idx) => {
+                return (
+                  <RecentItem
+                    item={item}
+                    key={item.si_idx}
+                    getRecentItems={getRecentItems}
+                    ord={ord}
+                    getDoughnutList={getDoughnutList}
+                    getBarList={getBarList}
+                    getTotalCount={getTotalCount}
+                  />
+                );
+              })}
+          </ul>
+          <Pagination
+            total={recentItems.length}
+            postLimit={10}
+            numLimit={5}
+            page={parseInt(page)}
+            searchParams={searchParams}
+            ord={ord}
+          />
+        </>
       )}
     </>
   );

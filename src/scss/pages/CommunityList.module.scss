@@ -22,7 +22,7 @@
   .listTop {
     margin-bottom: 70px;
     h4 {
-      font-size: 26px;
+      font-size: 24px;
       margin-bottom: 20px;
       font-weight: 700;
     }
@@ -57,10 +57,10 @@
   .listCategory {
     display: flex;
     gap: 45px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     button {
       padding: 10px 0;
-      font-size: 26px;
+      font-size: 24px;
       color: $color-gray;
       border: none;
       border-bottom: 3px solid transparent;
@@ -75,13 +75,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin: 40px 0 20px;
     .total {
-      font-size: 20px;
+      font-size: 18px;
     }
     .countWrap {
       position: relative;
-      font-size: 16px;
+      font-size: 14px;
       .count {
         padding: 0 0 0 10px;
         display: flex;
@@ -99,7 +99,7 @@
         li {
           //
           button {
-            font-size: 16px;
+            font-size: 14px;
             border: none;
             width: 100%;
             text-align: left;
@@ -135,7 +135,7 @@
           height: auto;
           width: 100%;
           padding: 0 50px 0 15px;
-          font-size: 18px;
+          font-size: 16px;
         }
         button[type="submit"] {
           border: none;
@@ -160,8 +160,8 @@
       img {
       }
       span {
-        font-size: 18px;
-        padding-top: 4px;
+        font-size: 15px;
+        padding-top: 2px;
       }
     }
     .listItemWrap {

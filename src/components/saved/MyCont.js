@@ -6,7 +6,15 @@ import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/SavedWrap.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import MyItem from "components/saved/MyItem";
-const MyCont = ({ ord, getDoughnutList, getBarList, getTotalCount }) => {
+import Pagination from "components/Pagination";
+const MyCont = ({
+  ord,
+  getDoughnutList,
+  getBarList,
+  getTotalCount,
+  count,
+  page,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
@@ -111,21 +119,33 @@ const MyCont = ({ ord, getDoughnutList, getBarList, getTotalCount }) => {
           </p>
         </div>
       ) : (
-        <ul className={styles.savedItemsList}>
-          {myItems.map((item, idx) => {
-            return (
-              <MyItem
-                item={item}
-                key={item.mb_idx}
-                getMyItems={getMyItems}
-                ord={ord}
-                getDoughnutList={getDoughnutList}
-                getBarList={getBarList}
-                getTotalCount={getTotalCount}
-              />
-            );
-          })}
-        </ul>
+        <>
+          <ul className={styles.savedItemsList}>
+            {myItems
+              .slice((page - 1) * count, page * count)
+              .map((item, idx) => {
+                return (
+                  <MyItem
+                    item={item}
+                    key={item.mb_idx}
+                    getMyItems={getMyItems}
+                    ord={ord}
+                    getDoughnutList={getDoughnutList}
+                    getBarList={getBarList}
+                    getTotalCount={getTotalCount}
+                  />
+                );
+              })}
+          </ul>
+          <Pagination
+            total={myItems.length}
+            postLimit={10}
+            numLimit={5}
+            page={parseInt(page)}
+            searchParams={searchParams}
+            ord={ord}
+          />
+        </>
       )}
     </>
   );

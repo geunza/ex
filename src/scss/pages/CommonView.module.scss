@@ -11,13 +11,13 @@
       align-items: center;
       gap: 10px;
       background-color: #fff;
-      padding: 10px 30px;
+      padding: 10px 25px;
       img {
         display: block;
       }
       span {
         padding-top: 4px;
-        font-size: 18px;
+        font-size: 16px;
       }
     }
   }
@@ -25,12 +25,12 @@
     border-radius: $radius-wrap;
     padding: 55px 50px;
     background-color: #fff;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     .contTop {
       .writer {
-        margin-bottom: 70px;
+        margin-bottom: 40px;
         .nickname {
-          font-size: 20px;
+          font-size: 18px;
           margin-bottom: 5px;
           line-height: 1;
         }
@@ -41,7 +41,7 @@
       }
       .titleArea {
         h3 {
-          font-size: 40px;
+          font-size: 36px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -51,7 +51,7 @@
     .cont {
       padding: 0 15px;
       color: $color-deepGray;
-      font-size: 18px;
+      font-size: 16px;
       margin-bottom: 100px;
       p {
         word-break: break-all;
@@ -82,7 +82,7 @@
           button {
             width: 80px;
             border: none;
-            font-size: 16px;
+            font-size: 14px;
             padding: 6px 0 4px;
             color: $color-gray;
           }
@@ -113,7 +113,7 @@
     textarea {
       width: 100%;
       padding: 25px;
-      font-size: 16px;
+      font-size: 14px;
       outline: none;
       display: block;
       margin-bottom: 25px;
@@ -130,14 +130,14 @@
     .writeArea {
       padding: 0 40px 20px;
       h4 {
-        font-size: 18px;
+        font-size: 16px;
         margin-bottom: 15px;
       }
 
       button {
         display: block;
         margin: 0 0 0 auto;
-        font-size: 18px;
+        font-size: 16px;
         background: $color-borderGray;
         color: $color-deepGray;
         border: none;

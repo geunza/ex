@@ -2,7 +2,7 @@
 
 .SupportFilter {
   h4 {
-    font-size: $font-title-small;
+    font-size: 22px;
     margin-bottom: 25px;
     font-weight: 700;
     span {
@@ -19,7 +19,7 @@
     label {
       padding-top: 3px;
       color: $color-deepGray;
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   .filterBox {
@@ -43,7 +43,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-size: 16px;
+          font-size: 14px;
           margin-bottom: 10px;
           .arr {
             @include flexCenter;
@@ -61,7 +61,7 @@
           }
         }
         .currentSelected {
-          font-size: 20px;
+          font-size: 18px;
           color: $color-main;
         }
       }
@@ -121,7 +121,7 @@
       button {
         @include flexCenter();
         width: 100%;
-        font-size: 18px;
+        font-size: 16px;
         border: 1px solid #222;
         border-radius: $radius-btn;
         height: 50px;
