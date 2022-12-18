@@ -31,7 +31,10 @@ const RecentItem = ({
     return week[new Date(date).getDay()];
   }
   const cost = item.target_cost_value;
-  const costComma = addComma(item.target_cost_value);
+  let costComma;
+  if (cost > 0) {
+    costComma = addComma(item.target_cost_value);
+  }
 
   const isZzim = item.mb_save_yn == "Y";
   const viewCount = item.view_cnt;
@@ -69,6 +72,25 @@ const RecentItem = ({
       })
       .catch((err) => console.log(err));
   };
+  const openInNewTab = (url, idx) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: idx.toString() },
+      });
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      method: "POST",
+    }).then(() => {
+      getRecentItems(ord);
+    });
+  };
   return (
     <li className={styles.supportItem}>
       <div className={styles.leftArea}>
@@ -84,7 +106,13 @@ const RecentItem = ({
         </div>
         <div className={styles.itemInfo}>
           <h4>
-            <Link to="###">{title}</Link>
+            <button
+              onClick={() => {
+                openInNewTab(item.mobile_url, item.si_idx);
+              }}
+            >
+              {title}
+            </button>
           </h4>
           <p>
             {cost > 0 && (

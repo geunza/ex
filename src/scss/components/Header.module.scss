@@ -75,13 +75,24 @@
       padding: 20px;
       z-index: 5;
       border-radius: 0 0 22px 22px;
+      border: 2px solid #3939c7;
       .box {
         position: relative;
         &:not(:last-child) {
           margin-bottom: 15px;
         }
         .tit {
-          margin-bottom: 5px;
+          margin-bottom: 10px;
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .removeAll {
+            font-size: 13px;
+            height: 100%;
+            padding: 0 10px;
+            border: none;
+          }
         }
 
         ul {

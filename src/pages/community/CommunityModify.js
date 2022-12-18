@@ -57,7 +57,6 @@ const CommunityModify = () => {
         },
       })
       .then((res) => {
-        console.log("AAA");
         navigate(`/community/communityView/${id}`);
       })
       .catch((err) => {

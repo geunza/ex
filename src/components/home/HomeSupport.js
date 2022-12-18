@@ -76,6 +76,8 @@ const HomeSupport = ({ setAxiosCount }) => {
               <div className={styles.supportList}>
                 {item.item.slice(0, 4).map((list, idx) => (
                   <BoxListItemHome
+                    getHomeSupport={getHomeSupport}
+                    category={item}
                     key={idx}
                     item={list}
                     viewShow={true}

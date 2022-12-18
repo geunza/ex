@@ -36,9 +36,15 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        height: 66px;
-        a {
+        height: 62px;
+        button {
+          padding: 0;
+          letter-spacing: inherit;
+          font-size: inherit;
+          line-height: inherit;
           display: block;
+          text-align: left;
+          border: none;
         }
       }
       p {

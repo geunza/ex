@@ -1,19 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "scss/components/BoxListItem.module.scss";
-
+import { useSelector } from "react-redux";
+import axios from "axios";
 const BoxListItemHome = ({
   item,
   writerShow,
   commentShow,
   viewShow,
   likeShow,
+  getHomeSupport,
+  category,
 }) => {
-  useEffect(() => {}, []);
+  const userInfo = useSelector((state) => state.userInfo);
+  const openInNewTab = (url, idx) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: idx },
+      }).then((res) => {});
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      method: "POST",
+    }).then((res) => {
+      getHomeSupport(category.category, category.url, category.cat_name);
+    });
+  };
   return (
     <>
       <div className={styles.BoxListItem}>
-        <Link to={`/support/supportView/${item.si_idx}`}>
+        <button
+          onClick={() => {
+            openInNewTab(item.mobile_url, item.si_idx);
+          }}
+        >
           <h5 className={styles.title}>{item.si_title}</h5>
           {writerShow && <p className={styles.writer}>{item.target_name}</p>}
           <div className={styles.countArea}>
@@ -54,7 +80,7 @@ const BoxListItemHome = ({
               </p>
             )}
           </div>
-        </Link>
+        </button>
       </div>
     </>
   );

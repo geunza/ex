@@ -278,11 +278,14 @@ body {
     // background: #e6e6e6;
     // border-radius: $radius-wrap;
     border-bottom: 1px solid $color-borderGray;
-    padding: 30px 0;
+    padding: 25px 0;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
+    &:last-child {
+      border: none;
+    }
     .cateArea {
       width: 100%;
       margin-bottom: 15px;
@@ -311,6 +314,16 @@ body {
         -webkit-box-orient: vertical;
         overflow: hidden;
         margin-bottom: 15px;
+        > *:not(h3):not(p),
+        > *:not(:first-child) {
+          display: none;
+        }
+        p:first-of-type {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          height: 27px;
+        }
         span,
         strong {
           color: $color-gray !important;

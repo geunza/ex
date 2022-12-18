@@ -33,7 +33,6 @@ const EventModal = ({ modalOpener, modalTab }) => {
           },
           data: { deliver_email: email },
         }).then((res) => {
-          console.log(res);
           setEmail("");
           alert("신청 완료");
           modalOpener((e = { currentTarget: { value: false } }));
@@ -76,13 +75,14 @@ const EventModal = ({ modalOpener, modalTab }) => {
       return false;
     }
     const length = userKeywordDummy.length;
-    if (userKeywordDummy.indexOf(keyword) >= 0) {
+    if (userKeywordDummy.includes(keyword)) {
       alert("이미 등록된 키워드 입니다.");
       return false;
     }
     if (length >= 10) {
       alert("최대 10개까지 등록 가능합니다.");
     } else {
+      setKeyword("");
       setUserKeywordDummy([...userKeywordDummy, keyword]);
     }
   };
@@ -182,7 +182,6 @@ const EventModal = ({ modalOpener, modalTab }) => {
     };
   }, []);
   return (
-    // CHECK : TITLE IMG 체크
     <div className={`${styles.modalWrap} ${styles.EventModal}`}>
       <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
         {modalTab === 0 && (

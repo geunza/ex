@@ -13,54 +13,85 @@ const SupportList = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const keywordParam = searchParams.get("keyword");
+  let keywordParam = searchParams.get("keyword");
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
   const [ord, setOrd] = useState("");
   const [page, setPage] = useState("");
-  let axiosRun = false;
+  const [savedBook, setSavedBook] = useState([]);
+  let lastAxiosNum = 0;
   const getSupportCont = () => {
-    if (axiosRun) return false;
-    if (keywordParam == "null" || keywordParam == undefined) {
-      console.log("PARAM 없음");
-      dispatch(loadingStart());
-      axiosRun = true;
-      axios({
-        url: "/support/getSupportInfoList",
-        method: "POST",
-        headers: {
-          user_id: parseInt(userInfo.id),
-        },
-        data: {
-          ord: ord,
-          business_type: supportInfo.bizp_type_cd.datas
-            .map((v) => v.code)
-            .toString(),
-          start_period: supportInfo.prd_cd.datas.map((v) => v.code).toString(),
-          company_type: supportInfo.biz_type_cd.datas
-            .map((v) => v.code)
-            .toString(),
-          target_cat_name: supportInfo.spt_cd.datas
-            .map((v) => v.code)
-            .toString(),
-          business_ctg: supportInfo.biz_cd.datas.map((v) => v.code).toString(),
-          tech_ctg: supportInfo.tech_cd.datas.map((v) => v.code).toString(),
-          loc_code: supportInfo.loc_cd.datas.map((v) => v.code).toString(),
-        },
-      }).then((res) => {
+    const currentAxiosNum = lastAxiosNum;
+    lastAxiosNum++;
+    const searchTxt = location.search;
+    let searchKeyword = "";
+    if (
+      keywordParam == "null" ||
+      keywordParam == undefined ||
+      keywordParam == null
+    ) {
+      searchKeyword = "";
+    } else {
+      searchKeyword = keywordParam.toString();
+    }
+    dispatch(loadingStart());
+    axios({
+      url: "/support/getSupportInfoList",
+      method: "POST",
+      headers: {
+        user_id: userInfo.id,
+      },
+      data: {
+        ord: ord,
+        business_type: dataToString("bizp_type_cd"),
+        start_period: dataToString("prd_cd"),
+        company_type: dataToString("biz_type_cd"),
+        target_cat_name: dataToString("spt_cd"),
+        business_ctg: dataToString("biz_cd"),
+        tech_ctg: dataToString("tech_cd"),
+        loc_code: dataToString("loc_cd"),
+        keyword: searchTxt,
+      },
+    }).then((res) => {
+      console.log(
+        "currentAxiosNum" + currentAxiosNum,
+        "lastAxiosNum" + lastAxiosNum
+      );
+      if (currentAxiosNum == lastAxiosNum - 1) {
         dispatch(setSupportData(res.data));
-        dispatch(loadingEnd());
-        setTimeout(() => {
-          axiosRun = false;
-        }, 10000);
-      });
+      }
+      dispatch(loadingEnd());
+    });
+    function dataToString(target) {
+      return supportInfo[target].datas.map((v) => v.code).toString();
     }
   };
+  const getRecent = () => {
+    axios({
+      headers: { user_id: userInfo.id },
+      data: {
+        ord: "전체",
+      },
+      method: "POST",
+      url: "/saved/getRecentlyMySavedBook",
+    })
+      .then((res) => {
+        setSavedBook(res.data.slice(0, 3));
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  const [compoMount, setCompoMount] = useState(false);
   useEffect(() => {
     getSupportCont();
+    getRecent();
   }, [userInfo]);
+  useEffect(() => {
+    setCompoMount(true);
+  }, []);
   return (
     <>
       <div className={styles.SupportList}>
@@ -86,10 +117,18 @@ const SupportList = ({}) => {
               />
             </div>
             <div className={styles.listArea}>
-              <SupportContent getSupportCont={getSupportCont} />
+              <SupportContent
+                getSupportCont={getSupportCont}
+                getRecent={getRecent}
+              />
             </div>
             <div className={styles.recentArea}>
-              <SupportRecent userInfo={userInfo} />
+              <SupportRecent
+                userInfo={userInfo}
+                savedBook={savedBook}
+                setSavedBook={setSavedBook}
+                getRecent={getRecent}
+              />
             </div>
           </div>
         </div>

@@ -26,8 +26,6 @@ const MyPage = () => {
       alert("잘못된 접근입니다.");
       navigate("/");
     }
-    console.log(isLoggedIn);
-    console.log(userInfo);
   }, [userInfo]);
   return (
     <div className={styles.MyPage}>

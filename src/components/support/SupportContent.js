@@ -9,7 +9,7 @@ import Pagination from "components/Pagination";
 import axios from "axios";
 import { setSupportData } from "redux/store";
 import EventModal from "components/home/EventModal";
-const SupportContent = ({ getSupportCont }) => {
+const SupportContent = ({ getSupportCont, getRecent }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const location = useLocation();
@@ -62,30 +62,31 @@ const SupportContent = ({ getSupportCont }) => {
       setSupportCont(copy);
     }
   }, [ord]);
+  let compoMount = false;
   const getSupportContByKeyword = () => {
-    if (keywordParam == "null") {
+    console.log("byKeyword");
+    if (
+      keywordParam == "null" ||
+      keywordParam == undefined ||
+      keywordParam == null
+    ) {
+      console.log("byKeyword1");
       keywordParam = "";
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
         headers: {
-          user_id: parseInt(userInfo.id),
+          user_id: userInfo.id,
         },
         data: {
           ord: ord,
-          business_type: supportInfo.bizp_type_cd.datas
-            .map((v) => v.code)
-            .toString(),
-          start_period: supportInfo.prd_cd.datas.map((v) => v.code).toString(),
-          company_type: supportInfo.biz_type_cd.datas
-            .map((v) => v.code)
-            .toString(),
-          target_cat_name: supportInfo.spt_cd.datas
-            .map((v) => v.code)
-            .toString(),
-          business_ctg: supportInfo.biz_cd.datas.map((v) => v.code).toString(),
-          tech_ctg: supportInfo.tech_cd.datas.map((v) => v.code).toString(),
-          loc_code: supportInfo.loc_cd.datas.map((v) => v.code).toString(),
+          business_type: dataToString("bizp_type_cd"),
+          start_period: dataToString("prd_cd"),
+          company_type: dataToString("biz_type_cd"),
+          target_cat_name: dataToString("spt_cd"),
+          business_ctg: dataToString("biz_cd"),
+          tech_ctg: dataToString("tech_cd"),
+          loc_code: dataToString("loc_cd"),
           keyword: "",
         },
       }).then((res) => {
@@ -93,12 +94,12 @@ const SupportContent = ({ getSupportCont }) => {
         dispatch(loadingEnd());
       });
     } else {
-      console.log("keywordParam", keywordParam);
+      console.log("byKeyword2");
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
         headers: {
-          user_id: parseInt(userInfo.id),
+          user_id: userInfo.id,
         },
         data: {
           ord: ord,
@@ -117,6 +118,9 @@ const SupportContent = ({ getSupportCont }) => {
       });
     }
     dispatch(loadingStart());
+    function dataToString(target) {
+      return supportInfo[target].datas.map((v) => v.code).toString();
+    }
   };
   useEffect(() => {
     setSupportCont([...supportData]);
@@ -135,7 +139,9 @@ const SupportContent = ({ getSupportCont }) => {
     }
   }, [supportCont, keyword]);
   useEffect(() => {
-    getSupportContByKeyword();
+    if (keywordParam != null) {
+      getSupportContByKeyword();
+    }
   }, [keyword]);
   useEffect(() => {
     const searchTxt = location.search;
@@ -362,6 +368,7 @@ const SupportContent = ({ getSupportCont }) => {
                   .map((item, idx) => {
                     return (
                       <SupportItem
+                        getRecent={getRecent}
                         key={idx}
                         item={item}
                         getSupportCont={getSupportContByKeyword}

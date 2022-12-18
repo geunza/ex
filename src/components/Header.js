@@ -203,8 +203,27 @@ const Header = ({}) => {
       alert("검색어를 입력하세요.");
       return false;
     }
-    navigate(`/support/supportList?keyword=${searchValue}`);
-    setSearchVal("");
+    if (isLoggedIn) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { search_text: searchVal },
+      }).then((res) => {
+        navigate(`/support/supportList?keyword=${searchValue}`);
+        setSearchOpen(false);
+        setSearchVal("");
+        getMyKeyword();
+        document.querySelector("#searchText").blur();
+      });
+    } else {
+      navigate(`/support/supportList?keyword=${searchValue}`);
+      setSearchOpen(false);
+      setSearchVal("");
+      document.querySelector("#searchText").blur();
+    }
   };
   const temporarysignIn = () => {
     // dispatch(setUserInfo());
@@ -297,6 +316,7 @@ const Header = ({}) => {
           <input
             type="text"
             name="searchText"
+            id="searchText"
             placeholder="지원사업을 검색해보세요."
             onChange={onChange}
             value={searchVal}

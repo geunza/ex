@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginCheck } from "redux/store";
 import axios from "axios";
-const SupportItem = ({ item, getSupportCont }) => {
+const SupportItem = ({ item, getSupportCont, getRecent }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
@@ -21,6 +21,7 @@ const SupportItem = ({ item, getSupportCont }) => {
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const viewCount = item.view_cnt;
   const isZzim = item.mb_save_yn == "Y";
+  const url = item.mobile_url;
   function addComma(numb) {
     return numb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -46,11 +47,30 @@ const SupportItem = ({ item, getSupportCont }) => {
       url: "/saved/isSavedMyBook",
       headers: { user_id: userInfo.id },
       data: { mb_addidx: idx, mb_save_yn: mb_save_yn },
-    })
-      .then((res) => {
-        getSupportCont();
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      getSupportCont();
+    });
+  };
+  const openInNewTab = (url, idx) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: idx.toString() },
+      }).then((res) => {
+        getRecent();
+      });
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      method: "POST",
+    }).then((res) => {
+      getSupportCont();
+    });
   };
   return (
     <>
@@ -66,7 +86,14 @@ const SupportItem = ({ item, getSupportCont }) => {
           </div>
           <div className={styles.itemInfo}>
             <h4>
-              <Link to={`/support/supportView/${item.si_idx}`}>{title}</Link>
+              <button
+                type="button"
+                onClick={() => {
+                  openInNewTab(url, item.si_idx);
+                }}
+              >
+                {title}
+              </button>
             </h4>
             <p>
               {cost > 0 && (

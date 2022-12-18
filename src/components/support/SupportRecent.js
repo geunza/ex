@@ -4,25 +4,30 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { compose } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-const SupportRecent = ({ userInfo }) => {
+const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const navigate = useNavigate();
-  const [savedBook, setSavedBook] = useState([]);
-  const getRecent = () => {
-    axios({
-      headers: { user_id: userInfo.id },
-      data: {
-        ord: "전체",
-      },
-      method: "POST",
-      url: "/saved/getRecentlyMySavedBook",
-    })
-      .then((res) => {
-        setSavedBook(res.data.slice(0, 3));
-      })
-      .catch((err) => {
-        console.log("err", err);
+
+  const openInNewTab = (url, idx) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: idx.toString() },
+      }).then((res) => {
+        console.log(idx);
       });
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      method: "POST",
+    }).then((res) => {
+      // getSupportCont();
+    });
   };
   useEffect(() => {
     getRecent();
@@ -43,19 +48,32 @@ const SupportRecent = ({ userInfo }) => {
                 const week = ["일", "월", "화", "수", "목", "금", "토"];
                 const day = week[timeStamp.getDay()];
                 const endTime = `${MM}.${DD} (${day}) 마감`;
-                const price = item.target_cost_value
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                let price;
+                if (price > 0) {
+                  price = item.target_cost_value
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
                 return (
                   <li key={idx}>
-                    <Link to="###">
+                    <button
+                      onClick={() => {
+                        openInNewTab(item.mobile_url, item.si_idx);
+                      }}
+                    >
                       <h5 className={styles.tit}>{item.si_title}</h5>
                       <p>
                         <span className={styles.dueDate}>{endTime}</span>
-                        <span className={styles.slash}>/</span>
-                        <span className={styles.moneyAmount}>{price}원</span>
+                        {item.target_cost_value > 0 && (
+                          <>
+                            <span className={styles.slash}>/</span>
+                            <span className={styles.moneyAmount}>
+                              {price}원
+                            </span>
+                          </>
+                        )}
                       </p>
-                    </Link>
+                    </button>
                   </li>
                 );
               })}

@@ -39,6 +39,10 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
     setModifyOpen((prev) => !prev);
   };
   const modifyReplySubmit = () => {
+    if (currentReply.replaceAll(" ", "").replaceAll("\n", "") == "") {
+      alert("내용을 입력해주세요."); // CHECK : 메시지 확인
+      return false;
+    }
     if (!window.confirm("댓글을 수정하시겠습니까?")) return false;
     axios({
       method: "POST",
@@ -64,17 +68,12 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
     }
     if (!window.confirm(`${item.usernickname}님을 차단하시겠습니까?`))
       return false;
-    let targetId;
-    isNaN(Number(writerId))
-      ? (targetId = writerId)
-      : (targetId = parseInt(writerId));
-
     axios({
       method: "POST",
       url: "/mobile/community/insertBlock",
       headers: {
-        user_id: parseInt(userInfo.id),
-        target_id: targetId,
+        user_id: userInfo.id,
+        target_id: writerId,
       },
     }).then((res) => {
       controlEnd();
@@ -146,11 +145,20 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
                 <div className={styles.likeArea}>
                   <button className={styles.likeArea} onClick={btnCmtLike}>
                     <img
+                      style={{ display: item.thumb_up != true ? "none" : null }}
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/ico/ico_like_selected.png"
+                      }
+                      alt=""
+                    />
+                    <img
+                      style={{ display: item.thumb_up == true ? "none" : null }}
                       src={
                         process.env.PUBLIC_URL +
                         "/public_assets/img/global/ico/ico_like.png"
                       }
-                      alt="like icon"
+                      alt=""
                     />
                     <span>{item.like_count}</span>
                   </button>

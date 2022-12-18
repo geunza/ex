@@ -33,6 +33,7 @@ const CommunityList = ({}) => {
   const [cate, setCate] = useState("");
   const [ord, setOrd] = useState("");
   const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
   const [popular, setPopular] = useState([]);
   const [count, setCount] = useState(30);
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
@@ -45,7 +46,6 @@ const CommunityList = ({}) => {
     sessionStorage.setItem("cOffset", 0);
   };
   const setScrollStorage = (value) => {
-    console.log(value);
     sessionStorage.setItem("cOffset", value);
   };
   const getCommunityLength = () => {
@@ -117,6 +117,7 @@ const CommunityList = ({}) => {
     let ordDummy = "";
     let pageDummy = "";
     let viewDummy = "";
+    let KeywordDummy = "";
     searchArr.forEach((v) => {
       const arrObj = v.split("=");
       searchObj[arrObj[0]] = decode(arrObj[1]);
@@ -149,10 +150,16 @@ const CommunityList = ({}) => {
       setCount(searchObj.view);
       viewDummy = searchObj.view;
     }
+    if (searchObj.keyword == undefined) {
+      setKeyword("");
+      KeywordDummy = "";
+    } else {
+      setKeyword(searchObj.keyword);
+      KeywordDummy = searchObj.keyword;
+    }
     const stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
       (pageDummy - 1) * viewDummy
-    }`;
-    getCommunityList(stringParams);
+    }&search_array=${KeywordDummy}`;
   }, [location]);
   function decode(txt) {
     return decodeURI(txt);
@@ -174,6 +181,8 @@ const CommunityList = ({}) => {
         newSearchTxt += `page=1&`;
       } else if (key == name) {
         continue;
+      } else if (key == "keyword" && name == "cate") {
+        continue;
       } else {
         newSearchTxt += `${key}=${searchObj[key]}&`;
       }
@@ -186,7 +195,7 @@ const CommunityList = ({}) => {
     e.preventDefault();
     const value = comSearchText;
     if (true) {
-      //검색 기준에 부합하면
+      navigate(`?keyword=${value}`);
       setComSearchText("");
     }
   };
@@ -206,7 +215,12 @@ const CommunityList = ({}) => {
               <p>창업에 필요한 정보를 공유하고 얻어가세요.</p>
             </div>
             <div className="rightArea">
-              <button type="button">
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/myPage/Written");
+                }}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -315,6 +329,11 @@ const CommunityList = ({}) => {
                 자유 게시판
               </button>
             </div>
+            {keyword != "" && (
+              <p className={styles.searchKeyword}>
+                <mark>'{keyword}'</mark> 검색 결과입니다.
+              </p>
+            )}
             <div className={styles.contTop}>
               <p className={styles.total}>전체 {totalCount}개</p>
               <div className={styles.countWrap}>
@@ -369,6 +388,7 @@ const CommunityList = ({}) => {
                 )}
               </div>
             </div>
+
             <div className={styles.listCont}>
               <div className={styles.listSorting}>
                 <div className="ordBtns">
@@ -444,6 +464,7 @@ const CommunityList = ({}) => {
                   </button>
                 </div>
               </div>
+
               {posts.length > 0 ? (
                 <ul className="commonListItemWrap">
                   {posts.map((post, i) => {

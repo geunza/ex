@@ -29,6 +29,10 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     setModifyOpen((prev) => !prev);
   };
   const modifyReplySubmit = () => {
+    if (currentReply.replaceAll(" ", "").replaceAll("\n", "") == "") {
+      alert("내용을 입력해주세요."); // CHECK : 메시지 확인
+      return false;
+    }
     if (!window.confirm("댓글을 수정하시겠습니까?")) return false;
     axios({
       method: "POST",
@@ -100,20 +104,15 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     }
     if (!window.confirm(`${item.usernickname}님을 차단하시겠습니까?`))
       return false;
-    let targetId;
-    isNaN(Number(writerId))
-      ? (targetId = writerId)
-      : (targetId = parseInt(writerId));
 
     axios({
       method: "POST",
       url: "/mobile/community/insertBlock",
       headers: {
-        user_id: parseInt(userInfo.id),
-        target_id: targetId,
+        user_id: userInfo.id,
+        target_id: writerId,
       },
     }).then((res) => {
-      console.log(res.data);
       controlEnd();
       alert(`${item.usernickname}님을 차단했습니다.`);
     });
@@ -139,8 +138,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
 
   // 대댓글 Submit
   const submitReReply = () => {
-    if (reReplyTxt.replaceAll(" ", "") == "") {
-      alert("내용을 등록해주세요."); // CHECK : 메시지 확인
+    if (reReplyTxt.replaceAll(" ", "").replaceAll("\n", "") == "") {
       return false;
     }
     if (!window.confirm("댓글을 등록하시겠습니까?")) return false;
@@ -204,15 +202,21 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
               <div className={styles.leftArea}>{desc}</div>
               <div className={styles.rightArea}>
                 <button className={styles.likeArea} onClick={btnCmtLike}>
-                  {/* CHECK : 좋아요 내역 확인하는 API 필요 */}
                   <img
+                    style={{ display: item.thumb_up != true ? "none" : null }}
                     src={
                       process.env.PUBLIC_URL +
-                      (item.thumb_up
-                        ? "/public_assets/img/global/ico/ico_like_selected.png"
-                        : "/public_assets/img/global/ico/ico_like.png")
+                      "/public_assets/img/global/ico/ico_like_selected.png"
                     }
-                    alt="like icon"
+                    alt=""
+                  />
+                  <img
+                    style={{ display: item.thumb_up == true ? "none" : null }}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/public_assets/img/global/ico/ico_like.png"
+                    }
+                    alt=""
                   />
                   <span>{item.like_count}</span>
                 </button>
@@ -314,19 +318,21 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
       ) : null}
 
       {reReply && (
-        <ol className={styles.reReplyWrap}>
-          {reReply.map((item, idx) => {
-            return (
-              <CommunityViewReReplyItem
-                styles={styles}
-                item={item}
-                key={idx}
-                getReply={getReply}
-                getReReply={getReReply}
-              />
-            );
-          })}
-        </ol>
+        <li>
+          <ol className={styles.reReplyWrap}>
+            {reReply.map((item, idx) => {
+              return (
+                <CommunityViewReReplyItem
+                  styles={styles}
+                  item={item}
+                  key={idx}
+                  getReply={getReply}
+                  getReReply={getReReply}
+                />
+              );
+            })}
+          </ol>
+        </li>
       )}
     </>
   );

@@ -38,7 +38,6 @@ const CommunityView = () => {
       const data = res.data;
       setPost(data);
       setCont(data.content);
-      console.log(res.data);
       setTime(() => getTime(data.cret_dt));
       loadEnd();
     });
@@ -90,8 +89,8 @@ const CommunityView = () => {
       });
   };
   const replySubmit = (e) => {
-    if (cmtText.replaceAll(" ", "") == "") {
-      alert("내용을 등록해주세요."); // CHECK : 메시지 확인
+    if (cmtText.replaceAll(" ", "").replaceAll("\n", "") == "") {
+      alert("내용을 입력해주세요."); // CHECK : 메시지 확인
       return false;
     }
     if (!window.confirm("댓글을 등록하시겠습니까?")) {
@@ -197,16 +196,12 @@ const CommunityView = () => {
     if (!window.confirm(`${post.usernickname}님을 차단 하시겠습니까?`)) {
       return false;
     }
-    let targetId;
-    isNaN(Number(post.user_id))
-      ? (targetId = post.user_id)
-      : (targetId = parseInt(post.user_id));
     axios({
       method: "POST",
       url: "/mobile/community/insertBlock",
       headers: {
-        user_id: parseInt(userInfo.id),
-        target_id: targetId,
+        user_id: userInfo.id,
+        target_id: post.user_id,
       },
     }).then((res) => {
       alert(`${post.usernickname}님을 차단했습니다.`);

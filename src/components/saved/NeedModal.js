@@ -5,9 +5,10 @@ import styles from "scss/components/Modal.module.scss";
 import axios from "axios";
 const NeedModal = ({ setModalOn }) => {
   const userInfo = useSelector((state) => state.userInfo);
+  const [userNeed, setUserNeed] = useState({});
   const [needObj, setNeedObj] = useState({
     financing: [],
-    team: [],
+    team_building: [],
     etc: [],
   });
   const [idx, setIdx] = useState(0);
@@ -36,33 +37,65 @@ const NeedModal = ({ setModalOn }) => {
       },
     })
       .then((res) => {
-        console.log("res", res.data);
+        const data = res.data;
+        let copy = { ...needObj };
+        for (let key in data) {
+          if (key == "idx") {
+            setIdx(data[key]);
+          } else {
+            const string = data[key].replaceAll(" ", "");
+            const arr = string.split(",");
+            copy[key] = arr;
+            setNeedObj(copy);
+          }
+        }
       })
       .catch((err) => {
         console.log("err", err);
       });
   };
   const needSubmit = (e) => {
-    axios({
-      url: "/saved/updateUserNeed",
-      method: "POST",
-      headers: {
-        user_id: userInfo.id,
-      },
-      data: {
-        idx: idx,
-        financing: needObj.financing.toString(),
-        team_building: needObj.team.toString(),
-        etc: needObj.etc.toString(),
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-        setModalOn(false);
+    if (idx >= 0) {
+      axios({
+        url: "/saved/updateUserNeed",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: {
+          idx: idx,
+          financing: needObj.financing.toString(),
+          team_building: needObj.team_building.toString(),
+          etc: needObj.etc.toString(),
+        },
       })
-      .catch((err) => {
-        console.log("ERR", err);
-      });
+        .then((res) => {
+          console.log(res.data);
+          setModalOn(false);
+        })
+        .catch((err) => {
+          console.log("ERR", err);
+        });
+    } else {
+      axios({
+        url: "/saved/updateUserNeed",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: {
+          financing: needObj.financing.toString(),
+          team_building: needObj.team_building.toString(),
+          etc: needObj.etc.toString(),
+        },
+      })
+        .then((res) => {
+          setModalOn(false);
+        })
+        .catch((err) => {
+          console.log("ERR", err);
+        });
+    }
   };
   useEffect(() => {
     getUserNeed();
@@ -165,11 +198,13 @@ const NeedModal = ({ setModalOn }) => {
                   <li className={styles.item}>
                     <button
                       type="button"
-                      name="team"
+                      name="team_building"
                       value="team_1"
                       onClick={btnClick}
                       className={
-                        needObj.team.includes("team_1") ? styles.active : null
+                        needObj.team_building.includes("team_1")
+                          ? styles.active
+                          : null
                       }
                     >
                       기획자/PM
@@ -178,11 +213,13 @@ const NeedModal = ({ setModalOn }) => {
                   <li className={styles.item}>
                     <button
                       type="button"
-                      name="team"
+                      name="team_building"
                       value="team_2"
                       onClick={btnClick}
                       className={
-                        needObj.team.includes("team_2") ? styles.active : null
+                        needObj.team_building.includes("team_2")
+                          ? styles.active
+                          : null
                       }
                     >
                       디자이너
@@ -191,11 +228,13 @@ const NeedModal = ({ setModalOn }) => {
                   <li className={styles.item}>
                     <button
                       type="button"
-                      name="team"
+                      name="team_building"
                       value="team_3"
                       onClick={btnClick}
                       className={
-                        needObj.team.includes("team_3") ? styles.active : null
+                        needObj.team_building.includes("team_3")
+                          ? styles.active
+                          : null
                       }
                     >
                       개발자

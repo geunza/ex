@@ -105,6 +105,8 @@ const MyPageModal = ({ setAlaramOpen }) => {
     }).then((res) => {
       // CHECK : response는 success지만 결과값 null 오는 상태, 확인 필요
       console.log("res", res);
+
+      setAlaramOpen(false);
     });
   };
   const getAlarmData = () => {
@@ -116,20 +118,34 @@ const MyPageModal = ({ setAlaramOpen }) => {
       },
     })
       .then((res) => {
-        console.log(res);
+        const resObj = res.data;
+        let currentObj = { ...alarmObj };
+        currentObj.spReceivePush = YNToBool(resObj.sp_receive_push);
+        currentObj.spKeywordPush = YNToBool(resObj.sp_keyword_push);
+        currentObj.spBookmarkPush = YNToBool(resObj.sp_bookmark_push);
+        currentObj.spRecommentPush = YNToBool(resObj.sp_recomment_push);
+        currentObj.spCommentlikePush = YNToBool(resObj.sp_commentlike_push);
+        currentObj.spContentCommentPush = YNToBool(
+          resObj.sp_content_comment_push
+        );
+        currentObj.spCommunityCommentlikePush = YNToBool(
+          resObj.sp_community_commentlike_push
+        );
+        currentObj.spCommunityRecommentPush = YNToBool(
+          resObj.sp_community_recomment_push
+        );
+        setAlarmObj(currentObj);
+        setAlarmAgree(YNToBool(resObj.marketing_push));
       })
       .catch((err) => {
         console.log(err);
       });
   };
   useEffect(() => {
-    // dispatch(loadingStart());
     getAlarmData();
   }, []);
   useEffect(() => {
     setAllChecked(!Object.values(alarmObj).some((item) => item == false));
-    // dispatch(loadingStart());
-    console.log(Object.values(alarmObj));
   }, [alarmObj]);
   return (
     <div className={styles.modalWrap}>
@@ -170,7 +186,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
             <ul className={styles.commonList}>
               <li className={`${styles.alarmItem} ${styles.agree}`}>
                 <p>
-                  마케팅 정보 수신 동의{" "}
+                  마케팅 정보 수신 동의
                   <button
                     className={styles.policy}
                     onClick={() => {

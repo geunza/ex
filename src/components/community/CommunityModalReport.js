@@ -56,7 +56,6 @@ const CommunityModalReport = ({ setModalOn, post }) => {
     const {
       target: { value },
     } = e;
-    console.log(value);
     setSelectedReport({ value: value });
   };
 

@@ -7,12 +7,12 @@
   & + [class*="Footer"] {
     margin-top: 0;
   }
-  > .inner > *:not(:last-child) {
+  > .inner > *:not(:last-child),
+  .sec01 {
     margin-bottom: 60px;
   }
   .sec01 {
     background: $color-sub;
-    margin-bottom: 60px;
     padding: 30px 0 45px;
     .inner {
       display: flex;

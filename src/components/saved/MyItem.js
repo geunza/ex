@@ -54,7 +54,6 @@ const MyItem = ({
     return numb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   const applyClick = (mb_addidx, mb_req_save_yn, mb_done_save_yn) => {
-    console.log(mb_addidx, mb_req_save_yn, mb_done_save_yn);
     axios({
       url: "/saved/isReqSavedMyBook",
       method: "POSt",
@@ -77,6 +76,26 @@ const MyItem = ({
         console.log("err", err);
       });
   };
+
+  const openInNewTab = (url, idx) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: idx.toString() },
+      });
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      method: "POST",
+    }).then(() => {
+      getMyItems(ord);
+    });
+  };
   return (
     <li className={styles.supportItem}>
       <div className={styles.leftArea}>
@@ -92,7 +111,13 @@ const MyItem = ({
         </div>
         <div className={styles.itemInfo}>
           <h4>
-            <Link to="###">{title}</Link>
+            <button
+              onClick={() => {
+                openInNewTab(item.mobile_url, item.si_idx);
+              }}
+            >
+              {title}
+            </button>
           </h4>
           <p>
             {cost > 0 && (

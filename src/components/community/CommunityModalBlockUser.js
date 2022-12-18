@@ -16,10 +16,9 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
       url: "/mobile/community/blockAll",
       method: "POST",
       headers: {
-        user_id: parseInt(userInfo.id),
+        user_id: userInfo.id,
       },
     }).then((res) => {
-      console.log(res.data);
       setBlockedUser(res.data);
     });
   };

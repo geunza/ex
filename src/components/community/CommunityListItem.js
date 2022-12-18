@@ -92,7 +92,7 @@ const CommunityListItem = ({
       method: "POST",
       url: "/mobile/community/insertBlock",
       headers: {
-        user_id: parseInt(userInfo.id),
+        user_id: userInfo.id,
         target_id: targetId,
       },
     }).then((res) => {
@@ -103,14 +103,9 @@ const CommunityListItem = ({
   const controlBoxClick = (id) => {
     if (controlBox.id == id) {
       setControlBox({ id: "" });
-      // console.log("있당");
     } else {
       setControlBox({ id: id });
-      // console.log("없당");
     }
-    //console.log("id =>", id);
-    //console.log("controlBox =>", controlBox);
-    //console.log("controlBoxOpen =>", controlBoxOpen);
   };
 
   return (
