@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/components/Modal.module.scss";
 import { modalOverflow } from "redux/store";
-const CommunityModalReport = ({ setModalOn, post }) => {
+const CommunityModalReport = ({ setModalOn, item, category }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -20,27 +20,29 @@ const CommunityModalReport = ({ setModalOn, post }) => {
     { value: "기타이유" },
   ];
   const [selectedReport, setSelectedReport] = useState(reportList[0]);
-  const writerId = post.user_id;
-  const targetIdx = post.id;
-  const category = post.category;
+  const writerId = item.user_id;
+  const targetIdx = item.id;
   const btnReport = (e) => {
     if (!window.confirm("신고하시겠습니까?’")) return false;
-    let targetId;
     let status = "검토중";
-    isNaN(Number(writerId))
-      ? (targetId = writerId)
-      : (targetId = parseInt(writerId));
     let desc;
     if (selectedReport.value == "기타이유") {
       desc = `${selectedReport.value} : ${txtArea}`;
     } else {
       desc = selectedReport.value;
     }
-
+    console.log(
+      "userInfo.id:" + userInfo.id + "\n",
+      "targetId:" + writerId + "\n",
+      "targetIdx:" + targetIdx + "\n",
+      "category:" + category + "\n",
+      "desc:" + desc + "\n",
+      "status:" + status + "\n"
+    );
     axios({
       url: "/mobile/community/insertReport",
       method: "POST",
-      headers: { user_id: userInfo.id, target_user_id: targetId },
+      headers: { user_id: userInfo.id, target_user_id: writerId },
       data: {
         target_idx: targetIdx,
         category: category,

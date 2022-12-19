@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
 import CommunityViewReReplyItem from "components/community/CommunityViewReReplyItem";
 import { setLoginCheck } from "redux/store";
+import CommunityModalReport from "components/community/CommunityModalReport";
 const CommunityViewReplyItem = ({ item, getReply }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -16,13 +17,13 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   const isWriter = writerId == userInfo.id;
   const isReply = item.comment_cnt;
   const contId = item.c_content_id;
-
   const [controlBoxOpen, setControlBoxOpen] = useState(false);
   const [currentReply, setCurrentReply] = useState(desc);
   const [reReply, setReReply] = useState([]);
   const [modifyOpen, setModifyOpen] = useState(false);
   const [reReplyOpen, setReReplyOpen] = useState(false);
   const [reReplyTxt, setReReplyTxt] = useState("");
+  const [modalOn, setModalOn] = useState(false);
 
   // 댓글 수정기능
   const btnModify = () => {
@@ -67,12 +68,13 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     });
   };
 
-  // CHECK : 신고기능 API
-  const btnReport = () => {
+  // 신고기능
+  const btnReport = (e) => {
     if (!isLoggedIn) {
       dispatch(setLoginCheck(true));
       return false;
     }
+    setModalOn((prev) => !prev);
   };
 
   // 대댓글 호출
@@ -120,6 +122,10 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
 
   // 댓글 좋아요기능
   const btnCmtLike = () => {
+    if (!isLoggedIn) {
+      dispatch(setLoginCheck(true));
+      return false;
+    }
     axios({
       method: "POST",
       url: "/mobile/community/insertCommentLike",
@@ -282,6 +288,10 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
               type="button"
               className={styles.btnReReply}
               onClick={() => {
+                if (!isLoggedIn) {
+                  dispatch(setLoginCheck(true));
+                  return false;
+                }
                 setReReplyOpen((prev) => !prev);
               }}
             >
@@ -317,14 +327,14 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
         </div>
       ) : null}
 
-      {reReply && (
+      {reReply.length > 0 && (
         <li>
           <ol className={styles.reReplyWrap}>
-            {reReply.map((item, idx) => {
+            {reReply.map((rereply, idx) => {
               return (
                 <CommunityViewReReplyItem
                   styles={styles}
-                  item={item}
+                  item={rereply}
                   key={idx}
                   getReply={getReply}
                   getReReply={getReReply}
@@ -333,6 +343,14 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
             })}
           </ol>
         </li>
+      )}
+
+      {modalOn && (
+        <CommunityModalReport
+          item={item}
+          setModalOn={setModalOn}
+          category={"커뮤니티-댓글"}
+        />
       )}
     </>
   );

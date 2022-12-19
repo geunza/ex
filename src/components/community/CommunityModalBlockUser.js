@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/components/Modal.module.scss";
 import { modalOverflow } from "redux/store";
-const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
+const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -151,4 +151,4 @@ const CommunityModalReport = ({ setModalOn, setBlockedModalOn }) => {
     </div>
   );
 };
-export default CommunityModalReport;
+export default CommunityModalBlockUser;

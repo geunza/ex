@@ -233,7 +233,13 @@ const CommunityListItem = ({
             ))}
         </div>
       </div>
-      {modalOn && <CommunityModalReport post={post} setModalOn={setModalOn} />}
+      {modalOn && (
+        <CommunityModalReport
+          item={post}
+          setModalOn={setModalOn}
+          category={"커뮤니티-게시글"}
+        />
+      )}
     </li>
   );
 };

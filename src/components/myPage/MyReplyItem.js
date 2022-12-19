@@ -3,6 +3,7 @@ import styles from "scss/components/community/CommunityViewReplyItem.module.scss
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CommunityModalReport from "components/community/CommunityModalReport";
 import axios from "axios";
 const MyReplyItem = ({ item, getMyReply }) => {
   const userInfo = useSelector((state) => state.userInfo);

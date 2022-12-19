@@ -78,11 +78,18 @@ const SearchBox = ({
                   </Link>
                   <button
                     type="button"
+                    className={styles.removeMyKeyword}
                     onClick={() => {
                       removeMyKeyword(word.tl_event);
                     }}
                   >
-                    X
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/public_assets/img/global/btn/btn_close_black_small.png"
+                      }
+                      alt="삭제"
+                    />
                   </button>
                 </li>
               );

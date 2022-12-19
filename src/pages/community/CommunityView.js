@@ -35,11 +35,18 @@ const CommunityView = () => {
       method: "GET",
       url: `/mobile/community/one?id=${id}`,
     }).then((res) => {
-      const data = res.data;
-      setPost(data);
-      setCont(data.content);
-      setTime(() => getTime(data.cret_dt));
-      loadEnd();
+      if (res.data == "") {
+        alert("삭제되었거나 없는 게시글입니다.");
+        navigate(-1);
+      } else {
+        const data = res.data;
+        setPost(data);
+        setCont(data.content);
+        setTime(() => getTime(data.cret_dt));
+        getReply();
+        getFiles();
+        loadEnd();
+      }
     });
     const getTime = (timeStamp) => {
       const iso = new Date(timeStamp)
@@ -125,8 +132,6 @@ const CommunityView = () => {
   useEffect(() => {
     dispatch(loadingStart());
     getContent();
-    getReply();
-    getFiles();
   }, [userInfo]);
   useEffect(() => {
     // !isLoggedIn && navigate("/");
@@ -331,27 +336,29 @@ const CommunityView = () => {
             )}
           </div>
           <div className={styles.commentArea}>
-            {isLoggedIn ? (
-              <div className={styles.writeArea}>
-                <h4>댓글 작성</h4>
-                <textarea
-                  rows="6"
-                  placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
-                  value={cmtText}
-                  onChange={commentChange}
-                ></textarea>
-                <div className={styles.btnArea}>
-                  <button type="button" onClick={replySubmit}>
-                    댓글 등록
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <p className={styles.needSignIn}>
-                로그인이 필요합니다.
-                {/* CHECK : 메시지 정리 */}
-              </p>
-            )}
+            {
+              isLoggedIn
+                ? null
+                : // <div className={styles.writeArea}>
+                  //   <h4>댓글 작성</h4>
+                  //   <textarea
+                  //     rows="6"
+                  //     placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
+                  //     value={cmtText}
+                  //     onChange={commentChange}
+                  //   ></textarea>
+                  //   <div className={styles.btnArea}>
+                  //     <button type="button" onClick={replySubmit}>
+                  //       댓글 등록
+                  //     </button>
+                  //   </div>
+                  // </div>
+                  null
+              // <p className={styles.needSignIn}>
+              //   로그인이 필요합니다.
+              //   {/* CHECK : 메시지 정리 */}
+              // </p>
+            }
             <ul className={styles.mainReplyWrap}>
               {reply.length > 0 &&
                 reply.map((item) => {
@@ -367,7 +374,13 @@ const CommunityView = () => {
           </div>
         </div>
       </div>
-      {modalOn && <CommunityModalReport post={post} setModalOn={setModalOn} />}
+      {modalOn && (
+        <CommunityModalReport
+          item={post}
+          setModalOn={setModalOn}
+          category={"커뮤니티-게시글"}
+        />
+      )}
     </>
   );
 };

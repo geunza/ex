@@ -7,16 +7,48 @@ const Footer = () => {
       <div className={styles.footerTop}>
         <ul className={styles.terms}>
           <li>
-            <Link to="###">이용약관</Link>
+            <Link
+              to="###"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("CHECK : 링크적용");
+              }}
+            >
+              이용약관
+            </Link>
           </li>
           <li>
-            <Link to="###">개인정보처리약관</Link>
+            <Link
+              to="###"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("CHECK : 링크적용");
+              }}
+            >
+              개인정보처리약관
+            </Link>
           </li>
           <li>
-            <Link to="###">위치기반서비스이용약관</Link>
+            <Link
+              to="###"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("CHECK : 링크적용");
+              }}
+            >
+              위치기반서비스이용약관
+            </Link>
           </li>
           <li>
-            <Link to="###">마케팅수신동의약관</Link>
+            <Link
+              to="###"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("CHECK : 링크적용");
+              }}
+            >
+              마케팅수신동의약관
+            </Link>
           </li>
         </ul>
       </div>

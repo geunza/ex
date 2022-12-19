@@ -86,6 +86,8 @@ const MyPageModal = ({ setAlaramOpen }) => {
       method: "POST",
       headers: {
         userId: userInfo.id,
+      },
+      data: {
         spReceivePush: boolToYN(alarmObj.spReceivePush),
         spKeywordPush: boolToYN(alarmObj.spKeywordPush),
         spBookmarkPush: boolToYN(alarmObj.spBookmarkPush),
@@ -97,10 +99,6 @@ const MyPageModal = ({ setAlaramOpen }) => {
         ),
         spCommunityRecommentPush: boolToYN(alarmObj.spCommunityRecommentPush),
         marketingPush: boolToYN(alarmAgree),
-      },
-      data: {
-        marketingPush: boolToYN(alarmAgree),
-        spReceivePush: boolToYN(alarmObj.spReceivePush),
       },
     }).then((res) => {
       // CHECK : response는 success지만 결과값 null 오는 상태, 확인 필요
@@ -182,6 +180,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
           <div className={styles.modalCont}>
             <p className={styles.subTit}>
               <span>마케팅 정보 수신동의 및 Push알림을 설정할 수 있어요.</span>
+              <span>웹에서 변경한 Push설정을 앱에 동일하게 적용됩니다.</span>
             </p>
             <ul className={styles.commonList}>
               <li className={`${styles.alarmItem} ${styles.agree}`}>

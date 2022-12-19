@@ -157,9 +157,13 @@ const CommunityList = ({}) => {
       setKeyword(searchObj.keyword);
       KeywordDummy = searchObj.keyword;
     }
-    const stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
+    let stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
       (pageDummy - 1) * viewDummy
-    }&search_array=${KeywordDummy}`;
+    }&`;
+    if (KeywordDummy != "") {
+      stringParams += `search_array=${KeywordDummy}`;
+    }
+    getCommunityList(stringParams);
   }, [location]);
   function decode(txt) {
     return decodeURI(txt);
@@ -194,7 +198,10 @@ const CommunityList = ({}) => {
   const communitySearch = (e) => {
     e.preventDefault();
     const value = comSearchText;
-    if (true) {
+
+    if (value.replaceAll(" ", "") == "") {
+      alert("키워드를 입력해 주세요.");
+    } else {
       navigate(`?keyword=${value}`);
       setComSearchText("");
     }

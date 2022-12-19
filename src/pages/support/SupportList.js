@@ -84,11 +84,17 @@ const SupportList = ({}) => {
         console.log("err", err);
       });
   };
-  const [compoMount, setCompoMount] = useState(false);
   useEffect(() => {
     getSupportCont();
     getRecent();
   }, [userInfo]);
+  const [compoMount, setCompoMount] = useState(false);
+  useEffect(() => {
+    if (location.search == "" && compoMount) {
+      console.log("빈 path");
+      getSupportCont();
+    }
+  }, [location]);
   useEffect(() => {
     setCompoMount(true);
   }, []);

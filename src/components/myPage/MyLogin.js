@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/pages/MyPage.module.scss";
 import { loadingStart, loadingEnd, setUserInfo } from "redux/store";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { signOut, removeUserInfo } from "redux/store";
 const MyLogin = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
@@ -63,6 +66,26 @@ const MyLogin = () => {
       dispatch(loadingEnd());
     });
   };
+  const withdraw = () => {
+    if (
+      window.confirm(
+        "회원 탈퇴 시 작성한 개인정보는 모두 삭제처리되며,\n작성한 게시물은 삭제되지 않습니다."
+      )
+    ) {
+      axios({
+        url: "/user/withdraw",
+        headers: {
+          userId: userInfo.id,
+        },
+      }).then((res) => {
+        dispatch(signOut());
+        dispatch(removeUserInfo());
+        navigate("/");
+      });
+    } else {
+      alert("취소하였습니다.");
+    }
+  };
   function encoding(string) {
     return encodeURI(string);
   }
@@ -76,7 +99,9 @@ const MyLogin = () => {
         <div className={styles.iptArea}>
           <input type="text" value={userInfo.useremail || ""} disabled />
           <button className={styles.btnBlue}>로그아웃</button>
-          <button className={styles.btnGray}>회원탈퇴</button>
+          <button className={styles.btnGray} onClick={withdraw}>
+            회원탈퇴
+          </button>
         </div>
       </div>
       <form className={styles.nicknameArea} onSubmit={nicknameCheckSubmit}>
