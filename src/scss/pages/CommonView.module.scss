@@ -63,6 +63,11 @@
       align-items: center;
       button {
         border: none;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 5px;
+        }
       }
       .btnLike {
       }

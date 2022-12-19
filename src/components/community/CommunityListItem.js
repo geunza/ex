@@ -154,7 +154,7 @@ const CommunityListItem = ({
             }
             alt="좋아요"
           />
-          <span>999</span>
+          <span>{post.like_cnt}</span>
         </p>
         <p className="rightInform">
           <img

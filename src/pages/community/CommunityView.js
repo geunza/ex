@@ -129,6 +129,21 @@ const CommunityView = () => {
     } = e;
     setCmtText(value);
   };
+  const btnLike = () => {
+    if (!isLoggedIn) {
+      dispatch(setLoginCheck(true));
+      return false;
+    }
+    console.log(id);
+    axios({
+      url: "/mobile/community/like",
+      method: "POST",
+      headers: { user_id: userInfo.id },
+      data: { content_id: parseInt(id) },
+    }).then((res) => {
+      getContent();
+    });
+  };
   useEffect(() => {
     dispatch(loadingStart());
     getContent();
@@ -245,7 +260,11 @@ const CommunityView = () => {
               ></div>
             </div>
             <div className={styles.bottomBtns}>
-              <button type="button" className={styles.btnLike}>
+              <button
+                type="button"
+                className={styles.btnLike}
+                onClick={btnLike}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -253,7 +272,7 @@ const CommunityView = () => {
                   }
                   alt="like icon"
                 />
-                <span>Like Count</span>
+                <span>{post.like_cnt}</span>
               </button>
               <div className="controlBoxWrap">
                 <button

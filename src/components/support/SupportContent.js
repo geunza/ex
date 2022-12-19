@@ -41,37 +41,13 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
     navigateSearchTxt(name, value);
   };
 
-  useEffect(() => {
-    let copy = [...supportCont];
-    if (ord == "전체") {
-      setSupportCont([...supportData]);
-    } else if (ord == "인기순") {
-      copy.sort((a, b) => {
-        return b.view_cnt - a.view_cnt;
-      });
-      setSupportCont(copy);
-    } else if (ord == "금액높은순") {
-      copy.sort((a, b) => {
-        return b.target_cost_value - a.target_cost_value;
-      });
-      setSupportCont(copy);
-    } else if (ord == "마감임박순") {
-      copy.sort((a, b) => {
-        return a.si_end_dt - b.si_end_dt;
-      });
-      setSupportCont(copy);
-    }
-  }, [ord]);
   let compoMount = false;
   const getSupportContByKeyword = () => {
-    console.log("byKeyword");
     if (
       keywordParam == "null" ||
       keywordParam == undefined ||
       keywordParam == null
     ) {
-      console.log("byKeyword1");
-      keywordParam = "";
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
@@ -94,7 +70,6 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
         dispatch(loadingEnd());
       });
     } else {
-      console.log("byKeyword2");
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
@@ -122,6 +97,29 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
       return supportInfo[target].datas.map((v) => v.code).toString();
     }
   };
+
+  useEffect(() => {
+    getSupportContByKeyword();
+    // let copy = [...supportCont];
+    // if (ord == "전체") {
+    //   setSupportCont([...supportData]);
+    // } else if (ord == "인기순") {
+    //   copy.sort((a, b) => {
+    //     return b.view_cnt - a.view_cnt;
+    //   });
+    //   setSupportCont(copy);
+    // } else if (ord == "금액높은순") {
+    //   copy.sort((a, b) => {
+    //     return b.target_cost_value - a.target_cost_value;
+    //   });
+    //   setSupportCont(copy);
+    // } else if (ord == "마감임박순") {
+    //   copy.sort((a, b) => {
+    //     return a.si_end_dt - b.si_end_dt;
+    //   });
+    //   setSupportCont(copy);
+    // }
+  }, [ord]);
   useEffect(() => {
     setSupportCont([...supportData]);
   }, [supportData]);

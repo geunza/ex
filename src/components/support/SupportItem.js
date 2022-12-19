@@ -13,7 +13,10 @@ const SupportItem = ({ item, getSupportCont, getRecent }) => {
   const targetName = item.target_name;
   const title = item.si_title;
   const cost = item.target_cost_value;
-  const costComma = addComma(item.target_cost_value);
+  let costComma;
+  if (cost > 0) {
+    costComma = addComma(item.target_cost_value);
+  }
   const readDateSource = item.tl_cret_dt;
   const endDateSource = item.si_end_dt;
   const today = new Date();
