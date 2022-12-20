@@ -22,6 +22,7 @@ const Header = ({}) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [popularKeyword, setPopularKeyword] = useState([]);
   const [myKeyword, setMyKeyword] = useState([]);
+  const [sessionKeyword, setSessionKeyword] = useState([]);
   const getPopluarKeyword = () => {
     axios({
       url: "/mainpage/getSearchHotKeyWord",
@@ -71,6 +72,7 @@ const Header = ({}) => {
         document.querySelector("#searchText").blur();
       });
     } else {
+      setSessionKeyword([searchValue, ...sessionKeyword]);
       navigate(`/support/supportList?keyword=${searchValue}`);
       setSearchOpen(false);
       setSearchVal("");
@@ -109,6 +111,22 @@ const Header = ({}) => {
     getPopluarKeyword();
     getMyKeyword();
   }, [userInfo]);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      let sessionItem = sessionStorage.getItem("sessionKeyword");
+      if (sessionItem == null) {
+        setSessionKeyword([]);
+      } else {
+        setSessionKeyword(JSON.parse(sessionItem));
+      }
+    }
+  }, [isLoggedIn]);
+  useEffect(() => {
+    sessionStorage.setItem(
+      "sessionKeyword",
+      JSON.stringify([...sessionKeyword].filter((x) => x != ""))
+    );
+  }, [sessionKeyword]);
   const handleBlur = (e) => {
     const currentTarget = e.currentTarget;
     // Give browser time to focus the next element
@@ -185,6 +203,8 @@ const Header = ({}) => {
               popularKeyword={popularKeyword}
               myKeyword={myKeyword}
               getMyKeyword={getMyKeyword}
+              sessionKeyword={sessionKeyword}
+              setSessionKeyword={setSessionKeyword}
             />
           )}
         </form>

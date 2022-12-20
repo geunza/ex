@@ -18,7 +18,7 @@ const SupportList = ({}) => {
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
-  const [ord, setOrd] = useState("");
+  const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState("");
   const [savedBook, setSavedBook] = useState([]);
   const [allSupport, setAllSupport] = useState(false);
@@ -49,6 +49,7 @@ const SupportList = ({}) => {
     }
     dispatch(loadingStart());
     if (allSupport) {
+      console.log("LIST SEARCH : 전체 지원사업 보기 O");
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
@@ -72,6 +73,18 @@ const SupportList = ({}) => {
         dispatch(loadingEnd());
       });
     } else {
+      console.log("LIST SEARCH : 전체 지원사업 보기 X");
+      console.log(`
+        ord: ${ord},
+        business_type: ${dataToString("bizp_type_cd")},
+        start_period: ${dataToString("prd_cd")},
+        company_type: ${dataToString("biz_type_cd")},
+        target_cat_name: ${dataToString("spt_cd")},
+        business_ctg: ${dataToString("biz_cd")},
+        tech_ctg: ${dataToString("tech_cd")},
+        loc_code: ${dataToString("loc_cd")},
+        keyword: ${searchTxt},
+      `);
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",

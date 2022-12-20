@@ -72,6 +72,7 @@ const CommunityWrite = () => {
               console.log(error);
             });
         } else {
+          console.log(res.data);
           navigate(`/community/communityView/${res.data}`);
         }
         return res.data;

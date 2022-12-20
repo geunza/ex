@@ -49,10 +49,15 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
                 const day = week[timeStamp.getDay()];
                 const endTime = `${MM}.${DD} (${day}) 마감`;
                 let price;
-                if (price > 0) {
+                if (
+                  item.target_cost_value > 0 &&
+                  typeof item.target_cost_value == "number"
+                ) {
                   price = item.target_cost_value
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                } else {
+                  price = 0;
                 }
                 return (
                   <li key={idx}>
@@ -64,14 +69,15 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
                       <h5 className={styles.tit}>{item.si_title}</h5>
                       <p>
                         <span className={styles.dueDate}>{endTime}</span>
-                        {item.target_cost_value > 0 && (
-                          <>
-                            <span className={styles.slash}>/</span>
-                            <span className={styles.moneyAmount}>
-                              {price}원
-                            </span>
-                          </>
-                        )}
+                        {item.target_cost_value > 0 &&
+                          typeof item.target_cost_value == "number" && (
+                            <>
+                              <span className={styles.slash}>/</span>
+                              <span className={styles.moneyAmount}>
+                                {price}원
+                              </span>
+                            </>
+                          )}
                       </p>
                     </button>
                   </li>

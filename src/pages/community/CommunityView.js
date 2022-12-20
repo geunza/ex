@@ -148,16 +148,7 @@ const CommunityView = () => {
       getContent();
     });
   };
-  useEffect(() => {
-    dispatch(loadingStart());
-    getContent();
-  }, [userInfo]);
-  useEffect(() => {
-    // !isLoggedIn && navigate("/");
-  }, []);
-  useEffect(() => {
-    setIsMine(post.user_id == userInfo.id);
-  }, [userInfo, post]);
+
   const btnPostClick = (e) => {
     const {
       currentTarget: { name, value },
@@ -231,6 +222,21 @@ const CommunityView = () => {
       alert(`${post.usernickname}님을 차단했습니다.`);
     });
   };
+  useEffect(() => {
+    dispatch(loadingStart());
+    getContent();
+  }, [userInfo]);
+
+  useEffect(() => {
+    setIsMine(post.user_id == userInfo.id);
+  }, [userInfo, post]);
+  useEffect(() => {
+    // !isLoggedIn && navigate("/");
+    const editor = document.querySelector(".toastui-editor-contents");
+    editor
+      .querySelectorAll("a")
+      .forEach((v) => v.setAttribute("target", "_blank"));
+  }, [cont]);
   return (
     <>
       <div className={`${styles.CommunityView} ${styles.CommonView}`}>

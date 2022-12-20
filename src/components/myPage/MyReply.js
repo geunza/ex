@@ -11,7 +11,6 @@ const MyReply = ({ page, postLimit }) => {
   const searchParams = new URLSearchParams(window.location);
   const dispatch = useDispatch();
   const [replys, setReplys] = useState([]);
-  const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
   const [controlBox, setControlBox] = useState({ id: "" });
   const userInfo = useSelector((state) => state.userInfo);
   const setScrollStorage = (value) => {
@@ -41,7 +40,19 @@ const MyReply = ({ page, postLimit }) => {
             {replys
               .slice((page - 1) * postLimit, page * postLimit)
               .map((reply, idx) => {
-                return <MyReplyItem item={reply} getMyReply={getMyReply} />;
+                let controlBoxOpen;
+                controlBox.id == reply.id
+                  ? (controlBoxOpen = true)
+                  : (controlBoxOpen = false);
+                return (
+                  <MyReplyItem
+                    item={reply}
+                    getMyReply={getMyReply}
+                    controlBox={controlBox}
+                    setControlBox={setControlBox}
+                    controlBoxOpen={controlBoxOpen}
+                  />
+                );
               })}
           </ul>
         ) : (

@@ -31,11 +31,11 @@ const RecentItem = ({
     const week = ["일", "월", "화", "수", "목", "금", "토"];
     return week[new Date(date).getDay()];
   }
-  const cost = item.target_cost_value;
+  let cost = item.target_cost_value;
   let costComma;
-  if (cost > 0) {
-    costComma = addComma(item.target_cost_value);
-  }
+  typeof cost == "number"
+    ? (costComma = addComma(item.target_cost_value))
+    : (costComma = 0);
 
   const isZzim = item.mb_save_yn == "Y";
   const viewCount = item.view_cnt;

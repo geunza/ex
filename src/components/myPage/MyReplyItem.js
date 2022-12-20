@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CommunityModalReport from "components/community/CommunityModalReport";
 import axios from "axios";
-const MyReplyItem = ({ item, getMyReply }) => {
+const MyReplyItem = ({
+  item,
+  getMyReply,
+  controlBox,
+  setControlBox,
+  controlBoxOpen,
+}) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  useEffect(() => {
+    console.log("AA");
+  }, [searchParams]);
   const userInfo = useSelector((state) => state.userInfo);
   const nickname = userInfo.usernickname;
   const createTime = item.cret_dt;
   const desc = item.description;
-  const [controlBoxOpen, setControlBoxOpen] = useState(false);
+  const [modalOn, setModalOn] = useState(false);
   const [currentReply, setCurrentReply] = useState(desc);
   const [reReply, setReReply] = useState([]);
   const [modifyOpen, setModifyOpen] = useState(false);
@@ -29,7 +40,7 @@ const MyReplyItem = ({ item, getMyReply }) => {
       method: "POST",
       url: "/mobile/community/updateComment",
       data: {
-        // id: cmtId, // CHECK!!
+        id: item.id, // CHECK!!
         description: currentReply,
       },
     }).then((res) => {
@@ -46,7 +57,7 @@ const MyReplyItem = ({ item, getMyReply }) => {
         user_id: userInfo.id,
       },
       data: {
-        comment_id: item.c_content_id, // CHECK !!
+        comment_id: item.id, // CHECK !!
       },
     })
       .then((res) => {
@@ -74,7 +85,15 @@ const MyReplyItem = ({ item, getMyReply }) => {
       alert("삭제되었습니다.");
     });
   };
+  const controlBoxClick = (id) => {
+    if (controlBox.id == id) {
+      setControlBox({ id: "" });
+    } else {
+      setControlBox({ id: id });
+    }
+  };
   const controlEnd = () => {
+    setControlBox({ id: "" });
     getMyReply();
   };
   return (
@@ -99,7 +118,11 @@ const MyReplyItem = ({ item, getMyReply }) => {
       ) : (
         <>
           <div className={styles.replyCont}>
-            <div className={styles.leftArea}>{desc}</div>
+            <div className={styles.leftArea}>
+              <Link to={`/community/communityView/${item.c_content_id}`}>
+                {desc}
+              </Link>
+            </div>
             <div className={styles.rightArea}>
               <button className={styles.likeArea} onClick={btnCmtLike}>
                 {/* CHECK : 좋아요 내역 확인하는 API 필요 */}
@@ -119,7 +142,7 @@ const MyReplyItem = ({ item, getMyReply }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    setControlBoxOpen((prev) => !prev);
+                    controlBoxClick(item.id);
                   }}
                 >
                   <img
@@ -127,18 +150,21 @@ const MyReplyItem = ({ item, getMyReply }) => {
                     alt="댓글 관리"
                   />
                 </button>
-                <ul className="controlBox">
-                  <li>
-                    <button type="button" name="modify" onClick={btnModify}>
-                      수정
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" value={"cmtId"} onClick={btnDelete}>
-                      삭제
-                    </button>
-                  </li>
-                </ul>
+
+                {controlBoxOpen && (
+                  <ul className="controlBox">
+                    <li>
+                      <button type="button" name="modify" onClick={btnModify}>
+                        수정
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" value={"cmtId"} onClick={btnDelete}>
+                        삭제
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
           </div>

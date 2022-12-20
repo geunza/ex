@@ -54,6 +54,7 @@ const SupportContent = ({
       keywordParam == undefined ||
       keywordParam == null
     ) {
+      console.log("CONT SEARCH : 키워드 없을때");
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
@@ -77,6 +78,7 @@ const SupportContent = ({
         dispatch(loadingEnd());
       });
     } else {
+      console.log("CONT SEARCH : 키워드 있을때");
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",

@@ -30,8 +30,11 @@ const ApplyItem = ({
     return week[new Date(date).getDay()];
   }
   const done = item.mb_done_save_yn;
-  const cost = item.target_cost_value;
-  const costComma = addComma(item.target_cost_value);
+  let cost = item.target_cost_value;
+  let costComma;
+  typeof cost == "number"
+    ? (costComma = addComma(item.target_cost_value))
+    : (costComma = cost);
   const viewCount = item.view_cnt;
   function stringTimeToISO(stringDate, type) {
     const offset = 1000 * 60 * 60 * 9;

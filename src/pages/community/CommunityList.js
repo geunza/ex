@@ -165,6 +165,7 @@ const CommunityList = ({}) => {
       stringParams += `search_array=${KeywordDummy}`;
     }
     getCommunityList(stringParams);
+    setComSearchText("");
   }, [location]);
   function decode(txt) {
     return decodeURI(txt);

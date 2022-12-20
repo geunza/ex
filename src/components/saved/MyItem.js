@@ -27,8 +27,11 @@ const MyItem = ({
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const [readDate, readDay] = [item.tl_cret_dt, getDay(item.tl_cret_dt)];
   const apply = item.mb_req_save_yn;
-  const cost = item.target_cost_value;
-  const costComma = addComma(item.target_cost_value);
+  let cost = item.target_cost_value;
+  let costComma;
+  typeof cost == "number"
+    ? (costComma = addComma(item.target_cost_value))
+    : (costComma = cost);
   const viewCount = item.view_cnt;
   function getDay(date) {
     const week = ["일", "월", "화", "수", "목", "금", "토"];

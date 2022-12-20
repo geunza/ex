@@ -10,9 +10,12 @@ const SearchBox = ({
   myKeyword,
   getMyKeyword,
   setSearchOpen,
+  sessionKeyword,
+  setSessionKeyword,
 }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const removeMyKeyword = (word) => {
     dispatch(loadingStart());
     axios({
@@ -40,6 +43,9 @@ const SearchBox = ({
     }).then((res) => {
       getMyKeyword();
     });
+  };
+  const removeSessionKeyword = (word) => {
+    setSessionKeyword((prev) => [...prev].filter((x) => x != word));
   };
   return (
     <div className={styles.searchBox}>
@@ -72,19 +78,47 @@ const SearchBox = ({
             </button>
           )}
         </p>
-        {myKeyword.length > 0 ? (
+        {isLoggedIn ? (
+          myKeyword.length > 0 ? (
+            <ul className={styles.keywordMy}>
+              {myKeyword.map((word, idx) => {
+                return (
+                  <li key={idx}>
+                    <Link to={`/support/supportList?keyword=${word.tl_event}`}>
+                      {word.tl_event}
+                    </Link>
+                    <button
+                      type="button"
+                      className={styles.removeMyKeyword}
+                      onClick={() => {
+                        removeMyKeyword(word.tl_event);
+                      }}
+                    >
+                      <img
+                        src={require("assets/img/global/btn/btn_close_black_small.png")}
+                        alt="삭제"
+                      />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className={styles.empty}>검색어를 입력하세요.</p>
+          )
+        ) : sessionKeyword.length > 0 ? (
           <ul className={styles.keywordMy}>
-            {myKeyword.map((word, idx) => {
+            {sessionKeyword.map((word, idx) => {
               return (
                 <li key={idx}>
-                  <Link to={`/support/supportList?keyword=${word.tl_event}`}>
-                    {word.tl_event}
+                  <Link to={`/support/supportList?keyword=${word}`}>
+                    {word}
                   </Link>
                   <button
                     type="button"
                     className={styles.removeMyKeyword}
                     onClick={() => {
-                      removeMyKeyword(word.tl_event);
+                      removeSessionKeyword(word);
                     }}
                   >
                     <img
