@@ -22,31 +22,6 @@ const SavedWrap = () => {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState({});
   let count = 10;
-  useEffect(() => {
-    const searchTxt = location.search;
-    let searchObj = {};
-    const searchArr = searchTxt.replace("?", "").split("&");
-    searchArr.forEach((v) => {
-      const arrObj = v.split("=");
-      searchObj[arrObj[0]] = decode(arrObj[1]);
-    });
-    if (searchObj.cate == undefined) {
-      setCate("save");
-    } else {
-      setCate(searchObj.cate);
-    }
-    if (searchObj.ord == undefined) {
-      setOrd("전체");
-    } else {
-      setOrd(searchObj.ord);
-    }
-    if (searchObj.page == undefined) {
-      setPage(1);
-    } else {
-      setPage(parseInt(searchObj.page));
-    }
-    window.scrollTo(0, 0);
-  }, [location]);
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -140,6 +115,43 @@ const SavedWrap = () => {
     return newArr;
   }
 
+  useEffect(() => {
+    const searchTxt = location.search;
+    let searchObj = {};
+    const searchArr = searchTxt.replace("?", "").split("&");
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decode(arrObj[1]);
+    });
+    if (searchObj.cate == undefined) {
+      setCate("save");
+    } else {
+      setCate(searchObj.cate);
+    }
+    if (searchObj.ord == undefined) {
+      setOrd("전체");
+    } else {
+      setOrd(searchObj.ord);
+    }
+    if (searchObj.page == undefined) {
+      setPage(1);
+    } else {
+      setPage(parseInt(searchObj.page));
+    }
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  const [compoMount, setCompoMount] = useState(false);
+  useEffect(() => {
+    if (compoMount) {
+      if (!isLoggedIn) {
+        navigate("/");
+      }
+    }
+  }, [isLoggedIn]);
+  useEffect(() => {
+    setCompoMount(true);
+  }, []);
   return (
     <div className={styles.SavedRecent}>
       <SavedTitle />

@@ -75,10 +75,7 @@ const CommunityModalReport = ({ setModalOn, item, category }) => {
             <div className={styles.modalTop}>
               <div className={styles.tit}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_report.png"
-                  }
+                  src={require("assets/img/global/ico/ico_report.png")}
                   alt="커뮤니티 글 / 댓글 신고"
                 />
                 <p>커뮤니티 글 / 댓글 신고</p>
@@ -92,10 +89,7 @@ const CommunityModalReport = ({ setModalOn, item, category }) => {
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_close_black.png"
-                  }
+                  src={require("assets/img/global/btn/btn_close_black.png")}
                   alt="닫기"
                 />
               </button>

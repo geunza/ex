@@ -100,6 +100,7 @@ const CommunityList = ({}) => {
     const {
       currentTarget: { name, value },
     } = e;
+    setScrollStorage(window.scrollY);
     navigateSearchTxt(name, value);
   };
   const countClick = (e) => {
@@ -225,14 +226,15 @@ const CommunityList = ({}) => {
               <button
                 type="button"
                 onClick={() => {
+                  if (!isLoggedIn) {
+                    dispatch(setLoginCheck(true));
+                    return false;
+                  }
                   navigate("/myPage/Written");
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_bubble.png"
-                  }
+                  src={require("assets/img/global/ico/ico_bubble.png")}
                   alt="내가 작성한 게시글, 댓글"
                 />
                 <span>내가 작성한 게시글/댓글</span>
@@ -243,14 +245,15 @@ const CommunityList = ({}) => {
                 name="blockedUser"
                 value={true}
                 onClick={() => {
+                  if (!isLoggedIn) {
+                    dispatch(setLoginCheck(true));
+                    return false;
+                  }
                   setBlockedModalOn(true);
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_blocked.png"
-                  }
+                  src={require("assets/img/global/ico/ico_blocked.png")}
                   alt="차단 회원 관리"
                 />
                 <span>차단 회원 관리</span>
@@ -352,10 +355,7 @@ const CommunityList = ({}) => {
                 >
                   <span>{count}개씩 보기</span>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr_bottom.png"
-                    }
+                    src={require("assets/img/global/btn/btn_arr_bottom.png")}
                     alt="열기"
                   />
                 </p>
@@ -448,10 +448,7 @@ const CommunityList = ({}) => {
                     />
                     <button type="submit">
                       <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/public_assets/img/global/ico/ico_search_black.png"
-                        }
+                        src={require("assets/img/global/ico/ico_search_black.png")}
                         alt="SEARCH"
                       ></img>
                     </button>
@@ -461,10 +458,7 @@ const CommunityList = ({}) => {
                     className={styles.btnWrite}
                   >
                     <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/public_assets/img/global/ico/ico_write.png"
-                      }
+                      src={require("assets/img/global/ico/ico_write.png")}
                       alt="게시글 작성"
                     />
                     <span>게시글 작성</span>
@@ -505,10 +499,7 @@ const CommunityList = ({}) => {
               <div className={styles.bottomBtns}>
                 <button onClick={btnNavigateWrite} className={styles.btnWrite}>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_write.png"
-                    }
+                    src={require("assets/img/global/ico/ico_write.png")}
                     alt="게시글 작성"
                   />
                   <span>게시글 작성</span>

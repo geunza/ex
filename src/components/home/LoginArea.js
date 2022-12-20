@@ -18,13 +18,16 @@ const SnsLogin = ({}) => {
               <span>{userInfo.usernickname} 대표님.</span>
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
             </h4>
-            <button type="button" className={styles.btnSelect}>
+            <button
+              type="button"
+              className={styles.btnSelect}
+              onClick={() => {
+                navigate("/myPage");
+              }}
+            >
               기업 정보 입력하고 혜택 받자!
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_next.png"
-                }
+                src={require("assets/img/global/btn/btn_next.png")}
                 alt="기업 정보 입력하고 혜택 받자!"
               />
             </button>
@@ -38,10 +41,7 @@ const SnsLogin = ({}) => {
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_zzim.png"
-                  }
+                  src={require("assets/img/global/ico/ico_zzim.png")}
                   alt="Apple Icon"
                 />
                 <span>찜</span>
@@ -54,10 +54,7 @@ const SnsLogin = ({}) => {
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_setting.png"
-                  }
+                  src={require("assets/img/global/ico/ico_setting.png")}
                   alt="Apple Icon"
                 />
                 <span>기업정보</span>
@@ -73,20 +70,14 @@ const SnsLogin = ({}) => {
             <div className={styles.sns}>
               <button type="button" className={styles.btnKakao}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/home/sns_kakao.png"
-                  }
+                  src={require("assets/img/home/sns_kakao.png")}
                   alt="Kakao Icon"
                 />
                 <span>카카오로그인</span>
               </button>
               <button type="button" className={styles.btnApple}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/home/sns_apple.png"
-                  }
+                  src={require("assets/img/home/sns_apple.png")}
                   alt="Apple Icon"
                 />
                 <span>Apple로그인</span>
@@ -102,10 +93,7 @@ const SnsLogin = ({}) => {
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_zzim.png"
-                  }
+                  src={require("assets/img/global/ico/ico_zzim.png")}
                   alt="Apple Icon"
                 />
                 <span>찜</span>
@@ -119,10 +107,7 @@ const SnsLogin = ({}) => {
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_setting.png"
-                  }
+                  src={require("assets/img/global/ico/ico_setting.png")}
                   alt="Apple Icon"
                 />
                 <span>기업정보</span>

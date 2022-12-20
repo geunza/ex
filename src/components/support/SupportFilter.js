@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
 import { useNavigate } from "react-router-dom";
-const SupportFilter = ({ getSupportCont }) => {
+const SupportFilter = ({ getSupportCont, setScrollStorage }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -40,21 +40,36 @@ const SupportFilter = ({ getSupportCont }) => {
   };
   const filterBtnClick = (item, e) => {
     const cate = item.ctg_cd;
+    const name = item.code_nm;
     let copy = JSON.parse(JSON.stringify(objDummy));
     const require = copy[cate].require;
     const multiply = copy[cate].multiply;
     if (multiply) {
-      if (someItem(copy[cate].datas, item)) {
-        if (require && copy[cate].length == 1) {
+      if (name == "전체" || name == "전국") {
+        if (
+          copy[cate].datas
+            .filter((x) => x.code_nm != "전체")
+            .filter((x) => x.code_nm != "전국").length == 0
+        ) {
           alert("한가지 이상 선택해주세요.");
-        } else {
-          copy[cate].datas = filterItem(copy[cate].datas, item);
         }
+        copy[cate].datas = [item];
       } else {
-        if (cate == "loc_cd") {
-          copy[cate].datas = addItemLoc(copy[cate].datas, item);
+        copy[cate].datas = copy[cate].datas
+          .filter((x) => x.code_nm != "전체")
+          .filter((x) => x.code_nm != "전국");
+        if (someItem(copy[cate].datas, item)) {
+          if (require && copy[cate].length == 1) {
+            alert("한가지 이상 선택해주세요.");
+          } else {
+            copy[cate].datas = filterItem(copy[cate].datas, item);
+          }
         } else {
-          copy[cate].datas = addItem(copy[cate].datas, item);
+          if (cate == "loc_cd") {
+            copy[cate].datas = addItemLoc(copy[cate].datas, item);
+          } else {
+            copy[cate].datas = addItem(copy[cate].datas, item);
+          }
         }
       }
     } else {
@@ -134,10 +149,7 @@ const SupportFilter = ({ getSupportCont }) => {
             조회 필터
             <i className="btnToolTip" onClick={tooltipOpen}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_tooltip.png"
-                }
+                src={require("assets/img/global/btn/btn_tooltip.png")}
                 alt="tooltip"
               />
               <Tooltip
@@ -169,10 +181,7 @@ const SupportFilter = ({ getSupportCont }) => {
                         <span>{supportInfo[cate].name}</span>
                         <div className={styles.arr}>
                           <img
-                            src={
-                              process.env.PUBLIC_URL +
-                              "/public_assets/img/global/btn/btn_arr.png"
-                            }
+                            src={require("assets/img/global/btn/btn_arr.png")}
                             alt="Select"
                           />
                         </div>
@@ -262,10 +271,7 @@ const SupportFilter = ({ getSupportCont }) => {
                       <span>{supportInfo[cate].name}</span>
                       <div className={styles.arr}>
                         <img
-                          src={
-                            process.env.PUBLIC_URL +
-                            "/public_assets/img/global/btn/btn_arr.png"
-                          }
+                          src={require("assets/img/global/btn/btn_arr.png")}
                           alt="Select"
                         />
                       </div>
@@ -329,7 +335,7 @@ const SupportFilter = ({ getSupportCont }) => {
                   dispatch(setLoginCheck(true));
                 } else {
                   navigate("./");
-                  getSupportCont();
+                  setScrollStorage(window.scrollY);
                 }
               }}
             >

@@ -43,10 +43,7 @@ const MyPage = () => {
               }}
             >
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_alarm.png"
-                }
+                src={require("assets/img/global/ico/ico_alarm.png")}
                 alt="알림설정"
               />
               <span>알림설정</span>
@@ -69,10 +66,7 @@ const MyPage = () => {
               >
                 <div className={styles.imgArea}>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/myPage/myPage_01.png"
-                    }
+                    src={require("assets/img/myPage/myPage_01.png")}
                     alt="멤버십 결제"
                   />
                 </div>
@@ -86,10 +80,7 @@ const MyPage = () => {
               >
                 <div className={styles.imgArea}>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/myPage/myPage_02.png"
-                    }
+                    src={require("assets/img/myPage/myPage_02.png")}
                     alt="엑시토 프렌즈 결제"
                   />
                 </div>
@@ -103,10 +94,7 @@ const MyPage = () => {
               >
                 <div className={styles.imgArea}>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/myPage/myPage_03.png"
-                    }
+                    src={require("assets/img/myPage/myPage_03.png")}
                     alt="이메일 정기배송 이력"
                   />
                 </div>
@@ -120,10 +108,7 @@ const MyPage = () => {
                 기업정보
                 <i onClick={tooltipOpen} className="btnToolTip" data-text="Hi">
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_tooltip.png"
-                    }
+                    src={require("assets/img/global/btn/btn_tooltip.png")}
                     alt="tooltip"
                   />
                   <Tooltip
@@ -144,10 +129,7 @@ const MyPage = () => {
                 로그인정보
                 <i onClick={tooltipOpen} className="btnToolTip" data-text="Hi">
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_tooltip.png"
-                    }
+                    src={require("assets/img/global/btn/btn_tooltip.png")}
                     alt="tooltip"
                   />
                   <Tooltip

@@ -21,6 +21,17 @@ const SupportList = ({}) => {
   const [ord, setOrd] = useState("");
   const [page, setPage] = useState("");
   const [savedBook, setSavedBook] = useState([]);
+
+  const moveScrollStorage = () => {
+    window.scrollTo({
+      top: parseInt(sessionStorage.getItem("sOffset")),
+    });
+    sessionStorage.setItem("sOffset", 0);
+  };
+  const setScrollStorage = (value) => {
+    sessionStorage.setItem("sOffset", value);
+  };
+
   let lastAxiosNum = 0;
   const getSupportCont = () => {
     const currentAxiosNum = lastAxiosNum;
@@ -62,6 +73,7 @@ const SupportList = ({}) => {
       if (currentAxiosNum == lastAxiosNum - 1) {
         dispatch(setSupportData(res.data));
       }
+      moveScrollStorage();
       dispatch(loadingEnd());
     });
     function dataToString(target) {
@@ -120,12 +132,15 @@ const SupportList = ({}) => {
               <SupportFilter
                 supportInfo={supportInfo}
                 getSupportCont={getSupportCont}
+                setScrollStorage={setScrollStorage}
               />
             </div>
             <div className={styles.listArea}>
               <SupportContent
                 getSupportCont={getSupportCont}
                 getRecent={getRecent}
+                setScrollStorage={setScrollStorage}
+                moveScrollStorage={moveScrollStorage}
               />
             </div>
             <div className={styles.recentArea}>

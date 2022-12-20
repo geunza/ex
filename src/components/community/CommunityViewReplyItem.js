@@ -210,18 +210,12 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
                 <button className={styles.likeArea} onClick={btnCmtLike}>
                   <img
                     style={{ display: item.thumb_up != true ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_like_selected.png"
-                    }
+                    src={require("assets/img/global/ico/ico_like_selected.png")}
                     alt=""
                   />
                   <img
                     style={{ display: item.thumb_up == true ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_like.png"
-                    }
+                    src={require("assets/img/global/ico/ico_like.png")}
                     alt=""
                   />
                   <span>{item.like_count}</span>
@@ -234,10 +228,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
                     }}
                   >
                     <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/public_assets/img/global/ico/ico_more.png"
-                      }
+                      src={require("assets/img/global/ico/ico_more.png")}
                       alt="댓글 관리"
                     />
                   </button>
@@ -304,10 +295,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
         <div className={styles.writeReReply}>
           <div>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_reReply.png"
-              }
+              src={require("assets/img/global/ico/ico_reReply.png")}
               alt="rereply icon"
             />
             <textarea

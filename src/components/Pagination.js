@@ -88,10 +88,7 @@ const Pagination = ({ total, postLimit, numLimit, page }) => {
           className={styles.prev}
         >
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/btn/btn_prev.png"
-            }
+            src={require("assets/img/global/btn/btn_prev.png")}
             alt="prev button"
           />
         </button>
@@ -125,10 +122,7 @@ const Pagination = ({ total, postLimit, numLimit, page }) => {
           className={styles.next}
         >
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/btn/btn_next.png"
-            }
+            src={require("assets/img/global/btn/btn_next.png")}
             alt="next button"
           />
         </button>

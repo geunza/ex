@@ -3,7 +3,7 @@
 .CommonView {
   //
   .btns {
-    margin-bottom: 55px;
+    margin-bottom: 35px;
     .btnBack {
       border: 1px solid $color-borderGray;
       border-radius: 20px;
@@ -23,7 +23,7 @@
   }
   .contWrap {
     border-radius: $radius-wrap;
-    padding: 55px 50px;
+    padding: 35px 50px;
     background-color: #fff;
     margin-bottom: 20px;
     .contTop {
@@ -63,10 +63,15 @@
       align-items: center;
       button {
         border: none;
-        display: flex;
-        align-items: center;
-        img {
-          margin-right: 5px;
+        &.btnLike {
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 5px;
+          }
+          span {
+            padding-top: 4px;
+          }
         }
       }
       .btnLike {
@@ -95,16 +100,17 @@
       }
     }
     .fileArea {
-      margin: 55px -50px 0;
-      padding: 40px 50px 0;
+      margin: 35px -50px 0;
+      padding: 35px 50px 0;
       display: flex;
       gap: 10px;
       border-top: 1px solid $color-borderGray;
       li {
         a {
+          font-size: 14px;
           border: 1px solid $color-borderGray;
           color: $color-gray;
-          padding: 11px 15px 9px;
+          padding: 9px 15px 7px;
           border-radius: 30px;
           display: block;
         }
@@ -114,7 +120,7 @@
   .commentArea {
     background: #fff;
     border-radius: $radius-wrap;
-    padding: 40px 0;
+    padding: 35px 0;
     textarea {
       width: 100%;
       padding: 25px;

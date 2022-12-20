@@ -47,16 +47,13 @@ const FilterButton = ({ item, onClick, idx, baseObj }) => {
       onClick={(e) => {
         onClick(item, e);
       }}
-      disabled={disabled}
+      data-disabled={disabled ? "disabled" : null}
     >
       {item.code_nm}
       {hasToolTip && (
         <i className="btnToolTip" onClick={tooltipOpen}>
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/btn/btn_tooltip.png"
-            }
+            src={require("assets/img/global/btn/btn_tooltip.png")}
             alt="tooltip"
           />
           <Tooltip cont={hastooltipCont} />

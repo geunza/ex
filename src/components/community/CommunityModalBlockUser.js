@@ -73,10 +73,7 @@ const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
           <div className={styles.modalTop}>
             <div className={styles.tit}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_blocked.png"
-                }
+                src={require("assets/img/global/ico/ico_blocked.png")}
                 alt="차단 회원 관리"
               />
               <p>차단 회원 관리</p>
@@ -88,10 +85,7 @@ const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
               className={styles.btn_close}
             >
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_close_black.png"
-                }
+                src={require("assets/img/global/btn/btn_close_black.png")}
                 alt="닫기"
               />
             </button>
@@ -114,10 +108,7 @@ const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
                           }}
                         >
                           <img
-                            src={
-                              process.env.PUBLIC_URL +
-                              "/public_assets/img/global/btn/btn_close_white_small.png"
-                            }
+                            src={require("assets/img/global/btn/btn_close_white_small.png")}
                             alt="닫기"
                           />
                         </button>

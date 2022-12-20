@@ -137,20 +137,14 @@ const CommunityModify = () => {
                 <p className={styles.currentCate}>
                   {cate}
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr_bottom_thick.png"
-                    }
+                    src={require("assets/img/global/btn/btn_arr_bottom_thick.png")}
                     alt="카테고리 선택"
                   />
                 </p>
               </div>
               <p className={styles.modifyInform}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_warning.png"
-                  }
+                  src={require("assets/img/global/ico/ico_warning.png")}
                   alt="제목과 내용만 수정 가능합니다."
                 />
                 <span>제목과 내용만 수정 가능합니다.</span>
@@ -185,10 +179,7 @@ const CommunityModify = () => {
                 }}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_add.png"
-                  }
+                  src={require("assets/img/global/btn/btn_add.png")}
                   alt="첨부파일 추가"
                 />
                 <span>첨부파일</span>

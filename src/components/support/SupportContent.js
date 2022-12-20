@@ -9,7 +9,12 @@ import Pagination from "components/Pagination";
 import axios from "axios";
 import { setSupportData } from "redux/store";
 import EventModal from "components/home/EventModal";
-const SupportContent = ({ getSupportCont, getRecent }) => {
+const SupportContent = ({
+  getSupportCont,
+  getRecent,
+  setScrollStorage,
+  moveScrollStorage,
+}) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const location = useLocation();
@@ -38,6 +43,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
     const {
       currentTarget: { name, value },
     } = e;
+    setScrollStorage(window.scrollY);
     navigateSearchTxt(name, value);
   };
 
@@ -67,6 +73,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
         },
       }).then((res) => {
         dispatch(setSupportData(res.data));
+        moveScrollStorage();
         dispatch(loadingEnd());
       });
     } else {
@@ -89,6 +96,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
         },
       }).then((res) => {
         dispatch(setSupportData(res.data));
+        moveScrollStorage();
         dispatch(loadingEnd());
       });
     }
@@ -169,7 +177,6 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
     } else {
       setKeyword(searchObj.keyword);
     }
-    window.scrollTo(0, 0);
   }, [location]);
   function decode(txt) {
     return decodeURI(txt);
@@ -258,10 +265,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
             >
               <span>{count}개씩 보기</span>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_arr_bottom.png"
-                }
+                src={require("assets/img/global/btn/btn_arr_bottom.png")}
                 alt="열기"
               />
             </p>
@@ -323,10 +327,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
                     }}
                   >
                     <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/public_assets/img/global/ico/ico_mail_white.png"
-                      }
+                      src={require("assets/img/global/ico/ico_mail_white.png")}
                       alt="이메일 정기배송 신청"
                     />
                     <span>이메일 정기배송 신청</span>
@@ -341,10 +342,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
                     }}
                   >
                     <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/public_assets/img/global/ico/ico_alarm_white.png"
-                      }
+                      src={require("assets/img/global/ico/ico_alarm_white.png")}
                       alt="키워드 알림 설정"
                     />
                     <span>키워드 알림 설정</span>
@@ -370,6 +368,7 @@ const SupportContent = ({ getSupportCont, getRecent }) => {
                         key={idx}
                         item={item}
                         getSupportCont={getSupportContByKeyword}
+                        setScrollStorage={setScrollStorage}
                       />
                     );
                   })}

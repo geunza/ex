@@ -9,20 +9,14 @@ const HomeCommunityItem = ({ item, likeShow, styles }) => {
           <div className={styles.countArea}>
             <p>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_star.png"
-                }
+                src={require("assets/img/global/ico/ico_star.png")}
                 alt="View count"
               />
               <span>{item.like_cnt}</span>
             </p>
             <p>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_view.png"
-                }
+                src={require("assets/img/global/ico/ico_view.png")}
                 alt="like count"
               />
 

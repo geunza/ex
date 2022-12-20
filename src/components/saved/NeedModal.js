@@ -108,10 +108,7 @@ const NeedModal = ({ setModalOn }) => {
             <div className={styles.tit}>
               <img
                 priority="true"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_need.png"
-                }
+                src={require("assets/img/global/ico/ico_need.png")}
                 alt="지원사업 정기배송"
               />
               <p>우리 회사에 필요한 이것!</p>
@@ -126,10 +123,7 @@ const NeedModal = ({ setModalOn }) => {
             >
               <img
                 priority="true"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_close_black.png"
-                }
+                src={require("assets/img/global/btn/btn_close_black.png")}
                 alt="닫기"
               />
             </button>

@@ -81,10 +81,7 @@ const Footer = () => {
             <li>
               <button onClick={() => window.open("###", "_blank")}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_appstore.png"
-                  }
+                  src={require("assets/img/global/ico/ico_appstore.png")}
                   alt=""
                 />
               </button>
@@ -92,10 +89,7 @@ const Footer = () => {
             <li>
               <button onClick={() => window.open("###", "_blank")}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_playstore.png"
-                  }
+                  src={require("assets/img/global/ico/ico_playstore.png")}
                   alt=""
                 />
               </button>
@@ -103,10 +97,7 @@ const Footer = () => {
             <li>
               <button onClick={() => window.open("###", "_blank")}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_blog.png"
-                  }
+                  src={require("assets/img/global/ico/ico_blog.png")}
                   alt=""
                 />
               </button>
@@ -114,10 +105,7 @@ const Footer = () => {
             <li>
               <button onClick={() => window.open("###", "_blank")}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_instagram.png"
-                  }
+                  src={require("assets/img/global/ico/ico_instagram.png")}
                   alt=""
                 />
               </button>

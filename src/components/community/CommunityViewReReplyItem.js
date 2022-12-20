@@ -94,6 +94,10 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
 
   // 대댓글 좋아요기능
   const btnCmtLike = () => {
+    if (!isLoggedIn) {
+      dispatch(setLoginCheck(true));
+      return false;
+    }
     axios({
       method: "POST",
       url: "/mobile/community/insertCommentLike",
@@ -119,10 +123,7 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
       >
         <div className={styles.reReplyIco}>
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_reReply.png"
-            }
+            src={require("assets/img/global/ico/ico_reReply.png")}
             alt="rereply icon"
           />
         </div>
@@ -144,7 +145,9 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
             <>
               <div className={styles.writeInform}>
                 <p className={styles.writer}>{item.usernickname}</p>
-                <span className={styles.createTime}>{item.cret_dt}</span>
+                <span className={styles.createTime}>
+                  {item.cret_dt.slice(0, -3)}
+                </span>
               </div>
               <div className={`${styles.replyCont} ${styles.reReplyCont}`}>
                 <div className={styles.leftArea}>{item.description}</div>
@@ -155,20 +158,14 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
                         style={{
                           display: item.thumb_up != true ? "none" : null,
                         }}
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/public_assets/img/global/ico/ico_like_selected.png"
-                        }
+                        src={require("assets/img/global/ico/ico_like_selected.png")}
                         alt=""
                       />
                       <img
                         style={{
                           display: item.thumb_up == true ? "none" : null,
                         }}
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/public_assets/img/global/ico/ico_like.png"
-                        }
+                        src={require("assets/img/global/ico/ico_like.png")}
                         alt=""
                       />
                       <span>{item.like_count}</span>
@@ -182,10 +179,7 @@ const CommunityViewReReplyItem = ({ styles, item, getReply, getReReply }) => {
                       }}
                     >
                       <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/public_assets/img/global/ico/ico_more.png"
-                        }
+                        src={require("assets/img/global/ico/ico_more.png")}
                         alt="댓글 관리"
                       />
                     </button>

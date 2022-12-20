@@ -11,7 +11,7 @@
     background: $color-main;
     color: #fff;
   }
-  &[disabled] {
+  &[data-disabled="disabled"] {
     opacity: 0.5;
   }
   &.tooltipBtn {

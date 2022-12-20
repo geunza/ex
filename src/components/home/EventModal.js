@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import styles from "scss/components/Modal.module.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { modalOverflow, setLoginCheck } from "redux/store";
+import {
+  modalOverflow,
+  setLoginCheck,
+  loadingEnd,
+  loadingStart,
+} from "redux/store";
 const EventModal = ({ modalOpener, modalTab }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -51,6 +56,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
   const [userKeywordDummy, setUserKeywordDummy] = useState([]);
 
   const getUserKeyword = () => {
+    dispatch(loadingStart());
     axios({
       url: "/mainpage/getKeyword",
       method: "POST",
@@ -59,6 +65,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
       },
     })
       .then((res) => {
+        dispatch(loadingEnd());
         const data = res.data.keyword;
         if (data == null) {
           setUserKeyword([]);
@@ -66,7 +73,10 @@ const EventModal = ({ modalOpener, modalTab }) => {
           setUserKeyword(data.split(","));
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert(err);
+        dispatch(loadingEnd());
+      });
   };
   const submitDummyKeyword = (e) => {
     e.preventDefault();
@@ -190,10 +200,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               <div className={styles.tit}>
                 <img
                   priority="true"
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/home/event_modal_01.png"
-                  }
+                  src={require("assets/img/home/event_modal_01.png")}
                   alt="지원사업 정기배송"
                 />
                 <p>지원사업 정기배송</p>
@@ -206,10 +213,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               >
                 <img
                   priority="true"
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_close_black.png"
-                  }
+                  src={require("assets/img/global/btn/btn_close_black.png")}
                   alt="닫기"
                 />
               </button>
@@ -243,10 +247,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               <div className={styles.tit}>
                 <img
                   priority="true"
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/home/event_modal_02.png"
-                  }
+                  src={require("assets/img/home/event_modal_02.png")}
                   alt="키워드 알림"
                 />
                 <p>키워드 알림</p>
@@ -259,10 +260,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
               >
                 <img
                   priority="true"
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_close_black.png"
-                  }
+                  src={require("assets/img/global/btn/btn_close_black.png")}
                   alt="닫기"
                 />
               </button>
@@ -300,10 +298,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                             }}
                           >
                             <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/public_assets/img/global/btn/btn_close_white_small.png"
-                              }
+                              src={require("assets/img/global/btn/btn_close_white_small.png")}
                               alt="닫기"
                             />
                           </button>
@@ -346,10 +341,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
             <div className={styles.modalTop}>
               <div className={styles.tit}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/home/event_modal_03.png"
-                  }
+                  src={require("assets/img/home/event_modal_03.png")}
                   alt="창업자 네트워킹"
                 />
                 <p>창업자 네트워킹</p>
@@ -361,10 +353,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 className={styles.btn_close}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_close_black.png"
-                  }
+                  src={require("assets/img/global/btn/btn_close_black.png")}
                   alt="닫기"
                 />
               </button>
@@ -389,10 +378,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
             <div className={styles.modalTop}>
               <div className={styles.tit}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/home/event_modal_04.png"
-                  }
+                  src={require("assets/img/home/event_modal_04.png")}
                   alt="사업계획서 교육"
                 />
                 <p>사업계획서 교육</p>
@@ -404,10 +390,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
                 className={styles.btn_close}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/btn/btn_close_black.png"
-                  }
+                  src={require("assets/img/global/btn/btn_close_black.png")}
                   alt="닫기"
                 />
               </button>

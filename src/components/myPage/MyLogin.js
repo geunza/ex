@@ -59,7 +59,7 @@ const MyLogin = () => {
     axios({
       url: "/user/getUserInfo",
       method: "POST",
-      headers: { userId: parseInt(id) },
+      headers: { userId: id },
     }).then((res) => {
       const data = res.data;
       dispatch(setUserInfo(data));

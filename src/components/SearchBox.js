@@ -63,7 +63,11 @@ const SearchBox = ({
         <p className={styles.tit}>
           최근 검색어
           {myKeyword.length > 0 && (
-            <button className={styles.removeAll} onClick={removeAll}>
+            <button
+              className={styles.removeAll}
+              onClick={removeAll}
+              type="button"
+            >
               전체삭제
             </button>
           )}
@@ -84,10 +88,7 @@ const SearchBox = ({
                     }}
                   >
                     <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/public_assets/img/global/btn/btn_close_black_small.png"
-                      }
+                      src={require("assets/img/global/btn/btn_close_black_small.png")}
                       alt="삭제"
                     />
                   </button>
@@ -96,7 +97,7 @@ const SearchBox = ({
             })}
           </ul>
         ) : (
-          <p className={styles.empty}>최근 검색어가 없습니다.</p>
+          <p className={styles.empty}>검색어를 입력하세요.</p>
         )}
       </div>
     </div>

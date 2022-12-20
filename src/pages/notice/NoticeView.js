@@ -56,10 +56,7 @@ const NoticeView = () => {
           <div className={styles.btns}>
             <button onClick={() => navigate(-1)} className={styles.btnBack}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_back.png"
-                }
+                src={require("assets/img/global/btn/btn_back.png")}
                 alt="전체 공지"
               />
               <span>전체 공지</span>

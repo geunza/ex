@@ -128,10 +128,7 @@ const CommunityWrite = () => {
                 >
                   {cate}
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/btn/btn_arr_bottom_thick.png"
-                    }
+                    src={require("assets/img/global/btn/btn_arr_bottom_thick.png")}
                     alt="카테고리 선택"
                   />
                 </p>

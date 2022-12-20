@@ -15,24 +15,21 @@ const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [applyItems, setApplyItems] = useState([]);
-  const getApplyItems = (ord = "전체") => {
-    dispatch(loadingStart());
+  const getApplyItems = () => {
+    // dispatch(loadingStart());
     axios({
       url: "/saved/getMySavedBook",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { cat: "지원", ord: ord },
     }).then((res) => {
-      setApplyItems(res.data);
-      dispatch(loadingEnd());
+      setApplyItems(res.data.filter((x) => x.si_title != null));
+      // dispatch(loadingEnd());
     });
   };
   useEffect(() => {
-    getApplyItems(ord);
-  }, [ord]);
-  useEffect(() => {
     getApplyItems();
-  }, [userInfo]);
+  }, [ord, userInfo]);
   return (
     <>
       <div className={styles.ordArea}>
@@ -92,10 +89,7 @@ const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
         </div>
         <p>
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_inform.png"
-            }
+            src={require("assets/img/global/ico/ico_inform.png")}
             alt="정보"
           />
           <span>
@@ -121,7 +115,7 @@ const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
                 return (
                   <ApplyItem
                     item={item}
-                    key={item.mb_idx}
+                    key={item.si_idx}
                     getApplyItems={getApplyItems}
                     ord={ord}
                     getDoughnutList={getDoughnutList}

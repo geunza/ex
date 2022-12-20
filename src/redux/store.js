@@ -1,6 +1,7 @@
 import { current, configureStore, createSlice } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import supportItems from "db/supportItems.json";
+import { isCompositeComponent } from "react-dom/test-utils";
 // 로딩창
 let isLoading = createSlice({
   name: "isLoading",
@@ -201,19 +202,34 @@ let supportInfo = createSlice({
     setSupportInfo(state, action) {
       // const obj = { ...state };
       const item = action.payload;
+      const name = item.code_nm;
       const cate = item.ctg_cd;
       const stateCate = state[cate];
       const require = stateCate.require;
       const multiply = stateCate.multiply;
       if (multiply) {
-        if (someItem(stateCate.datas, item)) {
-          if (require && stateCate.datas.length == 1) {
+        if (name == "전체" || name == "전국") {
+          if (
+            stateCate.datas
+              .filter((x) => x.code_nm != "전체")
+              .filter((x) => x.code_nm != "전국").length == 0
+          ) {
             alert("한가지 이상 선택해주세요.");
-          } else {
-            stateCate.datas = filterItem(stateCate.datas, item);
           }
+          stateCate.datas = [item];
         } else {
-          stateCate.datas = addItem(stateCate.datas, item);
+          stateCate.datas = stateCate.datas
+            .filter((x) => x.code_nm != "전체")
+            .filter((x) => x.code_nm != "전국");
+          if (someItem(stateCate.datas, item)) {
+            if (require && stateCate.datas.length == 1) {
+              alert("한가지 이상 선택해주세요.");
+            } else {
+              stateCate.datas = filterItem(stateCate.datas, item);
+            }
+          } else {
+            stateCate.datas = addItem(stateCate.datas, item);
+          }
         }
       } else {
         if (someItem(stateCate.datas, item)) {
@@ -224,6 +240,7 @@ let supportInfo = createSlice({
           stateCate.datas = [item];
         }
       }
+      console.log([stateCate.datas]);
       function someItem(target, item) {
         return target.some(
           (x) => Object.entries(x).toString() == Object.entries(item).toString()

@@ -245,10 +245,7 @@ const SavedChart = ({
         >
           <div className={styles.imgArea}>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/home/event_modal_01.png"
-              }
+              src={require("assets/img/home/event_modal_01.png")}
               alt="이메일 정기배송 신청"
             />
           </div>
@@ -256,10 +253,7 @@ const SavedChart = ({
             <p className={styles.subTit}>이메일 정기배송 신청</p>
             <p className={styles.para}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_mark.png"
-                }
+                src={require("assets/img/global/ico/ico_mark.png")}
                 alt="느낌표"
               />
               <span>주 1회 지원 사업 메일을 전달드려요!</span>
@@ -284,10 +278,7 @@ const SavedChart = ({
         >
           <div className={styles.imgArea}>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_need.png"
-              }
+              src={require("assets/img/global/ico/ico_need.png")}
               alt="우리 회사에 필요한 이것"
             />
           </div>
@@ -295,10 +286,7 @@ const SavedChart = ({
             <p className={styles.subTit}>우리 회사에 필요한 이것!</p>
             <p className={styles.para}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_mark.png"
-                }
+                src={require("assets/img/global/ico/ico_mark.png")}
                 alt="느낌표"
               />
               <span>엑시토에서 도와드릴게요.</span>

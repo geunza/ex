@@ -122,20 +122,14 @@ const SignInPolicyModal = ({ setLastCheck }) => {
           <div className={styles.modalTop}>
             <div className={styles.tit}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_policy.png"
-                }
+                src={require("assets/img/global/ico/ico_policy.png")}
                 alt="엑시토 서비스 이용을 위한 마지막 단계입니다."
               />
               <p>엑시토 서비스 이용을 위한 마지막 단계입니다.</p>
             </div>
             <button type="button" value={false} className={styles.btn_close}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_close_black.png"
-                }
+                src={require("assets/img/global/btn/btn_close_black.png")}
                 alt="닫기"
               />
             </button>
@@ -196,18 +190,12 @@ const SignInPolicyModal = ({ setLastCheck }) => {
                 <label htmlFor="checkAll">
                   <img
                     style={{ display: allChecked ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_false.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_false.png")}
                     alt="이용약관(필수)"
                   />
                   <img
                     style={{ display: !allChecked ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_true.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_true.png")}
                     alt="이용약관(필수)"
                   />
                   약관전체동의 <mark>(선택사항 포함)</mark>
@@ -224,18 +212,12 @@ const SignInPolicyModal = ({ setLastCheck }) => {
                 <label htmlFor="policy_0">
                   <img
                     style={{ display: policyObj.policy_0 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_false.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_false.png")}
                     alt="이용약관(필수)"
                   />
                   <img
                     style={{ display: !policyObj.policy_0 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_true.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_true.png")}
                     alt="이용약관(필수)"
                   />
                   <span>이용약관(필수)</span>
@@ -260,18 +242,12 @@ const SignInPolicyModal = ({ setLastCheck }) => {
                 <label htmlFor="policy_1">
                   <img
                     style={{ display: policyObj.policy_1 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_false.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_false.png")}
                     alt="개인정보 처리방침(필수)"
                   />
                   <img
                     style={{ display: !policyObj.policy_1 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_true.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_true.png")}
                     alt="개인정보 처리방침(필수)"
                   />
                   <span>개인정보 처리방침(필수)</span>
@@ -296,18 +272,12 @@ const SignInPolicyModal = ({ setLastCheck }) => {
                 <label htmlFor="policy_2">
                   <img
                     style={{ display: policyObj.policy_2 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_false.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_false.png")}
                     alt="위치정보 수집/이용 동의(필수)"
                   />
                   <img
                     style={{ display: !policyObj.policy_2 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_true.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_true.png")}
                     alt="위치정보 수집/이용 동의(필수)"
                   />
                   <span>위치정보 수집/이용 동의(필수)</span>
@@ -332,18 +302,12 @@ const SignInPolicyModal = ({ setLastCheck }) => {
                 <label htmlFor="policy_3">
                   <img
                     style={{ display: policyObj.policy_3 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_false.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_false.png")}
                     alt="마케팅 수신 동의(선택)"
                   />
                   <img
                     style={{ display: !policyObj.policy_3 ? "none" : null }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_check_true.png"
-                    }
+                    src={require("assets/img/global/ico/ico_check_true.png")}
                     alt="마케팅 수신 동의(선택)"
                   />
                   <span>마케팅 수신 동의(선택)</span>

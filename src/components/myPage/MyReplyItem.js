@@ -46,10 +46,11 @@ const MyReplyItem = ({ item, getMyReply }) => {
         user_id: userInfo.id,
       },
       data: {
-        // comment_id: cmtId // CHECK !!
+        comment_id: item.c_content_id, // CHECK !!
       },
     })
       .then((res) => {
+        getMyReply();
         controlEnd();
       })
       .catch((err) => {
@@ -103,19 +104,13 @@ const MyReplyItem = ({ item, getMyReply }) => {
               <button className={styles.likeArea} onClick={btnCmtLike}>
                 {/* CHECK : 좋아요 내역 확인하는 API 필요 */}
                 <img
-                  // style={{ display: item.thumb_up != true ? "none" : null }}
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_like_selected.png"
-                  }
+                  style={{ display: item.thumb_up != true ? "none" : null }}
+                  src={require("assets/img/global/ico/ico_like_selected.png")}
                   alt=""
                 />
                 <img
-                  // style={{ display: item.thumb_up == true ? "none" : null }}
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_like.png"
-                  }
+                  style={{ display: item.thumb_up == true ? "none" : null }}
+                  src={require("assets/img/global/ico/ico_like.png")}
                   alt=""
                 />
                 <span>{item.like_count}</span>
@@ -128,10 +123,7 @@ const MyReplyItem = ({ item, getMyReply }) => {
                   }}
                 >
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_more.png"
-                    }
+                    src={require("assets/img/global/ico/ico_more.png")}
                     alt="댓글 관리"
                   />
                 </button>

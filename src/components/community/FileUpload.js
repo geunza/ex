@@ -67,9 +67,7 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
     <>
       <label htmlFor="multipleFiles">
         <img
-          src={
-            process.env.PUBLIC_URL + "/public_assets/img/global/btn/btn_add.png"
-          }
+          src={require("assets/img/global/btn/btn_add.png")}
           alt="첨부파일 추가"
         />
         <span>첨부파일</span>
@@ -86,10 +84,7 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
           <p key={idx} className={styles.item}>
             <span>{name}</span>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/btn/btn_close_blue.png"
-              }
+              src={require("assets/img/global/btn/btn_close_blue.png")}
               alt="첨부파일 제거"
               onClick={() => {
                 deleteFile(idx);

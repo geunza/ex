@@ -85,6 +85,7 @@ const Header = ({}) => {
       method: "POST",
       headers: {
         userID: 2464295270,
+        // userID: "001015.859e3db1b7f142f29a05761dadb94125.0126",
       },
     }).then((res) => {
       const data = res.data;
@@ -123,10 +124,7 @@ const Header = ({}) => {
       <div className={styles.Header}>
         <h1 className={styles.headerLogo}>
           <Link to="/">
-            <img
-              src={process.env.PUBLIC_URL + "/public_assets/img/LOGO.png"}
-              alt="HEYSOME LOGO"
-            />
+            <img src={require("assets/img/LOGO.png")} alt="EXITO LOGO" />
           </Link>
         </h1>
         <nav>
@@ -177,10 +175,7 @@ const Header = ({}) => {
           />
           <button type="submit">
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_search.png"
-              }
+              src={require("assets/img/global/ico/ico_search.png")}
               alt="SEARCH"
             />
           </button>
@@ -198,10 +193,7 @@ const Header = ({}) => {
             <>
               <Link to="/myPage">
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_user.png"
-                  }
+                  src={require("assets/img/global/ico/ico_user.png")}
                   alt=""
                 />
               </Link>

@@ -20,8 +20,9 @@ const RecentCont = ({
   const userInfo = useSelector((state) => state.userInfo);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const getRecentItems = (ord = "전체") => {
-    dispatch(loadingStart());
+  const [recentItems, setRecentItems] = useState([]);
+  const getRecentItems = () => {
+    // dispatch(loadingStart());
     axios({
       headers: {
         user_id: userInfo.id,
@@ -30,14 +31,16 @@ const RecentCont = ({
       method: "POST",
       url: "/saved/getRecentlyMySavedBook",
     }).then((res) => {
-      setRecentItems(res.data);
-      dispatch(loadingEnd());
+      setRecentItems(res.data.filter((x) => x.si_title != null));
+      // dispatch(loadingEnd());
     });
   };
-  const [recentItems, setRecentItems] = useState([]);
+  function decode(txt) {
+    return decodeURI(txt);
+  }
   useEffect(() => {
-    getRecentItems(ord);
-  }, [ord]);
+    getRecentItems();
+  }, [ord, userInfo]);
   const ordClick = (e) => {
     const {
       currentTarget: { value },
@@ -45,9 +48,6 @@ const RecentCont = ({
     const cate = searchParams.get("cate");
     navigate(`?cate=${cate}&ord=${value}`);
   };
-  useEffect(() => {
-    getRecentItems();
-  }, [userInfo]);
   return (
     <>
       <div className={styles.ordArea}>
@@ -83,10 +83,7 @@ const RecentCont = ({
         </div>
         <p>
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_inform.png"
-            }
+            src={require("assets/img/global/ico/ico_inform.png")}
             alt="정보"
           />
           <span>관심사업을 ‘찜’하시면 마감일 임박 시 알림해 드려요!</span>
@@ -109,7 +106,8 @@ const RecentCont = ({
                 return (
                   <RecentItem
                     item={item}
-                    key={item.si_idx}
+                    // key={item.si_idx}
+                    key={idx}
                     getRecentItems={getRecentItems}
                     ord={ord}
                     getDoughnutList={getDoughnutList}

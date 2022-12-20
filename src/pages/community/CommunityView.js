@@ -124,6 +124,10 @@ const CommunityView = () => {
     });
   };
   const commentChange = (e) => {
+    if (!isLoggedIn) {
+      dispatch(setLoginCheck(true));
+      return false;
+    }
     const {
       target: { value },
     } = e;
@@ -232,12 +236,12 @@ const CommunityView = () => {
       <div className={`${styles.CommunityView} ${styles.CommonView}`}>
         <div className={`inner ${styles.inner}`}>
           <div className={styles.btns}>
-            <button onClick={() => navigate(-1)} className={styles.btnBack}>
+            <button
+              onClick={() => navigate("/community/communityList")}
+              className={styles.btnBack}
+            >
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_back.png"
-                }
+                src={require("assets/img/global/btn/btn_back.png")}
                 alt="전체 게시글"
               />
               <span>전체 게시글</span>
@@ -266,10 +270,7 @@ const CommunityView = () => {
                 onClick={btnLike}
               >
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_like.png"
-                  }
+                  src={require("assets/img/global/ico/ico_like.png")}
                   alt="like icon"
                 />
                 <span>{post.like_cnt}</span>
@@ -283,10 +284,7 @@ const CommunityView = () => {
                   }}
                 >
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/global/ico/ico_more.png"
-                    }
+                    src={require("assets/img/global/ico/ico_more.png")}
                     alt="게시글 관리"
                   />
                 </button>
@@ -340,44 +338,60 @@ const CommunityView = () => {
                   ))}
               </div>
             </div>
-            {files.length > 0 && (
-              <ul className={styles.fileArea}>
-                {files.map((file, idx) => {
-                  return (
-                    <li key={idx}>
-                      <a href={file.file_url} download>
-                        {file.file_name}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
+            {files.length > 0 &&
+              (isLoggedIn ? (
+                <ul className={styles.fileArea}>
+                  {files.map((file, idx) => {
+                    return (
+                      <li key={idx}>
+                        <a href={file.file_url} download>
+                          {file.file_name}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <ul className={styles.fileArea}>
+                  {files.map((file, idx) => {
+                    return (
+                      <li key={idx}>
+                        <a
+                          href={"###"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            dispatch(setLoginCheck(true));
+                          }}
+                        >
+                          {file.file_name}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ))}
           </div>
           <div className={styles.commentArea}>
-            {
-              isLoggedIn
-                ? null
-                : // <div className={styles.writeArea}>
-                  //   <h4>댓글 작성</h4>
-                  //   <textarea
-                  //     rows="6"
-                  //     placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
-                  //     value={cmtText}
-                  //     onChange={commentChange}
-                  //   ></textarea>
-                  //   <div className={styles.btnArea}>
-                  //     <button type="button" onClick={replySubmit}>
-                  //       댓글 등록
-                  //     </button>
-                  //   </div>
-                  // </div>
-                  null
-              // <p className={styles.needSignIn}>
-              //   로그인이 필요합니다.
-              //   {/* CHECK : 메시지 정리 */}
-              // </p>
-            }
+            <div className={styles.writeArea}>
+              <h4>댓글 작성</h4>
+              <textarea
+                rows="6"
+                placeholder="욕설/비방 등 타인이 불쾌함을 느낄 수 있는 발언은 삼가해 주세요 :)"
+                value={cmtText}
+                onChange={commentChange}
+                onClick={(e) => {
+                  if (!isLoggedIn) {
+                    dispatch(setLoginCheck(true));
+                    return false;
+                  }
+                }}
+              ></textarea>
+              <div className={styles.btnArea}>
+                <button type="button" onClick={replySubmit}>
+                  댓글 등록
+                </button>
+              </div>
+            </div>
             <ul className={styles.mainReplyWrap}>
               {reply.length > 0 &&
                 reply.map((item) => {

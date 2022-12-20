@@ -23,6 +23,7 @@ const RecentItem = ({
   const locName = supportItem.loc_cd.find(
     (item) => item.code == locCode
   ).code_nm;
+  // const locName = "AA";
   const targetName = item.target_name;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
   const [readDate, readDay] = [item.tl_cret_dt, getDay(item.tl_cret_dt)];
@@ -128,10 +129,7 @@ const RecentItem = ({
         <ul>
           <li>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_date.png"
-              }
+              src={require("assets/img/global/ico/ico_date.png")}
               alt="마감일"
             />
             <span className={styles.dueDate}>
@@ -140,10 +138,7 @@ const RecentItem = ({
           </li>
           <li>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_view_black.png"
-              }
+              src={require("assets/img/global/ico/ico_view_black.png")}
               alt="조회수"
             />
             <span>{viewCount} 회</span>
@@ -162,19 +157,13 @@ const RecentItem = ({
             >
               <img
                 priority="true"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_zzim_black.png"
-                }
+                src={require("assets/img/global/ico/ico_zzim_black.png")}
                 style={{ display: isZzim ? "none" : null }}
                 alt="찜X"
               />
               <img
                 priority="true"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_zzim.png"
-                }
+                src={require("assets/img/global/ico/ico_zzim.png")}
                 style={{ display: !isZzim ? "none" : null }}
                 alt="찜O"
               />

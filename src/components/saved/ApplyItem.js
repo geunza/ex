@@ -126,10 +126,7 @@ const ApplyItem = ({
         <ul>
           <li>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_date.png"
-              }
+              src={require("assets/img/global/ico/ico_date.png")}
               alt="마감일"
             />
             <span className={styles.dueDate}>
@@ -138,10 +135,7 @@ const ApplyItem = ({
           </li>
           <li>
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_view_black.png"
-              }
+              src={require("assets/img/global/ico/ico_view_black.png")}
               alt="조회수"
             />
             <span>{viewCount} 회</span>
@@ -160,10 +154,7 @@ const ApplyItem = ({
             >
               {done == "Y" ? (
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/public_assets/img/global/ico/ico_apply.png"
-                  }
+                  src={require("assets/img/global/ico/ico_apply.png")}
                   alt="신청"
                 />
               ) : null}

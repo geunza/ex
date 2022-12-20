@@ -21,24 +21,21 @@ const MyCont = ({
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [myItems, setMyItems] = useState([]);
-  const getMyItems = (ord = "전체") => {
-    dispatch(loadingStart());
+  const getMyItems = () => {
+    // dispatch(loadingStart());
     axios({
       url: "/saved/getMySavedBook",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { cat: "찜", ord: ord },
     }).then((res) => {
-      setMyItems(res.data);
-      dispatch(loadingEnd());
+      setMyItems(res.data.filter((x) => x.si_title != null));
+      // dispatch(loadingEnd());
     });
   };
   useEffect(() => {
-    getMyItems(ord);
-  }, [ord]);
-  useEffect(() => {
     getMyItems();
-  }, [userInfo]);
+  }, [ord, userInfo]);
 
   return (
     <>
@@ -99,10 +96,7 @@ const MyCont = ({
         </div>
         <p>
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_inform.png"
-            }
+            src={require("assets/img/global/ico/ico_inform.png")}
             alt="정보"
           />
           <span>

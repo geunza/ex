@@ -1,9 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styles from "scss/components/Modal.module.scss";
-import { setLoginCheck } from "redux/store";
+import { modalOverflow, setLoginCheck } from "redux/store";
+import { useEffect } from "react";
 const LoginModal = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(modalOverflow(true));
+    return () => {
+      dispatch(modalOverflow(false));
+    };
+  }, []);
   return (
     <div className={styles.modalWrap}>
       <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
@@ -22,10 +29,7 @@ const LoginModal = () => {
             >
               <img
                 priority="true"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_close_black.png"
-                }
+                src={require("assets/img/global/btn/btn_close_black.png")}
                 alt="닫기"
               />
             </button>
@@ -33,10 +37,7 @@ const LoginModal = () => {
           <div className={styles.modalCont}>
             <div className={styles.imgArea}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_login.png"
-                }
+                src={require("assets/img/global/ico/ico_login.png")}
                 alt="로그인하기"
               />
               <p>
@@ -47,35 +48,23 @@ const LoginModal = () => {
               <div className={styles.sns}>
                 <button type="button" className={styles.btnKakao}>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/sns_kakao.png"
-                    }
+                    src={require("assets/img/home/sns_kakao.png")}
                     alt="Kakao Icon"
                   />
                   <span>카카오 로그인</span>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/sns_kakao.png"
-                    }
+                    src={require("assets/img/home/sns_kakao.png")}
                     alt="Kakao Icon"
                   />
                 </button>
                 <button type="button" className={styles.btnApple}>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/sns_apple.png"
-                    }
+                    src={require("assets/img/home/sns_apple.png")}
                     alt="Apple Icon"
                   />
                   <span>Apple 로그인</span>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/public_assets/img/home/sns_apple.png"
-                    }
+                    src={require("assets/img/home/sns_apple.png")}
                     alt="Apple Icon"
                   />
                 </button>

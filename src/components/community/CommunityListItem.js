@@ -128,7 +128,11 @@ const CommunityListItem = ({
           }}
         >
           <p className="title">{post.title}</p>
-          <p className={`content ${styles.content}`}>{post.title}</p>
+
+          <p
+            className={`content ${styles.content}`}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          ></p>
           <p className="write">
             <span className="name">{post.usernickname}</span>
             <span className="time">{post.cret_dt}</span>
@@ -138,30 +142,21 @@ const CommunityListItem = ({
       <div className={`rightArea ${styles.rightArea}`}>
         <p className="rightInform">
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_comment.png"
-            }
+            src={require("assets/img/global/ico/ico_comment.png")}
             alt="코멘트"
           />
           <span>{post.comment_cnt}</span>
         </p>
         <p className="rightInform">
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_like.png"
-            }
+            src={require("assets/img/global/ico/ico_like.png")}
             alt="좋아요"
           />
           <span>{post.like_cnt}</span>
         </p>
         <p className="rightInform">
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/public_assets/img/global/ico/ico_view_gray.png"
-            }
+            src={require("assets/img/global/ico/ico_view_gray.png")}
             alt="조회수"
           />
           <span>{post.view_count}</span>
@@ -175,10 +170,7 @@ const CommunityListItem = ({
             }}
           >
             <img
-              src={
-                process.env.PUBLIC_URL +
-                "/public_assets/img/global/ico/ico_more.png"
-              }
+              src={require("assets/img/global/ico/ico_more.png")}
               alt="내 게시글 관리"
             />
           </button>

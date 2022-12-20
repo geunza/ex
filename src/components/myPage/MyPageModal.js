@@ -152,10 +152,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
           <div className={styles.modalTop}>
             <div className={styles.tit}>
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/ico/ico_alarm.png"
-                }
+                src={require("assets/img/global/ico/ico_alarm.png")}
                 alt="알림설정"
               />
               <p>알림설정</p>
@@ -169,10 +166,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
               className={styles.btn_close}
             >
               <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/public_assets/img/global/btn/btn_close_black.png"
-                }
+                src={require("assets/img/global/btn/btn_close_black.png")}
                 alt="닫기"
               />
             </button>
