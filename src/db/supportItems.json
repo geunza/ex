@@ -63,43 +63,43 @@
         "code_nm": "전체",
         "code": "01",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       },
       {
         "code_nm": "중소기업",
         "code": "02",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       },
       {
         "code_nm": "소기업",
         "code": "03",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       },
       {
         "code_nm": "소상공인",
         "code": "04",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       },
       {
         "code_nm": "여성기업",
         "code": "05",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       },
       {
         "code_nm": "장애인기업",
         "code": "06",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       },
       {
         "code_nm": "사회적기업",
         "code": "07",
         "ctg_cd": "biz_type_cd",
-        "ctg_nm": "사업형태"
+        "ctg_nm": "기업형태"
       }
     ],
     "spt_cd": [

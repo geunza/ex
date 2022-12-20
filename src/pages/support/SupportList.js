@@ -21,7 +21,7 @@ const SupportList = ({}) => {
   const [ord, setOrd] = useState("");
   const [page, setPage] = useState("");
   const [savedBook, setSavedBook] = useState([]);
-
+  const [allSupport, setAllSupport] = useState(false);
   const moveScrollStorage = () => {
     window.scrollTo({
       top: parseInt(sessionStorage.getItem("sOffset")),
@@ -48,34 +48,59 @@ const SupportList = ({}) => {
       searchKeyword = keywordParam.toString();
     }
     dispatch(loadingStart());
-    axios({
-      url: "/support/getSupportInfoList",
-      method: "POST",
-      headers: {
-        user_id: userInfo.id,
-      },
-      data: {
-        ord: ord,
-        business_type: dataToString("bizp_type_cd"),
-        start_period: dataToString("prd_cd"),
-        company_type: dataToString("biz_type_cd"),
-        target_cat_name: dataToString("spt_cd"),
-        business_ctg: dataToString("biz_cd"),
-        tech_ctg: dataToString("tech_cd"),
-        loc_code: dataToString("loc_cd"),
-        keyword: searchTxt,
-      },
-    }).then((res) => {
-      console.log(
-        "currentAxiosNum" + currentAxiosNum,
-        "lastAxiosNum" + lastAxiosNum
-      );
-      if (currentAxiosNum == lastAxiosNum - 1) {
+    if (allSupport) {
+      axios({
+        url: "/support/getSupportInfoList",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: {
+          ord: ord,
+          business_type: "01",
+          start_period: "999",
+          company_type: "01",
+          target_cat_name: "01",
+          business_ctg: "01",
+          tech_ctg: "01",
+          loc_code: "C82",
+          keyword: "",
+        },
+      }).then((res) => {
         dispatch(setSupportData(res.data));
-      }
-      moveScrollStorage();
-      dispatch(loadingEnd());
-    });
+        moveScrollStorage();
+        dispatch(loadingEnd());
+      });
+    } else {
+      axios({
+        url: "/support/getSupportInfoList",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: {
+          ord: ord,
+          business_type: dataToString("bizp_type_cd"),
+          start_period: dataToString("prd_cd"),
+          company_type: dataToString("biz_type_cd"),
+          target_cat_name: dataToString("spt_cd"),
+          business_ctg: dataToString("biz_cd"),
+          tech_ctg: dataToString("tech_cd"),
+          loc_code: dataToString("loc_cd"),
+          keyword: searchTxt,
+        },
+      }).then((res) => {
+        console.log(
+          "currentAxiosNum" + currentAxiosNum,
+          "lastAxiosNum" + lastAxiosNum
+        );
+        if (currentAxiosNum == lastAxiosNum - 1) {
+          dispatch(setSupportData(res.data));
+        }
+        moveScrollStorage();
+        dispatch(loadingEnd());
+      });
+    }
     function dataToString(target) {
       return supportInfo[target].datas.map((v) => v.code).toString();
     }
@@ -133,6 +158,8 @@ const SupportList = ({}) => {
                 supportInfo={supportInfo}
                 getSupportCont={getSupportCont}
                 setScrollStorage={setScrollStorage}
+                allSupport={allSupport}
+                setAllSupport={setAllSupport}
               />
             </div>
             <div className={styles.listArea}>

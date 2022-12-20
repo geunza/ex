@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     // getFilterData("bizp_type_cd"); // 사업자형태
     // getFilterData("prd_cd"); // 창업기간
-    // getFilterData("biz_type_cd"); // 사업형태
+    // getFilterData("biz_type_cd"); // 기업형태
     // getFilterData("spt_cd"); // 지원분야
     // getFilterData("biz_cd"); // 사업분야
     // getFilterData("tech_cd"); // 기술분야
@@ -119,7 +119,7 @@ function App() {
       // }
 
       //bizp_type_cd:사업자형태
-      //biz_type_cd:사업형태
+      //biz_type_cd:기업형태
       //prd_cd:창업기간
       //spt_cd:지원분야
       //biz_cd:사업분야
@@ -145,7 +145,7 @@ function App() {
             ],
           },
           biz_type_cd: {
-            name: "사업형태",
+            name: "기업형태",
             multiply: true,
             require: true,
             datas: [
@@ -153,7 +153,7 @@ function App() {
                 code_nm: "전체",
                 code: "01",
                 ctg_cd: "biz_type_cd",
-                ctg_nm: "사업형태",
+                ctg_nm: "기업형태",
               },
             ],
           },

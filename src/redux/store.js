@@ -120,7 +120,7 @@ let supportInfo = createSlice({
       ],
     },
     biz_type_cd: {
-      name: "사업형태",
+      name: "기업형태",
       multiply: true,
       require: true,
       datas: [
@@ -128,7 +128,7 @@ let supportInfo = createSlice({
           code_nm: "전체",
           code: "01",
           ctg_cd: "biz_type_cd",
-          ctg_nm: "사업형태",
+          ctg_nm: "기업형태",
         },
       ],
     },

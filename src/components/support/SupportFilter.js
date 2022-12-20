@@ -9,7 +9,12 @@ import {
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
 import { useNavigate } from "react-router-dom";
-const SupportFilter = ({ getSupportCont, setScrollStorage }) => {
+const SupportFilter = ({
+  getSupportCont,
+  setScrollStorage,
+  allSupport,
+  setAllSupport,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -161,7 +166,14 @@ const SupportFilter = ({ getSupportCont, setScrollStorage }) => {
           </span>
         </h4>
         <div className={styles.chkArea}>
-          <input type="checkbox" id="chkAll" />
+          <input
+            type="checkbox"
+            id="chkAll"
+            value={allSupport}
+            onChange={(e) => {
+              setAllSupport(e.currentTarget.checked);
+            }}
+          />
           <label htmlFor="chkAll">전체 지원사업 보기</label>
         </div>
         <div className={styles.filterBox}>
