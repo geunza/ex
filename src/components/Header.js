@@ -12,6 +12,11 @@ import {
 import axios from "axios";
 import { useEffect } from "react";
 import SearchBox from "components/SearchBox";
+import {
+  REST_API_KEY,
+  REDIRECT_URI,
+  LOGOUT_REDIRECT_URI,
+} from "pages/login/KakaoLoginData";
 const Header = ({}) => {
   const location = useLocation();
   const userInfo = useSelector((state) => state.userInfo);
@@ -137,6 +142,23 @@ const Header = ({}) => {
       }
     });
   };
+  const kakaoLogout = () => {
+    const token = localStorage.getItem("kakaoToken");
+    console.log(token);
+    window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+    // axios({
+    //   method: "POST",
+    //   url: "https://kapi.kakao.com/v1/user/logout",
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then((res) => {
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
+  };
   return (
     <>
       <div className={styles.Header}>
@@ -145,6 +167,9 @@ const Header = ({}) => {
             <img src={require("assets/img/LOGO.png")} alt="EXITO LOGO" />
           </Link>
         </h1>
+        <button type="button" style={{ padding: "30px" }} onClick={kakaoLogout}>
+          로그아웃
+        </button>
         <nav>
           <ul>
             <li>

@@ -90,7 +90,7 @@ export let { setCompanyInfo } = userCompany.actions;
 
 let supportItem = createSlice({
   name: "supportItem",
-  initialState: supportItems[0],
+  initialState: {},
   reducers: {
     setSupportItem(state, action) {
       const data = action.payload;
@@ -101,19 +101,29 @@ let supportItem = createSlice({
   },
 });
 export let { setSupportItem } = supportItem.actions;
+let supportItemReady = createSlice({
+  name: "supportItemReady",
+  initialState: false,
+  reducers: {
+    setSupportItemReady(state, action) {
+      return action.payload;
+    },
+  },
+});
 
+export let { setSupportItemReady } = supportItemReady.actions;
 // 공통코드
 let supportInfo = createSlice({
   name: "supportInfo",
   initialState: {
     bizp_type_cd: {
       name: "사업자형태",
-      multiply: false,
+      multiply: true,
       require: true,
       datas: [
         {
-          code_nm: "전체",
-          code: "01",
+          code_nm: "예비창업자",
+          code: "02",
           ctg_cd: "bizp_type_cd",
           ctg_nm: "사업자형태",
         },
@@ -125,10 +135,10 @@ let supportInfo = createSlice({
       require: true,
       datas: [
         {
-          code_nm: "전체",
-          code: "01",
+          code_nm: "중소기업",
+          code: "02",
           ctg_cd: "biz_type_cd",
-          ctg_nm: "기업형태",
+          ctg_nm: "사업형태",
         },
       ],
     },
@@ -138,8 +148,8 @@ let supportInfo = createSlice({
       require: true,
       datas: [
         {
-          code_nm: "전체",
-          code: "999",
+          code_nm: "1년 미만",
+          code: "10",
           ctg_cd: "prd_cd",
           ctg_nm: "창업기간",
         },
@@ -151,8 +161,8 @@ let supportInfo = createSlice({
       require: true,
       datas: [
         {
-          code_nm: "전체",
-          code: "01",
+          code_nm: "사업화 지원",
+          code: "02",
           ctg_cd: "spt_cd",
           ctg_nm: "지원분야",
         },
@@ -164,8 +174,8 @@ let supportInfo = createSlice({
       require: true,
       datas: [
         {
-          code_nm: "전체",
-          code: "01",
+          code_nm: "제조",
+          code: "02",
           ctg_cd: "biz_cd",
           ctg_nm: "사업분야",
         },
@@ -177,8 +187,8 @@ let supportInfo = createSlice({
       require: true,
       datas: [
         {
-          code_nm: "전체",
-          code: "01",
+          code_nm: "딥테크",
+          code: "02",
           ctg_cd: "tech_cd",
           ctg_nm: "기술분야",
         },
@@ -242,9 +252,14 @@ let supportInfo = createSlice({
       }
       console.log([stateCate.datas]);
       function someItem(target, item) {
-        return target.some(
-          (x) => Object.entries(x).toString() == Object.entries(item).toString()
-        );
+        if (target.length > 0) {
+          return target.some(
+            (x) =>
+              Object.entries(x).toString() == Object.entries(item).toString()
+          );
+        } else {
+          return true;
+        }
       }
       function filterItem(target, item) {
         return target.filter(
@@ -302,6 +317,7 @@ export default configureStore({
     userCompany: userCompany.reducer,
     supportInfo: supportInfo.reducer,
     supportItem: supportItem.reducer,
+    supportItemReady: supportItemReady.reducer,
     modalState: modalState.reducer,
     supportData: supportData.reducer,
     loginCheck: loginCheck.reducer,

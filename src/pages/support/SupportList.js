@@ -18,6 +18,7 @@ const SupportList = ({}) => {
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
+  const supportItemReady = useSelector((state) => state.supportItemReady);
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState("");
   const [savedBook, setSavedBook] = useState([]);
@@ -138,6 +139,9 @@ const SupportList = ({}) => {
     getSupportCont();
     getRecent();
   }, [userInfo]);
+  useEffect(() => {
+    console.log("supportInfo", supportInfo);
+  }, [supportInfo]);
   const [compoMount, setCompoMount] = useState(false);
   useEffect(() => {
     if (location.search == "" && compoMount) {

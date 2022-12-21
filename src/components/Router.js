@@ -28,6 +28,8 @@ import MyPage from "pages/myPage/MyPage";
 import Written from "pages/myPage/Written";
 import SignInPolicyModal from "components/home/SignInPolicyModal";
 import LoginModal from "components/LoginModal";
+import KakaoLogin from "pages/login/KakaoLogin";
+import KakaoLogOut from "pages/login/KakaoLogOut";
 const AppRouter = ({}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -70,6 +72,8 @@ const AppRouter = ({}) => {
           <Route path="/notice/noticeView/:id" element={<NoticeView />}></Route>
           <Route path="/myPage" exact element={<MyPage />}></Route>
           <Route path="/myPage/Written" exact element={<Written />}></Route>
+          <Route path="/KakaoLogin" exact element={<KakaoLogin />}></Route>
+          <Route path="/KakaoLogOut" exact element={<KakaoLogOut />}></Route>
           <Route path="*" element={<Navigate replace to="/" />}></Route>
         </Routes>
         <Footer />

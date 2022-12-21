@@ -6,7 +6,7 @@ import Tooltip from "components/Tooltip";
 const FilterButton = ({ item, onClick, idx, baseObj }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportInfo = useSelector((state) => state.supportInfo);
-  const disabled = !isLoggedIn && idx != 0;
+  const disabled = !isLoggedIn;
   const [hasToolTip, setHasToolTip] = useState(false);
   const [hastooltipCont, setTooltipCont] = useState("");
   const tooltipOpen = (e) => {

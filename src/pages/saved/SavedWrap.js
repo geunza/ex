@@ -43,6 +43,15 @@ const SavedWrap = () => {
     { name: "지원", count: 0, color: "#c0cbd5" },
     { name: "선정", count: 0, color: "#c0cbd5" },
   ]);
+
+  let baseCatName = [
+    { name: "사업화지원", order: 1, color: "#00d9a6" },
+    { name: "인건비지원", order: 2, color: "#7790fa" },
+    { name: "행사", order: 3, color: "#fed51f" },
+    { name: "마케팅홍보", order: 4, color: "#ff6565" },
+    { name: "시설공간", order: 5, color: "#c0cbd5" },
+    { name: "기타", order: 6, color: "#c777fa" },
+  ];
   const getDoughnutList = () => {
     axios({
       url: "/saved/getCatList",
@@ -53,7 +62,23 @@ const SavedWrap = () => {
       },
     })
       .then((res) => {
-        setDoughnutList(dataOrder(res.data));
+        const data = res.data;
+        let target = data.find((x) => x.target_cat_name == "기타");
+        if (target == undefined) {
+          data.push({
+            target_cat_name: "기타",
+            count: 0,
+          });
+          target = data.find((x) => x.target_cat_name == "기타");
+        }
+        for (let i = data.length - 1; i >= 0; i--) {
+          console.log(data);
+          if (!baseCatName.some((x) => x.name == data[i].target_cat_name)) {
+            target.count += data[i].count;
+            data.splice(i, 1);
+          }
+        }
+        setDoughnutList(dataOrder(data));
       })
       .catch((err) => {
         console.log("err", err);
@@ -83,30 +108,9 @@ const SavedWrap = () => {
   function dataOrder(arr) {
     let newArr = [...arr].map((v, i) => {
       const name = v.target_cat_name;
-      if (name == "사업화지원") {
-        v.order = 1;
-        v.color = "#00d9a6";
-      }
-      if (name == "인건비지원") {
-        v.order = 2;
-        v.color = "#7790fa";
-      }
-      if (name == "행사") {
-        v.order = 3;
-        v.color = "#fed51f";
-      }
-      if (name == "마케팅홍보") {
-        v.order = 4;
-        v.color = "#ff6565";
-      }
-      if (name == "시설공간") {
-        v.order = 5;
-        v.color = "#c0cbd5";
-      }
-      if (name == "기타") {
-        v.order = 6;
-        v.color = "#c777fa";
-      }
+      let obj = baseCatName.find((x) => x.name == name);
+      v.order = obj.order;
+      v.color = obj.color;
       return v;
     });
     newArr = newArr.sort((a, b) => {

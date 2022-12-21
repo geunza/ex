@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import styles from "scss/components/Modal.module.scss";
 import { modalOverflow, setLoginCheck } from "redux/store";
 import { useEffect } from "react";
+import { REST_API_KEY, REDIRECT_URI } from "pages/login/KakaoLoginData";
 const LoginModal = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -11,6 +12,11 @@ const LoginModal = () => {
       dispatch(modalOverflow(false));
     };
   }, []);
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const handleKakao = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
   return (
     <div className={styles.modalWrap}>
       <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
@@ -46,7 +52,11 @@ const LoginModal = () => {
             </div>
             <div className={styles.loginRoute}>
               <div className={styles.sns}>
-                <button type="button" className={styles.btnKakao}>
+                <button
+                  type="button"
+                  className={styles.btnKakao}
+                  onClick={handleKakao}
+                >
                   <img
                     src={require("assets/img/home/sns_kakao.png")}
                     alt="Kakao Icon"
