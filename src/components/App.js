@@ -2,7 +2,12 @@ import styles from "scss/components/App.module.scss";
 import "scss/reset.scss";
 import "scss/global.scss";
 import { useState } from "react";
-import { signIn, setUserInfo } from "redux/store";
+import {
+  signIn,
+  setSupportInfoDefault,
+  setUserInfo,
+  setSupportItemReady,
+} from "redux/store";
 import AppRouter from "components/Router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -12,7 +17,6 @@ import {
   setSupportItem,
   setCompanyInfo,
   setSupportInfoModal,
-  setSupportInfoDefault,
 } from "redux/store";
 function App() {
   const dispatch = useDispatch();
@@ -21,29 +25,34 @@ function App() {
   const supportItem = useSelector((state) => state.supportItem);
   const supportInfo = useSelector((state) => state.supportInfo);
   const userCompany = useSelector((state) => state.userCompany);
-  // const getFilterData = (code) => {
-  //   axios({
-  //     url: `/common/codeDtlList?ctgCd=${code}`,
-  //     method: "POST",
-  //   }).then((res) => {
-  //     dispatch(setSupportItem({ cate: code, arr: res.data }));
-  //   });
-  // };
+  const getFilterData = (code) => {
+    axios({
+      url: `/common/codeDtlList?ctgCd=${code}`,
+      method: "POST",
+    }).then((res) => {
+      dispatch(setSupportItem({ cate: code, arr: res.data }));
+    });
+  };
 
   useEffect(() => {
-    // getFilterData("bizp_type_cd"); // 사업자형태
-    // getFilterData("prd_cd"); // 창업기간
-    // getFilterData("biz_type_cd"); // 기업형태
-    // getFilterData("spt_cd"); // 지원분야
-    // getFilterData("biz_cd"); // 사업분야
-    // getFilterData("tech_cd"); // 기술분야
-    // getFilterData("loc_cd"); // 지역
+    getFilterData("bizp_type_cd"); // 사업자형태
+    getFilterData("prd_cd"); // 창업기간
+    getFilterData("biz_type_cd"); // 기업형태
+    getFilterData("spt_cd"); // 지원분야
+    getFilterData("biz_cd"); // 사업분야
+    getFilterData("tech_cd"); // 기술분야
+    getFilterData("loc_cd"); // 지역
     if (sessionStorage.getItem("isLoggedIn")) {
       const userId = JSON.parse(sessionStorage.getItem("userId"));
       defaultSignIn(userId);
       dispatch(signIn());
     }
   }, []);
+  useEffect(() => {
+    if (Object.keys(supportItem).length == 7) {
+      dispatch(setSupportItemReady(true));
+    }
+  }, [supportItem]);
   const defaultSignIn = (id) => {
     axios({
       url: "/user/getUserInfo",
@@ -137,8 +146,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "전체",
-                code: "01",
+                code_nm: "예비창업자",
+                code: "02",
                 ctg_cd: "bizp_type_cd",
                 ctg_nm: "사업자형태",
               },
@@ -150,10 +159,10 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "전체",
-                code: "01",
+                code_nm: "중소기업",
+                code: "02",
                 ctg_cd: "biz_type_cd",
-                ctg_nm: "기업형태",
+                ctg_nm: "사업형태",
               },
             ],
           },
@@ -163,8 +172,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "전체",
-                code: "999",
+                code_nm: "1년 미만",
+                code: "10",
                 ctg_cd: "prd_cd",
                 ctg_nm: "창업기간",
               },
@@ -176,8 +185,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "전체",
-                code: "01",
+                code_nm: "사업화 지원",
+                code: "02",
                 ctg_cd: "spt_cd",
                 ctg_nm: "지원분야",
               },
@@ -189,8 +198,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "전체",
-                code: "01",
+                code_nm: "제조",
+                code: "02",
                 ctg_cd: "biz_cd",
                 ctg_nm: "사업분야",
               },
@@ -202,8 +211,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "전체",
-                code: "01",
+                code_nm: "딥테크",
+                code: "02",
                 ctg_cd: "tech_cd",
                 ctg_nm: "기술분야",
               },
