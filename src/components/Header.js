@@ -84,25 +84,8 @@ const Header = ({}) => {
       document.querySelector("#searchText").blur();
     }
   };
-  const temporarysignIn = () => {
-    // dispatch(setUserInfo());
-    // dispatch(signIn());
-    axios({
-      url: "/user/getUserInfo",
-      method: "POST",
-      headers: {
-        userID: 2464295270,
-        // userID: "001015.859e3db1b7f142f29a05761dadb94125.0126",
-      },
-    }).then((res) => {
-      const data = res.data;
-      if (data == null) {
-        alert("로그인에 실패하였습니다.");
-        return false;
-      }
-      dispatch(setUserInfo(data));
-      dispatch(signIn());
-    });
+  const handleLogin = () => {
+    dispatch(setLoginCheck(true));
   };
   const temporarysignOut = () => {
     dispatch(removeUserInfo());
@@ -142,22 +125,13 @@ const Header = ({}) => {
       }
     });
   };
-  const kakaoLogout = () => {
-    const token = localStorage.getItem("kakaoToken");
-    console.log(token);
-    window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
-    // axios({
-    //   method: "POST",
-    //   url: "https://kapi.kakao.com/v1/user/logout",
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // })
-    //   .then((res) => {
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+  const handleLogout = () => {
+    if (userInfo.id.length == 10) {
+      //카카오
+      const token = localStorage.getItem("kakaoToken");
+      console.log(token);
+      window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+    }
   };
   return (
     <>
@@ -167,9 +141,6 @@ const Header = ({}) => {
             <img src={require("assets/img/LOGO.png")} alt="EXITO LOGO" />
           </Link>
         </h1>
-        <button type="button" style={{ padding: "30px" }} onClick={kakaoLogout}>
-          카카오톡 로그아웃 임시 버튼
-        </button>
         <nav>
           <ul>
             <li>
@@ -242,11 +213,13 @@ const Header = ({}) => {
                   alt=""
                 />
               </Link>
-              <button onClick={temporarysignOut}>로그아웃</button>
+              <button type="button" onClick={handleLogout}>
+                로그아웃
+              </button>
             </>
           ) : (
             <>
-              <button onClick={temporarysignIn}>로그인</button>
+              <button onClick={handleLogin}>로그인</button>
             </>
           )}
         </div>

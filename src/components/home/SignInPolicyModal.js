@@ -9,6 +9,7 @@ import {
   modalOverflow,
   setUserInfo,
   signIn,
+  setKakaoInform,
 } from "redux/store";
 import { useNavigate } from "react-router-dom";
 const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
@@ -163,6 +164,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
                 marketingPush: marketingValue,
               },
             }).then(() => {
+              dispatch(setKakaoInform({ state: false, datas: {} }));
               setLastCheck(false);
             });
           });
