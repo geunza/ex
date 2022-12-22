@@ -168,7 +168,7 @@ const Header = ({}) => {
           </Link>
         </h1>
         <button type="button" style={{ padding: "30px" }} onClick={kakaoLogout}>
-          로그아웃
+          카카오톡 로그아웃 임시 버튼
         </button>
         <nav>
           <ul>
