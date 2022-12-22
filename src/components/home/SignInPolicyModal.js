@@ -2,10 +2,19 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import styles from "scss/components/Modal.module.scss";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { loadingStart, loadingEnd } from "redux/store";
-const SignInPolicyModal = ({ setLastCheck }) => {
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loadingStart,
+  loadingEnd,
+  modalOverflow,
+  setUserInfo,
+  signIn,
+} from "redux/store";
+import { useNavigate } from "react-router-dom";
+const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate("");
+  const userInfo = useSelector((state) => state.userInfo);
   const [allChecked, setAllChecked] = useState(false);
   const [policyObj, setPolicyObj] = useState({
     policy_0: false,
@@ -28,6 +37,14 @@ const SignInPolicyModal = ({ setLastCheck }) => {
   };
   const nicknameCheckSubmit = (e) => {
     e.preventDefault();
+    if (nickname.replaceAll(" ", "") == "") {
+      alert("닉네임을 입력해주세요.");
+      return false;
+    }
+    if (nickname.slice(0, 1) == " ") {
+      alert("첫 글자에는 공백이 들어갈 수 없습니다..");
+      return false;
+    }
     dispatch(loadingStart());
     axios({
       url: "/user/checkNickname",
@@ -99,9 +116,79 @@ const SignInPolicyModal = ({ setLastCheck }) => {
         return false;
       }
     }
-    setLastCheck(false);
+    let headers = { ...kakaoInform.datas };
+    headers.username = encodeURI(nickname);
+    headers.useremail = email;
+    axios({
+      url: "/kakao/login",
+      method: "POST",
+      headers: headers,
+    })
+      .then(() => {
+        // console.log("로그인 완료");
+        axios({
+          url: "/user/getUserInfo",
+          method: "POST",
+          headers: { userId: headers.userid },
+        })
+          .then((res4) => {
+            const data = res4.data;
+            const userId = data.id;
+            // console.log("data", data);
+            // console.log("userId", userId);
+            sessionStorage.setItem("userId", userId);
+            dispatch(signIn(data));
+            dispatch(setUserInfo(data));
+          })
+          .then((res) => {
+            let marketingValue = "N";
+            if (policyObj.policy_3 == true) {
+              marketingValue = "Y";
+            }
+            axios({
+              url: "/user/updatePushSetting",
+              method: "POST",
+              headers: {
+                userId: headers.userid,
+              },
+              data: {
+                spReceivePush: "N",
+                spKeywordPush: "N",
+                spBookmarkPush: "N",
+                spRecommentPush: "N",
+                spCommentlikePush: "N",
+                spContentCommentPush: "N",
+                spCommunityCommentlikePush: "N",
+                spCommunityRecommentPush: "N",
+                marketingPush: marketingValue,
+              },
+            }).then(() => {
+              setLastCheck(false);
+            });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
+  useEffect(() => {
+    setAllChecked(!Object.values(policyObj).some((item) => item == false));
+    // dispatch(loadingStart());
+  }, [policyObj]);
+  useEffect(() => {
+    dispatch(modalOverflow(true));
+    console.log(kakaoInform.datas);
+    if (kakaoInform.datas.useremail != undefined) {
+      setEmail(kakaoInform.datas.useremail);
+    }
+    if (kakaoInform.datas.username != undefined) {
+      setNickname(decodeURI(kakaoInform.datas.username).slice(0, 8));
+    }
+    return () => {
+      dispatch(modalOverflow(false));
+    };
+  }, []);
   function encoding(string) {
     return encodeURI(string);
   }
@@ -111,10 +198,7 @@ const SignInPolicyModal = ({ setLastCheck }) => {
       /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     return regex.test(email);
   }
-  useEffect(() => {
-    setAllChecked(!Object.values(policyObj).some((item) => item == false));
-    // dispatch(loadingStart());
-  }, [policyObj]);
+
   return (
     <div className={styles.modalWrap}>
       <div className={styles.modalInner}>
@@ -127,12 +211,6 @@ const SignInPolicyModal = ({ setLastCheck }) => {
               />
               <p>엑시토 서비스 이용을 위한 마지막 단계입니다.</p>
             </div>
-            <button type="button" value={false} className={styles.btn_close}>
-              <img
-                src={require("assets/img/global/btn/btn_close_black.png")}
-                alt="닫기"
-              />
-            </button>
           </div>
           <div className={styles.modalCont}>
             <h4>엑시토 서비스 이용 필수 항목</h4>
@@ -157,6 +235,7 @@ const SignInPolicyModal = ({ setLastCheck }) => {
                   type="text"
                   onChange={nicknameChange}
                   placeholder="8자 이내"
+                  value={nickname}
                   maxLength={8}
                 />
                 <button type="submit">중복확인</button>

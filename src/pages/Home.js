@@ -7,13 +7,21 @@ import Filter from "components/home/Filter";
 import HomeCommunity from "components/home/HomeCommunity";
 import HomeSupport from "components/home/HomeSupport";
 import EventModal from "components/home/EventModal";
+import SignInPolicyModal from "components/home/SignInPolicyModal";
 import Loading from "components/Loading";
 import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { loadingEnd, loadingStart, modalOverflow } from "redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setKakaoInform,
+  loadingEnd,
+  loadingStart,
+  modalOverflow,
+} from "redux/store";
+
 const Home = ({}) => {
   const dispatch = useDispatch();
+  const kakaoInform = useSelector((state) => state.kakaoInform);
   const [axiosCount, setAxiosCount] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
@@ -31,6 +39,7 @@ const Home = ({}) => {
       setModal2(isTrue);
     }
   };
+  const [lastCheck, setLastCheck] = useState(false);
   useEffect(() => {
     dispatch(loadingStart());
   }, []);
@@ -42,6 +51,12 @@ const Home = ({}) => {
   useEffect(() => {
     dispatch(modalOverflow(modalOn));
   }, [modalOn]);
+  useEffect(() => {
+    console.log(kakaoInform);
+    if (kakaoInform.state) {
+      setLastCheck(true);
+    }
+  }, [kakaoInform]);
   return (
     <>
       <div className={styles.Home}>
@@ -71,6 +86,12 @@ const Home = ({}) => {
           <HomeSupport setAxiosCount={setAxiosCount} />
         </div>
       </div>
+      {lastCheck && (
+        <SignInPolicyModal
+          setLastCheck={setLastCheck}
+          kakaoInform={kakaoInform}
+        />
+      )}
     </>
   );
 };

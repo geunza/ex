@@ -22,7 +22,7 @@ const SupportList = ({}) => {
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState("");
   const [savedBook, setSavedBook] = useState([]);
-  const [allSupport, setAllSupport] = useState(false);
+  const [allSupport, setAllSupport] = useState(true);
   const moveScrollStorage = () => {
     window.scrollTo({
       top: parseInt(sessionStorage.getItem("sOffset")),

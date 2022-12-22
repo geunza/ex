@@ -169,7 +169,7 @@ const SupportFilter = ({
           <input
             type="checkbox"
             id="chkAll"
-            value={allSupport}
+            checked={allSupport}
             onChange={(e) => {
               setAllSupport(e.currentTarget.checked);
             }}

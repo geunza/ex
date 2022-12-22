@@ -25,6 +25,15 @@ const MyLogin = () => {
   };
   const nicknameCheckSubmit = (e) => {
     e.preventDefault();
+    if (nickname.replaceAll(" ", "") == "") {
+      alert("닉네임을 입력해주세요.");
+      return false;
+    }
+    if (nickname.slice(0, 1) == " ") {
+      alert("첫 글자에는 공백이 들어갈 수 없습니다..");
+      return false;
+    }
+
     dispatch(loadingStart());
     axios({
       url: "/user/checkNickname",
@@ -40,6 +49,7 @@ const MyLogin = () => {
   const nicknameSubmit = () => {
     if (nicknameCheck) {
       dispatch(loadingStart());
+
       axios({
         url: `/user/updateUserInfo?usernickname=${encoding(nickname)}`,
         method: "POST",
@@ -90,7 +100,7 @@ const MyLogin = () => {
     return encodeURI(string);
   }
   useEffect(() => {
-    setNickname(userInfo.usernickname);
+    if (userInfo.usernickname != null) setNickname(userInfo.usernickname);
   }, [userInfo]);
   return (
     <div className={styles.MyLogin}>

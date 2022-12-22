@@ -308,6 +308,17 @@ let loginCheck = createSlice({
   },
 });
 export let { setLoginCheck } = loginCheck.actions;
+
+let kakaoInform = createSlice({
+  name: "kakaoInform",
+  initialState: { state: false, datas: {} },
+  reducers: {
+    setKakaoInform(state, action) {
+      return action.payload;
+    },
+  },
+});
+export let { setKakaoInform } = kakaoInform.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
@@ -321,5 +332,6 @@ export default configureStore({
     modalState: modalState.reducer,
     supportData: supportData.reducer,
     loginCheck: loginCheck.reducer,
+    kakaoInform: kakaoInform.reducer,
   },
 });

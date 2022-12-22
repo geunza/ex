@@ -4,18 +4,27 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoginCheck } from "redux/store";
+import { REST_API_KEY, REDIRECT_URI } from "pages/login/KakaoLoginData";
 const SnsLogin = ({}) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const handleKakao = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
   return (
     <>
       <div className={styles.SnsLogin}>
         {isLoggedIn ? (
           <div className={`${styles.loggedIn} ${styles.loginBox}`}>
             <h4>
-              <span>{userInfo.usernickname} 대표님.</span>
+              <span>
+                {userInfo.usernickname}
+                대표님.
+              </span>
               <span>지원 가능한 지원 사업을 찾으시나요?</span>
             </h4>
             <button
@@ -68,7 +77,11 @@ const SnsLogin = ({}) => {
               <span>가까워지는 방법!</span>
             </h4>
             <div className={styles.sns}>
-              <button type="button" className={styles.btnKakao}>
+              <button
+                type="button"
+                className={styles.btnKakao}
+                onClick={handleKakao}
+              >
                 <img
                   src={require("assets/img/home/sns_kakao.png")}
                   alt="Kakao Icon"
