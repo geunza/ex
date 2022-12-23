@@ -1,5 +1,8 @@
 @import "scss/utils";
 .SupportRecent {
+  position: sticky;
+  left: 0;
+  top: 50px;
   h4 {
     font-size: 22px;
     font-weight: 700;
