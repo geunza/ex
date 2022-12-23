@@ -20,9 +20,11 @@ const SupportList = ({}) => {
   const supportData = useSelector((state) => state.supportData);
   const supportItemReady = useSelector((state) => state.supportItemReady);
   const [ord, setOrd] = useState("전체");
-  const [page, setPage] = useState("");
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(30);
   const [savedBook, setSavedBook] = useState([]);
   const [allSupport, setAllSupport] = useState(true);
+  const [keyword, setKeyword] = useState("");
   const moveScrollStorage = () => {
     window.scrollTo({
       top: parseInt(sessionStorage.getItem("sOffset")),
@@ -34,20 +36,8 @@ const SupportList = ({}) => {
   };
 
   let lastAxiosNum = 0;
-  const getSupportCont = () => {
-    const currentAxiosNum = lastAxiosNum;
-    lastAxiosNum++;
-    const searchTxt = location.search;
-    let searchKeyword = "";
-    if (
-      keywordParam == "null" ||
-      keywordParam == undefined ||
-      keywordParam == null
-    ) {
-      searchKeyword = "";
-    } else {
-      searchKeyword = keywordParam.toString();
-    }
+  const getSupportCont = (ord, keyword) => {
+    console.log("검색중");
     dispatch(loadingStart());
     if (allSupport) {
       console.log("LIST SEARCH : 전체 지원사업 보기 O");
@@ -66,7 +56,7 @@ const SupportList = ({}) => {
           business_ctg: "01",
           tech_ctg: "01",
           loc_code: "C82",
-          keyword: "",
+          keyword: keyword,
         },
       }).then((res) => {
         dispatch(setSupportData(res.data));
@@ -75,17 +65,6 @@ const SupportList = ({}) => {
       });
     } else {
       console.log("LIST SEARCH : 전체 지원사업 보기 X");
-      console.log(`
-        ord: ${ord},
-        business_type: ${dataToString("bizp_type_cd")},
-        start_period: ${dataToString("prd_cd")},
-        company_type: ${dataToString("biz_type_cd")},
-        target_cat_name: ${dataToString("spt_cd")},
-        business_ctg: ${dataToString("biz_cd")},
-        tech_ctg: ${dataToString("tech_cd")},
-        loc_code: ${dataToString("loc_cd")},
-        keyword: ${searchTxt},
-      `);
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
@@ -101,16 +80,11 @@ const SupportList = ({}) => {
           business_ctg: dataToString("biz_cd"),
           tech_ctg: dataToString("tech_cd"),
           loc_code: dataToString("loc_cd"),
-          keyword: searchTxt,
+          keyword: keyword,
+          // keyword: searchTxt,
         },
       }).then((res) => {
-        console.log(
-          "currentAxiosNum" + currentAxiosNum,
-          "lastAxiosNum" + lastAxiosNum
-        );
-        if (currentAxiosNum == lastAxiosNum - 1) {
-          dispatch(setSupportData(res.data));
-        }
+        dispatch(setSupportData(res.data));
         moveScrollStorage();
         dispatch(loadingEnd());
       });
@@ -136,21 +110,76 @@ const SupportList = ({}) => {
       });
   };
   useEffect(() => {
-    getSupportCont();
     getRecent();
   }, [userInfo]);
+
+  const [firstMount, setFirstMount] = useState(true);
   useEffect(() => {
-    console.log("supportInfo", supportInfo);
-  }, [supportInfo]);
-  const [compoMount, setCompoMount] = useState(false);
-  useEffect(() => {
-    if (location.search == "" && compoMount) {
-      console.log("빈 path");
-      getSupportCont();
+    const searchTxt = decodeURI(location.search);
+    sessionStorage.setItem("s_currentSearch", searchTxt);
+    let searchObj = {};
+    const searchArr = searchTxt.replace("?", "").split("&");
+    let ordDummy = "";
+    let pageDummy = "";
+    let countDummy = "";
+    let keywordDummy = "";
+    let allDummy = "";
+    let viewDummy = "";
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = arrObj[1];
+    });
+    if (searchObj.all == "true") {
+      allDummy = true;
+    } else if (searchObj.all == "false") {
+      allDummy = false;
+    }
+    if (searchObj.ord == undefined) {
+      ordDummy = "전체";
+    } else {
+      ordDummy = searchObj.ord;
+    }
+    if (searchObj.page == undefined) {
+      pageDummy = 1;
+    } else {
+      pageDummy = parseInt(searchObj.page);
+    }
+    if (searchObj.view != undefined) {
+      viewDummy = searchObj.view;
+      setCount(viewDummy);
+    }
+    if (searchObj.keyword == undefined) {
+      keywordDummy = "";
+    } else {
+      keywordDummy = searchObj.keyword;
+    }
+    if (searchObj.count == undefined) {
+      countDummy = 30;
+    } else {
+      countDummy = searchObj.count;
+    }
+    if (ord != ordDummy || keyword != keywordDummy) {
+      getSupportCont(ordDummy, keywordDummy);
+    }
+    if (page != pageDummy) {
+      // console.log("page바뀜");
+    }
+    if (count != countDummy) {
+      // console.log("count바뀜");
+    }
+    console.log([ordDummy, pageDummy, viewDummy, keywordDummy]);
+    setOrd(ordDummy);
+    setPage(pageDummy);
+    setKeyword(keywordDummy);
+    if (firstMount) {
+      if (decodeURI(location.search) == "") {
+        console.log("첫 랜더링");
+        getSupportCont(ordDummy, keywordDummy);
+      }
     }
   }, [location]);
   useEffect(() => {
-    setCompoMount(true);
+    setFirstMount(false);
   }, []);
   return (
     <>
@@ -158,7 +187,7 @@ const SupportList = ({}) => {
         <div className={`inner`}>
           <div className={styles.tit}>
             <h4>신청 가능한 지원사업 찾기</h4>
-            {keywordParam != null && keywordParam != undefined ? (
+            {keyword ? (
               <p>
                 <mark>'{keywordParam}'</mark> 검색 결과 입니다.
               </p>
@@ -181,10 +210,18 @@ const SupportList = ({}) => {
             </div>
             <div className={styles.listArea}>
               <SupportContent
+                count={count}
+                setCount={setCount}
                 getSupportCont={getSupportCont}
                 getRecent={getRecent}
+                allSupport={allSupport}
                 setScrollStorage={setScrollStorage}
                 moveScrollStorage={moveScrollStorage}
+                keyword={keyword}
+                setKeyword={setKeyword}
+                page={page}
+                setPage={setPage}
+                ord={ord}
               />
             </div>
             <div className={styles.recentArea}>

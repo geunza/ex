@@ -20,6 +20,7 @@ import CommunityView from "pages/community/CommunityView";
 import CommunityWrite from "pages/community/CommunityWrite";
 import CommunityModify from "pages/community/CommunityModify";
 import SupportList from "pages/support/SupportList";
+import SupportView from "pages/support/SupportView";
 import Loading from "components/Loading";
 import SavedWrap from "pages/saved/SavedWrap";
 import NoticeList from "pages/notice/NoticeList";
@@ -65,6 +66,10 @@ const AppRouter = ({}) => {
             element={<CommunityModify />}
           ></Route>
           <Route path="/support/supportList" element={<SupportList />}></Route>
+          <Route
+            path="/support/supportView/:id"
+            element={<SupportView />}
+          ></Route>
           <Route path="/saved" exact element={<SavedWrap />}></Route>
           <Route path="/notice/noticeList" element={<NoticeList />}></Route>
           <Route path="/notice/noticeView/:id" element={<NoticeView />}></Route>

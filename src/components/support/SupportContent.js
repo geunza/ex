@@ -14,12 +14,19 @@ const SupportContent = ({
   getRecent,
   setScrollStorage,
   moveScrollStorage,
+  allSupport,
+  count,
+  setCount,
+  keyword,
+  setKeyword,
+  page,
+  setPage,
+  ord,
 }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const keywordParam = searchParams.get("keyword");
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -27,10 +34,7 @@ const SupportContent = ({
   const [supportCont, setSupportCont] = useState([]);
   const [supportFilterCont, setSupportFilterCont] = useState([]);
   const navigate = useNavigate();
-  const [ord, setOrd] = useState("전체");
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(30);
-  const [keyword, setKeyword] = useState("");
+
   const [sltView, setSltView] = useState(false);
   const countClick = (e) => {
     const {
@@ -48,88 +52,8 @@ const SupportContent = ({
   };
 
   let compoMount = false;
-  const getSupportContByKeyword = () => {
-    if (
-      keywordParam == "null" ||
-      keywordParam == undefined ||
-      keywordParam == null
-    ) {
-      console.log("CONT SEARCH : 키워드 없을때");
-      axios({
-        url: "/support/getSupportInfoList",
-        method: "POST",
-        headers: {
-          user_id: userInfo.id,
-        },
-        data: {
-          ord: ord,
-          business_type: dataToString("bizp_type_cd"),
-          start_period: dataToString("prd_cd"),
-          company_type: dataToString("biz_type_cd"),
-          target_cat_name: dataToString("spt_cd"),
-          business_ctg: dataToString("biz_cd"),
-          tech_ctg: dataToString("tech_cd"),
-          loc_code: dataToString("loc_cd"),
-          keyword: "",
-        },
-      }).then((res) => {
-        dispatch(setSupportData(res.data));
-        moveScrollStorage();
-        dispatch(loadingEnd());
-      });
-    } else {
-      console.log("CONT SEARCH : 키워드 있을때");
-      axios({
-        url: "/support/getSupportInfoList",
-        method: "POST",
-        headers: {
-          user_id: userInfo.id,
-        },
-        data: {
-          ord: ord,
-          business_type: "01",
-          start_period: "999",
-          company_type: "01",
-          target_cat_name: "01",
-          business_ctg: "01",
-          tech_ctg: "01",
-          loc_code: "C82",
-          keyword: keywordParam,
-        },
-      }).then((res) => {
-        dispatch(setSupportData(res.data));
-        moveScrollStorage();
-        dispatch(loadingEnd());
-      });
-    }
-    dispatch(loadingStart());
-    function dataToString(target) {
-      return supportInfo[target].datas.map((v) => v.code).toString();
-    }
-  };
 
-  useEffect(() => {
-    getSupportContByKeyword();
-    // let copy = [...supportCont];
-    // if (ord == "전체") {
-    //   setSupportCont([...supportData]);
-    // } else if (ord == "인기순") {
-    //   copy.sort((a, b) => {
-    //     return b.view_cnt - a.view_cnt;
-    //   });
-    //   setSupportCont(copy);
-    // } else if (ord == "금액높은순") {
-    //   copy.sort((a, b) => {
-    //     return b.target_cost_value - a.target_cost_value;
-    //   });
-    //   setSupportCont(copy);
-    // } else if (ord == "마감임박순") {
-    //   copy.sort((a, b) => {
-    //     return a.si_end_dt - b.si_end_dt;
-    //   });
-    //   setSupportCont(copy);
-    // }
-  }, [ord]);
+  useEffect(() => {}, [ord]);
   useEffect(() => {
     setSupportCont([...supportData]);
   }, [supportData]);
@@ -146,40 +70,6 @@ const SupportContent = ({
       setSupportFilterCont([...supportCont]);
     }
   }, [supportCont, keyword]);
-  useEffect(() => {
-    if (keywordParam != null) {
-      getSupportContByKeyword();
-    }
-  }, [keyword]);
-  useEffect(() => {
-    const searchTxt = location.search;
-    let searchObj = {};
-    const searchArr = searchTxt.replace("?", "").split("&");
-    searchArr.forEach((v) => {
-      const arrObj = v.split("=");
-      searchObj[arrObj[0]] = decode(arrObj[1]);
-    });
-    if (searchObj.ord == undefined) {
-      setOrd("전체");
-    } else {
-      setOrd(searchObj.ord);
-    }
-    if (searchObj.page == undefined) {
-      setPage(1);
-    } else {
-      setPage(parseInt(searchObj.page));
-    }
-    if (searchObj.view == undefined) {
-      setCount(30);
-    } else {
-      setCount(searchObj.view);
-    }
-    if (searchObj.keyword == undefined) {
-      setKeyword("");
-    } else {
-      setKeyword(searchObj.keyword);
-    }
-  }, [location]);
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -369,7 +259,6 @@ const SupportContent = ({
                         getRecent={getRecent}
                         key={idx}
                         item={item}
-                        getSupportCont={getSupportContByKeyword}
                         setScrollStorage={setScrollStorage}
                       />
                     );

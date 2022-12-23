@@ -125,6 +125,7 @@ const CommunityListItem = ({
           to={`/community/communityView/${post.id}`}
           onClick={() => {
             setScrollStorage(window.scrollY);
+            sessionStorage.setItem("cMover", "true");
           }}
         >
           <p className="title">{post.title}</p>

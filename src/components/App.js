@@ -185,8 +185,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "사업화 지원",
-                code: "02",
+                code_nm: "전체",
+                code: "01",
                 ctg_cd: "spt_cd",
                 ctg_nm: "지원분야",
               },
@@ -224,8 +224,8 @@ function App() {
             require: false,
             datas: [
               {
-                code_nm: "전국",
-                code: "C82",
+                code_nm: "서울",
+                code: "C02",
                 ctg_cd: "loc_cd",
                 ctg_nm: "지역",
               },

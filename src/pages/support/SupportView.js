@@ -87,6 +87,12 @@ const SupportView = ({}) => {
             </ul>
 
             <div className={styles.supportViewCont}>
+              <iframe
+                src={item.mobile_url}
+                width="100%"
+                height="800"
+                frameBorder="0"
+              ></iframe>
               <p>loccode : {item.loccode}</p>
               <p>locname : {item.locname}</p>
               <p>mb_save_yn : {item.mb_save_yn}</p>

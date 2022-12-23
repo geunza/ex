@@ -21,28 +21,20 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
   const endDateSource = item.si_end_dt;
   const today = new Date();
   const isEnd = endDateSource - today.getTime() < 0;
-  const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
+  const [endDate, endDay] = stringToDate(item.si_end_dt, "MMDD");
   const viewCount = item.view_cnt;
   const isZzim = item.mb_save_yn == "Y";
   const url = item.mobile_url;
   function addComma(numb) {
     return numb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  function stringTimeToISO(stringDate, type) {
-    const offset = 1000 * 60 * 60 * 9;
-    // const offset = 0;
+  function stringToDate(stringDate, type) {
+    const dateSource = new Date(stringDate);
     const week = ["일", "월", "화", "수", "목", "금", "토"];
-    const timeStamp = new Date(stringDate + offset);
-    const date = timeStamp.toISOString().split("T")[0];
-    const day = week[timeStamp.getDay()];
-    if (type == "all") {
-      return [date, day];
-    }
-    if (type == "MMDD") {
-      const MM = date.split("-")[1];
-      const DD = date.split("-")[2];
-      return [`${MM}.${DD}`, day];
-    }
+    const month = ("00" + (dateSource.getMonth() + 1)).slice(-2);
+    const date = ("00" + dateSource.getDate()).slice(-2);
+    const day = week[dateSource.getDay()];
+    return [`${month}.${date}`, day];
   }
   const zzimClick = (idx, mb_save_yn) => {
     axios({
@@ -50,27 +42,6 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
       url: "/saved/isSavedMyBook",
       headers: { user_id: userInfo.id },
       data: { mb_addidx: idx, mb_save_yn: mb_save_yn },
-    }).then((res) => {
-      getSupportCont();
-    });
-  };
-  const openInNewTab = (url, idx) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-    if (Object.keys(userInfo).length > 0) {
-      axios({
-        url: "/mainpage/insertTimeLine",
-        method: "POST",
-        headers: {
-          user_id: userInfo.id,
-        },
-        data: { support_info: idx.toString() },
-      }).then((res) => {
-        getRecent();
-      });
-    }
-    axios({
-      url: `/mainpage/upViewCnt?si_idx=${idx}`,
-      method: "POST",
     }).then((res) => {
       getSupportCont();
     });
@@ -89,15 +60,14 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
           </div>
           <div className={styles.itemInfo}>
             <h4>
-              <button
-                type="button"
+              <Link
+                to={`/support/supportView/${item.si_idx}`}
                 onClick={() => {
-                  openInNewTab(url, item.si_idx);
                   setScrollStorage(window.scrollY);
                 }}
               >
                 {title}
-              </button>
+              </Link>
             </h4>
             <p>
               {cost > 0 && (

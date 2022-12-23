@@ -14,7 +14,8 @@ const Pagination = ({ total, postLimit, numLimit, page }) => {
     const {
       currentTarget: { name, value },
     } = e;
-
+    sessionStorage.setItem("cMover", "true");
+    sessionStorage.setItem("cOffset", 0);
     navigateSearchTxt(name, value);
   };
   function navigateSearchTxt(name, value) {

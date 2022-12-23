@@ -14,13 +14,18 @@ import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";
 import Pagination from "components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingStart, loadingEnd, setLoginCheck } from "redux/store";
+import {
+  loadingStart,
+  loadingEnd,
+  setLoginCheck,
+  modalOverflow,
+} from "redux/store";
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityModalBlockUser from "components/community/CommunityModalBlockUser";
-
+import { useMediaQuery } from "react-responsive";
 const CommunityList = ({}) => {
   const location = useLocation();
-  const searchParams = new URLSearchParams(window.location);
+  const searchParams = new URLSearchParams(window.location.search);
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
@@ -38,12 +43,14 @@ const CommunityList = ({}) => {
   const [count, setCount] = useState(30);
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
   const [blockedModalOn, setBlockedModalOn] = useState(false);
-
+  const [lastCheckTarget, setLastCheckTarget] = useState(null);
+  const isMobile = useMediaQuery({ maxWidth: "1200px" });
+  const [mobileMore, setMobileMore] = useState(true);
   const moveScrollStorage = () => {
     window.scrollTo({
       top: parseInt(sessionStorage.getItem("cOffset")),
     });
-    sessionStorage.setItem("cOffset", 0);
+    sessionStorage.removeItem("cMover");
   };
   const setScrollStorage = (value) => {
     sessionStorage.setItem("cOffset", value);
@@ -66,15 +73,16 @@ const CommunityList = ({}) => {
       .then((res) => {
         const data = res.data;
         setPosts(data);
-        moveScrollStorage();
+        if (sessionStorage.getItem("cMover") == "true") {
+          moveScrollStorage();
+        }
         dispatch(loadingEnd());
       })
       .catch((err) => {
         alert(err);
-        dispatch(loadingEnd());
       });
   };
-  const getCommunityPopular = () => {
+  const getCommunityPopular = async () => {
     // dispatch(loadingStart());
     axios({
       headers: {
@@ -94,13 +102,15 @@ const CommunityList = ({}) => {
   useEffect(() => {
     getCommunityLength();
     getCommunityPopular();
+    return () => {
+      sessionStorage.removeItem("c_currentSearch");
+    };
   }, []);
 
   const ordCateClick = (e) => {
     const {
       currentTarget: { name, value },
     } = e;
-    setScrollStorage(window.scrollY);
     navigateSearchTxt(name, value);
   };
   const countClick = (e) => {
@@ -112,6 +122,7 @@ const CommunityList = ({}) => {
   };
   useEffect(() => {
     const searchTxt = location.search;
+    sessionStorage.setItem("c_currentSearch", searchTxt);
     let searchObj = {};
     const searchArr = searchTxt.replace("?", "").split("&");
     let cateDummy = "";
@@ -145,11 +156,21 @@ const CommunityList = ({}) => {
       pageDummy = parseInt(searchObj.page);
     }
     if (searchObj.view == undefined) {
-      setCount(30);
-      viewDummy = 30;
+      if (isMobile) {
+        setCount(30 * pageDummy);
+        viewDummy = 30 * pageDummy;
+      } else {
+        setCount(30);
+        viewDummy = 30;
+      }
     } else {
-      setCount(searchObj.view);
-      viewDummy = searchObj.view;
+      if (isMobile) {
+        setCount(searchObj.view * pageDummy);
+        viewDummy = searchObj.view * pageDummy;
+      } else {
+        setCount(searchObj.view);
+        viewDummy = searchObj.view;
+      }
     }
     if (searchObj.keyword == undefined) {
       setKeyword("");
@@ -157,6 +178,14 @@ const CommunityList = ({}) => {
     } else {
       setKeyword(searchObj.keyword);
       KeywordDummy = searchObj.keyword;
+    }
+    if (isMobile) {
+      if (viewDummy > totalCount) {
+        setMobileMore(false);
+      } else {
+        setMobileMore(true);
+      }
+      pageDummy = 1;
     }
     let stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
       (pageDummy - 1) * viewDummy
@@ -178,6 +207,9 @@ const CommunityList = ({}) => {
       const arrObj = v.split("=");
       searchObj[arrObj[0]] = decode(arrObj[1]);
     });
+    if (name == "cate") {
+      delete searchObj.ord;
+    }
     let newSearchTxt = "";
     for (let key in searchObj) {
       if (searchObj[key] == "undefined") {
@@ -196,7 +228,6 @@ const CommunityList = ({}) => {
     newSearchTxt += `${name}=${value}`;
     navigate("?" + newSearchTxt);
   }
-
   const communitySearch = (e) => {
     e.preventDefault();
     const value = comSearchText;
@@ -214,6 +245,72 @@ const CommunityList = ({}) => {
       : dispatch(setLoginCheck(true));
   };
 
+  let infiniteState = true;
+  const listener = () => {
+    if (lastCheckTarget) {
+      if (infiniteState) {
+        const yPos = window.scrollY;
+        const yHeight = window.innerHeight;
+        const targetPos = lastCheckTarget.getBoundingClientRect().top;
+        const trigger = targetPos - yHeight + 100;
+        if (trigger < 0) {
+          infiniteState = false;
+          const searchTxt = sessionStorage.getItem("c_currentSearch");
+          const searchArr = searchTxt.replace("?", "").split("&");
+          let searchObj = {};
+          searchArr.forEach((v) => {
+            const arrObj = v.split("=");
+            searchObj[arrObj[0]] = decode(arrObj[1]);
+          });
+          let newSearchTxt = "";
+          for (let key in searchObj) {
+            if (searchObj[key] == "undefined") {
+              continue;
+            } else if (key == "page") {
+              continue;
+            } else {
+              newSearchTxt += `${key}=${searchObj[key]}&`;
+            }
+          }
+          if (searchObj.page == undefined) {
+            newSearchTxt += `page=${page + 1}`;
+          } else {
+            let currentPage = parseInt(searchObj.page);
+            newSearchTxt += `page=${currentPage + 1}`;
+          }
+          setScrollStorage(window.scrollY);
+          navigate("?" + newSearchTxt);
+          setTimeout(() => {
+            infiniteState = true;
+          }, 1500);
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    if (isMobile) {
+      if (count > totalCount) {
+        setMobileMore(false);
+      } else {
+        setMobileMore(true);
+      }
+    }
+  }, [totalCount]);
+  useEffect(() => {
+    if (lastCheckTarget) {
+      window.addEventListener("scroll", listener);
+    }
+    return () => {
+      window.removeEventListener("scroll", listener);
+    };
+  }, [lastCheckTarget]);
+  useEffect(() => {
+    return () => {
+      sessionStorage.remove("cOffset");
+      sessionStorage.remove("c_currentSearch");
+      sessionStorage.remove("cCurrentPage");
+    };
+  }, []);
   return (
     <>
       <div className={styles.CommunityList} id="communityList">
@@ -396,7 +493,6 @@ const CommunityList = ({}) => {
                 )}
               </div>
             </div>
-
             <div className={styles.listCont}>
               <div className={styles.listSorting}>
                 <div className="ordBtns">
@@ -507,15 +603,34 @@ const CommunityList = ({}) => {
                 </button>
               </div>
             </div>
-            <Pagination
-              total={totalCount}
-              // total={5000}
-              postLimit={count}
-              numLimit={5}
-              page={parseInt(page)}
-              searchParams={searchParams}
-              ord={ord}
-            />
+            {!isMobile && (
+              <Pagination
+                total={totalCount}
+                // total={5000}
+                postLimit={count}
+                numLimit={5}
+                page={parseInt(page)}
+                ord={ord}
+              />
+            )}
+            {isMobile && mobileMore ? (
+              <div
+                ref={setLastCheckTarget}
+                className="lastCheckDiv"
+                style={{
+                  display: isMobile ? "block" : "none",
+                  width: "50px",
+                  height: "50px",
+                  padding: "50px",
+                  background: "blue",
+                  color: "#fff",
+                  fontSize: 0,
+                  opacity: 0,
+                }}
+              >
+                LOADMORE TRIGGER
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ import {
 } from "redux/store";
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const SupportFilter = ({
   getSupportCont,
   setScrollStorage,
@@ -20,7 +20,7 @@ const SupportFilter = ({
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportItem = useSelector((state) => state.supportItem);
   const supportInfo = useSelector((state) => state.supportInfo);
-
+  const location = useLocation();
   const [objDummy, setObjDummy] = useState({ ...supportInfo });
   const [modalIdx, setModalIDx] = useState(0);
   const [modalOn, setModalOn] = useState(false);
@@ -50,6 +50,7 @@ const SupportFilter = ({
     const require = copy[cate].require;
     const multiply = copy[cate].multiply;
     if (multiply) {
+      console.log("A");
       if (name == "전체" || name == "전국") {
         if (
           copy[cate].datas
@@ -64,7 +65,7 @@ const SupportFilter = ({
           .filter((x) => x.code_nm != "전체")
           .filter((x) => x.code_nm != "전국");
         if (someItem(copy[cate].datas, item)) {
-          if (require && copy[cate].length == 1) {
+          if (require && copy[cate].datas.length == 1) {
             alert("한가지 이상 선택해주세요.");
           } else {
             copy[cate].datas = filterItem(copy[cate].datas, item);
@@ -78,6 +79,7 @@ const SupportFilter = ({
         }
       }
     } else {
+      console.log("B");
       if (someItem(copy[cate].datas, item)) {
         if (require) {
           alert("한가지 이상 선택해주세요.");
@@ -137,6 +139,27 @@ const SupportFilter = ({
   }
   const [renderItems, setRenderItems] = useState([]);
 
+  function navigateSearchTxt(name, value) {
+    const searchTxt = location.search;
+    const searchArr = searchTxt.replace("?", "").split("&");
+    let searchObj = {};
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decodeURI(arrObj[1]);
+    });
+    let newSearchTxt = "";
+    for (let key in searchObj) {
+      if (searchObj[key] == "undefined" || key == name) {
+        continue;
+      } else if (key == "page") {
+        newSearchTxt += `page=1&`;
+      } else {
+        newSearchTxt += `${key}=${searchObj[key]}&`;
+      }
+    }
+    newSearchTxt += `${name}=${value}`;
+    navigate("?" + newSearchTxt);
+  }
   useEffect(() => {
     setRenderItems([]);
     for (let key in supportInfo) {
@@ -171,6 +194,11 @@ const SupportFilter = ({
             id="chkAll"
             checked={allSupport}
             onChange={(e) => {
+              if (!isLoggedIn) {
+                dispatch(setLoginCheck(true));
+                return false;
+              }
+              navigateSearchTxt("all", e.currentTarget.checked);
               setAllSupport(e.currentTarget.checked);
             }}
           />
@@ -347,6 +375,7 @@ const SupportFilter = ({
                   dispatch(setLoginCheck(true));
                 } else {
                   navigate("./");
+                  getSupportCont("전체", "");
                   setScrollStorage(window.scrollY);
                 }
               }}

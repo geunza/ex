@@ -1,6 +1,9 @@
 @import "scss/utils";
 
 .SupportFilter {
+  position: sticky;
+  left: 0;
+  top: 50px;
   h4 {
     font-size: 22px;
     margin-bottom: 25px;

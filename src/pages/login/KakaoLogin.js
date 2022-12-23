@@ -70,7 +70,7 @@ const KakaoLogin = () => {
               url: "/user/getUserInfo",
               method: "POST",
               headers: {
-                userId: 1115,
+                userId: id,
               },
             }).then((result) => {
               // console.log("result.data", result.data);
