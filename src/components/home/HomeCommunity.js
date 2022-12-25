@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import BoxListItemHome from "components/home/BoxListItemHome";
-import styles from "scss/components/home/HomeCommunity.module.scss";
+import styles from "scss/pages/Home.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import "swiper/css";

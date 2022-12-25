@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "scss/components/home/CountArea.module.scss";
+import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
 import CountUp from "react-countup";
+import { useSelector } from "react-redux";
 const CountArea = ({ setAxiosCount }) => {
+  const isMobile = useSelector((state) => state.isMobile);
   const [count, setCount] = useState({
     total_cnt: 0,
     week_cnt: 0,
@@ -40,8 +42,14 @@ const CountArea = ({ setAxiosCount }) => {
     <div className={styles.CountArea}>
       <div className={styles.all}>
         <p className={styles.tit}>
-          <span>전체누적</span>
-          <span>지원사업 개수</span>
+          {isMobile ? (
+            <span>누적지원사업</span>
+          ) : (
+            <>
+              <span>전체누적</span>
+              <span>지원사업 개수</span>
+            </>
+          )}
         </p>
         <CountUp
           className={styles.numb}
@@ -51,7 +59,7 @@ const CountArea = ({ setAxiosCount }) => {
         ></CountUp>
       </div>
       <ul>
-        <li>
+        <li className={styles.thisWeek}>
           <p className={styles.tit}>이번주 지원사업</p>
           <CountUp
             className={styles.numb}

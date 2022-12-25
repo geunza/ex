@@ -372,3 +372,37 @@ body {
     }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .commonTitleWrap {
+    margin-top: -20px;
+    padding: 20px 0;
+    background: #fff;
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .title + p {
+      font-size: 16px;
+      color: $color-deepGray;
+    }
+
+    .rightArea {
+      display: flex;
+      gap: 15px;
+      button {
+        font-size: 17px;
+        border: 1px solid $color-borderGray;
+        border-radius: 100px;
+        padding: 12px 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        span {
+          padding-top: 3px;
+        }
+      }
+    }
+  }
+}

@@ -12,16 +12,20 @@ import Loading from "components/Loading";
 import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   setKakaoInform,
   loadingEnd,
   loadingStart,
   modalOverflow,
+  setLoginCheck,
 } from "redux/store";
 
 const Home = ({}) => {
   const dispatch = useDispatch();
   const kakaoInform = useSelector((state) => state.kakaoInform);
+  const isMobile = useSelector((state) => state.isMobile);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const [axiosCount, setAxiosCount] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
@@ -57,6 +61,18 @@ const Home = ({}) => {
       setLastCheck(true);
     }
   }, [kakaoInform]);
+  const [noticeList, setNoticeList] = useState({});
+  useEffect(() => {
+    if (isMobile) {
+      axios({
+        url: "/cms/notice/api",
+        method: "GET",
+      }).then((res) => {
+        setNoticeList(res.data[0]);
+        console.log(res.data);
+      });
+    }
+  }, [isMobile]);
   return (
     <>
       <div className={styles.Home}>
@@ -64,12 +80,14 @@ const Home = ({}) => {
           <div className={`inner ${styles.inner}`}>
             <SnsLogin />
             <Banner />
-            <Event
-              setModalOn={setModalOn}
-              modalOn={modalOn}
-              modalOpener={modalOpener}
-              Modal2={Modal2}
-            />
+            {!isMobile && (
+              <Event
+                setModalOn={setModalOn}
+                modalOn={modalOn}
+                modalOpener={modalOpener}
+                Modal2={Modal2}
+              />
+            )}
           </div>
         </section>
         <div className={`inner ${styles.inner}`}>
@@ -80,10 +98,88 @@ const Home = ({}) => {
             Modal1={Modal1}
           />
           <div className={styles.sec02}>
-            <HomeCommunity setAxiosCount={setAxiosCount} />
+            {!isMobile && <HomeCommunity setAxiosCount={setAxiosCount} />}
+            {isMobile && (
+              <>
+                <div className={styles.mobileBox}>
+                  <h3 className={styles.mobileTit}>
+                    <img
+                      src={require("assets/img/mobile/mobileSaved.png")}
+                      alt=""
+                    />
+                    <span>찜</span>
+                  </h3>
+                  <Link
+                    className={styles.linkSaved}
+                    onClick={(e) => {
+                      if (!isLoggedIn) {
+                        e.preventDefault();
+                        dispatch(setLoginCheck(true));
+                      }
+                    }}
+                  >
+                    {!isLoggedIn ? (
+                      <span>
+                        <mark>로그인</mark> 후 이용 가능한 서비스입니다.
+                      </span>
+                    ) : (
+                      <span>
+                        지원사업을 찜하면 마감일 임박시 알림해 드릴께요.
+                      </span>
+                    )}
+                  </Link>
+                </div>
+                <div className={styles.mobileBox}>
+                  <h3 className={styles.mobileTit}>
+                    <img
+                      src={require("assets/img/mobile/mobileComm.png")}
+                      alt=""
+                    />
+                    <span>커뮤니티</span>
+                  </h3>
+                  <Link
+                    className={styles.linkComm}
+                    to="/community/communityList"
+                  >
+                    기업 운영에 관한 모든 것들을 커뮤니티에서 공유해봐요!
+                  </Link>
+                </div>
+                <div className={styles.mobileBox}>
+                  <h3 className={styles.mobileTit}>
+                    <img
+                      src={require("assets/img/mobile/mobileEvent.png")}
+                      alt=""
+                    />
+                    <span>엑시토 이벤트</span>
+                  </h3>
+                  <Event
+                    setModalOn={setModalOn}
+                    modalOn={modalOn}
+                    modalOpener={modalOpener}
+                    Modal2={Modal2}
+                  />
+                </div>
+              </>
+            )}
             <CountArea setAxiosCount={setAxiosCount} />
           </div>
           <HomeSupport setAxiosCount={setAxiosCount} />
+          {isMobile && Object.keys(noticeList).length > 0 && (
+            <>
+              <div className={styles.mobileBox}>
+                <h3 className={styles.mobileTit}>
+                  <img src={require("assets/img/mobile/mobileNoti.png")} />
+                  <span>공지사항</span>
+                </h3>
+                <Link
+                  className={styles.linkComm}
+                  to={`/notice/noticeView/${noticeList.id}`}
+                >
+                  {noticeList.title}
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {lastCheck && (

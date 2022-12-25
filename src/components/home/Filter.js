@@ -12,11 +12,19 @@ const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isMobile = useSelector((state) => state.isMobile);
+  const userInfo = useSelector((state) => state.userInfo);
 
   return (
     <>
       <div className={styles.Filter}>
-        <h3>맞춤 지원사업 조회</h3>
+        {!isMobile && <h3>맞춤 지원사업 조회</h3>}
+        {isMobile && (
+          <div className={styles.titArea}>
+            {isLoggedIn && <h3>{userInfo.usernickname}</h3>}
+            <p>지원사업 조건을 설정하시면 맞춤 정보가 제공됩니다.</p>
+          </div>
+        )}
         <div className={styles.custom}>
           <div className={styles.topArea}>
             <SupportFilter styles={styles} />
@@ -33,7 +41,9 @@ const Filter = () => {
               }}
             >
               {!isLoggedIn
-                ? "로그인하고 맞춤 지원사업 조회하기"
+                ? isMobile
+                  ? "저장 후 지원사업 조회"
+                  : "로그인하고 맞춤 지원사업 조회하기"
                 : "맞춤 지원사업 조회하기"}
             </button>
             {!isLoggedIn && (

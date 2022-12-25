@@ -1,9 +1,21 @@
 import React from "react";
 import styles from "scss/components/Footer.module.scss";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Footer = () => {
+  const isMobile = useSelector((state) => state.isMobile);
   return (
     <div className={styles.Footer}>
+      {isMobile && (
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          }}
+          className={styles.toTop}
+        >
+          To Top
+        </button>
+      )}
       <div className={styles.footerTop}>
         <ul className={styles.terms}>
           <li>
@@ -54,6 +66,7 @@ const Footer = () => {
       </div>
       <div className={styles.footerMid}>
         <div className={styles.leftArea}>
+          {isMobile && <h3>사업자정보</h3>}
           <ul>
             <li>
               <span>대표 : 권기정</span>

@@ -28,6 +28,7 @@ const CommunityList = ({}) => {
   const searchParams = new URLSearchParams(window.location.search);
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isMobile = useSelector((state) => state.isMobile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [sltView, setSltView] = useState(false);
@@ -44,7 +45,6 @@ const CommunityList = ({}) => {
   const [modalOn, setModalOn] = useState({ current: false, type: "", id: "" });
   const [blockedModalOn, setBlockedModalOn] = useState(false);
   const [lastCheckTarget, setLastCheckTarget] = useState(null);
-  const isMobile = useMediaQuery({ maxWidth: "1200px" });
   const [mobileMore, setMobileMore] = useState(true);
   const moveScrollStorage = () => {
     window.scrollTo({
@@ -205,8 +205,11 @@ const CommunityList = ({}) => {
     sessionStorage.setItem("c_keyword", keyword);
   }, [cate, ord, keyword]);
   function getParamMobile() {
-    const searchTxt = sessionStorage.getItem("c_currentSearch");
+    let searchTxt = sessionStorage.getItem("c_currentSearch");
     let searchObj = {};
+    if (searchTxt == null) {
+      searchTxt = "";
+    }
     const searchArr = searchTxt.replace("?", "").split("&");
     let cateDummy = "";
     let ordDummy = "";

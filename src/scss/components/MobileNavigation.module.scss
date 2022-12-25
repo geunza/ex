@@ -1,0 +1,28 @@
+.MobileNavigation {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #141f40;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  padding: 0 15px;
+  li {
+    width: 25%;
+    a {
+      padding: 10px 0;
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      flex-flow: column;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      img {
+        height: 20px;
+      }
+      span {
+      }
+    }
+  }
+}

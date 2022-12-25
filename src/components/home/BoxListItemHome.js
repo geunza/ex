@@ -13,6 +13,7 @@ const BoxListItemHome = ({
   category,
 }) => {
   const userInfo = useSelector((state) => state.userInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const openInNewTab = (url, idx) => {
     window.open(url, "_blank", "noopener,noreferrer");
     if (Object.keys(userInfo).length > 0) {
@@ -35,11 +36,7 @@ const BoxListItemHome = ({
   return (
     <>
       <div className={styles.BoxListItem}>
-        <button
-          onClick={() => {
-            openInNewTab(item.mobile_url, item.si_idx);
-          }}
-        >
+        <Link to={"support/supportView/" + item.si_idx}>
           <h5 className={styles.title}>{item.si_title}</h5>
           {writerShow && <p className={styles.writer}>{item.target_name}</p>}
           <div className={styles.countArea}>
@@ -63,15 +60,22 @@ const BoxListItemHome = ({
             )}
             {viewShow && (
               <p>
-                <img
-                  src={require("assets/img/global/ico/ico_view_gray.png")}
-                  alt="like count"
-                />
+                {isMobile ? (
+                  <img
+                    src={require("assets/img/global/ico/ico_view_green.png")}
+                    alt="like count"
+                  />
+                ) : (
+                  <img
+                    src={require("assets/img/global/ico/ico_view_gray.png")}
+                    alt="like count"
+                  />
+                )}
                 <span>{item.view_cnt}</span>
               </p>
             )}
           </div>
-        </button>
+        </Link>
       </div>
     </>
   );

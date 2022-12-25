@@ -56,3 +56,33 @@
     }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .BoxListItem {
+    width: 100%;
+    margin-bottom: 2%;
+    button,
+    a {
+      padding: 15px;
+      .title {
+        -webkit-line-clamp: 2;
+        font-size: 16px;
+      }
+    }
+    &:hover {
+      box-shadow: none;
+    }
+    .countArea {
+      p {
+        padding: 3px 10px;
+        border: 1px solid $color-main;
+        border-radius: 15px;
+        color: $color-main;
+        font-weight: 700;
+      }
+      img {
+        width: 18px;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/components/home/Event.module.scss";
+import styles from "scss/pages/Home.module.scss";
 import { Link } from "react-router-dom";
 import EventModal from "components/home/EventModal";
 import { useState, useEffect } from "react";
@@ -40,7 +40,9 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
                 src={require("assets/img/home/event_01.png")}
                 alt="지원사업 정기배송"
               />
-              <span>지원사업 정기배송</span>
+              <span>
+                <mark>지원사업</mark> <mark>정기배송</mark>
+              </span>
             </button>
           </li>
           <li>
@@ -62,7 +64,9 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
                 src={require("assets/img/home/event_02.png")}
                 alt="키워드 알림"
               />
-              <span>키워드 알림</span>
+              <span>
+                <mark>키워드</mark> <mark>알림</mark>
+              </span>
             </button>
           </li>
           <li>
@@ -84,7 +88,9 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
                 src={require("assets/img/home/event_03.png")}
                 alt="창업자 네트워킹"
               />
-              <span>창업자 네트워킹</span>
+              <span>
+                <mark>창업자</mark> <mark>네트워킹</mark>
+              </span>
             </button>
           </li>
           <li>
@@ -106,7 +112,9 @@ const Event = ({ setModalOn, modalOn, modalOpener, Modal2 }) => {
                 src={require("assets/img/home/event_04.png")}
                 alt="사업계획서 교육"
               />
-              <span>사업계획서 교육</span>
+              <span>
+                <mark>사업계획서</mark> <mark>교육</mark>
+              </span>
             </button>
           </li>
         </ul>

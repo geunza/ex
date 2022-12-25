@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemHome from "components/home/BoxListItemHome";
-import styles from "scss/components/home/HomeSupport.module.scss";
+import styles from "scss/pages/Home.module.scss";
 const HomeSupport = ({ setAxiosCount }) => {
   let count = 0;
   let cancel;

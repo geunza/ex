@@ -2,6 +2,19 @@ import { current, configureStore, createSlice } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import supportItems from "db/supportItems.json";
 import { isCompositeComponent } from "react-dom/test-utils";
+
+// 모바일
+let isMobile = createSlice({
+  name: "isMobile",
+  initialState: false,
+  reducers: {
+    setIsMobile(state, action) {
+      return action.payload;
+    },
+  },
+});
+export let { setIsMobile } = isMobile.actions;
+
 // 로딩창
 let isLoading = createSlice({
   name: "isLoading",
@@ -333,5 +346,6 @@ export default configureStore({
     supportData: supportData.reducer,
     loginCheck: loginCheck.reducer,
     kakaoInform: kakaoInform.reducer,
+    isMobile: isMobile.reducer,
   },
 });

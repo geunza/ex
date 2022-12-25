@@ -5,6 +5,11 @@ import { loadingStart, loadingEnd, setUserInfo } from "redux/store";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { signOut, removeUserInfo } from "redux/store";
+import {
+  REST_API_KEY,
+  REDIRECT_URI,
+  LOGOUT_REDIRECT_URI,
+} from "pages/login/KakaoLoginData";
 const MyLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -99,6 +104,16 @@ const MyLogin = () => {
   function encoding(string) {
     return encodeURI(string);
   }
+  const handleLogout = () => {
+    if (window.confirm("로그아웃 하시겠습니까")) {
+      if (userInfo.id.length == 10) {
+        //카카오
+        const token = localStorage.getItem("kakaoToken");
+        console.log(token);
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+      }
+    }
+  };
   useEffect(() => {
     if (userInfo.usernickname != null) setNickname(userInfo.usernickname);
   }, [userInfo]);
@@ -108,7 +123,9 @@ const MyLogin = () => {
         <p className={styles.tit}>카카오 / 애플 로그인</p>
         <div className={styles.iptArea}>
           <input type="text" value={userInfo.useremail || ""} disabled />
-          <button className={styles.btnBlue}>로그아웃</button>
+          <button className={styles.btnBlue} onClick={handleLogout}>
+            로그아웃
+          </button>
           <button className={styles.btnGray} onClick={withdraw}>
             회원탈퇴
           </button>

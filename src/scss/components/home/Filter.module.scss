@@ -84,3 +84,79 @@
     }
   }
 }
+@media screen and (max-width: 1200px) {
+  .Filter {
+    .titArea {
+      h3 {
+        font-weight: 400;
+        font-size: 20px;
+        margin-bottom: 10px;
+        line-height: 1;
+      }
+      p {
+        font-size: 13px;
+        color: $color-gray;
+        margin-bottom: 15px;
+      }
+    }
+    .custom {
+      padding: 15px;
+      .topArea {
+        padding: 0;
+        .filterListWrap {
+          gap: 0;
+          .filterList {
+            width: 100%;
+            margin-bottom: 20px;
+            &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
+              margin-bottom: 20px;
+            }
+            &:nth-child(2n-1) {
+              padding-right: 0;
+            }
+            .filterTit {
+              font-size: 16px;
+              font-weight: 400;
+              margin-bottom: 10px;
+            }
+          }
+        }
+        .filterModalBtnWrap {
+          flex-wrap: wrap;
+          > div {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+          button {
+            border: 1px solid $color-sub;
+            font-size: 13px;
+          }
+        }
+      }
+      .bottomArea {
+        display: flex;
+        flex-flow: column;
+        gap: 15px;
+        padding: 20px 0 0;
+        border-top: 1px solid $color-borderGray;
+        button {
+          flex: auto;
+          border: none;
+          border-radius: 40px;
+          height: 40px;
+          font-size: 14px;
+          font-weight: 400;
+          &[name="login"] {
+            font-weight: 400;
+            background-color: $color-sub;
+            color: #fff;
+          }
+          &[name="noLogin"] {
+            font-weight: 400;
+            background-color: $color-lightGray;
+          }
+        }
+      }
+    }
+  }
+}

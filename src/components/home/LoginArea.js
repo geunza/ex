@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/components/home/LoginArea.module.scss";
+import styles from "scss/pages/Home.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

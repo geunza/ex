@@ -14,6 +14,7 @@ import Home from "pages/Home";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import styles from "scss/components/Router.module.scss";
+import MobileNavigation from "components/MobileNavigation";
 import ScrollToTop from "components/scrollToTop";
 import CommunityList from "pages/community/CommunityList";
 import CommunityView from "pages/community/CommunityView";
@@ -34,6 +35,7 @@ const AppRouter = ({}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const loginCheck = useSelector((state) => state.loginCheck);
+  const isMobile = useSelector((state) => state.isMobile);
   useEffect(() => {
     if (Object.keys(userInfo).length > 0) {
       if (userInfo.usernickname == "" && isLoggedIn) {
@@ -80,6 +82,7 @@ const AppRouter = ({}) => {
           <Route path="*" element={<Navigate replace to="/" />}></Route>
         </Routes>
         <Footer />
+        {isMobile && <MobileNavigation />}
         <Loading />
       </Router>
       {loginCheck && <LoginModal />}

@@ -9,6 +9,7 @@
   margin-bottom: 60px;
   gap: 60px;
   .headerLogo {
+    width: 148px;
     img {
       display: block;
     }
@@ -159,6 +160,29 @@
       border-radius: $radius-btn;
       padding: 10px 20px 8px;
       color: #fff;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .Header {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    .headerLogo {
+      width: 120px;
+    }
+    nav {
+      display: none;
+    }
+    .loginArea {
+      button {
+        font-size: 12px;
+      }
+      .btnLogout {
+        display: none;
+      }
+      .myPageImg {
+        width: 35px;
+      }
     }
   }
 }

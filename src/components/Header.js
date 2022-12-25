@@ -21,6 +21,7 @@ const Header = ({}) => {
   const location = useLocation();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isMobile = useSelector((state) => state.isMobile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchVal, setSearchVal] = useState("");
@@ -126,11 +127,13 @@ const Header = ({}) => {
     });
   };
   const handleLogout = () => {
-    if (userInfo.id.length == 10) {
-      //카카오
-      const token = localStorage.getItem("kakaoToken");
-      console.log(token);
-      window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+    if (window.confirm("로그아웃 하시겠습니까")) {
+      if (userInfo.id.length == 10) {
+        //카카오
+        const token = localStorage.getItem("kakaoToken");
+        console.log(token);
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+      }
     }
   };
   return (
@@ -169,57 +172,74 @@ const Header = ({}) => {
             </li>
           </ul>
         </nav>
-        <form
-          className={styles.searchForm}
-          onSubmit={searchSubmit}
-          onFocus={() => {
-            setSearchOpen(true);
-          }}
-          onBlur={handleBlur}
-        >
-          <input
-            type="text"
-            name="searchText"
-            id="searchText"
-            placeholder="지원사업을 검색해보세요."
-            onChange={onChange}
-            value={searchVal}
-            autoComplete="off"
-            className={searchOpen ? styles.searchOpen : null}
-          />
-          <button type="submit">
-            <img
-              src={require("assets/img/global/ico/ico_search.png")}
-              alt="SEARCH"
+        {!isMobile ? (
+          <form
+            className={styles.searchForm}
+            onSubmit={searchSubmit}
+            onFocus={() => {
+              setSearchOpen(true);
+            }}
+            onBlur={handleBlur}
+          >
+            <input
+              type="text"
+              name="searchText"
+              id="searchText"
+              placeholder="지원사업을 검색해보세요."
+              onChange={onChange}
+              value={searchVal}
+              autoComplete="off"
+              className={searchOpen ? styles.searchOpen : null}
             />
-          </button>
-          {searchOpen && (
-            <SearchBox
-              styles={styles}
-              popularKeyword={popularKeyword}
-              myKeyword={myKeyword}
-              getMyKeyword={getMyKeyword}
-              sessionKeyword={sessionKeyword}
-              setSessionKeyword={setSessionKeyword}
-            />
-          )}
-        </form>
+            <button type="submit">
+              <img
+                src={require("assets/img/global/ico/ico_search.png")}
+                alt="SEARCH"
+              />
+            </button>
+            {searchOpen && (
+              <SearchBox
+                styles={styles}
+                popularKeyword={popularKeyword}
+                myKeyword={myKeyword}
+                getMyKeyword={getMyKeyword}
+                sessionKeyword={sessionKeyword}
+                setSessionKeyword={setSessionKeyword}
+              />
+            )}
+          </form>
+        ) : null}
         <div className={styles.loginArea}>
           {isLoggedIn ? (
             <>
               <Link to="/myPage">
-                <img
-                  src={require("assets/img/global/ico/ico_user.png")}
-                  alt=""
-                />
+                {isMobile ? (
+                  <img
+                    src={require("assets/img/global/ico/ico_user_black.png")}
+                    alt="myPage"
+                    className={styles.myPageImg}
+                  />
+                ) : (
+                  <img
+                    src={require("assets/img/global/ico/ico_user.png")}
+                    alt="myPage"
+                    className={styles.myPageImg}
+                  />
+                )}
               </Link>
-              <button type="button" onClick={handleLogout}>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className={styles.btnLogout}
+              >
                 로그아웃
               </button>
             </>
           ) : (
             <>
-              <button onClick={handleLogin}>로그인</button>
+              <button onClick={handleLogin} className={styles.btnLogIn}>
+                로그인
+              </button>
             </>
           )}
         </div>

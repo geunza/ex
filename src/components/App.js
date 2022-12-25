@@ -17,9 +17,12 @@ import {
   setSupportItem,
   setCompanyInfo,
   setSupportInfoModal,
+  setIsMobile,
 } from "redux/store";
+import { useMediaQuery } from "react-responsive";
 function App() {
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery({ maxWidth: "1200px" });
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -48,11 +51,6 @@ function App() {
       dispatch(signIn());
     }
   }, []);
-  useEffect(() => {
-    if (Object.keys(supportItem).length == 7) {
-      dispatch(setSupportItemReady(true));
-    }
-  }, [supportItem]);
   const defaultSignIn = (id) => {
     axios({
       url: "/user/getUserInfo",
@@ -136,6 +134,15 @@ function App() {
       //loc_cd:지역
     }
   }, [userCompany]);
+  useEffect(() => {
+    if (Object.keys(supportItem).length == 7) {
+      dispatch(setSupportItemReady(true));
+    }
+  }, [supportItem]);
+  useEffect(() => {
+    console.log(isMobile);
+    dispatch(setIsMobile(isMobile));
+  }, [isMobile]);
   useEffect(() => {
     if (!isLoggedIn) {
       dispatch(
