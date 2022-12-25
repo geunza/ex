@@ -46,15 +46,14 @@ const HomeSupport = ({ setAxiosCount }) => {
       method: "POST",
       url: url,
       cancelToken: new CancelToken(function executor(c) {
-        // excutor 함수는 cancel 함수를 매개 변수로 받습니다.
         cancel = c;
       }),
     }).then((res) => {
       const data = res.data;
       const copy = [...homeSupport];
       copy.find((item) => item.category == category).item = data.map((v) => v);
+      console.log(category, data);
       setHomeSupport(copy);
-
       setAxiosCount((prev) => prev + 1);
     });
   };

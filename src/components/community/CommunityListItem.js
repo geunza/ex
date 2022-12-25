@@ -12,8 +12,10 @@ const CommunityListItem = ({
   controlBox,
   setControlBox,
   controlBoxOpen,
-  getCommunityList,
+  getParamPC,
   setScrollStorage,
+  getParamMobile,
+  isMobile,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,7 +63,11 @@ const CommunityListItem = ({
       method: "POST",
     })
       .then((res) => {
-        getCommunityList();
+        if (isMobile) {
+          getParamMobile();
+        } else {
+          getParamPC();
+        }
         dispatch(loadingEnd());
       })
       .catch((err) => console.log(err));

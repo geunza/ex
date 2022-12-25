@@ -82,6 +82,25 @@ const CommunityList = ({}) => {
         alert(err);
       });
   };
+  const getCommunityListMobile = (stringParams) => {
+    dispatch(loadingStart());
+    axios({
+      method: "GET",
+      // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
+      url: "/mobile/community/all" + stringParams,
+    })
+      .then((res) => {
+        const data = res.data;
+        setPosts(data);
+        if (sessionStorage.getItem("cMover") == "true") {
+          moveScrollStorage();
+        }
+        dispatch(loadingEnd());
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   const getCommunityPopular = async () => {
     // dispatch(loadingStart());
     axios({
@@ -121,8 +140,15 @@ const CommunityList = ({}) => {
     navigateSearchTxt(name, value);
   };
   useEffect(() => {
+    if (isMobile) {
+      sessionStorage.setItem("c_currentSearch", location.search);
+      getParamMobile();
+    } else {
+      getParamPC();
+    }
+  }, [location]);
+  function getParamPC() {
     const searchTxt = location.search;
-    sessionStorage.setItem("c_currentSearch", searchTxt);
     let searchObj = {};
     const searchArr = searchTxt.replace("?", "").split("&");
     let cateDummy = "";
@@ -135,58 +161,35 @@ const CommunityList = ({}) => {
       searchObj[arrObj[0]] = decode(arrObj[1]);
     });
     if (searchObj.cate == undefined) {
-      setCate("전체");
       cateDummy = "전체";
     } else {
-      setCate(searchObj.cate);
       cateDummy = searchObj.cate;
     }
     if (searchObj.ord == undefined) {
-      setOrd("전체");
       ordDummy = "전체";
     } else {
-      setOrd(searchObj.ord);
       ordDummy = searchObj.ord;
     }
     if (searchObj.page == undefined) {
-      setPage(1);
       pageDummy = 1;
     } else {
-      setPage(parseInt(searchObj.page));
       pageDummy = parseInt(searchObj.page);
     }
     if (searchObj.view == undefined) {
-      if (isMobile) {
-        setCount(30 * pageDummy);
-        viewDummy = 30 * pageDummy;
-      } else {
-        setCount(30);
-        viewDummy = 30;
-      }
+      viewDummy = 30;
     } else {
-      if (isMobile) {
-        setCount(searchObj.view * pageDummy);
-        viewDummy = searchObj.view * pageDummy;
-      } else {
-        setCount(searchObj.view);
-        viewDummy = searchObj.view;
-      }
+      viewDummy = searchObj.view;
     }
     if (searchObj.keyword == undefined) {
-      setKeyword("");
       KeywordDummy = "";
     } else {
-      setKeyword(searchObj.keyword);
       KeywordDummy = searchObj.keyword;
     }
-    if (isMobile) {
-      if (viewDummy > totalCount) {
-        setMobileMore(false);
-      } else {
-        setMobileMore(true);
-      }
-      pageDummy = 1;
-    }
+    setCate(cateDummy);
+    setOrd(ordDummy);
+    setPage(pageDummy);
+    setCount(viewDummy);
+    setKeyword(KeywordDummy);
     let stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
       (pageDummy - 1) * viewDummy
     }&`;
@@ -195,7 +198,82 @@ const CommunityList = ({}) => {
     }
     getCommunityList(stringParams);
     setComSearchText("");
-  }, [location]);
+  }
+  useEffect(() => {
+    sessionStorage.setItem("c_cate", cate);
+    sessionStorage.setItem("c_ord", ord);
+    sessionStorage.setItem("c_keyword", keyword);
+  }, [cate, ord, keyword]);
+  function getParamMobile() {
+    const searchTxt = sessionStorage.getItem("c_currentSearch");
+    let searchObj = {};
+    const searchArr = searchTxt.replace("?", "").split("&");
+    let cateDummy = "";
+    let ordDummy = "";
+    let pageDummy = "";
+    let viewDummy = "";
+    let KeywordDummy = "";
+    searchArr.forEach((v) => {
+      const arrObj = v.split("=");
+      searchObj[arrObj[0]] = decode(arrObj[1]);
+    });
+    if (searchObj.cate == undefined) {
+      cateDummy = "전체";
+    } else {
+      cateDummy = searchObj.cate;
+    }
+    if (searchObj.ord == undefined) {
+      ordDummy = "전체";
+    } else {
+      ordDummy = searchObj.ord;
+    }
+    if (searchObj.keyword == undefined) {
+      KeywordDummy = "";
+    } else {
+      KeywordDummy = searchObj.keyword;
+    }
+    console.log(sessionStorage.getItem("c_cate"), cateDummy);
+    if (
+      sessionStorage.getItem("c_cate") != cateDummy ||
+      sessionStorage.getItem("c_ord") != ordDummy ||
+      sessionStorage.getItem("c_keyword") != KeywordDummy
+    ) {
+      sessionStorage.removeItem("c_mo_page");
+    }
+
+    let mobilePage = sessionStorage.getItem("c_mo_page");
+    if (mobilePage == null) {
+      pageDummy = 1;
+    } else {
+      pageDummy = parseInt(mobilePage);
+    }
+    if (searchObj.view == undefined) {
+      if (isMobile) {
+        viewDummy = 30 * pageDummy;
+      } else {
+        viewDummy = 30;
+      }
+    }
+    if (viewDummy > totalCount) {
+      setMobileMore(false);
+    } else {
+      setMobileMore(true);
+    }
+    pageDummy = 1;
+    setCate(cateDummy); // 카테고리
+    setOrd(ordDummy); // 정렬
+    setPage(pageDummy); // 시작점
+    setCount(viewDummy); // 몇까지
+    setKeyword(KeywordDummy); // 키워드
+    let stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
+      (pageDummy - 1) * viewDummy
+    }&`;
+    if (KeywordDummy != "") {
+      stringParams += `search_array=${KeywordDummy}`;
+    }
+    getCommunityListMobile(stringParams);
+    setComSearchText("");
+  }
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -255,31 +333,17 @@ const CommunityList = ({}) => {
         const trigger = targetPos - yHeight + 100;
         if (trigger < 0) {
           infiniteState = false;
-          const searchTxt = sessionStorage.getItem("c_currentSearch");
-          const searchArr = searchTxt.replace("?", "").split("&");
-          let searchObj = {};
-          searchArr.forEach((v) => {
-            const arrObj = v.split("=");
-            searchObj[arrObj[0]] = decode(arrObj[1]);
-          });
-          let newSearchTxt = "";
-          for (let key in searchObj) {
-            if (searchObj[key] == "undefined") {
-              continue;
-            } else if (key == "page") {
-              continue;
-            } else {
-              newSearchTxt += `${key}=${searchObj[key]}&`;
-            }
-          }
-          if (searchObj.page == undefined) {
-            newSearchTxt += `page=${page + 1}`;
+          let mobilePage = sessionStorage.getItem("c_mo_page");
+          console.log(mobilePage);
+          if (mobilePage == null) {
+            console.log("A");
+            sessionStorage.setItem("c_mo_page", 2);
           } else {
-            let currentPage = parseInt(searchObj.page);
-            newSearchTxt += `page=${currentPage + 1}`;
+            console.log("B");
+            sessionStorage.setItem("c_mo_page", parseInt(mobilePage) + 1);
           }
-          setScrollStorage(window.scrollY);
-          navigate("?" + newSearchTxt);
+          console.log(sessionStorage.getItem("c_mo_page"));
+          getParamMobile();
           setTimeout(() => {
             infiniteState = true;
           }, 1500);
@@ -305,11 +369,7 @@ const CommunityList = ({}) => {
     };
   }, [lastCheckTarget]);
   useEffect(() => {
-    return () => {
-      sessionStorage.remove("cOffset");
-      sessionStorage.remove("c_currentSearch");
-      sessionStorage.remove("cCurrentPage");
-    };
+    return () => {};
   }, []);
   return (
     <>
@@ -582,7 +642,9 @@ const CommunityList = ({}) => {
                         controlBox={controlBox}
                         setControlBox={setControlBox}
                         controlBoxOpen={controlBoxOpen}
-                        getCommunityList={getCommunityList}
+                        getParamPC={getParamPC}
+                        getParamMobile={getParamMobile}
+                        isMobile={isMobile}
                       />
                     );
                   })}
