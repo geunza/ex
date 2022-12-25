@@ -74,7 +74,7 @@ const CountArea = ({ setAxiosCount }) => {
             className={styles.numb}
             duration={2}
             separator=","
-            end={count.user_cnt}
+            end={count.target_cnt}
           ></CountUp>
         </li>
         <li>
@@ -83,7 +83,7 @@ const CountArea = ({ setAxiosCount }) => {
             className={styles.numb}
             duration={2}
             separator=","
-            end={count.target_cnt}
+            end={count.user_cnt}
           ></CountUp>
         </li>
       </ul>
