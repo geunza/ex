@@ -14,10 +14,12 @@ const RecentCont = ({
   getTotalCount,
   page,
   count,
+  mobilePage,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [recentItems, setRecentItems] = useState([]);
@@ -96,8 +98,8 @@ const RecentCont = ({
             엑시토에서 사업 성공에 필요한
             <Link to="/support/supportList"> 지원사업</Link>을 확인하세요.
           </p>
-        </div>
-      ) : (
+        </div> //recentItems
+      ) : !isMobile ? (
         <>
           <ul className={styles.savedItemsList}>
             {recentItems
@@ -126,7 +128,25 @@ const RecentCont = ({
             ord={ord}
           />
         </>
+      ) : (
+        <ul className={styles.savedItemsList}>
+          {recentItems.slice(0, count * mobilePage).map((item, idx) => {
+            return (
+              <RecentItem
+                item={item}
+                // key={item.si_idx}
+                key={idx}
+                getRecentItems={getRecentItems}
+                ord={ord}
+                getDoughnutList={getDoughnutList}
+                getBarList={getBarList}
+                getTotalCount={getTotalCount}
+              />
+            );
+          })}
+        </ul>
       )}
+      }
     </>
   );
 };

@@ -28,10 +28,11 @@
         &:first-child a {
           padding: 0 35px 0 0;
         }
-        a {
+        button {
           padding: 0 35px;
           color: $color-gray;
           font-size: 14px;
+          border: none;
         }
       }
     }
@@ -105,7 +106,7 @@
         justify-content: space-between;
         gap: 2%;
         flex-wrap: wrap;
-        width:100%;
+        width: 100%;
         li {
           width: 49%;
           margin-bottom: 2%;
@@ -118,7 +119,7 @@
             content: none;
           }
           &:first-child a,
-          a {
+          button {
             padding: 0;
             text-align: center;
             font-size: 12px;

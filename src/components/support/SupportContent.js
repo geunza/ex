@@ -21,17 +21,22 @@ const SupportContent = ({
   page,
   setPage,
   ord,
+  mobilePage,
+  setMobilePage,
 }) => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isMobile = useSelector((state) => state.isMobile);
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
   const [supportCont, setSupportCont] = useState([]);
   const [supportFilterCont, setSupportFilterCont] = useState([]);
+  const [mobileMore, setMobileMore] = useState(true);
+  const [lastCheckTarget, setLastCheckTarget] = useState(null);
   const navigate = useNavigate();
 
   const [sltView, setSltView] = useState(false);
@@ -102,6 +107,51 @@ const SupportContent = ({
     const isTrue = value == "true";
     setModalOn(isTrue);
   };
+
+  function handleMobilePage() {
+    setMobilePage(parseInt(sessionStorage.getItem("s_mo_page")));
+  }
+  let infiniteState = true;
+  const listener = () => {
+    if (lastCheckTarget) {
+      if (infiniteState) {
+        const yPos = window.scrollY;
+        const yHeight = window.innerHeight;
+        const targetPos = lastCheckTarget.getBoundingClientRect().top;
+        const trigger = targetPos - yHeight + 100;
+        if (trigger < 0) {
+          infiniteState = false;
+          let mobilePage = sessionStorage.getItem("s_mo_page");
+          if (mobilePage == null) {
+            sessionStorage.setItem("s_mo_page", 2);
+          } else {
+            sessionStorage.setItem("s_mo_page", parseInt(mobilePage) + 1);
+          }
+          handleMobilePage();
+          setTimeout(() => {
+            infiniteState = true;
+          }, 500);
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    if (isMobile) {
+      if (count * mobilePage > supportFilterCont.length) {
+        setMobileMore(false);
+      } else {
+        setMobileMore(true);
+      }
+    }
+  }, [mobilePage, supportFilterCont]);
+  useEffect(() => {
+    if (lastCheckTarget) {
+      window.addEventListener("scroll", listener);
+    }
+    return () => {
+      window.removeEventListener("scroll", listener);
+    };
+  }, [lastCheckTarget]);
   return (
     <div className={styles.SupportContent}>
       <div className={styles.ordWrap}>
@@ -148,18 +198,20 @@ const SupportContent = ({
         <div className={styles.contTop}>
           <p className={styles.total}>전체 {supportFilterCont.length}개</p>
           <div className={styles.countWrap}>
-            <p
-              onClick={() => {
-                setSltView((prev) => !prev);
-              }}
-              className={styles.count}
-            >
-              <span>{count}개씩 보기</span>
-              <img
-                src={require("assets/img/global/btn/btn_arr_bottom.png")}
-                alt="열기"
-              />
-            </p>
+            {!isMobile && (
+              <p
+                onClick={() => {
+                  setSltView((prev) => !prev);
+                }}
+                className={styles.count}
+              >
+                <span>{count}개씩 보기</span>
+                <img
+                  src={require("assets/img/global/btn/btn_arr_bottom.png")}
+                  alt="열기"
+                />
+              </p>
+            )}
             {sltView && (
               <ul className={styles.selectArea}>
                 <li>
@@ -247,7 +299,7 @@ const SupportContent = ({
                 />
               )}
             </>
-          ) : (
+          ) : !isMobile ? (
             <>
               <ul>
                 {supportFilterCont
@@ -274,6 +326,44 @@ const SupportContent = ({
                 searchParams={searchParams}
                 ord={ord}
               />
+            </>
+          ) : (
+            <>
+              <ul>
+                {supportFilterCont
+                  .slice(0, count * mobilePage)
+                  .map((item, idx) => {
+                    return (
+                      <SupportItem
+                        getRecent={getRecent}
+                        key={idx}
+                        item={item}
+                        setScrollStorage={setScrollStorage}
+                        getSupportCont={getSupportCont}
+                        keyword={keyword}
+                        ord={ord}
+                      />
+                    );
+                  })}
+              </ul>
+              {isMobile && mobileMore ? (
+                <div
+                  ref={setLastCheckTarget}
+                  className="lastCheckDiv"
+                  style={{
+                    display: isMobile ? "block" : "none",
+                    width: "50px",
+                    height: "50px",
+                    padding: "50px",
+                    background: "blue",
+                    color: "#fff",
+                    fontSize: 0,
+                    opacity: 0,
+                  }}
+                >
+                  LOADMORE TRIGGER
+                </div>
+              ) : null}
             </>
           )}
         </div>

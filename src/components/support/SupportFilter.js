@@ -373,7 +373,7 @@ const SupportFilter = ({
                 } else {
                   navigate("./");
                   getSupportCont("전체", "");
-                  setScrollStorage(window.scrollY);
+                  window.scrollTo(0, 0);
                 }
               }}
             >

@@ -22,7 +22,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 function App() {
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery({ maxWidth: "1200px" });
+  const isMobile = useMediaQuery({ maxWidth: "1023px" });
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);

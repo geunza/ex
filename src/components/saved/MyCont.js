@@ -14,10 +14,12 @@ const MyCont = ({
   getTotalCount,
   count,
   page,
+  mobilePage,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [myItems, setMyItems] = useState([]);
@@ -112,7 +114,7 @@ const MyCont = ({
             관심사업을 찜하시면 쉽고 빠르게 사업을 관리할 수 어요!
           </p>
         </div>
-      ) : (
+      ) : !isMobile ? (
         <>
           <ul className={styles.savedItemsList}>
             {myItems
@@ -140,6 +142,22 @@ const MyCont = ({
             ord={ord}
           />
         </>
+      ) : (
+        <ul className={styles.savedItemsList}>
+          {myItems.slice(0, count * mobilePage).map((item, idx) => {
+            return (
+              <MyItem
+                item={item}
+                key={item.mb_idx}
+                getMyItems={getMyItems}
+                ord={ord}
+                getDoughnutList={getDoughnutList}
+                getBarList={getBarList}
+                getTotalCount={getTotalCount}
+              />
+            );
+          })}
+        </ul>
       )}
     </>
   );

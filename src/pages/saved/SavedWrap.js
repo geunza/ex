@@ -14,6 +14,7 @@ const SavedWrap = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isMobile = useSelector((state) => state.isMobile);
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -21,7 +22,61 @@ const SavedWrap = () => {
   const [cate, setCate] = useState("");
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState({});
+  const [mobilePage, setMobilePage] = useState(1);
+  const [mobileMore, setMobileMore] = useState(true);
+  const [lastCheckTarget, setLastCheckTarget] = useState(null);
   let count = 10;
+  useEffect(() => {
+    let baseCount = 0;
+    cate == "recent"
+      ? (baseCount = totalCount.view_cnt)
+      : cate == "save"
+      ? (baseCount = totalCount.save_cnt)
+      : (baseCount = totalCount.done_cnt);
+    if (isMobile) {
+      if (count * mobilePage > baseCount) {
+        setMobileMore(false);
+      } else {
+        setMobileMore(true);
+      }
+    }
+  }, [mobilePage, cate]);
+  function handleMobilePage() {
+    setMobilePage(parseInt(sessionStorage.getItem("saved_mo_page")));
+  }
+  let infiniteState = true;
+  const listener = () => {
+    if (lastCheckTarget) {
+      if (infiniteState) {
+        const yPos = window.scrollY;
+        const yHeight = window.innerHeight;
+        const targetPos = lastCheckTarget.getBoundingClientRect().top;
+        const trigger = targetPos - yHeight + 100;
+        if (trigger < 0) {
+          infiniteState = false;
+          let mobilePage = sessionStorage.getItem("saved_mo_page");
+          if (mobilePage == null) {
+            sessionStorage.setItem("saved_mo_page", 2);
+          } else {
+            sessionStorage.setItem("saved_mo_page", parseInt(mobilePage) + 1);
+          }
+          handleMobilePage();
+          setTimeout(() => {
+            infiniteState = true;
+          }, 500);
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    if (lastCheckTarget) {
+      window.addEventListener("scroll", listener);
+    }
+    return () => {
+      window.removeEventListener("scroll", listener);
+    };
+  }, [lastCheckTarget]);
+
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -141,7 +196,8 @@ const SavedWrap = () => {
     } else {
       setPage(parseInt(searchObj.page));
     }
-    // window.scrollTo(0, 0);
+    setMobilePage(1);
+    sessionStorage.removeItem("saved_mo_page");
   }, [location]);
 
   const [compoMount, setCompoMount] = useState(false);
@@ -176,6 +232,7 @@ const SavedWrap = () => {
                 getTotalCount={getTotalCount}
                 count={count}
                 page={page}
+                mobilePage={mobilePage}
               />
             )}
             {cate == "save" && (
@@ -187,6 +244,7 @@ const SavedWrap = () => {
                 getTotalCount={getTotalCount}
                 count={count}
                 page={page}
+                mobilePage={mobilePage}
               />
             )}
             {cate == "apply" && (
@@ -197,9 +255,28 @@ const SavedWrap = () => {
                 getBarList={getBarList}
                 count={count}
                 page={page}
+                mobilePage={mobilePage}
               />
             )}
           </div>
+          {isMobile && mobileMore ? (
+            <div
+              ref={setLastCheckTarget}
+              className="lastCheckDiv"
+              style={{
+                display: isMobile ? "block" : "none",
+                width: "50px",
+                height: "50px",
+                padding: "50px",
+                background: "blue",
+                color: "#fff",
+                fontSize: 0,
+                opacity: 0,
+              }}
+            >
+              LOADMORE TRIGGER
+            </div>
+          ) : null}
         </div>
         <div className={styles.rightArea}>
           <SavedChart

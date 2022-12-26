@@ -52,7 +52,6 @@ const HomeSupport = ({ setAxiosCount }) => {
       const data = res.data;
       const copy = [...homeSupport];
       copy.find((item) => item.category == category).item = data.map((v) => v);
-      console.log(category, data);
       setHomeSupport(copy);
       setAxiosCount((prev) => prev + 1);
     });

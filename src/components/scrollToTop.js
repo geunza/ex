@@ -8,15 +8,19 @@ export default function ScrollToTop() {
   const location = useLocation();
   useEffect(() => {
     let pathname = location.pathname;
+    const communitySessions = [
+      "c_keyword",
+      "c_mo_page",
+      "c_cate",
+      "c_ord",
+      "c_currentSearch",
+    ];
+    const supportSessions = ["sOffset", "s_mo_page", "s_currentSearch"];
     if (!pathnameCheck("community")) {
-      const items = [
-        "c_keyword",
-        "c_mo_page",
-        "c_cate",
-        "c_ord",
-        "c_currentSearch",
-      ];
-      items.forEach((v) => sessionStorage.removeItem(v));
+      communitySessions.forEach((v) => sessionStorage.removeItem(v));
+    }
+    if (!pathnameCheck("support")) {
+      supportSessions.forEach((v) => sessionStorage.removeItem(v));
     }
   }, [location]);
   function pathnameCheck(targetPath) {

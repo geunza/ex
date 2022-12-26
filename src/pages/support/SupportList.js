@@ -26,6 +26,7 @@ const SupportList = ({}) => {
   const [savedBook, setSavedBook] = useState([]);
   const [allSupport, setAllSupport] = useState(true);
   const [keyword, setKeyword] = useState("");
+  const [mobilePage, setMobilePage] = useState(1);
   useEffect(() => {
     if (isLoggedIn) {
       setAllSupport(false);
@@ -97,8 +98,6 @@ const SupportList = ({}) => {
     } else {
       if (allSupport) {
         console.log("LIST SEARCH : 전체 지원사업 보기 O");
-        console.log(ord);
-        console.log(keyword);
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -146,6 +145,8 @@ const SupportList = ({}) => {
         });
       }
     }
+    setMobilePage(1);
+    sessionStorage.removeItem("s_mo_page");
     // moveScrollStorage();
     setCompoMount(true);
     function dataToString(target) {
@@ -226,10 +227,6 @@ const SupportList = ({}) => {
     if (count != countDummy) {
       // console.log("count바뀜");
     }
-    console.log([ordDummy, pageDummy, viewDummy, keywordDummy]);
-    if (page != pageDummy) {
-      console.log("폐이찌 뼌환");
-    }
     setOrd(ordDummy);
     setPage(pageDummy);
     setKeyword(keywordDummy);
@@ -284,6 +281,8 @@ const SupportList = ({}) => {
                 setKeyword={setKeyword}
                 page={page}
                 setPage={setPage}
+                mobilePage={mobilePage}
+                setMobilePage={setMobilePage}
               />
             </div>
             <div className={styles.recentArea}>

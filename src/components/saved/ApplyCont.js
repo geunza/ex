@@ -8,10 +8,18 @@ import styles from "scss/pages/Saved.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import ApplyItem from "components/saved/ApplyItem";
 import PaginationSupport from "components/PaginationSupport";
-const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
+const MyCont = ({
+  ord,
+  getDoughnutList,
+  getBarList,
+  count,
+  page,
+  mobilePage,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [applyItems, setApplyItems] = useState([]);
@@ -105,8 +113,8 @@ const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
             <span>사업에 지원하신 후 지원을 등록하시면</span>
             <span>해당사업에 지원한 회원 통계를 확인할 수 있어요!</span>
           </p>
-        </div>
-      ) : (
+        </div> //applyItems
+      ) : !isMobile ? (
         <>
           <ul className={styles.savedItemsList}>
             {applyItems
@@ -133,6 +141,21 @@ const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
             ord={ord}
           />
         </>
+      ) : (
+        <ul className={styles.savedItemsList}>
+          {applyItems.slice(0, count * mobilePage).map((item, idx) => {
+            return (
+              <ApplyItem
+                item={item}
+                key={item.si_idx}
+                getApplyItems={getApplyItems}
+                ord={ord}
+                getDoughnutList={getDoughnutList}
+                getBarList={getBarList}
+              />
+            );
+          })}
+        </ul>
       )}
     </>
   );

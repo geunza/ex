@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Footer = () => {
   const isMobile = useSelector((state) => state.isMobile);
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
   return (
     <div className={styles.Footer}>
       {isMobile && (
@@ -19,48 +22,44 @@ const Footer = () => {
       <div className={styles.footerTop}>
         <ul className={styles.terms}>
           <li>
-            <Link
+            <button
               to="###"
               onClick={(e) => {
-                e.preventDefault();
-                alert("CHECK : 링크적용");
+                openInNewTab("https://exitobiz.co.kr/standard");
               }}
             >
               이용약관
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
+            <button
               to="###"
               onClick={(e) => {
-                e.preventDefault();
-                alert("CHECK : 링크적용");
+                openInNewTab("https://exitobiz.co.kr/personinfo");
               }}
             >
               개인정보처리약관
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
+            <button
               to="###"
               onClick={(e) => {
-                e.preventDefault();
-                alert("CHECK : 링크적용");
+                openInNewTab("https://exitobiz.co.kr/locationinfo");
               }}
             >
               위치기반서비스이용약관
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
+            <button
               to="###"
               onClick={(e) => {
-                e.preventDefault();
-                alert("CHECK : 링크적용");
+                openInNewTab("https://exitobiz.co.kr/marketingInfo");
               }}
             >
               마케팅수신동의약관
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
@@ -92,7 +91,13 @@ const Footer = () => {
         <div className={styles.rightArea}>
           <ul>
             <li>
-              <button onClick={() => window.open("###", "_blank")}>
+              <button
+                onClick={() => {
+                  openInNewTab(
+                    "https://play.google.com/store/apps/details?id=com.ctns.itda_user"
+                  );
+                }}
+              >
                 <img
                   src={require("assets/img/global/ico/ico_appstore.png")}
                   alt=""
@@ -100,7 +105,13 @@ const Footer = () => {
               </button>
             </li>
             <li>
-              <button onClick={() => window.open("###", "_blank")}>
+              <button
+                onClick={() => {
+                  openInNewTab(
+                    "https://apps.apple.com/kr/app/엑시토-한눈에-보는-스타트업-지원사업-어플/id1555629389"
+                  );
+                }}
+              >
                 <img
                   src={require("assets/img/global/ico/ico_playstore.png")}
                   alt=""
@@ -108,7 +119,11 @@ const Footer = () => {
               </button>
             </li>
             <li>
-              <button onClick={() => window.open("###", "_blank")}>
+              <button
+                onClick={() => {
+                  openInNewTab("https://blog.naver.com/ctns0113");
+                }}
+              >
                 <img
                   src={require("assets/img/global/ico/ico_blog.png")}
                   alt=""
@@ -116,7 +131,11 @@ const Footer = () => {
               </button>
             </li>
             <li>
-              <button onClick={() => window.open("###", "_blank")}>
+              <button
+                onClick={() => {
+                  openInNewTab("https://www.instagram.com/startup_exito/");
+                }}
+              >
                 <img
                   src={require("assets/img/global/ico/ico_instagram.png")}
                   alt=""
