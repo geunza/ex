@@ -18,6 +18,7 @@ const SupportList = ({}) => {
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportItemReady = useSelector((state) => state.supportItemReady);
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState(1);
@@ -25,6 +26,13 @@ const SupportList = ({}) => {
   const [savedBook, setSavedBook] = useState([]);
   const [allSupport, setAllSupport] = useState(true);
   const [keyword, setKeyword] = useState("");
+  useEffect(() => {
+    if (isLoggedIn) {
+      setAllSupport(false);
+    } else {
+      setAllSupport(true);
+    }
+  }, [isLoggedIn]);
   const moveScrollStorage = () => {
     window.scrollTo({
       top: parseInt(sessionStorage.getItem("sOffset")),
@@ -34,61 +42,123 @@ const SupportList = ({}) => {
   const setScrollStorage = (value) => {
     sessionStorage.setItem("sOffset", value);
   };
-
-  let lastAxiosNum = 0;
+  const [compoMount, setCompoMount] = useState(false);
   const getSupportCont = (ord, keyword) => {
     console.log("검색중");
     dispatch(loadingStart());
-    if (allSupport) {
-      console.log("LIST SEARCH : 전체 지원사업 보기 O");
-      axios({
-        url: "/support/getSupportInfoList",
-        method: "POST",
-        headers: {
-          user_id: userInfo.id,
-        },
-        data: {
-          ord: ord,
-          business_type: "01",
-          start_period: "999",
-          company_type: "01",
-          target_cat_name: "01",
-          business_ctg: "01",
-          tech_ctg: "01",
-          loc_code: "C82",
-          keyword: keyword,
-        },
-      }).then((res) => {
-        dispatch(setSupportData(res.data));
-        moveScrollStorage();
-        dispatch(loadingEnd());
-      });
+    console.log("isLoggedIn", isLoggedIn);
+    console.log("compoMount", compoMount);
+    if (!compoMount) {
+      if (!isLoggedIn) {
+        console.log("첫랜더 : 로그인 X  /  ");
+        axios({
+          url: "/support/getSupportInfoList",
+          method: "POST",
+          headers: {
+            user_id: userInfo.id,
+          },
+          data: {
+            ord: ord,
+            business_type: "01",
+            start_period: "999",
+            company_type: "01",
+            target_cat_name: "01",
+            business_ctg: "01",
+            tech_ctg: "01",
+            loc_code: "C82",
+            keyword: keyword,
+          },
+        }).then((res) => {
+          dispatch(setSupportData(res.data));
+          moveScrollStorage();
+          dispatch(loadingEnd());
+        });
+      } else {
+        console.log("첫랜더 : 로그인 O  /  LIST SEARCH : 전체 지원사업 보기 X");
+        axios({
+          url: "/support/getSupportInfoList",
+          method: "POST",
+          headers: {
+            user_id: userInfo.id,
+          },
+          data: {
+            ord: ord,
+            business_type: dataToString("bizp_type_cd"),
+            start_period: dataToString("prd_cd"),
+            company_type: dataToString("biz_type_cd"),
+            target_cat_name: dataToString("spt_cd"),
+            business_ctg: dataToString("biz_cd"),
+            tech_ctg: dataToString("tech_cd"),
+            loc_code: dataToString("loc_cd"),
+            keyword: keyword,
+            // keyword: searchTxt,
+          },
+        }).then((res) => {
+          dispatch(setSupportData(res.data));
+          moveScrollStorage();
+          dispatch(loadingEnd());
+        });
+      }
     } else {
-      console.log("LIST SEARCH : 전체 지원사업 보기 X");
-      axios({
-        url: "/support/getSupportInfoList",
-        method: "POST",
-        headers: {
-          user_id: userInfo.id,
-        },
-        data: {
-          ord: ord,
-          business_type: dataToString("bizp_type_cd"),
-          start_period: dataToString("prd_cd"),
-          company_type: dataToString("biz_type_cd"),
-          target_cat_name: dataToString("spt_cd"),
-          business_ctg: dataToString("biz_cd"),
-          tech_ctg: dataToString("tech_cd"),
-          loc_code: dataToString("loc_cd"),
-          keyword: keyword,
-          // keyword: searchTxt,
-        },
-      }).then((res) => {
-        dispatch(setSupportData(res.data));
-        moveScrollStorage();
-        dispatch(loadingEnd());
-      });
+      if (allSupport) {
+        axios({
+          url: "/support/getSupportInfoList",
+          method: "POST",
+          headers: {
+            user_id: userInfo.id,
+          },
+          data: {
+            ord: ord,
+            business_type: "01",
+            start_period: "999",
+            company_type: "01",
+            target_cat_name: "01",
+            business_ctg: "01",
+            tech_ctg: "01",
+            loc_code: "C82",
+            keyword: keyword,
+          },
+        }).then((res) => {
+          dispatch(setSupportData(res.data));
+          moveScrollStorage();
+          dispatch(loadingEnd());
+        });
+      } else {
+        console.log("LIST SEARCH : 전체 지원사업 보기 X");
+        console.log("ord", ord);
+        console.log("bizp_type_cd", dataToString("bizp_type_cd"));
+        console.log("prd_cd", dataToString("prd_cd"));
+        console.log("biz_type_cd", dataToString("biz_type_cd"));
+        console.log("spt_cd", dataToString("spt_cd"));
+        console.log("biz_cd", dataToString("biz_cd"));
+        console.log("tech_cd", dataToString("tech_cd"));
+        console.log("loc_cd", dataToString("loc_cd"));
+        axios({
+          url: "/support/getSupportInfoList",
+          method: "POST",
+          headers: {
+            user_id: userInfo.id,
+          },
+          data: {
+            ord: ord,
+            business_type: dataToString("bizp_type_cd"),
+            start_period: dataToString("prd_cd"),
+            company_type: dataToString("biz_type_cd"),
+            target_cat_name: dataToString("spt_cd"),
+            business_ctg: dataToString("biz_cd"),
+            tech_ctg: dataToString("tech_cd"),
+            loc_code: dataToString("loc_cd"),
+            keyword: keyword,
+            // keyword: searchTxt,
+          },
+        }).then((res) => {
+          dispatch(setSupportData(res.data));
+          moveScrollStorage();
+          dispatch(loadingEnd());
+        });
+      }
     }
+    setCompoMount(true);
     function dataToString(target) {
       return supportInfo[target].datas.map((v) => v.code).toString();
     }
@@ -178,6 +248,7 @@ const SupportList = ({}) => {
       }
     }
   }, [location]);
+
   useEffect(() => {
     setFirstMount(false);
   }, []);

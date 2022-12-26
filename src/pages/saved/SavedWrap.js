@@ -58,7 +58,6 @@ const SavedWrap = () => {
       method: "POST",
       headers: {
         user_id: userInfo.id,
-        // user_id: 2379586568,
       },
     })
       .then((res) => {

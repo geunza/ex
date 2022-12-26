@@ -21,34 +21,45 @@ const FilterModal = ({
     const cate = item.ctg_cd;
     const name = item.code_nm;
     let copy = JSON.parse(JSON.stringify(objDummy));
-    const require = copy[cate].require;
-    if (name == "전체" || name == "전국") {
-      if (
-        copy[cate].datas
-          .filter((x) => x.code_nm != "전체")
-          .filter((x) => x.code_nm != "전국").length == 0
-      ) {
-        alert("한가지 이상 선택해주세요.");
-      }
-      copy[cate].datas = [item];
-    } else {
-      copy[cate].datas = copy[cate].datas
-        .filter((x) => x.code_nm != "전체")
-        .filter((x) => x.code_nm != "전국");
-      if (someItem(copy[cate].datas, item)) {
-        if (require && copy[cate].datas.length == 1) {
+    const multiply = copy[cate].multiply;
+    if (multiply) {
+      if (name == "전체" || name == "전국") {
+        if (
+          copy[cate].datas
+            .filter((x) => x.code_nm != "전체")
+            .filter((x) => x.code_nm != "전국").length == 0
+        ) {
           alert("한가지 이상 선택해주세요.");
+        }
+        copy[cate].datas = [item];
+      } else {
+        copy[cate].datas = copy[cate].datas
+          .filter((x) => x.code_nm != "전체")
+          .filter((x) => x.code_nm != "전국");
+        if (someItem(copy[cate].datas, item)) {
+          if (require && copy[cate].datas.length == 1) {
+            alert("한가지 이상 선택해주세요.");
+          } else {
+            copy[cate].datas = filterItem(copy[cate].datas, item);
+          }
         } else {
-          copy[cate].datas = filterItem(copy[cate].datas, item);
+          if (cate == "loc_cd") {
+            copy[cate].datas = addItemLoc(copy[cate].datas, item);
+          } else {
+            copy[cate].datas = addItem(copy[cate].datas, item);
+          }
+        }
+      }
+    } else {
+      if (someItem(copy[cate].datas, item)) {
+        if (require) {
+          alert("한가지 이상 선택해주세요.");
         }
       } else {
-        if (cate == "loc_cd") {
-          copy[cate].datas = addItemLoc(copy[cate].datas, item);
-        } else {
-          copy[cate].datas = addItem(copy[cate].datas, item);
-        }
+        copy[cate].datas = [item];
       }
     }
+
     setObjDummy(copy);
     function someItem(target, item) {
       return target.some(
@@ -254,6 +265,70 @@ const FilterModal = ({
                   </div>
                   <ol className={styles.filterItems}>
                     {supportItem.loc_cd.map((item, idx, arr) => {
+                      return (
+                        <li className={styles.item} key={item.code}>
+                          <FilterButton
+                            baseObj={objDummy}
+                            idx={idx}
+                            item={item}
+                            onClick={filterBtnClick}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              )}
+              {modalStep == 3 && (
+                <div className={styles.modalCont}>
+                  <div className={styles.title}>
+                    <h5 className={styles.required}>사업자형태</h5>
+                  </div>
+                  <ol className={styles.filterItems}>
+                    {supportItem.bizp_type_cd.map((item, idx, arr) => {
+                      return (
+                        <li className={styles.item} key={item.code}>
+                          <FilterButton
+                            baseObj={objDummy}
+                            idx={idx}
+                            item={item}
+                            onClick={filterBtnClick}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              )}
+              {modalStep == 4 && (
+                <div className={styles.modalCont}>
+                  <div className={styles.title}>
+                    <h5 className={styles.required}>창업기간</h5>
+                  </div>
+                  <ol className={styles.filterItems}>
+                    {supportItem.prd_cd.map((item, idx, arr) => {
+                      return (
+                        <li className={styles.item} key={item.code}>
+                          <FilterButton
+                            baseObj={objDummy}
+                            idx={idx}
+                            item={item}
+                            onClick={filterBtnClick}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              )}
+              {modalStep == 5 && (
+                <div className={styles.modalCont}>
+                  <div className={styles.title}>
+                    <h5>기업형태</h5>
+                    <span className={styles.multiply}>(중복가능)</span>
+                  </div>
+                  <ol className={styles.filterItems}>
+                    {supportItem.biz_type_cd.map((item, idx, arr) => {
                       return (
                         <li className={styles.item} key={item.code}>
                           <FilterButton

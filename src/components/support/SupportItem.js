@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "scss/pages/Support.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginCheck } from "redux/store";
 import axios from "axios";
 const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const cateName = item.target_cat_name;
@@ -43,6 +44,7 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
       headers: { user_id: userInfo.id },
       data: { mb_addidx: idx, mb_save_yn: mb_save_yn },
     }).then((res) => {
+      setScrollStorage(window.scrollY);
       getSupportCont();
     });
   };
@@ -63,6 +65,7 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
               <Link
                 to={`/support/supportView/${item.si_idx}`}
                 onClick={() => {
+                  console.log(location.pathname);
                   setScrollStorage(window.scrollY);
                 }}
               >

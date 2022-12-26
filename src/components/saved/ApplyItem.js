@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "scss/pages/Support.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setLoginCheck } from "redux/store";
 const ApplyItem = ({
@@ -12,6 +12,7 @@ const ApplyItem = ({
   getBarList,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
@@ -109,7 +110,7 @@ const ApplyItem = ({
           <h4>
             <button
               onClick={() => {
-                openInNewTab(item.mobile_url, item.si_idx);
+                navigate(`/support/supportView/${item.si_idx}`);
               }}
             >
               {title}

@@ -117,6 +117,7 @@ const Home = ({}) => {
                         dispatch(setLoginCheck(true));
                       }
                     }}
+                    to="/saved?cate=save"
                   >
                     {!isLoggedIn ? (
                       <span>

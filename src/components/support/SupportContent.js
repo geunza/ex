@@ -260,6 +260,7 @@ const SupportContent = ({
                         key={idx}
                         item={item}
                         setScrollStorage={setScrollStorage}
+                        getSupportCont={getSupportCont}
                       />
                     );
                   })}
