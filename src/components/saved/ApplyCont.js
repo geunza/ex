@@ -7,7 +7,7 @@ import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/Saved.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import ApplyItem from "components/saved/ApplyItem";
-import Pagination from "components/Pagination";
+import PaginationSupport from "components/PaginationSupport";
 const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -124,7 +124,7 @@ const MyCont = ({ ord, getDoughnutList, getBarList, count, page }) => {
                 );
               })}
           </ul>
-          <Pagination
+          <PaginationSupport
             total={applyItems.length}
             postLimit={10}
             numLimit={5}

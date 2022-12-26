@@ -6,7 +6,7 @@ import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/Saved.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Pagination from "components/Pagination";
+import PaginationSupport from "components/PaginationSupport";
 const RecentCont = ({
   ord,
   getDoughnutList,
@@ -117,7 +117,7 @@ const RecentCont = ({
                 );
               })}
           </ul>
-          <Pagination
+          <PaginationSupport
             total={recentItems.length}
             postLimit={10}
             numLimit={5}
