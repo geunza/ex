@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import MyPost from "components/myPage/MyPost";
 import MyReply from "components/myPage/MyReply";
-import styles from "scss/pages/CommunityList.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 const Written = () => {

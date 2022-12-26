@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RecentItem from "components/saved/RecentItem";
 import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
-import styles from "scss/pages/SavedWrap.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import ApplyItem from "components/saved/ApplyItem";
 import Pagination from "components/Pagination";

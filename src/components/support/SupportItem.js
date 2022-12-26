@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/components/support/SupportItem.module.scss";
+import styles from "scss/pages/SupportList.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginCheck } from "redux/store";
@@ -48,7 +48,7 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
   };
   return (
     <>
-      <li className={styles.supportItem}>
+      <li className={styles.SupportItem}>
         <div className={styles.leftArea}>
           <div className={styles.itemTop}>
             <ol>

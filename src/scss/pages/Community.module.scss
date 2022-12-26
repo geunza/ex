@@ -1,0 +1,552 @@
+@import "scss/utils";
+
+.CommunityList {
+  .titleArea {
+    .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .leftArea {
+      //
+      .title {
+      }
+      p {
+      }
+    }
+  }
+  .CommunityListContent {
+    background-color: $color-bgGray;
+    padding-top: 50px;
+  }
+  .listTop {
+    margin-bottom: 70px;
+    h4 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .topCont {
+      display: flex;
+      justify-content: space-between;
+      .popular {
+        width: 59%;
+        .listWrap {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          > div {
+            margin: 0;
+            width: 32.5%;
+          }
+        }
+      }
+      .banner {
+        width: 38%;
+        :global #pagination {
+          justify-content: flex-end;
+          bottom: unset;
+          bottom: none;
+          top: -20px;
+        }
+      }
+    }
+  }
+  .listCategory {
+    display: flex;
+    gap: 45px;
+    margin-bottom: 20px;
+    button {
+      padding: 10px 0;
+      font-size: 20px;
+      color: $color-gray;
+      border: none;
+      border-bottom: 3px solid transparent;
+      &[data-selected="selected"] {
+        color: #222222;
+        border-bottom: 3px solid #222;
+        font-weight: 900;
+      }
+    }
+  }
+  .contTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px 0 20px;
+    .total {
+      font-size: 18px;
+    }
+    .countWrap {
+      position: relative;
+      font-size: 14px;
+      .count {
+        padding: 0 0 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+      }
+      .selectArea {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid $color-deepGray;
+        li {
+          //
+          button {
+            font-size: 14px;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 7px 0 5px 10px;
+          }
+        }
+      }
+    }
+  }
+  .listCont {
+    background: #fff;
+    border-radius: $radius-wrap;
+    .listSorting {
+      padding: 35px 45px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $color-borderGray;
+      gap: 90px;
+    }
+    .searchAndWrite {
+      display: flex;
+      align-items: center;
+      width: 50%;
+      flex: 1 1 auto;
+      gap: 35px;
+      form {
+        display: flex;
+        flex: 1 1 auto;
+        height: 100%;
+        position: relative;
+        input[type="text"] {
+          border: 1px solid $color-borderGray;
+          height: auto;
+          width: 100%;
+          padding: 0 50px 0 15px;
+          font-size: 16px;
+        }
+        button[type="submit"] {
+          border: none;
+          position: absolute;
+          right: 0;
+          height: 100%;
+          img {
+            display: block;
+          }
+        }
+      }
+    }
+    .btnWrite {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #222;
+      border-radius: 40px;
+      padding: 12px 30px;
+      white-space: nowrap;
+      img {
+      }
+      span {
+        font-size: 15px;
+        padding-top: 2px;
+      }
+    }
+    .listItemWrap {
+      padding: 0 50px;
+    }
+    .bottomBtns {
+      border-top: 1px solid $color-borderGray;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 35px 30px 70px;
+    }
+    //
+  }
+  .searchKeyword {
+    text-align: center;
+    padding: 30px 0 0;
+    font-size: 18px;
+    mark {
+      color: $color-sub;
+    }
+  }
+}
+.CommunityWrite {
+  .titleFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btnSubmit {
+      color: #fff;
+      background: $color-sub;
+      border-radius: 50px;
+      font-size: 16px;
+      border: none;
+      padding: 16px 75px 13px;
+    }
+  }
+  :global .inner {
+    padding-top: 50px;
+  }
+  .writeArea {
+    background-color: #fff;
+    border-radius: $radius-wrap;
+    overflow: hidden;
+    > * {
+      padding: 30px 40px;
+    }
+    .cateArea {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      user-select: none;
+      border-bottom: 1px solid $color-borderGray;
+      .cateTit {
+        font-size: 22px;
+        margin-right: 20px;
+        padding-top: 3px;
+      }
+      .cateItems {
+        position: relative;
+        width: 40%;
+        .currentCate {
+          border: 1px solid $color-sub;
+          border-radius: $radius-btn;
+          color: $color-sub;
+          font-size: 18px;
+          padding: 10px 0 6px 15px;
+          position: relative;
+          cursor: pointer;
+          img {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+        .cateItems {
+          position: absolute;
+          left: 0;
+          top: 100%;
+          z-index: 10;
+          background-color: #fff;
+          width: 100%;
+          border: 1px solid $color-borderGray;
+          .cateItem {
+            &:not(:last-child) {
+              border-bottom: 1px solid $color-borderGray;
+            }
+            button {
+              width: 100%;
+              display: block;
+              text-align: left;
+              border: none;
+              font-size: 16px;
+              padding: 13px 0 10px 15px;
+            }
+          }
+        }
+      }
+    }
+    .txtArea {
+      .titleArea {
+        padding: 25px 0;
+        input[type="text"] {
+          outline: none;
+          font-size: 30px;
+          width: 100%;
+          border: none;
+          font-weight: 500;
+          padding: 13px 0 11px;
+          border-bottom: 3px solid $color-borderGray;
+        }
+      }
+      .editorArea {
+        position: relative;
+        padding-bottom: 40px;
+        > div {
+          resize: vertical;
+          overflow: hidden;
+        }
+        .editInform {
+          position: absolute;
+          left: 0;
+          top: 50px;
+          padding: 15px 25px;
+          pointer-events: none;
+          user-select: none;
+          .tit {
+            color: $color-gray;
+            font-size: 22px;
+            margin-bottom: 15px;
+          }
+          .para {
+            color: $color-gray;
+            font-size: 14px;
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    .fileArea {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      border-top: 1px solid $color-borderGray;
+      input[type="file"] {
+        display: none;
+      }
+      label {
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid $color-borderGray;
+        background: $color-lightGray;
+        color: $color-gray;
+        padding: 7px 15px 5px;
+        border-radius: 50px;
+        white-space: nowrap;
+        flex: 0 0 auto;
+        span {
+          padding-top: 2px;
+        }
+      }
+      .items {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: inherit;
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid $color-sub;
+          color: $color-sub;
+          border-radius: 50px;
+          padding: 7px 15px 5px;
+          gap: 10px;
+          span {
+            padding-top: 2px;
+          }
+          img {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+.CommunityModify {
+  .writeArea {
+    .cateArea {
+      background-color: #fafbff;
+      .cateItems {
+        .currentCate {
+          background-color: $color-bgGray;
+          border: 1px solid $color-deepGray;
+          color: $color-deepGray;
+        }
+      }
+      .modifyInform {
+        margin-left: 20px;
+        img {
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+        span {
+          display: inline-block;
+          vertical-align: middle;
+          padding-top: 5px;
+          color: $color-gray;
+        }
+      }
+    }
+    .fileArea {
+      background-color: #fafbff;
+      .items .item {
+        background-color: $color-bgGray;
+        border: 1px solid $color-deepGray;
+        color: $color-deepGray;
+      }
+    }
+  }
+}
+.CommunityListItem {
+  .cate {
+    border: 1px solid $color-borderGray;
+    border-radius: 30px;
+    font-size: 14px;
+    padding: 6px 10px 4px;
+    display: inline-block;
+    color: $color-deepGray;
+  }
+  .leftArea {
+    width: 70%;
+  }
+  .rightArea {
+    width: 22%;
+  }
+  .content {
+    height: 48px;
+  }
+  :global .content {
+    -webkit-line-clamp: 2;
+  }
+}
+.replyItem {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 25px;
+  &.isWriter {
+    background: #f7f8f9;
+  }
+  .writeInform {
+    display: flex;
+    align-items: center;
+    .writer {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      &:after {
+        content: "";
+        width: 1px;
+        height: 12px;
+        display: block;
+        background: $color-borderGray;
+        margin: 0 10px 3px 10px;
+      }
+    }
+    .createTime {
+      color: $color-gray;
+      font-size: 14px;
+    }
+  }
+  .replyCont {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    white-space: pre-line;
+    .leftArea {
+      font-size: 18px;
+      padding-right: 50px;
+    }
+  }
+  .btnReReply {
+    border: 1px solid $color-borderGray;
+    border-radius: $radius-btn;
+    color: $color-deepGray;
+    font-size: 14px;
+    padding: 10px 15px 8px;
+  }
+  &.mainReply {
+    padding: 20px 40px;
+  }
+  .rightArea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 120px;
+    .likeArea {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: $color-deepGray;
+      border: none;
+      img {
+        width: 18px;
+        display: block;
+      }
+      span {
+        padding-top: 3px;
+      }
+    }
+  }
+  .replyModify {
+    width: 100%;
+    button {
+      display: block;
+      margin: 0 0 0 auto;
+      border: none;
+      padding: 14px 20px 11px;
+      border-radius: 50px;
+      background: $color-borderGray;
+      color: $color-deepGray;
+      font-size: 16px;
+      &:hover {
+        color: #fff;
+        background: $color-sub;
+      }
+    }
+  }
+}
+.writeReReply {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    .reReplyTxt {
+      margin: 0;
+    }
+  }
+  button {
+    display: block;
+    margin: 0 0 0 auto;
+    font-size: 16px;
+    background: $color-borderGray;
+    color: $color-deepGray;
+    border: none;
+    padding: 14px 20px 11px;
+    border-radius: 50px;
+    &:hover {
+      color: #fff;
+      background-color: $color-sub;
+    }
+  }
+}
+
+.reReplyWrap {
+  width: 100%;
+  .reReply {
+    flex-flow: row;
+    align-items: center;
+    width: 100%;
+    padding: 15px 40px;
+    .reReplyContWrap {
+      padding: 25px 30px;
+      border: 1px solid $color-borderGray;
+      border-radius: $radius-wrap;
+      flex: 1;
+      display: flex;
+      flex-flow: column;
+      gap: 25px;
+      .reReplyCont {
+      }
+    }
+  }
+}

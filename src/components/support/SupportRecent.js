@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "scss/components/support/SupportRecent.module.scss";
+import styles from "scss/pages/SupportList.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { compose } from "@reduxjs/toolkit";

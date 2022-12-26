@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
-import styles from "scss/pages/SavedWrap.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import MyItem from "components/saved/MyItem";
 import Pagination from "components/Pagination";

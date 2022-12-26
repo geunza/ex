@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/components/community/CommunityListItem.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 const MyPostItem = ({

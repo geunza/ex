@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/components/support/SupportFilter.module.scss";
+import styles from "scss/pages/SupportList.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setSupportInfo,

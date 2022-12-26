@@ -7,7 +7,7 @@ import RecentCont from "components/saved/RecentCont";
 import ApplyCont from "components/saved/ApplyCont";
 import MyCont from "components/saved/MyCont";
 import SavedChart from "components/saved/SavedChart";
-import styles from "scss/pages/SavedWrap.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 import axios from "axios";
 import { loadingEnd } from "redux/store";
 const SavedWrap = () => {

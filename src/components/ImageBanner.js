@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "swiper/css";
 import "swiper/css/pagination";
-import styles from "scss/components/home/Banner.scss";
+import styles from "scss/components//Banner.scss";
 import { useState } from "react";
 import { useEffect } from "react";
 const ImageBanner = () => {

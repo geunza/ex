@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import styles from "scss/components/saved/SavedTitle.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 const SavedTitle = () => {
   const userInfo = useSelector((state) => state.userInfo);
   return (

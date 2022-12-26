@@ -8,7 +8,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import styles from "scss/pages/CommunityList.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import Banner from "components/ImageBanner";
 import axios from "axios";
 import CommunityListItem from "components/community/CommunityListItem";

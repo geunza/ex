@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadingStart, loadingEnd } from "redux/store";
-import styles from "scss/components/support/SupportContent.module.scss";
+import styles from "scss/pages/SupportList.module.scss";
 import SupportItem from "components/support/SupportItem";
 import Pagination from "components/Pagination";
 import axios from "axios";

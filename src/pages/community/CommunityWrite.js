@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Editor from "components/community/Editor";
 import FileUpload from "components/community/FileUpload";
-import styles from "scss/pages/CommunityWrite.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";

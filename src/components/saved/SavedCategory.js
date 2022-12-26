@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "scss/components/saved/SavedCategory.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 import { useSelector } from "react-redux";
 const SavedCategory = ({
   cate,

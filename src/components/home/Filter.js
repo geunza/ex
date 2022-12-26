@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "scss/components/home/Filter.module.scss";
+import styles from "scss/components/Filter.module.scss";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setSupportItem, setSupportInfo } from "redux/store";

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styles from "scss/components/home/FilterButton.module.scss";
+import styles from "scss/components/FilterButton.module.scss";
 import Tooltip from "components/Tooltip";
 
 const FilterButton = ({ item, onClick, idx, baseObj }) => {

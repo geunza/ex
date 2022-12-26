@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RecentItem from "components/saved/RecentItem";
 import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
-import styles from "scss/pages/SavedWrap.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Pagination from "components/Pagination";
 const RecentCont = ({

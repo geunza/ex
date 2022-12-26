@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "scss/components/community/CommunityListItem.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { modalOverflow } from "redux/store";
 import { loadingStart, loadingEnd, setLoginCheck } from "redux/store";

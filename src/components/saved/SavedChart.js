@@ -14,7 +14,7 @@ import { Bar, Doughnut } from "react-chartjs-2";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import styles from "scss/components/saved/SavedChart.module.scss";
+import styles from "scss/pages/Saved.module.scss";
 import EventModal from "components/home/EventModal";
 import NeedModal from "components/saved/NeedModal";
 ChartJS.register(
@@ -189,7 +189,7 @@ const SavedChart = ({
   const [currentModal, setCurrentModal] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   return (
-    <div className={styles.chartWrap}>
+    <div className={styles.ChartWrap}>
       <div className={`${styles.chartArea} ${styles.doughtnut}`}>
         <p className={styles.title}>찜 분류</p>
         {doughnutSum == 0 ? (

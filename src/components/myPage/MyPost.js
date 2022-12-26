@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CommunityListItem from "components/community/CommunityListItem";
-import styles from "scss/pages/CommunityList.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import MyPostItem from "./MyPostItem";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";

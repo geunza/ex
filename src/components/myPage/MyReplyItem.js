@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";

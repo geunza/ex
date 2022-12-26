@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "scss/notice/NoticeList.module.scss";
+import styles from "scss/pages/Notice.module.scss";
 import { Link } from "react-router-dom";
 const NoticeListItem = ({ item }) => {
   const [mustRead, setMustRead] = useState("");

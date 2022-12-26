@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "scss/components/community/CommunityViewReplyItem.module.scss";
+import styles from "scss/pages/Community.module.scss";
 import CommunityViewReReplyItem from "components/community/CommunityViewReReplyItem";
 import { setLoginCheck } from "redux/store";
 import CommunityModalReport from "components/community/CommunityModalReport";
