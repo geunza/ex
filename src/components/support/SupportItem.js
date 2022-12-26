@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "scss/pages/SupportList.module.scss";
+import styles from "scss/pages/Support.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginCheck } from "redux/store";

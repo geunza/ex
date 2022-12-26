@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "scss/pages/SupportList.module.scss";
+import styles from "scss/pages/Support.module.scss";
 import SupportFilter from "components/support/SupportFilter";
 import SupportContent from "components/support/SupportContent";
 import SupportRecent from "components/support/SupportRecent";

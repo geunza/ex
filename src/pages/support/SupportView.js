@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
-import styles from "scss/pages/SupportList.module.scss";
+import styles from "scss/pages/Support.module.scss";
 import SupportItem from "components/support/SupportItem";
 const SupportView = ({}) => {
   const { id } = useParams();
