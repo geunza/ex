@@ -65,17 +65,8 @@ const SupportView = ({}) => {
   useEffect(() => {
     getSupportItem();
   }, [userInfo]);
-  const obj = {
-    sp_receive_push: "Y",
-    sp_recomment_push: "Y",
-    sp_community_commentlike_push: "Y",
-    sp_community_recomment_push: "Y",
-    user_id: "1645737618",
-    sp_keyword_push: "N",
-    sp_content_comment_push: "Y",
-    marketing_push: "Y",
-    sp_bookmark_push: "N",
-    sp_commentlike_push: "Y",
+  const setScrollStorage = (target) => {
+    console.log(target);
   };
   return (
     <div className={styles.SupportView}>
@@ -83,7 +74,11 @@ const SupportView = ({}) => {
         {ready && (
           <>
             <ul className={styles.listWrap}>
-              <SupportItem item={item} getSupportCont={getSupportItem} />
+              <SupportItem
+                item={item}
+                getSupportCont={getSupportItem}
+                setScrollStorage={setScrollStorage}
+              />
             </ul>
 
             <div className={styles.supportViewCont}>
