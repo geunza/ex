@@ -9,7 +9,7 @@ const HomeCommunityItem = ({ item, likeShow, styles }) => {
           <div className={styles.countArea}>
             <p>
               <img
-                src={require("assets/img/global/ico/ico_star.png")}
+                src={require("assets/img/global/ico/ico_like_white.png")}
                 alt="View count"
               />
               <span>{item.like_cnt}</span>

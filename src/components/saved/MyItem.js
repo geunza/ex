@@ -117,7 +117,7 @@ const MyItem = ({
           <h4>
             <button
               onClick={() => {
-                navigate(`/support/supportView/${item.si_idx}`);
+                openInNewTab(item.mobile_url, item.si_idx);
               }}
             >
               {title}

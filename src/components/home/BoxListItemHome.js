@@ -36,7 +36,12 @@ const BoxListItemHome = ({
   return (
     <>
       <div className={styles.BoxListItem}>
-        <Link to={"support/supportView/" + item.si_idx}>
+        <button
+          type="button"
+          onClick={() => {
+            openInNewTab(item.mobile_url, item.si_idx);
+          }}
+        >
           <h5 className={styles.title}>{item.si_title}</h5>
           {writerShow && <p className={styles.writer}>{item.target_name}</p>}
           <div className={styles.countArea}>
@@ -75,7 +80,7 @@ const BoxListItemHome = ({
               </p>
             )}
           </div>
-        </Link>
+        </button>
       </div>
     </>
   );

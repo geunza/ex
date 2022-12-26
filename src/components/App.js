@@ -149,7 +149,7 @@ function App() {
         setSupportInfoDefault({
           bizp_type_cd: {
             name: "사업자형태",
-            multiply: false,
+            multiply: true,
             require: true,
             datas: [
               {
@@ -231,8 +231,8 @@ function App() {
             require: false,
             datas: [
               {
-                code_nm: "서울",
-                code: "C02",
+                code_nm: "전국",
+                code: "C82",
                 ctg_cd: "loc_cd",
                 ctg_nm: "지역",
               },

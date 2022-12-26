@@ -4,7 +4,14 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginCheck } from "redux/store";
 import axios from "axios";
-const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
+const SupportItem = ({
+  item,
+  getSupportCont,
+  getRecent,
+  setScrollStorage,
+  ord,
+  keyword,
+}) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -44,8 +51,29 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
       headers: { user_id: userInfo.id },
       data: { mb_addidx: idx, mb_save_yn: mb_save_yn },
     }).then((res) => {
-      setScrollStorage(window.scrollY);
-      getSupportCont();
+      console.log(ord, keyword);
+      getSupportCont(ord, keyword);
+    });
+  };
+  const openInNewTab = (url, idx) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (Object.keys(userInfo).length > 0) {
+      axios({
+        url: "/mainpage/insertTimeLine",
+        method: "POST",
+        headers: {
+          user_id: userInfo.id,
+        },
+        data: { support_info: idx.toString() },
+      }).then((res) => {
+        console.log(idx);
+      });
+    }
+    axios({
+      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      method: "POST",
+    }).then((res) => {
+      getSupportCont(ord, keyword);
     });
   };
   return (
@@ -62,15 +90,14 @@ const SupportItem = ({ item, getSupportCont, getRecent, setScrollStorage }) => {
           </div>
           <div className={styles.itemInfo}>
             <h4>
-              <Link
-                to={`/support/supportView/${item.si_idx}`}
+              <button
+                type="button"
                 onClick={() => {
-                  console.log(location.pathname);
-                  setScrollStorage(window.scrollY);
+                  openInNewTab(item.mobile_url, item.si_idx);
                 }}
               >
                 {title}
-              </Link>
+              </button>
             </h4>
             <p>
               {cost > 0 && (

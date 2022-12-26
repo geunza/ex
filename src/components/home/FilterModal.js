@@ -22,20 +22,19 @@ const FilterModal = ({
     const name = item.code_nm;
     let copy = JSON.parse(JSON.stringify(objDummy));
     const multiply = copy[cate].multiply;
+    const require = copy[cate].require;
     if (multiply) {
-      if (name == "전체" || name == "전국") {
+      console.log("MULTIPLY");
+      if (name == "전체") {
         if (
-          copy[cate].datas
-            .filter((x) => x.code_nm != "전체")
-            .filter((x) => x.code_nm != "전국").length == 0
+          require &&
+          copy[cate].datas.filter((x) => x.code_nm != "전체").length == 0
         ) {
           alert("한가지 이상 선택해주세요.");
         }
         copy[cate].datas = [item];
       } else {
-        copy[cate].datas = copy[cate].datas
-          .filter((x) => x.code_nm != "전체")
-          .filter((x) => x.code_nm != "전국");
+        copy[cate].datas = copy[cate].datas.filter((x) => x.code_nm != "전체");
         if (someItem(copy[cate].datas, item)) {
           if (require && copy[cate].datas.length == 1) {
             alert("한가지 이상 선택해주세요.");
@@ -171,7 +170,7 @@ const FilterModal = ({
                         <span>딥테크</span>
                         <span>커머스</span>
                         <span>푸드/농업</span>
-                        <span>기타(수산물</span>
+                        <span>기타(수산물)</span>
                         선택
                       </div>
                     </div>

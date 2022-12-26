@@ -33,21 +33,18 @@ const SupportList = ({}) => {
       setAllSupport(true);
     }
   }, [isLoggedIn]);
-  const moveScrollStorage = () => {
-    window.scrollTo({
-      top: parseInt(sessionStorage.getItem("sOffset")),
-    });
-    sessionStorage.setItem("sOffset", 0);
-  };
+  // const moveScrollStorage = () => {
+  //   window.scrollTo({
+  //     top: parseInt(sessionStorage.getItem("sOffset")),
+  //   });
+  //   sessionStorage.setItem("sOffset", 0);
+  // };
   const setScrollStorage = (value) => {
     sessionStorage.setItem("sOffset", value);
   };
   const [compoMount, setCompoMount] = useState(false);
   const getSupportCont = (ord, keyword) => {
-    console.log("검색중");
     dispatch(loadingStart());
-    console.log("isLoggedIn", isLoggedIn);
-    console.log("compoMount", compoMount);
     if (!compoMount) {
       if (!isLoggedIn) {
         console.log("첫랜더 : 로그인 X  /  ");
@@ -70,7 +67,6 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          moveScrollStorage();
           dispatch(loadingEnd());
         });
       } else {
@@ -95,12 +91,14 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          moveScrollStorage();
           dispatch(loadingEnd());
         });
       }
     } else {
       if (allSupport) {
+        console.log("LIST SEARCH : 전체 지원사업 보기 O");
+        console.log(ord);
+        console.log(keyword);
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -120,19 +118,10 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          moveScrollStorage();
           dispatch(loadingEnd());
         });
       } else {
         console.log("LIST SEARCH : 전체 지원사업 보기 X");
-        console.log("ord", ord);
-        console.log("bizp_type_cd", dataToString("bizp_type_cd"));
-        console.log("prd_cd", dataToString("prd_cd"));
-        console.log("biz_type_cd", dataToString("biz_type_cd"));
-        console.log("spt_cd", dataToString("spt_cd"));
-        console.log("biz_cd", dataToString("biz_cd"));
-        console.log("tech_cd", dataToString("tech_cd"));
-        console.log("loc_cd", dataToString("loc_cd"));
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -153,11 +142,11 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          moveScrollStorage();
           dispatch(loadingEnd());
         });
       }
     }
+    // moveScrollStorage();
     setCompoMount(true);
     function dataToString(target) {
       return supportInfo[target].datas.map((v) => v.code).toString();
@@ -238,6 +227,9 @@ const SupportList = ({}) => {
       // console.log("count바뀜");
     }
     console.log([ordDummy, pageDummy, viewDummy, keywordDummy]);
+    if (page != pageDummy) {
+      console.log("폐이찌 뼌환");
+    }
     setOrd(ordDummy);
     setPage(pageDummy);
     setKeyword(keywordDummy);
@@ -287,12 +279,11 @@ const SupportList = ({}) => {
                 getRecent={getRecent}
                 allSupport={allSupport}
                 setScrollStorage={setScrollStorage}
-                moveScrollStorage={moveScrollStorage}
                 keyword={keyword}
+                ord={ord}
                 setKeyword={setKeyword}
                 page={page}
                 setPage={setPage}
-                ord={ord}
               />
             </div>
             <div className={styles.recentArea}>

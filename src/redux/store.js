@@ -231,19 +231,16 @@ let supportInfo = createSlice({
       const require = stateCate.require;
       const multiply = stateCate.multiply;
       if (multiply) {
-        if (name == "전체" || name == "전국") {
+        if (name == "전체") {
           if (
-            stateCate.datas
-              .filter((x) => x.code_nm != "전체")
-              .filter((x) => x.code_nm != "전국").length == 0
+            require &&
+            stateCate.datas.filter((x) => x.code_nm != "전체").length == 0
           ) {
             alert("한가지 이상 선택해주세요.");
           }
           stateCate.datas = [item];
         } else {
-          stateCate.datas = stateCate.datas
-            .filter((x) => x.code_nm != "전체")
-            .filter((x) => x.code_nm != "전국");
+          stateCate.datas = stateCate.datas.filter((x) => x.code_nm != "전체");
           if (someItem(stateCate.datas, item)) {
             if (require && stateCate.datas.length == 1) {
               alert("한가지 이상 선택해주세요.");
@@ -263,7 +260,6 @@ let supportInfo = createSlice({
           stateCate.datas = [item];
         }
       }
-      console.log([stateCate.datas]);
       function someItem(target, item) {
         if (target.length > 0) {
           return target.some(

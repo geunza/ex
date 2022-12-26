@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadingStart, loadingEnd } from "redux/store";
 import styles from "scss/pages/Support.module.scss";
 import SupportItem from "components/support/SupportItem";
-import Pagination from "components/Pagination";
+import PaginationSupport from "components/PaginationSupport";
 import axios from "axios";
 import { setSupportData } from "redux/store";
 import EventModal from "components/home/EventModal";
@@ -13,7 +13,6 @@ const SupportContent = ({
   getSupportCont,
   getRecent,
   setScrollStorage,
-  moveScrollStorage,
   allSupport,
   count,
   setCount,
@@ -261,11 +260,13 @@ const SupportContent = ({
                         item={item}
                         setScrollStorage={setScrollStorage}
                         getSupportCont={getSupportCont}
+                        keyword={keyword}
+                        ord={ord}
                       />
                     );
                   })}
               </ul>
-              <Pagination
+              <PaginationSupport
                 total={supportFilterCont.length}
                 postLimit={count}
                 numLimit={5}

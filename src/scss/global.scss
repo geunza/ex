@@ -178,6 +178,7 @@ body {
     align-items: stretch;
     gap: 15px;
     word-break: keep-all;
+    color: #222;
     @include shadowBox;
     &.active {
       display: flex;

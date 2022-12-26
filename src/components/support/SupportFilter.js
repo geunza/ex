@@ -51,19 +51,16 @@ const SupportFilter = ({
     const multiply = copy[cate].multiply;
     if (multiply) {
       console.log("A");
-      if (name == "전체" || name == "전국") {
+      if (name == "전체") {
         if (
-          copy[cate].datas
-            .filter((x) => x.code_nm != "전체")
-            .filter((x) => x.code_nm != "전국").length == 0
+          require &&
+          copy[cate].datas.filter((x) => x.code_nm != "전체").length == 0
         ) {
           alert("한가지 이상 선택해주세요.");
         }
         copy[cate].datas = [item];
       } else {
-        copy[cate].datas = copy[cate].datas
-          .filter((x) => x.code_nm != "전체")
-          .filter((x) => x.code_nm != "전국");
+        copy[cate].datas = copy[cate].datas.filter((x) => x.code_nm != "전체");
         if (someItem(copy[cate].datas, item)) {
           if (require && copy[cate].datas.length == 1) {
             alert("한가지 이상 선택해주세요.");

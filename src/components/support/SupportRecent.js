@@ -61,11 +61,11 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
                 }
                 return (
                   <li key={idx}>
-                    <Link
-                      to={"/support/supportView/" + item.si_idx}
-                      // onClick={() => {
-                      //   openInNewTab(item.mobile_url, item.si_idx);
-                      // }}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        openInNewTab(item.mobile_url, item.si_idx);
+                      }}
                     >
                       <h5 className={styles.tit}>{item.si_title}</h5>
                       <p>
@@ -80,7 +80,7 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
                             </>
                           )}
                       </p>
-                    </Link>
+                    </button>
                   </li>
                 );
               })}
