@@ -36,3 +36,56 @@
     color: #999;
   }
 }
+
+
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  .NoticeListCont {
+    padding-top: 30px;
+    .noticeListWrap {
+      background-color: transparent;
+      padding:0;
+      li {
+        background-color:#fff;
+        border-radius: $radius-wrap;
+        padding:20px;
+        margin-bottom:17px;
+        flex-direction: column;
+      }
+    }
+  }
+  .noticeListItem {
+    .cate {
+      order:1;
+      span {
+        display: inline-block;
+        color: $color-gray;
+        background: $color-lightGray;
+        padding: 6px 9px 2px;
+        border-radius: $radius-btn;
+        font-size: 13px;
+        &.mustRead {
+          color: #fff;
+          background-color: $color-main;
+        }
+      }
+    }
+    .leftArea {
+      flex: 1 1 auto;
+      width: 100%;
+      order:2;
+      .content {
+        display:none !important;
+        min-height: 27px;
+      }
+    }
+    .rightArea {
+      width:100%;
+      margin-top:-36px;
+      margin-bottom: 15px;
+      padding-left:60px;
+      order:1;
+    }
+  }
+}

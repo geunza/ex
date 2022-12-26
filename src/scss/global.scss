@@ -374,32 +374,117 @@ body {
   }
 }
 
-@media screen and (max-width: 1200px) {
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  body {
+    min-width:360px;
+  }
+  .commonListItemWrap {
+    .commonListItem {
+      .cateArea {
+        .cate {
+          font-size: 13px;
+        }
+      }
+      .leftArea {
+        .title {
+          font-size: 17px;
+          font-weight: 500;
+        }
+        .content {
+          font-size: 16px;
+          color: $color-gray;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin-bottom: 15px;
+          > *:not(h3):not(p),
+          > *:not(:first-child) {
+            display: none;
+          }
+          p:first-of-type {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 27px;
+          }
+          span,
+          strong {
+            color: $color-gray !important;
+            font-weight: 500;
+          }
+        }
+        .write {
+          //
+          font-weight: 300;
+          .name {
+            font-size: 15px;
+            &:after {
+              content: "";
+              width: 1px;
+              height: 80%;
+              border-right: 1px solid $color-borderGray;
+              padding-left: 10px;
+              margin-right: 10px;
+            }
+          }
+          .time {
+            font-size: 14px;
+            color: $color-gray;
+          }
+        }
+      }
+      .rightArea {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        .rightInform {
+          color: $color-gray;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          span {
+            padding-top: 2px;
+            font-weight: 500;
+          }
+          .myPost {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+
   .commonTitleWrap {
     margin-top: -20px;
     padding: 20px 0;
-    background: #fff;
     .title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 10px;
+      font-size: 17px;
+      font-weight: 500;
     }
     .title + p {
       font-size: 16px;
-      color: $color-deepGray;
     }
 
     .rightArea {
       display: flex;
-      gap: 15px;
+      justify-content: space-between;
+      width:100%;
+      gap: 10px;
       button {
-        font-size: 17px;
-        border: 1px solid $color-borderGray;
+        font-size: 12px;
+        border: none;
+        background-color:#f6f6f6;
         border-radius: 100px;
-        padding: 12px 25px;
+        padding: 10px 15px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        justify-content: center;
+        gap: 5px;
+        flex:1 1;
         span {
           padding-top: 3px;
         }

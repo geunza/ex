@@ -182,3 +182,191 @@
     }
   }
 }
+
+
+
+@media screen and (max-width: 1023px) {
+  .CommonView {
+    //
+    .btns {
+      margin-bottom: 20px;
+      .btnBack {
+        border: 1px solid $color-borderGray;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #fff;
+        padding: 10px 25px;
+        img {
+          display: block;
+        }
+        span {
+          padding-top: 4px;
+          font-size: 16px;
+        }
+      }
+    }
+    .contWrap {
+      border-radius: $radius-wrap;
+      padding: 25px 20px;
+      background-color: #fff;
+      margin-bottom: 20px;
+      .contTop {
+        .writer {
+          margin-bottom: 40px;
+          .nickname {
+            font-size: 18px;
+            margin-bottom: 5px;
+            line-height: 1;
+          }
+          .time {
+            font-size: 14px;
+            color: $color-gray;
+          }
+        }
+        .titleArea {
+          h3 {
+            font-size: 17px;
+            font-weight:500;
+            white-space: normal;
+            text-overflow: clip;
+          }
+        }
+      }
+      .cont {
+        padding: 0 15px;
+        color: $color-deepGray;
+        font-size: 14px;
+        margin-bottom: 100px;
+        p {
+          word-break: break-all;
+        }
+      }
+      .bottomBtns {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+          border: none;
+          &.btnLike {
+            display: flex;
+            align-items: center;
+            img {
+              margin-right: 5px;
+            }
+            span {
+              padding-top: 4px;
+            }
+          }
+        }
+        .btnLike {
+        }
+        .controlWrap {
+          position: relative;
+          .btnControl {
+          }
+          .controlBox {
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            transform: translateX(-50%);
+            padding: 10px 0;
+            background-color: #fff;
+            @include shadowBox;
+  
+            button {
+              width: 80px;
+              border: none;
+              font-size: 14px;
+              padding: 6px 0 4px;
+              color: $color-gray;
+            }
+          }
+        }
+      }
+      .fileArea {
+        margin: 35px -50px 0;
+        padding: 35px 50px 0;
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid $color-borderGray;
+        li {
+          a {
+            font-size: 14px;
+            border: 1px solid $color-borderGray;
+            color: $color-gray;
+            padding: 9px 15px 7px;
+            border-radius: 30px;
+            display: block;
+          }
+        }
+      }
+    }
+    .commentArea {
+      background: #fff;
+      border-radius: $radius-wrap;
+      padding: 35px 0;
+      textarea {
+        width: 100%;
+        padding: 25px;
+        font-size: 14px;
+        outline: none;
+        display: block;
+        margin-bottom: 25px;
+        display: block;
+        line-height: 1.5;
+        border: 1px solid $color-borderGray;
+        border-radius: $radius-btn;
+      }
+      .needSignIn {
+        padding: 20px 40px;
+      }
+      .mainReplyWrap {
+      }
+      .writeArea {
+        padding: 0 40px 20px;
+        h4 {
+          font-size: 16px;
+          margin-bottom: 15px;
+        }
+  
+        button {
+          display: block;
+          margin: 0 0 0 auto;
+          font-size: 16px;
+          background: $color-borderGray;
+          color: $color-deepGray;
+          border: none;
+          padding: 14px 20px 11px;
+          border-radius: 50px;
+          &:hover {
+            color: #fff;
+            background-color: $color-sub;
+          }
+        }
+      }
+    }
+  }
+  .CommunityView {
+    .contTop {
+      .titleArea {
+        padding: 0 15px;
+        h3 {
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+  .NoticeView {
+    .contTop {
+      .titleArea {
+        padding: 0;
+        h3 {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+
+}

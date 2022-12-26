@@ -163,7 +163,12 @@
     }
   }
 }
-@media screen and (max-width: 1200px) {
+
+
+
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
   .Header {
     margin-bottom: 20px;
     padding: 10px 20px;
