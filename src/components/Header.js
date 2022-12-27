@@ -127,6 +127,7 @@ const Header = ({}) => {
     });
   };
   const handleLogout = () => {
+    sessionStorage.setItem("kakaoRedirectPath", window.location.pathname);
     if (window.confirm("로그아웃 하시겠습니까?")) {
       if (userInfo.id.length == 10) {
         //카카오

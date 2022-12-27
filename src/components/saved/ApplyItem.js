@@ -102,9 +102,11 @@ const ApplyItem = ({
             <li>{locName}</li>
             <li>{targetName}</li>
           </ol>
-          <p>
-            {readDate} ({readDay}) 읽음
-          </p>
+          {item.tl_cret_dt != null && (
+            <p>
+              {readDate} ({readDay}) 읽음
+            </p>
+          )}
         </div>
         <div className={styles.itemInfo}>
           <h4>

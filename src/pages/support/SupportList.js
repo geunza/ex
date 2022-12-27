@@ -20,6 +20,7 @@ const SupportList = ({}) => {
   const supportData = useSelector((state) => state.supportData);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportItemReady = useSelector((state) => state.supportItemReady);
+  const [total, setTotal] = useState(0);
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(30);
@@ -27,6 +28,7 @@ const SupportList = ({}) => {
   const [allSupport, setAllSupport] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [mobilePage, setMobilePage] = useState(1);
+  const [supportFilterCont, setSupportFilterCont] = useState([]);
   useEffect(() => {
     if (isLoggedIn) {
       setAllSupport(false);
@@ -241,6 +243,13 @@ const SupportList = ({}) => {
   useEffect(() => {
     setFirstMount(false);
   }, []);
+  useEffect(() => {
+    if (keyword == "") {
+      setTotal(supportData.length);
+    } else {
+      setTotal(supportFilterCont.length);
+    }
+  }, [keyword, supportData, supportFilterCont]);
   return (
     <>
       <div className={styles.SupportList}>
@@ -283,6 +292,10 @@ const SupportList = ({}) => {
                 setPage={setPage}
                 mobilePage={mobilePage}
                 setMobilePage={setMobilePage}
+                total={total}
+                setTotal={setTotal}
+                supportFilterCont={supportFilterCont}
+                setSupportFilterCont={setSupportFilterCont}
               />
             </div>
             <div className={styles.recentArea}>

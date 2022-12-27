@@ -23,6 +23,10 @@ const SupportContent = ({
   ord,
   mobilePage,
   setMobilePage,
+  total,
+  setTotal,
+  supportFilterCont,
+  setSupportFilterCont,
 }) => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -34,7 +38,7 @@ const SupportContent = ({
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
   const [supportCont, setSupportCont] = useState([]);
-  const [supportFilterCont, setSupportFilterCont] = useState([]);
+
   const [mobileMore, setMobileMore] = useState(true);
   const [lastCheckTarget, setLastCheckTarget] = useState(null);
   const navigate = useNavigate();
@@ -137,13 +141,13 @@ const SupportContent = ({
   };
   useEffect(() => {
     if (isMobile) {
-      if (count * mobilePage > supportFilterCont.length) {
+      if (count * mobilePage > total) {
         setMobileMore(false);
       } else {
         setMobileMore(true);
       }
     }
-  }, [mobilePage, supportFilterCont]);
+  }, [mobilePage, supportFilterCont, supportData]);
   useEffect(() => {
     if (lastCheckTarget) {
       window.addEventListener("scroll", listener);
@@ -196,7 +200,7 @@ const SupportContent = ({
       </div>
       <div className={styles.contArea}>
         <div className={styles.contTop}>
-          <p className={styles.total}>전체 {supportFilterCont.length}개</p>
+          <p className={styles.total}>전체 {total}개</p>
           <div className={styles.countWrap}>
             {!isMobile && (
               <p
@@ -249,7 +253,129 @@ const SupportContent = ({
           </div>
         </div>
         <div className={styles.itemWrap}>
-          {supportFilterCont.length == 0 ? (
+          {keyword != "" ? (
+            supportFilterCont.length == 0 ? (
+              // 필터 갯수 0
+              <>
+                <div className="empty">
+                  <p className="empty_tit">일치하는 지원사업이 없습니다.</p>
+                  <p className="empty_para">
+                    <span>
+                      (키워드 알림을 설정하시면 지원사업 업로드시 앱 알림을
+                      보내드려요.)
+                    </span>
+                  </p>
+                  <div className="btns">
+                    <button
+                      type="button"
+                      value="true"
+                      className="emptyBtn"
+                      onClick={(e) => {
+                        setModalTab(0);
+                        modalOpener(e);
+                      }}
+                    >
+                      <img
+                        src={require("assets/img/global/ico/ico_mail_white.png")}
+                        alt="이메일 정기배송 신청"
+                      />
+                      <span>이메일 정기배송 신청</span>
+                    </button>
+                    <button
+                      type="button"
+                      value="true"
+                      className="emptyBtn"
+                      onClick={(e) => {
+                        setModalTab(1);
+                        modalOpener(e);
+                      }}
+                    >
+                      <img
+                        src={require("assets/img/global/ico/ico_alarm_white.png")}
+                        alt="키워드 알림 설정"
+                      />
+                      <span>키워드 알림 설정</span>
+                    </button>
+                  </div>
+                </div>
+                {modalOn && (
+                  <EventModal
+                    modalOpener={modalOpener}
+                    modalTab={parseInt(modalTab)}
+                  />
+                )}
+              </>
+            ) : !isMobile ? (
+              // 필터 PC
+              <>
+                <ul>
+                  {supportFilterCont
+                    .slice((page - 1) * count, page * count)
+                    .map((item, idx) => {
+                      return (
+                        <SupportItem
+                          getRecent={getRecent}
+                          key={idx}
+                          item={item}
+                          setScrollStorage={setScrollStorage}
+                          getSupportCont={getSupportCont}
+                          keyword={keyword}
+                          ord={ord}
+                        />
+                      );
+                    })}
+                </ul>
+                <PaginationSupport
+                  total={supportFilterCont.length}
+                  postLimit={count}
+                  numLimit={5}
+                  page={parseInt(page)}
+                  searchParams={searchParams}
+                  ord={ord}
+                />
+              </>
+            ) : (
+              // 필터 Mob
+              <>
+                <ul>
+                  {supportFilterCont
+                    .slice(0, count * mobilePage)
+                    .map((item, idx) => {
+                      return (
+                        <SupportItem
+                          getRecent={getRecent}
+                          key={idx}
+                          item={item}
+                          setScrollStorage={setScrollStorage}
+                          getSupportCont={getSupportCont}
+                          keyword={keyword}
+                          ord={ord}
+                        />
+                      );
+                    })}
+                </ul>
+                {isMobile && mobileMore ? (
+                  <div
+                    ref={setLastCheckTarget}
+                    className="lastCheckDiv"
+                    style={{
+                      display: isMobile ? "block" : "none",
+                      width: "50px",
+                      height: "50px",
+                      padding: "50px",
+                      background: "blue",
+                      color: "#fff",
+                      fontSize: 0,
+                      opacity: 0,
+                    }}
+                  >
+                    LOADMORE TRIGGER
+                  </div>
+                ) : null}
+              </>
+            )
+          ) : supportData.length == 0 ? (
+            // 검색 갯수 0
             <>
               <div className="empty">
                 <p className="empty_tit">일치하는 지원사업이 없습니다.</p>
@@ -300,9 +426,10 @@ const SupportContent = ({
               )}
             </>
           ) : !isMobile ? (
+            // 검색 PC
             <>
               <ul>
-                {supportFilterCont
+                {supportData
                   .slice((page - 1) * count, page * count)
                   .map((item, idx) => {
                     return (
@@ -319,7 +446,7 @@ const SupportContent = ({
                   })}
               </ul>
               <PaginationSupport
-                total={supportFilterCont.length}
+                total={supportData.length}
                 postLimit={count}
                 numLimit={5}
                 page={parseInt(page)}
@@ -328,23 +455,22 @@ const SupportContent = ({
               />
             </>
           ) : (
+            // 검색 Mob
             <>
               <ul>
-                {supportFilterCont
-                  .slice(0, count * mobilePage)
-                  .map((item, idx) => {
-                    return (
-                      <SupportItem
-                        getRecent={getRecent}
-                        key={idx}
-                        item={item}
-                        setScrollStorage={setScrollStorage}
-                        getSupportCont={getSupportCont}
-                        keyword={keyword}
-                        ord={ord}
-                      />
-                    );
-                  })}
+                {supportData.slice(0, count * mobilePage).map((item, idx) => {
+                  return (
+                    <SupportItem
+                      getRecent={getRecent}
+                      key={idx}
+                      item={item}
+                      setScrollStorage={setScrollStorage}
+                      getSupportCont={getSupportCont}
+                      keyword={keyword}
+                      ord={ord}
+                    />
+                  );
+                })}
               </ul>
               {isMobile && mobileMore ? (
                 <div

@@ -94,7 +94,7 @@ const Footer = () => {
               <button
                 onClick={() => {
                   openInNewTab(
-                    "https://play.google.com/store/apps/details?id=com.ctns.itda_user"
+                    "https://apps.apple.com/kr/app/엑시토-한눈에-보는-스타트업-지원사업-어플/id1555629389"
                   );
                 }}
               >
@@ -108,7 +108,7 @@ const Footer = () => {
               <button
                 onClick={() => {
                   openInNewTab(
-                    "https://apps.apple.com/kr/app/엑시토-한눈에-보는-스타트업-지원사업-어플/id1555629389"
+                    "https://play.google.com/store/apps/details?id=com.ctns.itda_user"
                   );
                 }}
               >

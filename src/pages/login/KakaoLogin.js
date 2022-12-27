@@ -43,8 +43,6 @@ const KakaoLogin = () => {
           },
         })
           .then((res2) => {
-            console.log(res2);
-            console.log(res2.data);
             let data = res2.data;
             let id = data.id;
             let account = data.kakao_account;
@@ -73,22 +71,18 @@ const KakaoLogin = () => {
                 userId: id,
               },
             }).then((result) => {
-              // console.log("result.data", result.data);
               const data = result.data;
               if (data === null) {
-                // 데이터값 null
+                // 최초 가입
                 dispatch(setKakaoInform({ state: true, datas: obj }));
                 navigate("/");
               } else if (Object.keys(data).length > 0) {
-                // 데이터가 존재하긴 함
                 if (data.usernickname == "탈퇴회원") {
-                  // 데이터가 존재하긴 하지만 탈퇴
+                  // 탈퇴 회원
                   dispatch(setKakaoInform({ state: true, datas: obj }));
                   navigate("/");
                 } else {
-                  // console.log("로그인 시작");
-                  // console.log("id", id);
-                  // console.log("obj2", obj);
+                  // 기존 회원
                   const headers = obj;
                   axios({
                     url: "/kakao/login",
@@ -112,7 +106,10 @@ const KakaoLogin = () => {
                           dispatch(setUserInfo(data));
                         })
                         .then((res) => {
-                          navigate("/");
+                          const rePath =
+                            sessionStorage.getItem("kakaoRedirectPath");
+                          navigate(rePath);
+                          sessionStorage.removeItem("kakaoRedirectPath");
                         });
                     })
                     .catch((err) => {
@@ -127,9 +124,14 @@ const KakaoLogin = () => {
           .then((res3) => {})
 
           .catch((err) => {
-            alert(err);
+            alert("비정상적인 접근입니다.");
+            navigate("/");
             // dispatch(loadingEnd());
           });
+      })
+      .catch((err) => {
+        alert("비정상적인 접근입니다.");
+        navigate("/");
       });
   };
   useEffect(() => {
