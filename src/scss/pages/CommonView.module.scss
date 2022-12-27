@@ -184,8 +184,11 @@
 }
 
 
-
+/*반응형*/
 @media screen and (max-width: 1023px) {
+  body {
+    background:#fff;
+  }
   .CommonView {
     //
     .btns {
@@ -208,13 +211,14 @@
       }
     }
     .contWrap {
-      border-radius: $radius-wrap;
-      padding: 25px 20px;
+      padding: 25px 00px;
       background-color: #fff;
-      margin-bottom: 20px;
       .contTop {
+        display:flex;
+        flex-direction: column;
+        border-bottom: 1px solid #e1e2e3;
         .writer {
-          margin-bottom: 40px;
+          margin-bottom: 0px;
           .nickname {
             font-size: 18px;
             margin-bottom: 5px;
@@ -226,6 +230,7 @@
           }
         }
         .titleArea {
+          padding:0;
           h3 {
             font-size: 17px;
             font-weight:500;
@@ -235,7 +240,7 @@
         }
       }
       .cont {
-        padding: 0 15px;
+        padding: 0px;
         color: $color-deepGray;
         font-size: 14px;
         margin-bottom: 100px;
@@ -325,7 +330,7 @@
       .mainReplyWrap {
       }
       .writeArea {
-        padding: 0 40px 20px;
+        padding: 20px 00px;
         h4 {
           font-size: 16px;
           margin-bottom: 15px;

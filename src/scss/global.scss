@@ -377,36 +377,39 @@ body {
 /*반응형*/
 @media screen and (max-width: 1023px) {
   body {
-    min-width:360px;
+    min-width:375px;
   }
   .commonListItemWrap {
+    padding:30px 20px;
     .commonListItem {
+      border:1px solid #e1e2e1;
+      border-radius: 4px;
+      padding:20px;
+      margin-bottom:17px;
+      &:last-of-type {
+        border:1px solid #e1e2e1;
+      }
       .cateArea {
+        margin-bottom:10px;
         .cate {
           font-size: 13px;
         }
       }
+      
       .leftArea {
         .title {
           font-size: 17px;
           font-weight: 500;
         }
         .content {
-          font-size: 16px;
-          color: $color-gray;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          margin-bottom: 15px;
+          font-size: 14px;
+          margin-bottom:6px;
           > *:not(h3):not(p),
           > *:not(:first-child) {
             display: none;
           }
           p:first-of-type {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            height: 27px;
+            height: 19px;
           }
           span,
           strong {
@@ -445,9 +448,11 @@ body {
           align-items: center;
           justify-content: center;
           gap: 10px;
+          img {
+            width:70%;
+          }
           span {
-            padding-top: 2px;
-            font-weight: 500;
+            font-size:12px;
           }
           .myPost {
             border: none;
@@ -488,6 +493,29 @@ body {
         span {
           padding-top: 3px;
         }
+      }
+    }
+  }
+  .ordBtns {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    flex: 0 1 auto;
+    button {
+      @include flexCenter(10px);
+      font-size: 13px;
+      border-radius: 50px;
+      height: 34px;
+      padding: 0 12px;
+      border: 1px solid $color-borderGray;
+      &[data-selected="selected"] {
+        background: #222;
+        border-color: #222;
+        color: #fff;
+      }
+      span {
+        padding-top: 3px;
+        font-size: inherit;
       }
     }
   }

@@ -558,6 +558,9 @@
 /*반응형*/
 @media screen and (max-width: 1023px) {
   .CommunityList {
+    .CommunityListContent {
+      padding-top: 30px;
+    }
     .titleArea {
       border-bottom:1px solid #e1e2e3;
         .inner {
@@ -577,6 +580,7 @@
       display:none;
     }
     .listCategory {
+      flex-wrap: nowrap;
       width:calc(100% + 40px);
       gap: 20px;
       margin-left:-20px;
@@ -584,7 +588,9 @@
       padding:0 20px;
       background:#fff;
       border-bottom:1px solid #e1e2e3;
+      overflow-x: auto;
       button {
+        white-space: nowrap;;
         padding: 20px 0 17px 0;
         font-size: 17px;
         color: $color-gray;
@@ -593,7 +599,7 @@
         &[data-selected="selected"] {
           color: #222222;
           border-bottom: 3px solid #222;
-          font-weight: 900;
+          font-weight: 700;
         }
       }
     }
@@ -604,7 +610,7 @@
       width:calc(100% + 40px);
       margin-left:-20px;
       background: #fff;
-      border-radius: $radius-wrap;
+      border-radius: 0;
       .listSorting {
         padding: 17px 20px;
         display: flex;
@@ -618,23 +624,19 @@
         }
       }
       .searchAndWrite {
-        display: flex;
-        align-items: center;
         width: 100%;
-        flex: 1 1 auto;
         order:1;
-        gap: 5px;
+        gap: 0px;
         form {
           display: flex;
           flex: 1 1 auto;
           height: 100%;
           position: relative;
           input[type="text"] {
-            border: 1px solid $color-borderGray;
+            border: 1px solid #e1e2e3;
+            border-radius: 5px;
             height: 50px;
-            width: 100%;
-            padding: 0 50px 0 15px;
-            font-size: 16px;
+            font-size: 14px;
           }
           button[type="submit"] {
             border: none;
@@ -650,15 +652,8 @@
       .btnWrite {
         display: none;
       }
-      .listItemWrap {
-        padding: 0 50px;
-      }
       .bottomBtns {
-        border-top: 1px solid $color-borderGray;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 35px 30px 70px;
+        display:none;
       }
       //
     }
@@ -670,7 +665,33 @@
         color: $color-sub;
       }
     }
-
+    .CommunityListItem {
+      flex-direction: column;
+      .cate {
+        border: 1px solid $color-borderGray;
+        border-radius: 30px;
+        font-size: 10px;
+        padding: 3px 10px 1px;
+        display: inline-block;
+        color: $color-deepGray;
+      }
+      .leftArea {
+        width: 100%;
+        p:last-child {
+          display:none;
+        }
+      }
+      .rightArea {
+        width: 100%;
+      }
+      .content {
+        height: 48px;
+      }
+      :global .content {
+        -webkit-line-clamp: 2;
+        max-height:2em;
+      }
+    }
 
 
 
