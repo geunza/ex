@@ -29,7 +29,7 @@ const MyCompany = () => {
     dispatch(setSupportInfo(item));
   };
   const companySubmit = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     let paramUrl = "";
     const obj = {
       companyName: companyName,
@@ -59,7 +59,7 @@ const MyCompany = () => {
         userId: userInfo.id,
       },
     }).then((res) => {
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
       getUserCompany();
       navigate("/support/supportList");
     });

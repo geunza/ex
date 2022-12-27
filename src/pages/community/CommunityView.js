@@ -27,7 +27,7 @@ const CommunityView = () => {
   const loadEnd = () => {
     loadSum++;
     if (loadSum >= 3) {
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     }
   };
   const getContent = () => {
@@ -177,7 +177,7 @@ const CommunityView = () => {
   };
   // 게시글삭제 버튼
   const btnDelete = (value) => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     const id = value.toString();
     axios({
       headers: {
@@ -188,7 +188,7 @@ const CommunityView = () => {
       method: "POST",
     })
       .then((res) => {
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
         navigate(-1);
       })
       .catch((err) => console.log(err));
@@ -223,7 +223,7 @@ const CommunityView = () => {
     });
   };
   useEffect(() => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     getContent();
   }, [userInfo]);
 

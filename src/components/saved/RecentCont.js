@@ -24,7 +24,6 @@ const RecentCont = ({
   const searchParams = new URLSearchParams(location.search);
   const [recentItems, setRecentItems] = useState([]);
   const getRecentItems = () => {
-    // dispatch(loadingStart());
     axios({
       headers: {
         user_id: userInfo.id,
@@ -146,7 +145,6 @@ const RecentCont = ({
           })}
         </ul>
       )}
-      }
     </>
   );
 };

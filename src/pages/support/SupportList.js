@@ -45,7 +45,7 @@ const SupportList = ({}) => {
   };
   const [compoMount, setCompoMount] = useState(false);
   const getSupportCont = (ord, keyword) => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     if (!compoMount) {
       if (!isLoggedIn) {
         console.log("첫랜더 : 로그인 X  /  ");
@@ -68,7 +68,7 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          dispatch(loadingEnd());
+          // dispatch(loadingEnd());
         });
       } else {
         console.log("첫랜더 : 로그인 O  /  LIST SEARCH : 전체 지원사업 보기 X");
@@ -92,7 +92,7 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          dispatch(loadingEnd());
+          // dispatch(loadingEnd());
         });
       }
     } else {
@@ -117,7 +117,7 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          dispatch(loadingEnd());
+          // dispatch(loadingEnd());
         });
       } else {
         console.log("LIST SEARCH : 전체 지원사업 보기 X");
@@ -141,7 +141,7 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           dispatch(setSupportData(res.data));
-          dispatch(loadingEnd());
+          // dispatch(loadingEnd());
         });
       }
     }

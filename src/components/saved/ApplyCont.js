@@ -24,7 +24,6 @@ const MyCont = ({
   const searchParams = new URLSearchParams(location.search);
   const [applyItems, setApplyItems] = useState([]);
   const getApplyItems = () => {
-    // dispatch(loadingStart());
     axios({
       url: "/saved/getMySavedBook",
       method: "POST",

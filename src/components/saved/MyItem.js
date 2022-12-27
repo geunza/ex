@@ -109,9 +109,11 @@ const MyItem = ({
             <li>{locName}</li>
             <li>{targetName}</li>
           </ol>
-          <p>
-            {readDate} ({readDay}) 읽음
-          </p>
+          {item.tl_cret_dt != null && (
+            <p>
+              {readDate} ({readDay}) 읽음
+            </p>
+          )}
         </div>
         <div className={styles.itemInfo}>
           <h4>
@@ -151,10 +153,13 @@ const MyItem = ({
             />
             <span>{viewCount} 회</span>
           </li>
-          <li className={styles.btnZzim}>
+          <li
+            className={
+              `${styles.btnZzim} ` + (apply == "Y" ? styles.isApply : null)
+            }
+          >
             <button
               type="button"
-              className={apply == "Y" ? styles.isApply : null}
               onClick={() => {
                 if (!isLoggedIn) {
                   dispatch(setLoginCheck(true));
@@ -170,11 +175,11 @@ const MyItem = ({
               {apply == "Y" ? (
                 <img
                   src={require("assets/img/global/ico/ico_apply.png")}
-                  alt="신청"
+                  alt="지원"
                 />
               ) : null}
 
-              <span>신청</span>
+              <span>지원</span>
             </button>
           </li>
         </ul>

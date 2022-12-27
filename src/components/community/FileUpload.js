@@ -7,7 +7,7 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState([]);
   const fileChange = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     const target = document.getElementById("multipleFiles");
     const fileLengthLimit = 5;
     const fileSizeLimit = 20;
@@ -38,7 +38,7 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
       target.value = "";
       setFileData([]);
       setFileName([]);
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
       return false;
     }
     setFileData(files);
@@ -47,7 +47,7 @@ const FileUpload = ({ styles, fileData, setFileData }) => {
       setFileName((prev) => [files[i].name, ...prev]);
     }
     setFileName((prev) => prev.reverse());
-    dispatch(loadingEnd());
+    // dispatch(loadingEnd());
   };
   const deleteFile = (idx) => {
     const dataTransfer = new DataTransfer();

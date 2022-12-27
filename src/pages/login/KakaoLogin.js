@@ -128,12 +128,11 @@ const KakaoLogin = () => {
 
           .catch((err) => {
             alert(err);
-            dispatch(loadingEnd());
+            // dispatch(loadingEnd());
           });
       });
   };
   useEffect(() => {
-    dispatch(dispatch(loadingStart()));
     if (!location.search) return;
     getKakaoTokenByFetch();
   }, []);

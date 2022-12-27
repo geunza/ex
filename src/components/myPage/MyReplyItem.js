@@ -14,9 +14,6 @@ const MyReplyItem = ({
 }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  useEffect(() => {
-    console.log("AA");
-  }, [searchParams]);
   const userInfo = useSelector((state) => state.userInfo);
   const nickname = userInfo.usernickname;
   const createTime = item.cret_dt;
@@ -30,6 +27,9 @@ const MyReplyItem = ({
   const btnModify = () => {
     setModifyOpen((prev) => !prev);
   };
+  useEffect(() => {
+    setCurrentReply(desc);
+  }, [modifyOpen]);
   const modifyReplySubmit = () => {
     if (currentReply.replaceAll(" ", "").replaceAll("\n", "") == "") {
       alert("내용을 입력해주세요."); // CHECK : 메시지 확인
@@ -159,7 +159,7 @@ const MyReplyItem = ({
                       </button>
                     </li>
                     <li>
-                      <button type="button" value={"cmtId"} onClick={btnDelete}>
+                      <button type="button" value={item.id} onClick={btnDelete}>
                         삭제
                       </button>
                     </li>

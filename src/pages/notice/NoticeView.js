@@ -18,7 +18,7 @@ const NoticeView = () => {
   const [cont, setCont] = useState("");
 
   const getContent = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       method: "GET",
       url: "/cms/notice/api",
@@ -28,7 +28,7 @@ const NoticeView = () => {
       setPost(target);
       setTime(getTime(target.createAt));
       setCont(target.contents);
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
     const getTime = (timeStamp) => {
       return timeStamp;
@@ -54,7 +54,10 @@ const NoticeView = () => {
       <div className={`${styles.NoticeView} ${styles.CommonView}`}>
         <div className={`inner ${styles.inner}`}>
           <div className={styles.btns}>
-            <button onClick={() => navigate(-1)} className={styles.btnBack}>
+            <button
+              onClick={() => navigate("/notice/noticeList")}
+              className={styles.btnBack}
+            >
               <img
                 src={require("assets/img/global/btn/btn_back.png")}
                 alt="전체 공지"

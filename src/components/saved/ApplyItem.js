@@ -144,10 +144,13 @@ const ApplyItem = ({
             />
             <span>{viewCount} 회</span>
           </li>
-          <li className={styles.btnZzim}>
+          <li
+            className={
+              `${styles.btnZzim} ` + (done == "Y" ? styles.isApply : null)
+            }
+          >
             <button
               type="button"
-              className={done == "Y" ? styles.isApply : null}
               onClick={() => {
                 if (!isLoggedIn) {
                   dispatch(setLoginCheck(true));

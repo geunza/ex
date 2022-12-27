@@ -17,7 +17,7 @@ const MyReply = ({ page, postLimit }) => {
     sessionStorage.setItem("cOffset", value);
   };
   const getMyReply = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/mobile/community/myComment",
       method: "POST",
@@ -26,7 +26,7 @@ const MyReply = ({ page, postLimit }) => {
       },
     }).then((res) => {
       setReplys(res.data);
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
   };
   useEffect(() => {

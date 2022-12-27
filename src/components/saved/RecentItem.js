@@ -144,10 +144,11 @@ const RecentItem = ({
             />
             <span>{viewCount} 회</span>
           </li>
-          <li className={styles.btnZzim}>
+          <li
+            className={`${styles.btnZzim} ` + (isZzim ? styles.isZzim : null)}
+          >
             <button
               type="button"
-              className={isZzim ? styles.isZzim : null}
               onClick={() => {
                 if (!isLoggedIn) {
                   dispatch(setLoginCheck(true));

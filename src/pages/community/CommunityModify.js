@@ -69,7 +69,7 @@ const CommunityModify = () => {
     setTitle(iptValue);
   };
   const getCommunityData = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       method: "GET",
       url: `/mobile/community/one?id=${id}`,
@@ -87,7 +87,7 @@ const CommunityModify = () => {
       setCate(category);
       setTitle(title);
       setDefaultTxt(cont);
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
   };
   const getCommunityFiles = () => {

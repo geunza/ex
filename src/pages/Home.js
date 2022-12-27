@@ -45,11 +45,8 @@ const Home = ({}) => {
   };
   const [lastCheck, setLastCheck] = useState(false);
   useEffect(() => {
-    dispatch(loadingStart());
-  }, []);
-  useEffect(() => {
     if (axiosCount == 3) {
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     }
   }, [axiosCount]);
   useEffect(() => {

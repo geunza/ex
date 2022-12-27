@@ -64,7 +64,7 @@ const CommunityList = ({}) => {
     });
   };
   const getCommunityList = (stringParams) => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       method: "GET",
       // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
@@ -76,14 +76,14 @@ const CommunityList = ({}) => {
         if (sessionStorage.getItem("cMover") == "true") {
           moveScrollStorage();
         }
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
       })
       .catch((err) => {
         alert(err);
       });
   };
   const getCommunityListMobile = (stringParams) => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       method: "GET",
       // url: "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
@@ -95,14 +95,13 @@ const CommunityList = ({}) => {
         if (sessionStorage.getItem("cMover") == "true") {
           moveScrollStorage();
         }
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
       })
       .catch((err) => {
         alert(err);
       });
   };
   const getCommunityPopular = async () => {
-    // dispatch(loadingStart());
     axios({
       headers: {
         user_id: userInfo.id,
@@ -115,7 +114,6 @@ const CommunityList = ({}) => {
       })
       .catch((err) => {
         alert(err);
-        // dispatch(loadingEnd());
       });
   };
   useEffect(() => {
@@ -196,6 +194,7 @@ const CommunityList = ({}) => {
     if (KeywordDummy != "") {
       stringParams += `search_array=${KeywordDummy}`;
     }
+    console.log(stringParams);
     getCommunityList(stringParams);
     setComSearchText("");
   }
@@ -588,10 +587,10 @@ const CommunityList = ({}) => {
                   </button>
                   <button
                     type="button"
-                    data-selected={ord === "댓글" ? "selected" : null}
+                    data-selected={ord === "댓글많은순" ? "selected" : null}
                     onClick={ordCateClick}
                     name="ord"
-                    value="댓글"
+                    value="댓글많은순"
                   >
                     <span>댓글 많은 순</span>
                   </button>

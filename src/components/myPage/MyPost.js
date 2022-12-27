@@ -18,7 +18,7 @@ const MyPost = ({ page, postLimit }) => {
     sessionStorage.setItem("cOffset", value);
   };
   const getMyPost = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/mobile/community/myContent",
       method: "POST",
@@ -27,7 +27,7 @@ const MyPost = ({ page, postLimit }) => {
       },
     }).then((res) => {
       setPosts(res.data);
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
   };
   useEffect(() => {
@@ -57,7 +57,7 @@ const MyPost = ({ page, postLimit }) => {
                     controlBox={controlBox}
                     setControlBox={setControlBox}
                     controlBoxOpen={controlBoxOpen}
-                    // getCommunityList={getCommunityList}
+                    getMyPost={getMyPost}
                   />
                 );
               })}

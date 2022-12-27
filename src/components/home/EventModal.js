@@ -56,7 +56,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
   const [userKeywordDummy, setUserKeywordDummy] = useState([]);
 
   const getUserKeyword = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/mainpage/getKeyword",
       method: "POST",
@@ -65,7 +65,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
       },
     })
       .then((res) => {
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
         const data = res.data.keyword;
         if (data == null) {
           setUserKeyword([]);
@@ -75,7 +75,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
       })
       .catch((err) => {
         alert(err);
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
       });
   };
   const submitDummyKeyword = (e) => {

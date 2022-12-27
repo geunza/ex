@@ -39,7 +39,7 @@ const MyLogin = () => {
       return false;
     }
 
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/user/checkNickname",
       method: "POST",
@@ -47,14 +47,13 @@ const MyLogin = () => {
         usernickname: encoding(nickname),
       },
     }).then((res) => {
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
       setNicknameCheck(res.data);
     });
   };
   const nicknameSubmit = () => {
     if (nicknameCheck) {
-      dispatch(loadingStart());
-
+      // dispatch(loadingStart());
       axios({
         url: `/user/updateUserInfo?usernickname=${encoding(nickname)}`,
         method: "POST",
@@ -78,7 +77,7 @@ const MyLogin = () => {
     }).then((res) => {
       const data = res.data;
       dispatch(setUserInfo(data));
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
   };
   const withdraw = () => {

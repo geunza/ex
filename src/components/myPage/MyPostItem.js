@@ -1,25 +1,57 @@
 import React from "react";
 import styles from "scss/pages/Community.module.scss";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loadingStart, loadingEnd } from "redux/store";
+import axios from "axios";
 const MyPostItem = ({
   post,
   setScrollStorage,
   controlBoxOpen,
   setControlBox,
   controlBox,
+  getMyPost,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const controlBoxClick = (id) => {
     if (controlBox.id == id) {
       setControlBox({ id: "" });
-      // console.log("있당");
     } else {
       setControlBox({ id: id });
-      // console.log("없당");
     }
-    //console.log("id =>", id);
-    //console.log("controlBox =>", controlBox);
-    //console.log("controlBoxOpen =>", controlBoxOpen);
+  };
+  // 게시글수정 버튼
+  const btnModify = (e) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    console.log(value);
+    navigate(`/community/CommunityModify/${value}`);
+  };
+  // 게시글삭제 버튼
+  const btnDelete = (e) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    // dispatch(loadingStart());
+    const id = value.toString();
+    console.log(id);
+    axios({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { id: id },
+      url: "/mobile/community/delete",
+      method: "POST",
+    })
+      .then((res) => {
+        console.log(res.data);
+        getMyPost();
+        // dispatch(loadingEnd());
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <li className={`commonListItem ${styles.CommunityListItem}`}>
@@ -35,7 +67,7 @@ const MyPostItem = ({
       </div>
       <div className={`leftArea ${styles.leftArea}`}>
         <Link
-          to={`/community/communityView/${"post.id"}`}
+          to={`/community/communityView/${post.id}`}
           onClick={() => {
             setScrollStorage(window.scrollY);
           }}
@@ -91,8 +123,8 @@ const MyPostItem = ({
                 <button
                   type="button"
                   name="modify"
-                  value={"post.id"}
-                  // onClick={btnPostClick}
+                  value={post.id}
+                  onClick={btnModify}
                 >
                   수정
                 </button>
@@ -101,8 +133,8 @@ const MyPostItem = ({
                 <button
                   type="button"
                   name="delete"
-                  value={"post.id"}
-                  // onClick={btnPostClick}
+                  value={post.id}
+                  onClick={btnDelete}
                 >
                   삭제
                 </button>

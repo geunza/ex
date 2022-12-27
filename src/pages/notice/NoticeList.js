@@ -8,13 +8,13 @@ const NoticeList = () => {
   const dispatch = useDispatch();
   const [noticeData, setNoticeData] = useState([]);
   const getNoticeData = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/cms/notice/api",
       method: "GET",
     }).then((res) => {
       setNoticeData(res.data);
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
   };
 

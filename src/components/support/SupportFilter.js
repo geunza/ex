@@ -260,17 +260,66 @@ const SupportFilter = ({
                             })}
                           </ul>
                           <p className={styles.itemTit}>
-                            {supportInfo[cate].name}
+                            <span>
+                              {supportInfo[cate].name}
+                              <i className="btnToolTip" onClick={tooltipOpen}>
+                                <img
+                                  src={require("assets/img/global/btn/btn_tooltip.png")}
+                                  alt="tooltip"
+                                />
+                                <div className="toolTipBox">
+                                  <p className="txt">
+                                    사업공고 출처기관에서 명시한 분야로
+                                    분류합니다. 해당되는 분야 키워드를 중복
+                                    선택하시고 조회/추천되는 지원사업에 따라
+                                    수정해 보세요!
+                                  </p>
+                                  <p className="exTxt">
+                                    AI를 활용한 수산물 밀키트 판매 커머스
+                                  </p>
+                                  <div className="exBox">
+                                    <img
+                                      src={require("assets/img/global/ico/ico_ex.png")}
+                                      alt="ico_example"
+                                      className="ico_ex"
+                                    />
+                                    <span>딥테크</span>
+                                    <span>커머스</span>
+                                    <span>푸드/농업</span>
+                                    <span>기타(수산물)</span>
+                                    선택
+                                  </div>
+                                </div>
+                              </i>
+                            </span>
                           </p>
                           <ul>
                             {supportItem[cate].map((item, idx) => {
+                              let hasToolTip = false;
+                              let toolTipCont = "";
+                              if (cate == "tech_cd") {
+                                if (item.code_nm == "기타") {
+                                  hasToolTip = true;
+                                  toolTipCont =
+                                    "뷰티/화장품, 패션, 예술, 광고/마케팅, 화학, 유아/출산, 부동산/건설, 소셜미디어/커뮤니티, 화학, 인사/비지니스/법률 등을 포함합니다.";
+                                }
+                                if (item.code_nm == "딥테크") {
+                                  hasToolTip = true;
+                                  toolTipCont =
+                                    "AI,자율주행, 블록체인, 나노소재, 5G/6G, 스마트팜, 빅데이터 스마트홈 등을 포함하는 분야입니다.";
+                                }
+                              }
                               return (
-                                <li>
+                                <li
+                                  className={
+                                    hasToolTip ? styles.hasToolTip : null
+                                  }
+                                >
                                   <button
                                     className={
                                       someItem(objDummy[cate].datas, item)
                                         ? styles.selected
-                                        : null
+                                        : " "
                                     }
                                     onClick={(e) => {
                                       filterBtnClick(item, e);
@@ -278,6 +327,18 @@ const SupportFilter = ({
                                   >
                                     {item.code_nm}
                                   </button>
+                                  {hasToolTip && (
+                                    <i
+                                      className="btnToolTip"
+                                      onClick={tooltipOpen}
+                                    >
+                                      <img
+                                        src={require("assets/img/global/btn/btn_tooltip.png")}
+                                        alt="tooltip"
+                                      />
+                                      <Tooltip cont={toolTipCont} />
+                                    </i>
+                                  )}
                                 </li>
                               );
                             })}

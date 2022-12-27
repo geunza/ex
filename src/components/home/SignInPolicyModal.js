@@ -46,7 +46,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
       alert("첫 글자에는 공백이 들어갈 수 없습니다..");
       return false;
     }
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/user/checkNickname",
       method: "POST",
@@ -54,7 +54,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
         usernickname: encoding(nickname),
       },
     }).then((res) => {
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
       setNicknameCheck(res.data);
     });
   };
@@ -176,7 +176,6 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
 
   useEffect(() => {
     setAllChecked(!Object.values(policyObj).some((item) => item == false));
-    // dispatch(loadingStart());
   }, [policyObj]);
   useEffect(() => {
     dispatch(modalOverflow(true));

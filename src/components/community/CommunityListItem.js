@@ -52,7 +52,7 @@ const CommunityListItem = ({
   };
   // 게시글삭제 버튼
   const btnDelete = (value) => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     const id = value.toString();
     axios({
       headers: {
@@ -68,7 +68,7 @@ const CommunityListItem = ({
         } else {
           getParamPC();
         }
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
       })
       .catch((err) => console.log(err));
   };

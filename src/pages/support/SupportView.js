@@ -13,7 +13,7 @@ const SupportView = ({}) => {
   const [item, setItem] = useState({});
   const [ready, setReady] = useState(false);
   const getSupportItem = () => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/support/getSupportInfoList",
       method: "POST",
@@ -37,7 +37,7 @@ const SupportView = ({}) => {
       } else {
         setItem(item);
       }
-      dispatch(loadingEnd());
+      // dispatch(loadingEnd());
     });
   };
   useEffect(() => {

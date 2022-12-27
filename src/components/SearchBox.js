@@ -17,7 +17,7 @@ const SearchBox = ({
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const removeMyKeyword = (word) => {
-    dispatch(loadingStart());
+    // dispatch(loadingStart());
     axios({
       url: "/mainpage/delMyRecentKeyword",
       method: "POST",
@@ -25,12 +25,12 @@ const SearchBox = ({
       data: { tl_event: word },
     })
       .then((res) => {
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
         getMyKeyword();
       })
       .catch((err) => {
         alert(err);
-        dispatch(loadingEnd());
+        // dispatch(loadingEnd());
       });
   };
   const removeAll = () => {
