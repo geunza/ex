@@ -211,14 +211,16 @@
       }
     }
     .contWrap {
-      padding: 25px 00px;
+      padding: 25px 00px 0 0;
+      margin-bottom:0;
       background-color: #fff;
       .contTop {
         display:flex;
         flex-direction: column;
         border-bottom: 1px solid #e1e2e3;
         .writer {
-          margin-bottom: 0px;
+          margin-bottom: 15px;
+          order:2;
           .nickname {
             font-size: 18px;
             margin-bottom: 5px;
@@ -231,16 +233,18 @@
         }
         .titleArea {
           padding:0;
+          order:1;
           h3 {
             font-size: 17px;
-            font-weight:500;
+            font-weight:700;
             white-space: normal;
             text-overflow: clip;
+            margin-bottom:20px;
           }
         }
       }
       .cont {
-        padding: 0px;
+        padding:20px 0px;
         color: $color-deepGray;
         font-size: 14px;
         margin-bottom: 100px;
@@ -250,22 +254,11 @@
       }
       .bottomBtns {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        button {
-          border: none;
-          &.btnLike {
-            display: flex;
-            align-items: center;
-            img {
-              margin-right: 5px;
-            }
-            span {
-              padding-top: 4px;
-            }
-          }
-        }
+        padding-bottom:30px;
         .btnLike {
+          margin:0 0 0 auto;
         }
         .controlWrap {
           position: relative;
@@ -289,40 +282,37 @@
             }
           }
         }
+        :global .controlBoxWrap {
+          margin:0 0 0 auto;
+          .controlBox {
+            left:20%;
+          }
+        }
+        
       }
       .fileArea {
-        margin: 35px -50px 0;
-        padding: 35px 50px 0;
         display: flex;
-        gap: 10px;
-        border-top: 1px solid $color-borderGray;
+        flex-wrap: wrap;
+        border-bottom:1px solid #e1e2e3;
+        padding:17px 20px 25px 20px;
+        margin: 35px -20px 0 -20px;
         li {
           a {
-            font-size: 14px;
-            border: 1px solid $color-borderGray;
-            color: $color-gray;
-            padding: 9px 15px 7px;
-            border-radius: 30px;
-            display: block;
+            font-size: 12px;
+            padding: 4px 8px 2px;
           }
         }
       }
     }
     .commentArea {
-      background: #fff;
-      border-radius: $radius-wrap;
-      padding: 35px 0;
+      margin:0 -20px;
+      padding:0 20px;
+      border-top:5px solid #f3f3f3;
+      border-radius: 0;;
       textarea {
-        width: 100%;
-        padding: 25px;
+        padding: 15px;
         font-size: 14px;
-        outline: none;
-        display: block;
-        margin-bottom: 25px;
-        display: block;
-        line-height: 1.5;
-        border: 1px solid $color-borderGray;
-        border-radius: $radius-btn;
+        margin-bottom:10px;
       }
       .needSignIn {
         padding: 20px 40px;
@@ -337,14 +327,10 @@
         }
   
         button {
-          display: block;
-          margin: 0 0 0 auto;
-          font-size: 16px;
-          background: $color-borderGray;
-          color: $color-deepGray;
-          border: none;
-          padding: 14px 20px 11px;
-          border-radius: 50px;
+          font-size: 12px;
+          background: #4949db;
+          color: #fff;
+          padding: 10px 14px 7px;
           &:hover {
             color: #fff;
             background-color: $color-sub;

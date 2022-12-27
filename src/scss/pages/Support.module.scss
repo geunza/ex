@@ -314,6 +314,12 @@
           width: 100%;
           text-align: left;
         }
+
+        :global .btnToolTip {
+          img {
+            width: 15px;
+          }
+        }
         .itemTit {
           display: flex;
           justify-content: space-between;
@@ -370,12 +376,12 @@
                 background: $color-lightGray;
                 border: 1px solid $color-lightGray;
                 border-radius: 50px;
-                padding: 10px 15px 7px;
+                padding: 9px 15px 7px;
                 &.selected {
-                  background: #fff;
+                  background: $color-main;
                   border: 1px solid $color-main;
-                  color: $color-main;
-                  font-weight: 700;
+                  color: #fff;
+                  // font-weight: 700;
                 }
               }
             }

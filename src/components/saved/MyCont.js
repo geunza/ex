@@ -102,7 +102,7 @@ const MyCont = ({
           />
           <span>
             <mark>사업에 지원한 후 '지원'을 클릭해주세요.</mark>
-            <mark>해당사업 지원 통게를 확인할 수 있어요.</mark>
+            <mark>해당사업 지원 통계를 확인할 수 있어요.</mark>
           </span>
         </p>
       </div>
