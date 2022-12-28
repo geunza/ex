@@ -10,6 +10,7 @@ import {
   loadingStart,
   setKakaoInform,
 } from "redux/store";
+import Loading from "components/Loading";
 const KakaoLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -135,8 +136,12 @@ const KakaoLogin = () => {
       });
   };
   useEffect(() => {
+    dispatch(loadingStart());
     if (!location.search) return;
     getKakaoTokenByFetch();
+    return () => {
+      dispatch(loadingEnd());
+    };
   }, []);
 
   return null;

@@ -61,23 +61,18 @@ const SupportContent = ({
 
   let compoMount = false;
 
-  useEffect(() => {}, [ord]);
   useEffect(() => {
     setSupportCont([...supportData]);
   }, [supportData]);
   useEffect(() => {
-    if (keyword == "") {
-      setSupportFilterCont(
-        [...supportCont].filter((x) => {
-          let endDate = x.si_end_dt;
-          let today = new Date().getTime();
-          return endDate - today > 0;
-        })
-      );
-    } else {
-      setSupportFilterCont([...supportCont]);
-    }
-  }, [supportCont, keyword]);
+    setSupportFilterCont(
+      [...supportCont].filter((x) => {
+        let endDate = x.si_end_dt;
+        let today = new Date().getTime();
+        return endDate - today > 0;
+      })
+    );
+  }, [supportData, supportCont, keyword]);
   function decode(txt) {
     return decodeURI(txt);
   }
@@ -156,6 +151,7 @@ const SupportContent = ({
       window.removeEventListener("scroll", listener);
     };
   }, [lastCheckTarget]);
+
   return (
     <div className={styles.SupportContent}>
       <div className={styles.ordWrap}>
@@ -253,9 +249,9 @@ const SupportContent = ({
           </div>
         </div>
         <div className={styles.itemWrap}>
-          {keyword != "" ? (
+          {keyword == "" ? (
             supportFilterCont.length == 0 ? (
-              // 필터 갯수 0
+              // 필터 갯수 <div>키워드X / 갯수 == 0 / PC</div>
               <>
                 <div className="empty">
                   <p className="empty_tit">일치하는 지원사업이 없습니다.</p>
@@ -306,22 +302,24 @@ const SupportContent = ({
                 )}
               </>
             ) : !isMobile ? (
-              // 필터 PC
+              // 필터 PC <div>키워드X / 갯수 > 0 / PC</div>
               <>
                 <ul>
                   {supportFilterCont
                     .slice((page - 1) * count, page * count)
                     .map((item, idx) => {
                       return (
-                        <SupportItem
-                          getRecent={getRecent}
-                          key={idx}
-                          item={item}
-                          setScrollStorage={setScrollStorage}
-                          getSupportCont={getSupportCont}
-                          keyword={keyword}
-                          ord={ord}
-                        />
+                        <>
+                          <SupportItem
+                            getRecent={getRecent}
+                            key={idx}
+                            item={item}
+                            setScrollStorage={setScrollStorage}
+                            getSupportCont={getSupportCont}
+                            keyword={keyword}
+                            ord={ord}
+                          />
+                        </>
                       );
                     })}
                 </ul>
@@ -335,7 +333,7 @@ const SupportContent = ({
                 />
               </>
             ) : (
-              // 필터 Mob
+              // 필터 Mob <div>키워드X / 갯수 > 0 / MOB</div>
               <>
                 <ul>
                   {supportFilterCont
@@ -375,7 +373,7 @@ const SupportContent = ({
               </>
             )
           ) : supportData.length == 0 ? (
-            // 검색 갯수 0
+            // 검색 갯수 0 <div>키워드O / 갯수 == 0 / PC</div>
             <>
               <div className="empty">
                 <p className="empty_tit">일치하는 지원사업이 없습니다.</p>
@@ -426,7 +424,7 @@ const SupportContent = ({
               )}
             </>
           ) : !isMobile ? (
-            // 검색 PC
+            // 검색 PC <div>키워드O / 갯수 > 0 / PC</div>
             <>
               <ul>
                 {supportData
@@ -455,7 +453,7 @@ const SupportContent = ({
               />
             </>
           ) : (
-            // 검색 Mob
+            // 검색 Mob <div>키워드X / 갯수 > 0 / Mob</div>
             <>
               <ul>
                 {supportData.slice(0, count * mobilePage).map((item, idx) => {
