@@ -8,6 +8,7 @@ import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setSupportData } from "redux/store";
+let axiosCount = 0;
 const SupportList = ({}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,32 +26,29 @@ const SupportList = ({}) => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(30);
   const [savedBook, setSavedBook] = useState([]);
-  const [allSupport, setAllSupport] = useState(true);
+  const allSupportCache = isTrue(
+    sessionStorage.getItem("allSupportCache") ?? true
+  );
+  const [allSupport, setAllSupport] = useState(allSupportCache);
   const [keyword, setKeyword] = useState("");
   const [mobilePage, setMobilePage] = useState(1);
   const [supportFilterCont, setSupportFilterCont] = useState([]);
-  useEffect(() => {
-    if (isLoggedIn) {
-      setAllSupport(false);
-    } else {
-      setAllSupport(true);
-    }
-  }, [isLoggedIn]);
-  // const moveScrollStorage = () => {
-  //   window.scrollTo({
-  //     top: parseInt(sessionStorage.getItem("sOffset")),
-  //   });
-  //   sessionStorage.setItem("sOffset", 0);
-  // };
+
+  function isTrue(target) {
+    return target == "true";
+  }
   const setScrollStorage = (value) => {
     sessionStorage.setItem("sOffset", value);
   };
   const [compoMount, setCompoMount] = useState(false);
   const getSupportCont = (ord, keyword) => {
     // dispatch(loadingStart());
+    const thisCount = axiosCount;
+    axiosCount = axiosCount + 1;
     if (!compoMount) {
-      if (!isLoggedIn) {
-        console.log("첫랜더 : 로그인 X  /  ");
+      // 첫랜더
+      if (!sessionStorage.getItem("isLoggedIn") ?? false) {
+        // 로그인X => 전체
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -65,15 +63,18 @@ const SupportList = ({}) => {
             target_cat_name: "01",
             business_ctg: "01",
             tech_ctg: "01",
-            loc_code: "C82",
+            loc_code: "C99",
             keyword: keyword,
           },
         }).then((res) => {
-          dispatch(setSupportData(res.data));
+          if (thisCount + 1 == axiosCount) {
+            dispatch(setSupportData(res.data));
+          }
           // dispatch(loadingEnd());
         });
       } else {
         console.log("첫랜더 : 로그인 O  /  LIST SEARCH : 전체 지원사업 보기 X");
+        // 로그인O =>
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -93,7 +94,9 @@ const SupportList = ({}) => {
             // keyword: searchTxt,
           },
         }).then((res) => {
-          dispatch(setSupportData(res.data));
+          if (thisCount + 1 == axiosCount) {
+            dispatch(setSupportData(res.data));
+          }
           // dispatch(loadingEnd());
         });
       }
@@ -118,7 +121,12 @@ const SupportList = ({}) => {
             keyword: keyword,
           },
         }).then((res) => {
-          dispatch(setSupportData(res.data));
+          console.log(res.data);
+
+          if (thisCount + 1 == axiosCount) {
+            console.log("thisCount", thisCount);
+            dispatch(setSupportData(res.data));
+          }
           // dispatch(loadingEnd());
         });
       } else {
@@ -142,7 +150,12 @@ const SupportList = ({}) => {
             // keyword: searchTxt,
           },
         }).then((res) => {
-          dispatch(setSupportData(res.data));
+          console.log(res.data);
+
+          if (thisCount + 1 == axiosCount) {
+            console.log("thisCount", thisCount);
+            dispatch(setSupportData(res.data));
+          }
           // dispatch(loadingEnd());
         });
       }
@@ -239,9 +252,21 @@ const SupportList = ({}) => {
       }
     }
   }, [location]);
-
+  useEffect(() => {
+    if (isLoggedIn) {
+      setAllSupport(false);
+    } else {
+      setAllSupport(true);
+    }
+  }, [isLoggedIn]);
+  useEffect(() => {
+    sessionStorage.setItem("allSupportCache", allSupport);
+  }, [allSupport]);
   useEffect(() => {
     setFirstMount(false);
+    return () => {
+      sessionStorage.removeItem("allSupportCache", allSupport);
+    };
   }, []);
   useEffect(() => {
     if (keyword == "") {

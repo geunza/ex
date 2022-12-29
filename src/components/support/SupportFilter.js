@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import Tooltip from "components/Tooltip";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 const SupportFilter = ({
   getSupportCont,
   setScrollStorage,
@@ -18,12 +19,46 @@ const SupportFilter = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const supportInfo = useSelector((state) => state.supportInfo);
   const location = useLocation();
   const [objDummy, setObjDummy] = useState({ ...supportInfo });
   const [modalIdx, setModalIDx] = useState(0);
   const [modalOn, setModalOn] = useState(false);
+  const handleSubmitBtn = () => {
+    // dispatch(loadingStart());
+    let paramUrl = "";
+    const obj = {
+      startPeriod: supportInfo.prd_cd.datas.map((v) => v.code).toString(), //창업기간 prd_cd
+      locCtg: supportInfo.loc_cd.datas.map((v) => v.code).toString(), // 지역 loc_cd
+      companyType: supportInfo.biz_type_cd.datas.map((v) => v.code).toString(), //기업형태 biz_type_cd
+      businessType: supportInfo.bizp_type_cd.datas
+        .map((v) => v.code)
+        .toString(), //사업자형태 bizp_type_cd
+      supportType: supportInfo.spt_cd.datas.map((v) => v.code).toString(), //지원분야 spt_cd
+      businessCtg: supportInfo.biz_cd.datas.map((v) => v.code).toString(), //사업분야 biz_cd
+      techCtg: supportInfo.tech_cd.datas.map((v) => v.code).toString(), //기술분야 tech_cd
+    };
+    for (let key in obj) {
+      if (obj[key] == "" || obj[key] == undefined || obj[key] == null) {
+        continue;
+      }
+      paramUrl += `${key}=${obj[key]}&`;
+    }
+    axios({
+      url: "/user/updateCompanyInfo?" + paramUrl,
+      method: "POST",
+      headers: {
+        userId: userInfo.id,
+      },
+    }).then((res) => {
+      // dispatch(loadingEnd());
+      navigate("./");
+      getSupportCont("전체", "");
+      window.scrollTo(0, 0);
+    });
+  };
   const modalControl = (step) => {
     // 안열려있을때
     if (!isLoggedIn) {
@@ -50,7 +85,6 @@ const SupportFilter = ({
     const require = copy[cate].require;
     const multiply = copy[cate].multiply;
     if (multiply) {
-      console.log("A");
       if (name == "전체") {
         if (
           require &&
@@ -76,7 +110,6 @@ const SupportFilter = ({
         }
       }
     } else {
-      console.log("B");
       if (someItem(copy[cate].datas, item)) {
         if (require) {
           alert("한가지 이상 선택해주세요.");
@@ -114,9 +147,15 @@ const SupportFilter = ({
   const tooltipOpen = (e) => {
     e.stopPropagation();
     const target = e.currentTarget.querySelector(".toolTipBox");
-    target.classList.contains("active")
-      ? target.classList.remove("active")
-      : target.classList.add("active");
+    if (target.classList.contains("active")) {
+      target.classList.remove("active");
+    } else {
+      const allTarget = document
+        .querySelector('[class^="Support_modalCont"]')
+        .querySelectorAll(".toolTipBox");
+      allTarget.forEach((v) => v.classList.remove("active"));
+      target.classList.add("active");
+    }
   };
   function someItem(target, item) {
     return target.some(
@@ -242,7 +281,7 @@ const SupportFilter = ({
                           <ul>
                             {supportItem.biz_cd.map((item, idx) => {
                               return (
-                                <li>
+                                <li key={idx}>
                                   <button
                                     className={
                                       someItem(objDummy.biz_cd.datas, item)
@@ -314,6 +353,7 @@ const SupportFilter = ({
                                   className={
                                     hasToolTip ? styles.hasToolTip : null
                                   }
+                                  key={idx}
                                 >
                                   <button
                                     className={
@@ -393,7 +433,7 @@ const SupportFilter = ({
                         <ul>
                           {supportItem[cate].map((item, idx) => {
                             return (
-                              <li>
+                              <li key={idx}>
                                 <button
                                   className={
                                     someItem(objDummy[cate].datas, item)
@@ -432,9 +472,7 @@ const SupportFilter = ({
                 if (!isLoggedIn) {
                   dispatch(setLoginCheck(true));
                 } else {
-                  navigate("./");
-                  getSupportCont("전체", "");
-                  window.scrollTo(0, 0);
+                  handleSubmitBtn();
                 }
               }}
             >

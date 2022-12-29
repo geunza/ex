@@ -140,7 +140,6 @@ function App() {
     }
   }, [supportItem]);
   useEffect(() => {
-    console.log(isMobile);
     dispatch(setIsMobile(isMobile));
   }, [isMobile]);
   useEffect(() => {

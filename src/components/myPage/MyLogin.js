@@ -38,7 +38,10 @@ const MyLogin = () => {
       alert("첫 글자에는 공백이 들어갈 수 없습니다..");
       return false;
     }
-
+    if (nickname == "탈퇴회원") {
+      alert("해당 닉네임은 사용하실 수 없습니다.");
+      return false;
+    }
     // dispatch(loadingStart());
     axios({
       url: "/user/checkNickname",
@@ -91,6 +94,7 @@ const MyLogin = () => {
         headers: {
           userId: userInfo.id,
         },
+        method: "POST",
       }).then((res) => {
         dispatch(signOut());
         dispatch(removeUserInfo());

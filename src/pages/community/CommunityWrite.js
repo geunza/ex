@@ -33,7 +33,7 @@ const CommunityWrite = () => {
       if (alt.slice(-4, alt.length) == "_NEW") {
         const newAlt = alt.slice(0, alt.length - 4);
         v.setAttribute("alt", newAlt);
-        v.setAttribute("src", newAlt);
+        v.setAttribute("src", "img/community/" + newAlt);
       }
     });
     const txtData = doc.querySelector("body").innerHTML;

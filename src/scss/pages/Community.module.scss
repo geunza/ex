@@ -678,7 +678,7 @@
       }
       .leftArea {
         width: 100%;
-        p:last-child {
+        p:last-child:not(:first-child) {
           display: none;
         }
       }

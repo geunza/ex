@@ -59,8 +59,6 @@ const SupportContent = ({
     navigateSearchTxt(name, value);
   };
 
-  let compoMount = false;
-
   useEffect(() => {
     setSupportCont([...supportData]);
   }, [supportData]);
@@ -312,7 +310,7 @@ const SupportContent = ({
                         <>
                           <SupportItem
                             getRecent={getRecent}
-                            key={idx}
+                            key={item.si_idx}
                             item={item}
                             setScrollStorage={setScrollStorage}
                             getSupportCont={getSupportCont}
@@ -342,7 +340,7 @@ const SupportContent = ({
                       return (
                         <SupportItem
                           getRecent={getRecent}
-                          key={idx}
+                          key={item.si_idx}
                           item={item}
                           setScrollStorage={setScrollStorage}
                           getSupportCont={getSupportCont}
@@ -433,7 +431,7 @@ const SupportContent = ({
                     return (
                       <SupportItem
                         getRecent={getRecent}
-                        key={idx}
+                        key={item.si_idx}
                         item={item}
                         setScrollStorage={setScrollStorage}
                         getSupportCont={getSupportCont}
@@ -460,7 +458,7 @@ const SupportContent = ({
                   return (
                     <SupportItem
                       getRecent={getRecent}
-                      key={idx}
+                      key={item.si_idx}
                       item={item}
                       setScrollStorage={setScrollStorage}
                       getSupportCont={getSupportCont}

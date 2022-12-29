@@ -34,7 +34,12 @@ const SupportFilter = ({ styles }) => {
       {supportItemReady && (
         <ul className={styles.filterListWrap}>
           <li className={styles.filterList}>
-            <p className={styles.filterTit}>사업자형태</p>
+            <p className={styles.filterTit}>
+              사업자형태{" "}
+              {supportInfo.bizp_type_cd.multiply ? (
+                <span className={styles.multiply}>(중복가능)</span>
+              ) : null}
+            </p>
             {isMobile ? (
               <div className={styles.filterModalBtnWrap}>
                 <button
@@ -69,7 +74,12 @@ const SupportFilter = ({ styles }) => {
             )}
           </li>
           <li className={styles.filterList}>
-            <p className={styles.filterTit}>창업기간</p>
+            <p className={styles.filterTit}>
+              창업기간{" "}
+              {supportInfo.prd_cd.multiply ? (
+                <span className={styles.multiply}>(중복가능)</span>
+              ) : null}
+            </p>
             {isMobile ? (
               <div className={styles.filterModalBtnWrap}>
                 <button
@@ -106,7 +116,9 @@ const SupportFilter = ({ styles }) => {
           <li className={styles.filterList}>
             <p className={styles.filterTit}>
               기업형태
-              <span className={styles.multiply}>(중복가능)</span>
+              {supportInfo.biz_type_cd.multiply ? (
+                <span className={styles.multiply}>(중복가능)</span>
+              ) : null}
             </p>
             {isMobile ? (
               <div className={styles.filterModalBtnWrap}>

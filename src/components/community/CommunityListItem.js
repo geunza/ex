@@ -102,6 +102,12 @@ const CommunityListItem = ({
         target_id: targetId,
       },
     }).then((res) => {
+      if (isMobile) {
+        getParamMobile();
+      } else {
+        getParamPC();
+      }
+      setControlBox({ id: "" });
       alert(`${post.usernickname}님을 차단했습니다.`);
     });
   };
@@ -237,6 +243,7 @@ const CommunityListItem = ({
           item={post}
           setModalOn={setModalOn}
           category={"커뮤니티-게시글"}
+          setControlBox={setControlBox}
         />
       )}
     </li>

@@ -13,15 +13,46 @@ const Filter = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const isMobile = useSelector((state) => state.isMobile);
+  const supportInfo = useSelector((state) => state.supportInfo);
   const userInfo = useSelector((state) => state.userInfo);
-
+  const companySubmit = () => {
+    // dispatch(loadingStart());
+    let paramUrl = "";
+    const obj = {
+      startPeriod: supportInfo.prd_cd.datas.map((v) => v.code).toString(), //창업기간 prd_cd
+      locCtg: supportInfo.loc_cd.datas.map((v) => v.code).toString(), // 지역 loc_cd
+      companyType: supportInfo.biz_type_cd.datas.map((v) => v.code).toString(), //기업형태 biz_type_cd
+      businessType: supportInfo.bizp_type_cd.datas
+        .map((v) => v.code)
+        .toString(), //사업자형태 bizp_type_cd
+      supportType: supportInfo.spt_cd.datas.map((v) => v.code).toString(), //지원분야 spt_cd
+      businessCtg: supportInfo.biz_cd.datas.map((v) => v.code).toString(), //사업분야 biz_cd
+      techCtg: supportInfo.tech_cd.datas.map((v) => v.code).toString(), //기술분야 tech_cd
+    };
+    for (let key in obj) {
+      if (obj[key] == "" || obj[key] == undefined || obj[key] == null) {
+        continue;
+      }
+      paramUrl += `${key}=${obj[key]}&`;
+    }
+    axios({
+      url: "/user/updateCompanyInfo?" + paramUrl,
+      method: "POST",
+      headers: {
+        userId: userInfo.id,
+      },
+    }).then((res) => {
+      // dispatch(loadingEnd());
+      navigate("/support/supportList");
+    });
+  };
   return (
     <>
       <div className={styles.Filter}>
         {!isMobile && <h3>맞춤 지원사업 조회</h3>}
         {isMobile && (
           <div className={styles.titArea}>
-            {isLoggedIn && <h3>{userInfo.usernickname}</h3>}
+            {isLoggedIn && <h3>{userInfo.usernickname} 대표님</h3>}
             <p>지원사업 조건을 설정하시면 맞춤 정보가 제공됩니다.</p>
           </div>
         )}
@@ -37,7 +68,7 @@ const Filter = () => {
                   dispatch(setLoginCheck(true));
                   return false;
                 }
-                navigate("/support/supportList");
+                companySubmit();
               }}
             >
               {!isLoggedIn

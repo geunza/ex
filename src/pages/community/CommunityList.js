@@ -55,14 +55,6 @@ const CommunityList = ({}) => {
   const setScrollStorage = (value) => {
     sessionStorage.setItem("cOffset", value);
   };
-  const getCommunityLength = () => {
-    axios({
-      url: "/mobile/community/totalCnt",
-      method: "POST",
-    }).then((res) => {
-      setTotalCount(res.data.total_cnt);
-    });
-  };
   const getCommunityList = (stringParams) => {
     // dispatch(loadingStart());
     axios({
@@ -117,7 +109,6 @@ const CommunityList = ({}) => {
       });
   };
   useEffect(() => {
-    getCommunityLength();
     getCommunityPopular();
     return () => {
       sessionStorage.removeItem("c_currentSearch");
@@ -188,13 +179,23 @@ const CommunityList = ({}) => {
     setPage(pageDummy);
     setCount(viewDummy);
     setKeyword(KeywordDummy);
+    let totalData = {};
     let stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
       (pageDummy - 1) * viewDummy
     }&`;
     if (KeywordDummy != "") {
       stringParams += `search_array=${KeywordDummy}`;
+      totalData = { search_array: KeywordDummy };
+    } else {
+      totalData = { category: cateDummy };
     }
-    console.log(stringParams);
+    axios({
+      url: "/mobile/community/totalCnt",
+      method: "POST",
+      data: totalData,
+    }).then((res) => {
+      setTotalCount(res.data.total_cnt);
+    });
     getCommunityList(stringParams);
     setComSearchText("");
   }
@@ -234,7 +235,6 @@ const CommunityList = ({}) => {
     } else {
       KeywordDummy = searchObj.keyword;
     }
-    console.log(sessionStorage.getItem("c_cate"), cateDummy);
     if (
       sessionStorage.getItem("c_cate") != cateDummy ||
       sessionStorage.getItem("c_ord") != ordDummy ||
@@ -256,23 +256,38 @@ const CommunityList = ({}) => {
         viewDummy = 30;
       }
     }
-    if (viewDummy > totalCount) {
-      setMobileMore(false);
-    } else {
-      setMobileMore(true);
-    }
+
     pageDummy = 1;
     setCate(cateDummy); // 카테고리
     setOrd(ordDummy); // 정렬
     setPage(pageDummy); // 시작점
     setCount(viewDummy); // 몇까지
     setKeyword(KeywordDummy); // 키워드
+    let totalData = {};
     let stringParams = `?select_cat=${cateDummy}&ord=${ordDummy}&cnt_sql=${viewDummy}&page=${
       (pageDummy - 1) * viewDummy
     }&`;
     if (KeywordDummy != "") {
       stringParams += `search_array=${KeywordDummy}`;
+      totalData = { search_array: KeywordDummy };
+    } else {
+      totalData = { category: cateDummy };
     }
+    console.log(totalData);
+    axios({
+      url: "/mobile/community/totalCnt",
+      method: "POST",
+      data: totalData,
+    })
+      .then((res) => {
+        setTotalCount(res.data.total_cnt);
+        if (viewDummy > res.data.total_cnt) {
+          setMobileMore(false);
+        } else {
+          setMobileMore(true);
+        }
+      })
+      .catch((err) => console.log(err));
     getCommunityListMobile(stringParams);
     setComSearchText("");
   }
@@ -690,6 +705,7 @@ const CommunityList = ({}) => {
                   color: "#fff",
                   fontSize: 0,
                   opacity: 0,
+                  background: "red",
                 }}
               >
                 LOADMORE TRIGGER

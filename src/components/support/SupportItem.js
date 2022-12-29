@@ -25,7 +25,10 @@ const SupportItem = ({
   if (cost > 0) {
     costComma = addComma(item.target_cost_value);
   }
+
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
   const readDateSource = item.tl_cret_dt;
+  const readDay = week[new Date(item.tl_cret_dt).getDay()];
   const endDateSource = item.si_end_dt;
   const today = new Date();
   const isEnd = endDateSource - today.getTime() < 0;
@@ -67,6 +70,7 @@ const SupportItem = ({
         data: { support_info: idx.toString() },
       }).then((res) => {
         console.log(idx);
+        getRecent();
       });
     }
     axios({
@@ -86,7 +90,7 @@ const SupportItem = ({
               <li>{locName}</li>
               <li>{targetName}</li>
             </ol>
-            <p>{readDateSource && readDateSource}</p>
+            <p>{readDateSource && `${readDateSource} (${readDay}) 읽음`}</p>
           </div>
           <div className={styles.itemInfo}>
             <h4>

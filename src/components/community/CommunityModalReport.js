@@ -4,7 +4,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "scss/components/Modal.module.scss";
 import { modalOverflow } from "redux/store";
-const CommunityModalReport = ({ setModalOn, item, category }) => {
+const CommunityModalReport = ({
+  setModalOn,
+  item,
+  category,
+  setControlBox,
+}) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -23,7 +28,7 @@ const CommunityModalReport = ({ setModalOn, item, category }) => {
   const writerId = item.user_id;
   const targetIdx = item.id;
   const btnReport = (e) => {
-    if (!window.confirm("신고하시겠습니까?’")) return false;
+    if (!window.confirm("신고하시겠습니까?")) return false;
     let status = "검토중";
     let desc;
     if (selectedReport.value == "기타이유") {
@@ -51,6 +56,7 @@ const CommunityModalReport = ({ setModalOn, item, category }) => {
       },
     }).then(() => {
       setModalOn(false);
+      setControlBox({ id: "" });
       alert("신고 처리가 완료되었습니다.");
     });
   };

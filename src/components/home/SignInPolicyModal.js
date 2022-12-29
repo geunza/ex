@@ -127,47 +127,56 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
     })
       .then(() => {
         // console.log("로그인 완료");
+        console.log(headers);
         axios({
-          url: "/user/getUserInfo",
+          url: `/user/updateUserInfo?usernickname=${encodeURI(nickname)}`,
           method: "POST",
-          headers: { userId: headers.userid },
-        })
-          .then((res4) => {
-            const data = res4.data;
-            const userId = data.id;
-            // console.log("data", data);
-            // console.log("userId", userId);
-            sessionStorage.setItem("userId", userId);
-            dispatch(signIn(data));
-            dispatch(setUserInfo(data));
+          headers: {
+            userid: headers.userid,
+          },
+        }).then((res) => {
+          axios({
+            url: "/user/getUserInfo",
+            method: "POST",
+            headers: { userId: headers.userid },
           })
-          .then((res) => {
-            let marketingValue = "N";
-            if (policyObj.policy_3 == true) {
-              marketingValue = "Y";
-            }
-            axios({
-              url: "/user/updatePushSetting",
-              method: "POST",
-              headers: {
-                userId: headers.userid,
-              },
-              data: {
-                spReceivePush: "N",
-                spKeywordPush: "N",
-                spBookmarkPush: "N",
-                spRecommentPush: "N",
-                spCommentlikePush: "N",
-                spContentCommentPush: "N",
-                spCommunityCommentlikePush: "N",
-                spCommunityRecommentPush: "N",
-                marketingPush: marketingValue,
-              },
-            }).then(() => {
-              dispatch(setKakaoInform({ state: false, datas: {} }));
-              setLastCheck(false);
+            .then((res4) => {
+              const data = res4.data;
+              const userId = data.id;
+              // console.log("data", data);
+              // console.log("userId", userId);
+              sessionStorage.setItem("userId", userId);
+              dispatch(signIn(data));
+              dispatch(setUserInfo(data));
+            })
+            .then((res) => {
+              let marketingValue = "N";
+              if (policyObj.policy_3 == true) {
+                marketingValue = "Y";
+              }
+              axios({
+                url: "/user/updatePushSetting",
+                method: "POST",
+                headers: {
+                  userId: headers.userid,
+                },
+                data: {
+                  spReceivePush: "N",
+                  spKeywordPush: "N",
+                  spBookmarkPush: "N",
+                  spRecommentPush: "N",
+                  spCommentlikePush: "N",
+                  spContentCommentPush: "N",
+                  spCommunityCommentlikePush: "N",
+                  spCommunityRecommentPush: "N",
+                  marketingPush: marketingValue,
+                },
+              }).then(() => {
+                dispatch(setKakaoInform({ state: false, datas: {} }));
+                setLastCheck(false);
+              });
             });
-          });
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -220,10 +229,11 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
               <input
                 type="email"
                 placeholder="Ex_exito@exito.com"
+                readOnly
                 value={email}
-                onChange={(e) => {
-                  setEmail(e.currentTarget.value);
-                }}
+                // onChange={(e) => {
+                //   setEmail(e.currentTarget.value);
+                // }}
               />
             </div>
             <div className={styles.nickname}>
@@ -291,21 +301,16 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
                 />
                 <label htmlFor="policy_0">
                   <img
-                    style={{ display: policyObj.policy_0 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_false.png")}
-                    alt="이용약관(필수)"
-                  />
-                  <img
-                    style={{ display: !policyObj.policy_0 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_true.png")}
+                    src={require(policyObj.policy_0
+                      ? "assets/img/global/ico/ico_check_true.png"
+                      : "assets/img/global/ico/ico_check_false.png")}
                     alt="이용약관(필수)"
                   />
                   <span>이용약관(필수)</span>
                 </label>
                 <button
                   onClick={() => {
-                    alert("CHECK : 링크 확인");
-                    openInNewTab("https://example.com");
+                    openInNewTab("https://exitobiz.co.kr/standard");
                   }}
                 >
                   자세히
@@ -321,21 +326,16 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
                 />
                 <label htmlFor="policy_1">
                   <img
-                    style={{ display: policyObj.policy_1 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_false.png")}
-                    alt="개인정보 처리방침(필수)"
-                  />
-                  <img
-                    style={{ display: !policyObj.policy_1 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_true.png")}
+                    src={require(policyObj.policy_1
+                      ? "assets/img/global/ico/ico_check_true.png"
+                      : "assets/img/global/ico/ico_check_false.png")}
                     alt="개인정보 처리방침(필수)"
                   />
                   <span>개인정보 처리방침(필수)</span>
                 </label>
                 <button
-                  onClick={() => {
-                    alert("CHECK : 링크 확인");
-                    openInNewTab("https://example.com");
+                  onClick={(e) => {
+                    openInNewTab("https://exitobiz.co.kr/personinfo");
                   }}
                 >
                   자세히
@@ -351,21 +351,17 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
                 />
                 <label htmlFor="policy_2">
                   <img
-                    style={{ display: policyObj.policy_2 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_false.png")}
+                    src={require(policyObj.policy_2
+                      ? "assets/img/global/ico/ico_check_true.png"
+                      : "assets/img/global/ico/ico_check_false.png")}
                     alt="위치정보 수집/이용 동의(필수)"
                   />
-                  <img
-                    style={{ display: !policyObj.policy_2 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_true.png")}
-                    alt="위치정보 수집/이용 동의(필수)"
-                  />
+
                   <span>위치정보 수집/이용 동의(필수)</span>
                 </label>
                 <button
-                  onClick={() => {
-                    alert("CHECK : 링크 확인");
-                    openInNewTab("https://example.com");
+                  onClick={(e) => {
+                    openInNewTab("https://exitobiz.co.kr/locationinfo");
                   }}
                 >
                   자세히
@@ -381,21 +377,16 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
                 />
                 <label htmlFor="policy_3">
                   <img
-                    style={{ display: policyObj.policy_3 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_false.png")}
-                    alt="마케팅 수신 동의(선택)"
-                  />
-                  <img
-                    style={{ display: !policyObj.policy_3 ? "none" : null }}
-                    src={require("assets/img/global/ico/ico_check_true.png")}
+                    src={require(policyObj.policy_3
+                      ? "assets/img/global/ico/ico_check_true.png"
+                      : "assets/img/global/ico/ico_check_false.png")}
                     alt="마케팅 수신 동의(선택)"
                   />
                   <span>마케팅 수신 동의(선택)</span>
                 </label>
                 <button
-                  onClick={() => {
-                    alert("CHECK : 링크 확인");
-                    openInNewTab("https://example.com");
+                  onClick={(e) => {
+                    openInNewTab("https://exitobiz.co.kr/marketingInfo");
                   }}
                 >
                   자세히

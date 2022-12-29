@@ -95,7 +95,7 @@ const MyPostItem = ({
             src={require("assets/img/global/ico/ico_like.png")}
             alt="좋아요"
           />
-          <span>999</span>
+          <span>{post.like_cnt}</span>
         </p>
         <p className="rightInform">
           <img

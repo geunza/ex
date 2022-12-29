@@ -15,6 +15,7 @@ const FilterModal = ({
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportInfo = useSelector((state) => state.supportInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const supportItemReady = useSelector((state) => state.supportItemReady);
   const [objDummy, setObjDummy] = useState({ ...supportInfo });
   const filterBtnClick = (item, e) => {
@@ -24,7 +25,6 @@ const FilterModal = ({
     const multiply = copy[cate].multiply;
     const require = copy[cate].require;
     if (multiply) {
-      console.log("MULTIPLY");
       if (name == "전체") {
         if (
           require &&
@@ -119,81 +119,89 @@ const FilterModal = ({
     <div className={`${styles.modalWrap} ${styles.FilterModal}`}>
       {supportItemReady && (
         <div className={styles.modalInner}>
-          <ul className={styles.btnStepWrap}>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setModalStep(0);
-                }}
-                className={styles.btnStep}
-              >
-                <span data-selected={modalStep == 0 ? "selected" : null}>
-                  지원분야
-                </span>
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setModalStep(1);
-                }}
-                className={styles.btnStep}
-              >
-                <span data-selected={modalStep == 1 ? "selected" : null}>
-                  기술분야
-                  <i
-                    onClick={tooltipOpen}
-                    className="btnToolTip"
-                    data-text="Hi"
-                  >
-                    <img
-                      src={require("assets/img/global/btn/btn_tooltip.png")}
-                      alt="tooltip"
-                    />
-                    <div className="toolTipBox">
-                      <p className="txt">
-                        사업공고 출처기관에서 명시한 분야로 분류합니다. 해당되는
-                        분야 키워드를 중복 선택하시고 조회/추천되는 지원사업에
-                        따라 수정해 보세요!
-                      </p>
-                      <p className="exTxt">
-                        AI를 활용한 수산물 밀키트 판매 커머스
-                      </p>
-                      <div className="exBox">
-                        <img
-                          src={require("assets/img/global/ico/ico_ex.png")}
-                          alt="ico_example"
-                          className="ico_ex"
-                        />
-                        <span>딥테크</span>
-                        <span>커머스</span>
-                        <span>푸드/농업</span>
-                        <span>기타(수산물)</span>
-                        선택
+          {!isMobile && (
+            <ul className={styles.btnStepWrap}>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalStep(0);
+                  }}
+                  className={styles.btnStep}
+                >
+                  <span data-selected={modalStep == 0 ? "selected" : null}>
+                    지원분야
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalStep(1);
+                  }}
+                  className={styles.btnStep}
+                >
+                  <span data-selected={modalStep == 1 ? "selected" : null}>
+                    기술분야
+                    <i
+                      onClick={tooltipOpen}
+                      className="btnToolTip"
+                      data-text="Hi"
+                    >
+                      <img
+                        src={require("assets/img/global/btn/btn_tooltip.png")}
+                        alt="tooltip"
+                      />
+                      <div className="toolTipBox">
+                        <p className="txt">
+                          사업공고 출처기관에서 명시한 분야로 분류합니다.
+                          해당되는 분야 키워드를 중복 선택하시고 조회/추천되는
+                          지원사업에 따라 수정해 보세요!
+                        </p>
+                        <p className="exTxt">
+                          AI를 활용한 수산물 밀키트 판매 커머스
+                        </p>
+                        <div className="exBox">
+                          <img
+                            src={require("assets/img/global/ico/ico_ex.png")}
+                            alt="ico_example"
+                            className="ico_ex"
+                          />
+                          <span>딥테크</span>
+                          <span>커머스</span>
+                          <span>푸드/농업</span>
+                          <span>기타(수산물)</span>
+                          선택
+                        </div>
                       </div>
-                    </div>
-                  </i>
-                </span>
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setModalStep(2);
-                }}
-                className={styles.btnStep}
-              >
-                <span data-selected={modalStep == 2 ? "selected" : null}>
-                  지역
-                </span>
-              </button>
-            </li>
-          </ul>
+                    </i>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalStep(2);
+                  }}
+                  className={styles.btnStep}
+                >
+                  <span data-selected={modalStep == 2 ? "selected" : null}>
+                    지역
+                  </span>
+                </button>
+              </li>
+            </ul>
+          )}
           {objDummy && (
-            <div className={styles.contArea}>
+            <div
+              className={styles.contArea}
+              style={{
+                borderRadius: isMobile ? "10px 10px 0 0" : null,
+                overflow: "hidden",
+              }}
+            >
               {modalStep == 0 && (
                 <div className={styles.modalCont}>
                   <div className={styles.title}>
