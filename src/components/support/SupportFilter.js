@@ -234,7 +234,6 @@ const SupportFilter = ({
                 dispatch(setLoginCheck(true));
                 return false;
               }
-              navigateSearchTxt("all", e.currentTarget.checked);
               setAllSupport(e.currentTarget.checked);
             }}
           />

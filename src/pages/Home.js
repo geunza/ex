@@ -170,7 +170,7 @@ const Home = ({}) => {
                   <span>공지사항</span>
                 </h3>
                 <Link
-                  className={styles.linkComm}
+                  className={`${styles.linkComm} ${styles.homeNotice}`}
                   to={`/notice/noticeView/${noticeList.id}`}
                 >
                   {noticeList.title}
@@ -180,6 +180,17 @@ const Home = ({}) => {
           )}
         </div>
       </div>
+      {isMobile && (
+        <style>
+          {
+            "\
+              #wrap > div[class^='Header']{\
+                display:flex;\
+              }\
+            "
+          }
+        </style>
+      )}
       {lastCheck && (
         <SignInPolicyModal
           setLastCheck={setLastCheck}

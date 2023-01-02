@@ -33,22 +33,43 @@ const SupportList = ({}) => {
   const [keyword, setKeyword] = useState("");
   const [mobilePage, setMobilePage] = useState(1);
   const [supportFilterCont, setSupportFilterCont] = useState([]);
-
   function isTrue(target) {
     return target == "true";
   }
   const setScrollStorage = (value) => {
     sessionStorage.setItem("sOffset", value);
   };
-  const [compoMount, setCompoMount] = useState(false);
   const getSupportCont = (ord, keyword) => {
     // dispatch(loadingStart());
     const thisCount = axiosCount;
     axiosCount = axiosCount + 1;
-    if (!compoMount) {
-      // 첫랜더
-      if (!sessionStorage.getItem("isLoggedIn") ?? false) {
-        // 로그인X => 전체
+
+    // 첫랜더
+    if (!(sessionStorage.getItem("isLoggedIn") ?? false)) {
+      // 로그인X => 전체
+      axios({
+        url: "/support/getSupportInfoList",
+        method: "POST",
+        data: {
+          ord: ord,
+          business_type: "01",
+          start_period: "999",
+          company_type: "01",
+          target_cat_name: "01",
+          business_ctg: "01",
+          tech_ctg: "01",
+          loc_code: "C99",
+          keyword: keyword,
+        },
+      }).then((res) => {
+        if (thisCount + 1 == axiosCount) {
+          dispatch(setSupportData(res.data));
+        }
+        // dispatch(loadingEnd());
+      });
+    } else {
+      if (allSupport) {
+        console.log("LIST SEARCH : 전체 지원사업 보기 O");
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -68,63 +89,6 @@ const SupportList = ({}) => {
           },
         }).then((res) => {
           if (thisCount + 1 == axiosCount) {
-            dispatch(setSupportData(res.data));
-          }
-          // dispatch(loadingEnd());
-        });
-      } else {
-        console.log("첫랜더 : 로그인 O  /  LIST SEARCH : 전체 지원사업 보기 X");
-        // 로그인O =>
-        axios({
-          url: "/support/getSupportInfoList",
-          method: "POST",
-          headers: {
-            user_id: userInfo.id,
-          },
-          data: {
-            ord: ord,
-            business_type: dataToString("bizp_type_cd"),
-            start_period: dataToString("prd_cd"),
-            company_type: dataToString("biz_type_cd"),
-            target_cat_name: dataToString("spt_cd"),
-            business_ctg: dataToString("biz_cd"),
-            tech_ctg: dataToString("tech_cd"),
-            loc_code: dataToString("loc_cd"),
-            keyword: keyword,
-            // keyword: searchTxt,
-          },
-        }).then((res) => {
-          if (thisCount + 1 == axiosCount) {
-            dispatch(setSupportData(res.data));
-          }
-          // dispatch(loadingEnd());
-        });
-      }
-    } else {
-      if (allSupport) {
-        console.log("LIST SEARCH : 전체 지원사업 보기 O");
-        axios({
-          url: "/support/getSupportInfoList",
-          method: "POST",
-          headers: {
-            user_id: userInfo.id,
-          },
-          data: {
-            ord: ord,
-            business_type: "01",
-            start_period: "999",
-            company_type: "01",
-            target_cat_name: "01",
-            business_ctg: "01",
-            tech_ctg: "01",
-            loc_code: "C82",
-            keyword: keyword,
-          },
-        }).then((res) => {
-          console.log(res.data);
-
-          if (thisCount + 1 == axiosCount) {
-            console.log("thisCount", thisCount);
             dispatch(setSupportData(res.data));
           }
           // dispatch(loadingEnd());
@@ -150,10 +114,7 @@ const SupportList = ({}) => {
             // keyword: searchTxt,
           },
         }).then((res) => {
-          console.log(res.data);
-
           if (thisCount + 1 == axiosCount) {
-            console.log("thisCount", thisCount);
             dispatch(setSupportData(res.data));
           }
           // dispatch(loadingEnd());
@@ -163,7 +124,6 @@ const SupportList = ({}) => {
     setMobilePage(1);
     sessionStorage.removeItem("s_mo_page");
     // moveScrollStorage();
-    setCompoMount(true);
     function dataToString(target) {
       return supportInfo[target].datas.map((v) => v.code).toString();
     }
@@ -245,12 +205,8 @@ const SupportList = ({}) => {
     setOrd(ordDummy);
     setPage(pageDummy);
     setKeyword(keywordDummy);
-    if (firstMount) {
-      if (decodeURI(location.search) == "") {
-        console.log("첫 랜더링");
-        getSupportCont(ordDummy, keywordDummy);
-      }
-    }
+
+    getSupportCont(ordDummy, keywordDummy);
   }, [location]);
   useEffect(() => {
     if (isLoggedIn) {
@@ -270,11 +226,14 @@ const SupportList = ({}) => {
   }, []);
   useEffect(() => {
     if (keyword == "") {
-      setTotal(supportData.length);
-    } else {
       setTotal(supportFilterCont.length);
+    } else {
+      setTotal(supportData.length);
     }
   }, [keyword, supportData, supportFilterCont]);
+  useEffect(() => {
+    console.log(supportFilterCont.length);
+  }, [supportFilterCont]);
   return (
     <>
       <div className={styles.SupportList}>
