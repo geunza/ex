@@ -560,7 +560,8 @@
 @media screen and (max-width: 1023px) {
   .CommunityList {
     .CommunityListContent {
-      padding-top: 30px;
+      background-color: #fff;
+      padding-top: 0;
     }
     .titleArea {
       border-bottom: 1px solid #e1e2e3;
@@ -579,6 +580,28 @@
     }
     .listTop {
       display: none;
+    }
+    .m_written {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 10px;
+      padding: 15px 0 0;
+      button {
+        font-size: 12px;
+        border: none;
+        background-color: #f6f6f6;
+        border-radius: 100px;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        flex: 1 1;
+        span {
+          padding-top: 3px;
+        }
+      }
     }
     .listCategory {
       flex-wrap: nowrap;
@@ -806,9 +829,9 @@
       flex-flow: row;
       align-items: center;
       width: 100%;
-      padding: 15px 40px;
+      padding: 15px 0 15px 20px;
       .reReplyContWrap {
-        padding: 25px 30px;
+        padding: 20px 15px;
         border: 1px solid $color-borderGray;
         border-radius: $radius-wrap;
         flex: 1;

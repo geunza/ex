@@ -416,7 +416,6 @@ const CommunityList = ({}) => {
                 />
                 <span>내가 작성한 게시글/댓글</span>
               </button>
-
               <button
                 type="button"
                 name="blockedUser"
@@ -436,9 +435,6 @@ const CommunityList = ({}) => {
                 <span>차단 회원 관리</span>
               </button>
             </div>
-            {blockedModalOn && (
-              <CommunityModalBlockUser setBlockedModalOn={setBlockedModalOn} />
-            )}
           </div>
         </div>
         <div className={styles.CommunityListContent}>
@@ -468,6 +464,44 @@ const CommunityList = ({}) => {
                 </div>
               </div>
             </div>
+            {isMobile && (
+              <div className={styles.m_written}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      dispatch(setLoginCheck(true));
+                      return false;
+                    }
+                    navigate("/myPage/Written");
+                  }}
+                >
+                  <img
+                    src={require("assets/img/global/ico/ico_bubble.png")}
+                    alt="내가 작성한 게시글, 댓글"
+                  />
+                  <span>내가 작성한 게시글/댓글</span>
+                </button>
+                <button
+                  type="button"
+                  name="blockedUser"
+                  value={true}
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      dispatch(setLoginCheck(true));
+                      return false;
+                    }
+                    setBlockedModalOn(true);
+                  }}
+                >
+                  <img
+                    src={require("assets/img/global/ico/ico_blocked.png")}
+                    alt="차단 회원 관리"
+                  />
+                  <span>차단 회원 관리</span>
+                </button>
+              </div>
+            )}
             <div className={styles.listCategory}>
               <button
                 type="button"
@@ -712,6 +746,10 @@ const CommunityList = ({}) => {
                 LOADMORE TRIGGER
               </div>
             ) : null}
+
+            {blockedModalOn && (
+              <CommunityModalBlockUser setBlockedModalOn={setBlockedModalOn} />
+            )}
           </div>
         </div>
       </div>

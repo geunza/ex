@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { setLoginCheck } from "redux/store";
 import styles from "scss/components/MobileNavigation.module.scss";
 const MobileNavigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const [communityBtnShow, setCommunityBtnShow] = useState(false);
   useEffect(() => {
     const path = location.pathname;
@@ -20,6 +24,10 @@ const MobileNavigation = () => {
           {communityBtnShow && (
             <button
               onClick={() => {
+                if (!isLoggedIn) {
+                  dispatch(setLoginCheck(true));
+                  return false;
+                }
                 navigate("/community/communityWrite");
               }}
               className={styles.btnWrite}

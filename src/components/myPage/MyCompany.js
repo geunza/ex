@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSupportInfo } from "redux/store";
 import axios from "axios";
 import FilterModal from "components/home/FilterModal";
-import SupportFilter from "components/SupportFilter";
+import HomeSupportFilter from "components/HomeSupportFilter";
 import { loadingStart, loadingEnd, setCompanyInfo } from "redux/store";
 import { useNavigate } from "react-router-dom";
 const MyCompany = () => {
@@ -111,7 +111,7 @@ const MyCompany = () => {
           }}
         />
       </div>
-      <SupportFilter styles={styles} />
+      <HomeSupportFilter styles={styles} />
 
       <div className={styles.fullItem}>
         <label className={styles.tit} htmlFor="companyIntro">

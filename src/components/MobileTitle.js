@@ -15,11 +15,12 @@ import {
   REDIRECT_URI,
   LOGOUT_REDIRECT_URI,
 } from "pages/login/KakaoLoginData";
-const MobileTitle = ({ title }) => {
+const MobileTitle = ({ title, title2 }) => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const isMobile = useSelector((state) => state.isMobile);
+  const isTitle2 = title2 ?? false;
   const dispatch = useDispatch();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const handleLogin = () => {
@@ -38,54 +39,57 @@ const MobileTitle = ({ title }) => {
   };
   return (
     isMobile && (
-      <div className={styles.MobileTitle}>
-        <button
-          className={styles.btnBack}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <img
-            src={require("assets/img/global/btn/btn_back_mobile.png")}
-            alt="Back"
-          />
-        </button>
-        <h3>{title ?? "TITLE"}</h3>
-        <button
-          className={styles.btnMobileSearch}
-          onClick={() => {
-            setMobileSearchOpen((prev) => !prev);
-          }}
-        >
-          <img
-            src={require("assets/img/global/ico/ico_search_black.png")}
-            alt="모바일 서치폼 오픈"
-          />
-        </button>
-        <div className={styles.loginArea}>
-          {isLoggedIn ? (
-            <Link to="/myPage">
-              <img
-                src={require("assets/img/global/ico/ico_user_black.png")}
-                alt="myPage"
-                className={styles.myPageImg}
-              />
-            </Link>
-          ) : (
-            <>
-              <button onClick={handleLogin} className={styles.btnLogIn}>
-                로그인
-              </button>
-            </>
+      <>
+        <div className={styles.MobileTitle}>
+          <button
+            className={styles.btnBack}
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <img
+              src={require("assets/img/global/btn/btn_back_mobile.png")}
+              alt="Back"
+            />
+          </button>
+          <h3>{title ?? "TITLE"}</h3>
+          <button
+            className={styles.btnMobileSearch}
+            onClick={() => {
+              setMobileSearchOpen((prev) => !prev);
+            }}
+          >
+            <img
+              src={require("assets/img/global/ico/ico_search_black.png")}
+              alt="모바일 서치폼 오픈"
+            />
+          </button>
+          <div className={styles.loginArea}>
+            {isLoggedIn ? (
+              <Link to="/myPage">
+                <img
+                  src={require("assets/img/global/ico/ico_user_black.png")}
+                  alt="myPage"
+                  className={styles.myPageImg}
+                />
+              </Link>
+            ) : (
+              <>
+                <button onClick={handleLogin} className={styles.btnLogIn}>
+                  로그인
+                </button>
+              </>
+            )}
+          </div>
+          {mobileSearchOpen && (
+            <SearchForm
+              styles={styles}
+              setMobileSearchOpen={setMobileSearchOpen}
+            />
           )}
         </div>
-        {mobileSearchOpen && (
-          <SearchForm
-            styles={styles}
-            setMobileSearchOpen={setMobileSearchOpen}
-          />
-        )}
-      </div>
+        {isTitle2 && <div className={styles.mobileSubTitle}>{title2}</div>}
+      </>
     )
   );
 };

@@ -5,14 +5,13 @@ import { setSupportItem, setSupportInfo } from "redux/store";
 import FilterButton from "components/home/FilterButton";
 import { setLoginCheck } from "redux/store";
 import FilterModal from "components/home/FilterModal";
-
-const SupportFilter = ({ styles }) => {
+import styles from "scss/components/SupportFilterMobile.module.scss";
+const SupportFilterMobile = ({}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const supportInfo = useSelector((state) => state.supportInfo);
   const supportItem = useSelector((state) => state.supportItem);
-  const isMobile = useSelector((state) => state.isMobile);
   const supportItemReady = useSelector((state) => state.supportItemReady);
   const [filterModal, setFilterModal] = useState(false);
   const [modalStep, setModalStep] = useState(0);
@@ -35,83 +34,49 @@ const SupportFilter = ({ styles }) => {
         <ul className={styles.filterListWrap}>
           <li className={styles.filterList}>
             <p className={styles.filterTit}>
-              사업자형태{" "}
+              사업자형태
               {supportInfo.bizp_type_cd.multiply ? (
                 <span className={styles.multiply}>(중복가능)</span>
               ) : null}
             </p>
-            {isMobile ? (
-              <div className={styles.filterModalBtnWrap}>
-                <button
-                  onClick={() => {
-                    filterModalOpen(true, 3);
-                  }}
-                >
-                  {supportInfo.bizp_type_cd.datas.length > 1
-                    ? `${supportInfo.bizp_type_cd.datas[0].code_nm}외 ${
-                        supportInfo.bizp_type_cd.datas.length - 1
-                      }건`
-                    : supportInfo.bizp_type_cd.datas.length == 1
-                    ? supportInfo.bizp_type_cd.datas[0].code_nm
-                    : "선택"}
-                </button>
-              </div>
-            ) : (
-              <ol className={styles.filterItems}>
-                {supportItem.bizp_type_cd.map((item, idx, arr) => {
-                  return (
-                    <li key={item.code}>
-                      <FilterButton
-                        baseObj={supportInfo}
-                        idx={idx}
-                        item={item}
-                        onClick={filterBtnClick}
-                      />
-                    </li>
-                  );
-                })}
-              </ol>
-            )}
+            <div className={styles.filterModalBtnWrap}>
+              <button
+                onClick={() => {
+                  filterModalOpen(true, 3);
+                }}
+              >
+                {supportInfo.bizp_type_cd.datas.length > 1
+                  ? `${supportInfo.bizp_type_cd.datas[0].code_nm}외 ${
+                      supportInfo.bizp_type_cd.datas.length - 1
+                    }건`
+                  : supportInfo.bizp_type_cd.datas.length == 1
+                  ? supportInfo.bizp_type_cd.datas[0].code_nm
+                  : "선택"}
+              </button>
+            </div>
           </li>
           <li className={styles.filterList}>
             <p className={styles.filterTit}>
-              창업기간{" "}
+              창업기간
               {supportInfo.prd_cd.multiply ? (
                 <span className={styles.multiply}>(중복가능)</span>
               ) : null}
             </p>
-            {isMobile ? (
-              <div className={styles.filterModalBtnWrap}>
-                <button
-                  onClick={() => {
-                    filterModalOpen(true, 4);
-                  }}
-                >
-                  {supportInfo.prd_cd.datas.length > 1
-                    ? `${supportInfo.prd_cd.datas[0].code_nm}외 ${
-                        supportInfo.prd_cd.datas.length - 1
-                      }건`
-                    : supportInfo.prd_cd.datas.length == 1
-                    ? supportInfo.prd_cd.datas[0].code_nm
-                    : "선택"}
-                </button>
-              </div>
-            ) : (
-              <ol className={styles.filterItems}>
-                {supportItem.prd_cd.map((item, idx, arr) => {
-                  return (
-                    <li key={item.code}>
-                      <FilterButton
-                        baseObj={supportInfo}
-                        idx={idx}
-                        item={item}
-                        onClick={filterBtnClick}
-                      />
-                    </li>
-                  );
-                })}
-              </ol>
-            )}
+            <div className={styles.filterModalBtnWrap}>
+              <button
+                onClick={() => {
+                  filterModalOpen(true, 4);
+                }}
+              >
+                {supportInfo.prd_cd.datas.length > 1
+                  ? `${supportInfo.prd_cd.datas[0].code_nm}외 ${
+                      supportInfo.prd_cd.datas.length - 1
+                    }건`
+                  : supportInfo.prd_cd.datas.length == 1
+                  ? supportInfo.prd_cd.datas[0].code_nm
+                  : "선택"}
+              </button>
+            </div>
           </li>
           <li className={styles.filterList}>
             <p className={styles.filterTit}>
@@ -120,38 +85,21 @@ const SupportFilter = ({ styles }) => {
                 <span className={styles.multiply}>(중복가능)</span>
               ) : null}
             </p>
-            {isMobile ? (
-              <div className={styles.filterModalBtnWrap}>
-                <button
-                  onClick={() => {
-                    filterModalOpen(true, 5);
-                  }}
-                >
-                  {supportInfo.biz_type_cd.datas.length > 1
-                    ? `${supportInfo.biz_type_cd.datas[0].code_nm}외 ${
-                        supportInfo.biz_type_cd.datas.length - 1
-                      }건`
-                    : supportInfo.biz_type_cd.datas.length == 1
-                    ? supportInfo.biz_type_cd.datas[0].code_nm
-                    : "선택"}
-                </button>
-              </div>
-            ) : (
-              <ol className={styles.filterItems}>
-                {supportItem.biz_type_cd.map((item, idx, arr) => {
-                  return (
-                    <li key={item.code}>
-                      <FilterButton
-                        baseObj={supportInfo}
-                        idx={idx}
-                        item={item}
-                        onClick={filterBtnClick}
-                      />
-                    </li>
-                  );
-                })}
-              </ol>
-            )}
+            <div className={styles.filterModalBtnWrap}>
+              <button
+                onClick={() => {
+                  filterModalOpen(true, 5);
+                }}
+              >
+                {supportInfo.biz_type_cd.datas.length > 1
+                  ? `${supportInfo.biz_type_cd.datas[0].code_nm}외 ${
+                      supportInfo.biz_type_cd.datas.length - 1
+                    }건`
+                  : supportInfo.biz_type_cd.datas.length == 1
+                  ? supportInfo.biz_type_cd.datas[0].code_nm
+                  : "선택"}
+              </button>
+            </div>
           </li>
           <li className={styles.filterList}>
             <div className={styles.filterModalBtnWrap}>
@@ -220,4 +168,4 @@ const SupportFilter = ({ styles }) => {
     </>
   );
 };
-export default SupportFilter;
+export default SupportFilterMobile;

@@ -6,7 +6,7 @@ import { setSupportItem, setSupportInfo } from "redux/store";
 import FilterButton from "components/home/FilterButton";
 import { redirect, useNavigate } from "react-router-dom";
 import FilterModal from "components/home/FilterModal";
-import SupportFilter from "components/SupportFilter";
+import HomeSupportFilter from "components/HomeSupportFilter";
 import { setLoginCheck } from "redux/store";
 const Filter = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const Filter = () => {
         )}
         <div className={styles.custom}>
           <div className={styles.topArea}>
-            <SupportFilter styles={styles} />
+            <HomeSupportFilter styles={styles} />
           </div>
           <div className={styles.bottomArea}>
             <button
