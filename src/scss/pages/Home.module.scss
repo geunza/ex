@@ -444,12 +444,25 @@
       justify-content: space-between;
       overflow: visible;
       gap: 10px;
+      overflow-x: visible;
       margin-right: 20px;
       position: relative;
-      // padding: 0 20px;
+      padding: 3px 0px 15px 0;
       li {
-        min-width: 35%;
+        min-width: 40%;
         position: relative;
+        &:first-of-type button {
+          background: #30d6c2;
+        }
+        &:nth-of-type(2) button {
+          background: #00146b;
+        }
+        &:nth-of-type(3) button {
+          background: #ffb400;
+        }
+        &:last-of-type button {
+          background: $color-sub;
+        }
         &:last-child:after {
           content: "";
           position: absolute;
@@ -463,17 +476,18 @@
         button {
           height: auto;
           padding: 15px 0;
+          border: none;
+          box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.3);
           &:hover {
             border-color: #fff;
           }
           img {
-            width: 50%;
+            width: 35%;
             margin-bottom: 15px;
           }
           span {
-            color: #fff;
-            font-size: 12px;
-            line-height: 1.5;
+            font-size: 17px;
+            line-height: 1.25;
             mark {
               display: block;
             }
@@ -517,14 +531,14 @@
     .all,
     ul li {
       .tit {
-        font-size: 14px;
+        font-size: 13px;
         color: $color-gray;
         line-height: 1.4;
         margin-bottom: 5px;
       }
       .numb {
         line-height: 1.4;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 900;
         color: #222;
       }
@@ -536,7 +550,7 @@
     .supportBox {
       width: 100%;
       background-color: #fff;
-      padding: 15px 0 0;
+      padding: 15px 0;
       border-radius: $radius-wrap;
       box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
@@ -554,8 +568,7 @@
         flex-wrap: wrap;
         gap: 2%;
         > div {
-          // height: 120px;
-          height: auto;
+          height: 120px;
         }
       }
     }
