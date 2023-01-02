@@ -83,6 +83,7 @@ const Header = ({}) => {
         </nav>
         {isMobile && (
           <button
+            className={styles.btnMobileSearch}
             onClick={() => {
               setMobileSearchOpen((prev) => !prev);
             }}
