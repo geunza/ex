@@ -50,6 +50,7 @@ const SupportList = ({}) => {
       axios({
         url: "/support/getSupportInfoList",
         method: "POST",
+        headers: { user_id: "" },
         data: {
           ord: ord,
           business_type: "01",

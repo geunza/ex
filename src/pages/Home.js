@@ -50,9 +50,6 @@ const Home = ({}) => {
     }
   }, [axiosCount]);
   useEffect(() => {
-    dispatch(modalOverflow(modalOn));
-  }, [modalOn]);
-  useEffect(() => {
     console.log(kakaoInform);
     if (kakaoInform.state) {
       setLastCheck(true);

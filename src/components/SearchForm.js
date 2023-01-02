@@ -106,7 +106,7 @@ const SearchForm = ({ styles }) => {
   }, [location]);
   return (
     <form
-      className={styles.searchForm}
+      className={styles.SearchForm}
       onSubmit={searchSubmit}
       onFocus={() => {
         setSearchOpen(true);

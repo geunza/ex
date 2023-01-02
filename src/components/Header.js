@@ -25,7 +25,7 @@ const Header = ({}) => {
   const isMobile = useSelector((state) => state.isMobile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const handleLogin = () => {
     dispatch(setLoginCheck(true));
   };
@@ -81,7 +81,21 @@ const Header = ({}) => {
             </li>
           </ul>
         </nav>
-        {!isMobile ? <SearchForm styles={styles} /> : null}
+        {isMobile && (
+          <button
+            onClick={() => {
+              setMobileSearchOpen((prev) => !prev);
+            }}
+          >
+            모바일 서치폼 오픈
+          </button>
+        )}
+        {!isMobile ? (
+          <SearchForm styles={styles} />
+        ) : (
+          mobileSearchOpen && <SearchForm styles={styles} />
+        )}
+
         <div className={styles.loginArea}>
           {isLoggedIn ? (
             <>

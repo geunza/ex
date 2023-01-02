@@ -30,7 +30,7 @@
       }
     }
   }
-  .searchForm {
+  .SearchForm {
     position: relative;
     flex: 1;
     max-width: 450px;
@@ -164,9 +164,6 @@
   }
 }
 
-
-
-
 /*반응형*/
 @media screen and (max-width: 1023px) {
   .Header {
@@ -187,6 +184,122 @@
       }
       .myPageImg {
         width: 35px;
+      }
+    }
+    .SearchForm {
+      position: relative;
+      flex: 1;
+      max-width: 450px;
+      input[type="text"] {
+        border-radius: 50px;
+        padding-left: 60px;
+        height: 45px;
+        width: 100%;
+        background-color: #3939c7;
+        border: none;
+        color: #fff;
+        font-size: 15px;
+        outline: none;
+        &.searchOpen {
+          border-radius: 22px 22px 0 0;
+        }
+        &::placeholder {
+          color: inherit;
+        }
+      }
+      button[type="submit"] {
+        background: transparent;
+        border: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 45px;
+        height: 100%;
+        font-size: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        img {
+          width: auto;
+        }
+      }
+      .searchBox {
+        position: absolute;
+        background-color: #fff;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        padding: 20px;
+        z-index: 5;
+        border-radius: 0 0 22px 22px;
+        border: 2px solid #3939c7;
+        .box {
+          position: relative;
+          &:not(:last-child) {
+            margin-bottom: 15px;
+          }
+          .tit {
+            margin-bottom: 10px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .removeAll {
+              font-size: 13px;
+              height: 100%;
+              padding: 0 10px;
+              border: none;
+              text-decoration: underline;
+            }
+          }
+
+          ul {
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            &.keywordPopular {
+              max-height: 26px;
+              a {
+                color: #4949db;
+              }
+            }
+            &.keywordMy {
+              max-height: 60px;
+              a {
+                color: #777;
+              }
+            }
+            li {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-right: 5px;
+              a {
+                font-size: 14px;
+                padding: 6px 5px 3px 10px;
+              }
+              .removeMyKeyword {
+                border: none;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                img {
+                  width: 10px;
+                }
+              }
+            }
+          }
+          .empty {
+            // text-align: center;
+            padding: 15px 0;
+            font-size: 14px;
+          }
+        }
       }
     }
   }
