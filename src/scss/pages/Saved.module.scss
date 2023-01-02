@@ -182,3 +182,62 @@
     }
   }
 }
+
+
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  .titleArea {
+    text-align: center;
+  }
+  :global .commonTitleWrap .title {
+    font-weight:700;
+    margin-bottom:0;
+  }
+  :global .commonTitleWrap .title + p {
+    font-size:13px;
+    letter-spacing: -.05em;;
+  }
+  .SavedRecent {
+    .savedCont {
+      padding-top: 0px;
+      .leftArea {
+        width: 100%;
+      }
+      .rightArea {
+        width: 0%;
+        display:none;
+      }
+    }
+    .ordArea {
+      width:calc(100% + 40px);
+      margin-left:-20px;
+      margin-bottom: 0px;
+      padding:0 20px 20px 20px;
+      border-bottom:1px solid #e1e2e3;
+      justify-content: flex-start;
+      p {
+        display: none;
+      }
+    }
+  }
+  .SavedCategory {
+    margin-bottom: 30px;
+    .cateItem {
+      button {
+        font-size: 13px;
+        padding: 18px 0 15px;
+        gap: 0px;
+        border:1px solid #f2f2f2;
+        background-color:#f7f8f9;
+        letter-spacing: -0.05em;
+        .numb {
+          margin-left:5px;
+        }
+      }
+    }
+  }
+
+
+
+}

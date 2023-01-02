@@ -519,4 +519,33 @@ body {
       }
     }
   }
+  .empty {
+    padding: 100px 0;
+    .empty_tit {
+      font-size: 17px;
+    }
+    .empty_para {
+      font-size: 14px;
+      margin-top: 10px;
+      span {
+        font-size:12px;
+      }
+    }
+    .btns {
+      margin-top: 30px;
+      .emptyBtn {
+        border-radius: 100px;;
+        gap: 5px;
+        img {
+          transform: scale(.75);
+        }
+        span {
+          font-size: 12px;
+          padding-top: 4px;
+          color: #fff;
+        }
+      }
+    }
+  }
+
 }

@@ -326,10 +326,6 @@
           align-items: center;
           font-size: 14px;
           margin-bottom: 10px;
-          span {
-            position: relative;
-            padding-top: 3px;
-          }
           .arr {
             @include flexCenter;
             width: 20px;
@@ -368,10 +364,6 @@
               margin-bottom: 20px;
             }
             li {
-              &.hasToolTip {
-                position: relative;
-                margin-right: 30px;
-              }
               button {
                 background: $color-lightGray;
                 border: 1px solid $color-lightGray;
@@ -417,6 +409,332 @@
 
         span {
           padding-top: 2px;
+        }
+      }
+    }
+  }
+}
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  .SupportList {
+    .tit {
+      text-align: left;
+      margin-bottom: 20px;
+      h4 {
+        font-size: 17px;
+        margin-bottom: 0px;
+      }
+      p {
+        font-size: 12px;
+        color: $color-gray;
+        mark {
+          color: $color-sub;
+        }
+      }
+    }
+
+    > div > .contArea {
+      flex-direction: column;
+
+      .filterArea {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        border: none;
+        background: #f2f4f6;
+        padding: 0 20px 20px 20px;
+      }
+      .listArea {
+        width: 100%;
+        padding-top: 15px;
+      }
+      .recentArea {
+        width: 100%;
+        display: none;
+      }
+    }
+  }
+
+  .SupportContent {
+    .ordWrap {
+      margin-bottom: 17px;
+    }
+    .contArea {
+      .contTop {
+        display: none;
+        .total {
+          font-size: 20px;
+        }
+        .countWrap {
+          position: relative;
+          font-size: 14px;
+          .count {
+            padding: 0 0 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+          }
+          .selectArea {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid $color-deepGray;
+            li {
+              //
+              button {
+                font-size: 14px;
+                border: none;
+                width: 100%;
+                text-align: left;
+                padding: 7px 0 5px 10px;
+              }
+            }
+          }
+        }
+      }
+      .itemWrap {
+        border-top: 1px solid $color-borderGray;
+      }
+    }
+  }
+
+  .SupportItem {
+    padding: 30px 0px 25px 0;
+    flex-direction: column;
+    .leftArea {
+      width: 100%;
+      font-size: 13px;
+      .itemTop {
+        display: flex;
+        justify-content: space-between;
+        ol {
+          gap: 8px;
+          margin-bottom: 15px;
+          li {
+            padding: 5px 10px 4px;
+            font-size: 11px;
+            font-weight: 500;
+          }
+        }
+        p {
+          display: none;
+        }
+      }
+      .itemInfo {
+        h4 {
+          font-size: 16px;
+          margin-bottom: 15px;
+          height: auto;
+          max-height: 48px;
+        }
+        p {
+          height: auto;
+          .moneyTit {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+          }
+          .moneyAmount {
+            font-size: 13px;
+            color: $color-deepGray;
+            margin-bottom: 15px;
+          }
+        }
+      }
+    }
+    .rightArea {
+      width: 100%;
+      margin-top: 10px;
+      ul {
+        flex-flow: row;
+        gap: 0px;
+        li {
+          flex: 1;
+          border: none;
+          flex-direction: column;
+          position: relative;
+          img {
+            display: block;
+          }
+          span {
+            font-size: 13px;
+            padding-top: 3px;
+            color: $color-deepGray;
+          }
+          &.btnZzim {
+            box-shadow: none;
+            button {
+              @include flexCenter(5px);
+              width: 100%;
+              height: 100%;
+              border: none;
+              &.isZzim,
+              &.isApply {
+                background: $color-main;
+                span {
+                  color: #fff;
+                }
+              }
+            }
+          }
+          &:nth-child(2)::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 1px;
+            height: 27px;
+            margin-top: -13px;
+            background: $color-borderGray;
+          }
+          &:nth-child(2)::after {
+            content: "";
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 1px;
+            height: 27px;
+            margin-top: -13px;
+            background: $color-borderGray;
+          }
+        }
+      }
+    }
+  }
+  .SupportFilter {
+    position: relative;
+    left: auto;
+    top: auto;
+    background: #fff;
+    h4 {
+      display: none;
+    }
+    .chkArea {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0px;
+      background: #f1f2f1;
+      input[type="checkbox"] {
+        margin-right: 10px;
+      }
+      label {
+        padding-top: 3px;
+        color: $color-deepGray;
+        font-size: 16px;
+      }
+    }
+    .filterBox {
+      border: 1px solid $color-borderGray;
+      border-radius: $radius-btn;
+      .filterList {
+        //
+        padding: 15px 0;
+        .filterItem {
+          //
+          padding: 10px 20px;
+          position: relative;
+          // margin-bottom: 15px;
+          button {
+            display: block;
+            border: none;
+            width: 100%;
+            text-align: left;
+          }
+          .itemTit {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            .arr {
+              @include flexCenter;
+              width: 20px;
+              height: 20px;
+              border: 1px solid $color-deepGray;
+              border-radius: 50%;
+              span {
+                //
+                padding-top: 2px;
+              }
+              img {
+                display: block;
+              }
+            }
+          }
+          .currentSelected {
+            font-size: 18px;
+            color: $color-main;
+          }
+        }
+        .filterItemModal {
+          position: absolute;
+          left: calc(100% + 20px);
+          top: 0;
+          background-color: #fff;
+          padding: 15px 20px;
+          width: 550px;
+          font-size: 14px;
+          @include shadowBox;
+          .modalCont {
+            ul {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 5px;
+              &:not(:last-child) {
+                margin-bottom: 20px;
+              }
+              li {
+                button {
+                  background: $color-lightGray;
+                  border: 1px solid $color-lightGray;
+                  border-radius: 50px;
+                  padding: 10px 15px 7px;
+                  &.selected {
+                    background: #fff;
+                    border: 1px solid $color-main;
+                    color: $color-main;
+                    font-weight: 700;
+                  }
+                }
+              }
+            }
+          }
+          .modalConfirm {
+            padding-top: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid $color-borderGray;
+            .submitBtn {
+              width: auto;
+              border-radius: $radius-btn;
+              padding: 10px 15px 7px;
+              background: $color-main;
+              color: #fff;
+            }
+          }
+        }
+      }
+      .submitArea {
+        //
+        padding: 20px;
+        border-top: 1px solid $color-borderGray;
+        button {
+          @include flexCenter();
+          width: 100%;
+          font-size: 16px;
+          border: 1px solid #222;
+          border-radius: $radius-btn;
+          height: 50px;
+
+          span {
+            padding-top: 2px;
+          }
         }
       }
     }

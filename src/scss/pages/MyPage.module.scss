@@ -220,3 +220,222 @@
     }
   }
 }
+
+
+
+
+
+
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  .MyPage {
+    .titleArea {
+      .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .rightarea {
+        button {
+          border: none;
+        }
+      }
+    }
+  }
+  .MyPageContent {
+    padding-top: 50px;
+    :global .inner > div {
+      margin-bottom: 50px;
+    }
+    .mainTit {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      span {
+        position: relative;
+      }
+    }
+    .tit,
+    .filterTit {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .box {
+      padding: 0px;
+      border-radius: $radius-wrap;
+      background-color: #fff;
+    }
+    .myRecord {
+      .box {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap:13px;
+        button {
+          width: 100%;
+          padding: 00px 0;
+          justify-content: left;
+          flex-flow: row;
+          gap: 0px;
+          .imgArea {
+            height: 90px;
+            transform: scale(.55);
+            img {
+            }
+          }
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .myCompany {
+      .box {
+        .myPageForm {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 20px;
+          .halfItem {
+            width: 48%;
+          }
+          .fullItem {
+            width: 100%;
+          }
+          label {
+            display: block;
+          }
+          input[type="text"] {
+            width: 100%;
+            padding: 0 10px;
+            border: 1px solid $color-borderGray;
+            border-radius: $radius-btn;
+            height: 45px;
+            font-size: 14px;
+            outline: none;
+          }
+          .filterListWrap {
+            width: 100%;
+            display: flex;
+            flex-flow: column;
+            gap: 20px;
+            .filterItems {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+              li {
+                button {
+                  border-radius: 50px;
+                }
+              }
+            }
+            > li:last-child {
+              .filterModalBtnWrap {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+  
+                > div {
+                  width: 48%;
+                  &:last-child {
+                    margin-top: 20px;
+                  }
+                }
+                button {
+                  width: 100%;
+                  border: 1px solid $color-borderGray;
+                  height: 45px;
+                  border-radius: $radius-btn;
+                  text-align: left;
+                  font-size: 14px;
+                  padding: 0 10px;
+                }
+              }
+            }
+          }
+          .btnModal {
+            width: 100%;
+            border: 1px solid $color-borderGray;
+            height: 45px;
+            border-radius: $radius-btn;
+            text-align: left;
+            font-size: 14px;
+            padding: 0 10px;
+          }
+          .submitArea {
+            width: 100%;
+            padding-top: 20px;
+            border-top: 1px solid $color-borderGray;
+            .btnSubmit {
+              background: $color-sub;
+              height: 60px;
+              font-size: 18px;
+              color: #fff;
+              border: none;
+              width: 100%;
+              border-radius: 50px;
+            }
+          }
+        }
+      }
+    }
+    .MyLogin {
+      .loginSns {
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+      }
+      .box {
+        background: red;
+      }
+      button {
+        font-size: 14px;
+        padding-top: 3px;
+        height: 45px;
+        width: 140px;
+        border-radius: 50px;
+      }
+      .btnBlue {
+        background: #fff;
+        border: 1px solid $color-sub;
+        color: $color-sub;
+      }
+      .btnGray {
+        background: #fff;
+        border: 1px solid $color-borderGray;
+        color: $color-gray;
+      }
+      .btnSquareGray {
+        background: #fff;
+        border: 1px solid $color-lightGray;
+        height: 35px;
+        color: #222;
+        background: $color-lightGray;
+        border-radius: $radius-btn;
+        font-weight: 700;
+      }
+      .iptArea {
+        flex-wrap: wrap;
+        gap: 20px;
+        input[type="text"] {
+          padding: 0 15px;
+          font-size: 13px;
+        }
+      }
+      .nicknameCheck {
+        font-size: 14px;
+        padding-top: 4px;
+        &.checkOK {
+          color: #7aa3d6;
+        }
+        &.checkX {
+          color: #d43d4e;
+        }
+      }
+    }
+  }
+
+
+
+}
