@@ -84,21 +84,6 @@
     margin-top: 74px;
     padding: 20px 20px 90px;
     position: relative;
-    .toTop {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: calc(100% + 20px);
-      font-size: 0;
-      text-indent: -9999px;
-      width: 35px;
-      height: 35px;
-      padding: 0;
-      border: none;
-      background: $color-main url("/assets/img/mobile/btn_top.png") no-repeat
-        center/ auto 50%;
-      border-radius: 50%;
-    }
     .footerTop {
       padding: 0;
       .terms {

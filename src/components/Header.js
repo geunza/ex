@@ -88,13 +88,21 @@ const Header = ({}) => {
               setMobileSearchOpen((prev) => !prev);
             }}
           >
-            모바일 서치폼 오픈
+            <img
+              src={require("assets/img/global/ico/ico_search_black.png")}
+              alt="모바일 서치폼 오픈"
+            />
           </button>
         )}
         {!isMobile ? (
           <SearchForm styles={styles} />
         ) : (
-          mobileSearchOpen && <SearchForm styles={styles} />
+          mobileSearchOpen && (
+            <SearchForm
+              styles={styles}
+              setMobileSearchOpen={setMobileSearchOpen}
+            />
+          )
         )}
 
         <div className={styles.loginArea}>

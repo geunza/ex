@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
 import CommunityViewReplyItem from "components/community/CommunityViewReplyItem";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import MobileTitle from "components/MobileTitle";
 const NoticeView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ const NoticeView = () => {
   return (
     <>
       <div className={`${styles.NoticeView} ${styles.CommonView}`}>
+        <MobileTitle title={"공지사항"} />
         <div className={`inner ${styles.inner}`}>
           <div className={styles.btns}>
             <button

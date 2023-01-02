@@ -4,6 +4,7 @@ import MyReply from "components/myPage/MyReply";
 import styles from "scss/pages/Community.module.scss";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import MobileTitle from "components/MobileTitle";
 const Written = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const Written = () => {
   return (
     <>
       <div className={styles.CommunityList} id="communityList">
+        <MobileTitle title={"내가 작성한 글"} />
         <div className={`commonTitleWrap ${styles.titleArea}`}>
           <div className={`${styles.inner} inner`}>
             <div className={styles.leftArea}>

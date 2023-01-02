@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { loadingStart, loadingEnd } from "redux/store";
+import { loadingStart, loadingEnd, modalOverflow } from "redux/store";
 const SearchBox = ({
   styles,
   popularKeyword,
@@ -16,8 +16,12 @@ const SearchBox = ({
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isMobile = useSelector((state) => state.isMobile);
   const removeMyKeyword = (word) => {
     // dispatch(loadingStart());
+    if (!window.confirm(`최근 검색어(${word})를 삭제하시겠습니까?`)) {
+      return false;
+    }
     axios({
       url: "/mainpage/delMyRecentKeyword",
       method: "POST",
@@ -34,6 +38,9 @@ const SearchBox = ({
       });
   };
   const removeAll = () => {
+    if (!window.confirm(`최근 검색어를 전체 삭제하시겠습니까?`)) {
+      return false;
+    }
     axios({
       url: "/mainpage/delMyAllRecentKeyword",
       method: "POST",
@@ -47,6 +54,7 @@ const SearchBox = ({
   const removeSessionKeyword = (word) => {
     setSessionKeyword((prev) => [...prev].filter((x) => x != word));
   };
+
   return (
     <div className={styles.searchBox}>
       <div className={styles.box}>
@@ -95,7 +103,11 @@ const SearchBox = ({
                       }}
                     >
                       <img
-                        src={require("assets/img/global/btn/btn_close_black_small.png")}
+                        src={
+                          isMobile
+                            ? require("assets/img/global/btn/btn_close_white_small.png")
+                            : require("assets/img/global/btn/btn_close_black_small.png")
+                        }
                         alt="삭제"
                       />
                     </button>
@@ -122,7 +134,11 @@ const SearchBox = ({
                     }}
                   >
                     <img
-                      src={require("assets/img/global/btn/btn_close_black_small.png")}
+                      src={
+                        isMobile
+                          ? require("assets/img/global/btn/btn_close_white_small.png")
+                          : require("assets/img/global/btn/btn_close_black_small.png")
+                      }
                       alt="삭제"
                     />
                   </button>

@@ -4,6 +4,7 @@ import NoticeListItem from "components/notice/NoticeListItem";
 import styles from "scss/pages/Notice.module.scss";
 import { loadingStart, loadingEnd } from "redux/store";
 import { useDispatch } from "react-redux";
+import MobileTitle from "components/MobileTitle";
 const NoticeList = () => {
   const dispatch = useDispatch();
   const [noticeData, setNoticeData] = useState([]);
@@ -23,6 +24,7 @@ const NoticeList = () => {
   }, []);
   return (
     <div className="NoticeList">
+      <MobileTitle title={"공지사항"} />
       <div className={`commonTitleWrap`}>
         <div className={` inner`}>
           <div>

@@ -8,6 +8,7 @@ import { loadingStart, loadingEnd, setLoginCheck } from "redux/store";
 import CommunityViewReplyItem from "components/community/CommunityViewReplyItem";
 import CommunityModalReport from "components/community/CommunityModalReport";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import MobileTitle from "components/MobileTitle";
 const CommunityView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -240,6 +241,7 @@ const CommunityView = () => {
   return (
     <>
       <div className={`${styles.CommunityView} ${styles.CommonView}`}>
+        <MobileTitle title={"게시글 상세"} />
         <div className={`inner ${styles.inner}`}>
           <div className={styles.btns}>
             <button

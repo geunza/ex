@@ -8,6 +8,7 @@ import axios from "axios";
 import { loadingStart, loadingEnd } from "redux/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setSupportData } from "redux/store";
+import MobileTitle from "components/MobileTitle";
 let axiosCount = 0;
 const SupportList = ({}) => {
   const dispatch = useDispatch();
@@ -238,6 +239,7 @@ const SupportList = ({}) => {
   return (
     <>
       <div className={styles.SupportList}>
+        <MobileTitle title={"지원사업"} />
         <div className={`inner`}>
           <div className={styles.tit}>
             <h4>신청 가능한 지원사업 찾기</h4>

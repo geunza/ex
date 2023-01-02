@@ -9,16 +9,6 @@ const Footer = () => {
   };
   return (
     <div className={styles.Footer}>
-      {isMobile && (
-        <button
-          onClick={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
-          className={styles.toTop}
-        >
-          To Top
-        </button>
-      )}
       <div className={styles.footerTop}>
         <ul className={styles.terms}>
           <li>

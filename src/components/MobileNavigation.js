@@ -1,10 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "scss/components/MobileNavigation.module.scss";
 const MobileNavigation = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [communityBtnShow, setCommunityBtnShow] = useState(false);
+  useEffect(() => {
+    const path = location.pathname;
+    path.includes("communityList")
+      ? setCommunityBtnShow(true)
+      : setCommunityBtnShow(false);
+  }, [location]);
+
   return (
     <>
       <ul className={styles.MobileNavigation}>
+        <li className={styles.mobileBtns}>
+          {communityBtnShow && (
+            <button
+              onClick={() => {
+                navigate("/community/communityWrite");
+              }}
+              className={styles.btnWrite}
+            >
+              커뮤니티 글 작성
+            </button>
+          )}
+          <button
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
+            className={styles.toTop}
+          >
+            To Top
+          </button>
+        </li>
         <li>
           <Link to={"/"}>
             <img src={require("assets/img/global/ico/mNavHome.png")} alt="홈" />

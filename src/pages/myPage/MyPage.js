@@ -8,6 +8,7 @@ import FilterButton from "components/home/FilterButton";
 import Tooltip from "components/Tooltip";
 import MyPageModal from "components/myPage/MyPageModal";
 import { useNavigate } from "react-router-dom";
+import MobileTitle from "components/MobileTitle";
 const MyPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const MyPage = () => {
   }, [userInfo]);
   return (
     <div className={styles.MyPage}>
+      <MobileTitle title={"마이페이지"} />
       <div className={`commonTitleWrap ${styles.titleArea}`}>
         <div className={`${styles.inner} inner`}>
           <div className={styles.leftArea}>

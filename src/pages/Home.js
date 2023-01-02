@@ -168,7 +168,7 @@ const Home = ({}) => {
                 </h3>
                 <Link
                   className={`${styles.linkComm} ${styles.homeNotice}`}
-                  to={`/notice/noticeView/${noticeList.id}`}
+                  to={`/notice/noticeList`}
                 >
                   {noticeList.title}
                 </Link>

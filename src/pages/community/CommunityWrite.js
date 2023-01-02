@@ -5,6 +5,7 @@ import styles from "scss/pages/Community.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import MobileTitle from "components/MobileTitle";
 const CommunityWrite = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -101,6 +102,7 @@ const CommunityWrite = () => {
   return (
     <>
       <div className={styles.CommunityWrite}>
+        <MobileTitle title={"게시글 작성"} />
         <div className="commonTitleWrap">
           <div className={`inner ${styles.titleFlex}`}>
             <div className={``}>

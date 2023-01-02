@@ -10,6 +10,7 @@ import SavedChart from "components/saved/SavedChart";
 import styles from "scss/pages/Saved.module.scss";
 import axios from "axios";
 import { loadingEnd } from "redux/store";
+import MobileTitle from "components/MobileTitle";
 const SavedWrap = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -213,6 +214,7 @@ const SavedWrap = () => {
   }, []);
   return (
     <div className={styles.SavedRecent}>
+      <MobileTitle title={"찜"} />
       <SavedTitle />
       <div className={`inner ${styles.savedCont}`}>
         <div className={styles.leftArea}>

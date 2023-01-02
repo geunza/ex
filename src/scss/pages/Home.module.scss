@@ -417,9 +417,6 @@
         background-color: $color-sub;
         color: #fff;
         &.homeNotice {
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
         }
       }
     }

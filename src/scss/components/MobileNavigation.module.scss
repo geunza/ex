@@ -1,3 +1,5 @@
+@import "scss/utils";
+
 .MobileNavigation {
   position: fixed;
   left: 0;
@@ -7,6 +9,32 @@
   border-radius: 15px 15px 0 0;
   display: flex;
   padding: 0 15px;
+  .mobileBtns {
+    position: absolute;
+    right: 20px;
+    bottom: calc(100% + 20px);
+    width: auto;
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+    button {
+      font-size: 0;
+      text-indent: -9999px;
+      width: 35px;
+      height: 35px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      &.btnWrite {
+        background: $color-sub url("/assets/img/mobile/btn_write_mobile.png")
+          no-repeat center/ auto 45%;
+      }
+      &.toTop {
+        background: $color-main url("/assets/img/mobile/btn_top.png") no-repeat
+          center/ auto 50%;
+      }
+    }
+  }
   li {
     width: 25%;
     a {

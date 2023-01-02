@@ -23,6 +23,7 @@ import {
 import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityModalBlockUser from "components/community/CommunityModalBlockUser";
 import { useMediaQuery } from "react-responsive";
+import MobileTitle from "components/MobileTitle";
 const CommunityList = ({}) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
@@ -391,6 +392,7 @@ const CommunityList = ({}) => {
   return (
     <>
       <div className={styles.CommunityList} id="communityList">
+        <MobileTitle title={"커뮤니티"} />
         <div className={`commonTitleWrap ${styles.titleArea}`}>
           <div className={`${styles.inner} inner`}>
             <div className={styles.leftArea}>
@@ -439,7 +441,6 @@ const CommunityList = ({}) => {
             )}
           </div>
         </div>
-
         <div className={styles.CommunityListContent}>
           <div className={`${styles.inner} inner`}>
             <div className={styles.listTop}>

@@ -1,0 +1,277 @@
+@import "scss/utils";
+
+.SearchForm {
+  position: relative;
+  flex: 1;
+  max-width: 450px;
+  .iptWrap {
+    position: relative;
+    input[type="text"] {
+      border-radius: 50px;
+      padding-left: 60px;
+      height: 45px;
+      width: 100%;
+      background-color: #3939c7;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      &.searchOpen {
+        border-radius: 22px 22px 0 0;
+      }
+      &::placeholder {
+        color: inherit;
+      }
+    }
+    button[type="submit"] {
+      background: transparent;
+      border: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 45px;
+      height: 100%;
+      font-size: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      img {
+        width: auto;
+      }
+    }
+  }
+
+  .searchBox {
+    position: absolute;
+    background-color: #fff;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    padding: 20px;
+    z-index: 5;
+    border-radius: 0 0 22px 22px;
+    border: 2px solid #3939c7;
+    .box {
+      position: relative;
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+      .tit {
+        margin-bottom: 10px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .removeAll {
+          font-size: 13px;
+          height: 100%;
+          padding: 0 10px;
+          border: none;
+          text-decoration: underline;
+        }
+      }
+
+      ul {
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        &.keywordPopular {
+          max-height: 26px;
+          a {
+            color: #4949db;
+          }
+        }
+        &.keywordMy {
+          max-height: 60px;
+          a {
+            color: #777;
+          }
+        }
+        li {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 5px;
+          a {
+            font-size: 14px;
+            padding: 6px 5px 3px 10px;
+          }
+          .removeMyKeyword {
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            img {
+              width: 10px;
+            }
+          }
+        }
+      }
+      .empty {
+        // text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1023px) {
+  .SearchForm {
+    position: fixed;
+    overflow-y: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    z-index: 10001;
+    padding: 10px 20px;
+    background-color: #fff;
+    .searchFormTop {
+      display: flex;
+      gap: 15px;
+      .btnBack {
+        border: none;
+        width: 20px;
+        padding: 0;
+      }
+      .iptWrap {
+        flex: 1 1 auto;
+        input[type="text"] {
+          border-radius: 50px;
+          padding-left: 60px;
+          height: 45px;
+          width: 100%;
+          background-color: #3939c7;
+          border: none;
+          color: #fff;
+          font-size: 15px;
+          outline: none;
+          &.searchOpen {
+            border-radius: 22px;
+          }
+          &::placeholder {
+            color: inherit;
+          }
+        }
+        button[type="submit"] {
+          background: transparent;
+          border: none;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          width: 45px;
+          height: 45px;
+          font-size: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          img {
+            width: auto;
+          }
+        }
+      }
+    }
+    .searchBox {
+      position: relative;
+      background-color: #fff;
+      left: 0;
+      top: 0;
+      width: 100%;
+      padding: 30px 0;
+      z-index: 5;
+      border-radius: 0;
+      border: none;
+      .box {
+        position: relative;
+        &:not(:last-child) {
+          margin-bottom: 40px;
+        }
+        .tit {
+          margin-bottom: 10px;
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 700;
+          .removeAll {
+            font-size: 13px;
+            height: 100%;
+            padding: 0 10px;
+            border: none;
+            text-decoration: underline;
+          }
+        }
+
+        ul {
+          overflow: hidden;
+          display: flex;
+          flex-wrap: wrap;
+          li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            a {
+              font-size: 13px;
+              line-height: 1;
+              padding: 10px 12px 8px 12px;
+              background-color: #ebf4fa;
+              border-radius: 25px;
+            }
+            .removeMyKeyword {
+              border: none;
+              border-radius: 50%;
+              width: 20px;
+              height: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 0;
+              img {
+                width: 10px;
+              }
+            }
+          }
+          &.keywordPopular {
+            max-height: 67px;
+            a {
+              color: #222;
+            }
+          }
+          &.keywordMy {
+            max-height: none;
+            li {
+              width: 100%;
+              justify-content: space-between;
+              border-bottom: 1px solid $color-borderGray;
+              &:nth-child(10) ~ li {
+                display: none;
+              }
+              a {
+                background-color: transparent;
+                color: #777;
+                flex: 1;
+              }
+              img {
+                width: 100%;
+              }
+            }
+          }
+        }
+        .empty {
+          // text-align: center;
+          padding: 10px 0;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
