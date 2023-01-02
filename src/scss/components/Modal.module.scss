@@ -664,3 +664,243 @@
     border-radius: 0 0 $radius-wrap $radius-wrap;
   }
 }
+
+
+
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  .modalWrap {
+    .modalInner {
+      width: calc(100% - 40px);
+    }
+    .modalTop {
+      .tit {
+        gap:2px;
+        img {
+          transform: scale(.75);
+        }
+        p {
+          font-size:17px;
+        }
+      }
+      button {
+        img {
+          transform: scale(.75);
+        }
+      }
+    }
+    .subTit {
+      font-size: 11px;
+      background-color: #f0f4fd;
+      padding: 20px 0 17px;
+      span {
+        display: block;
+      }
+    }
+    
+  
+    .deleteAll {
+      button {
+        display: block;
+        border: 1px solid $color-borderGray;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 10px 20px 8px;
+      }
+    }
+    .formWithIpt {
+      input {
+        border: 1px solid $color-borderGray;
+        background: #fff;
+        padding: 0 12px;
+      }
+    }
+    .modalSubmit {
+      border-radius: 0 0 $radius-wrap $radius-wrap;
+      overflow: hidden;
+      button {
+        padding: 14px 0 12px;
+        font-size: 16px;
+      }
+    }
+    .modalCont {
+      padding: 20px;
+      background-color: #fff;
+    }
+    .confirmArea {
+      border-radius: 0 0 $radius-wrap $radius-wrap;
+      overflow: hidden;
+      button {
+        font-size: 16px;
+      }
+    }
+  }
+  
+  .communityModal {
+    .modalCont {
+      .commonList {
+        li {
+          //
+          &:last-child {
+            border: none;
+            padding: 0;
+          }
+          &:nth-last-child(2) {
+            border: none;
+          }
+          label {
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+          }
+          input[type="radio"] {
+            display: none;
+            &:checked + .circle:before {
+              content: "";
+              display: block;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              background: $color-main;
+              width: 50%;
+              height: 50%;
+              border-radius: 50%;
+            }
+          }
+          .circle {
+            width: 20px;
+            height: 20px;
+            border: 1px solid $color-borderGray;
+            border-radius: 50%;
+            display: block;
+            position: relative;
+          }
+          textarea {
+            resize: none;
+            width: 100%;
+            height: auto;
+            border: 1px solid $color-borderGray;
+            padding: 10px;
+            &[disabled] {
+              background-color: $color-bgGray;
+              color: #ccc;
+            }
+          }
+        }
+      }
+    }
+  }
+  .LoginModal {
+    .imgArea {
+      gap:5px;
+      img {
+        transform:scale(0.8);
+      }
+      p {
+        font-size: 14px;
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+    .sns {
+      display: flex;
+      flex-flow: column;
+      gap: 15px;
+      button {
+        span {
+          font-weight:500;
+        }
+      }
+      button:first-child {
+        background:#fae100;
+      }
+    }
+  }
+  .EventModal {
+    .modalCont {
+      .para {
+        font-size: 11px;
+        margin-bottom: 15px;
+        background:#f0f4fd;
+        border-radius: 5px;
+        text-align: center;;
+        padding:20px 0 17px;
+        span {
+          display: block;
+        }
+      }
+    }
+    .eventModal_01 {
+      .subTit {
+        mark {
+          border-bottom: 1px solid $color-sub;
+          color: $color-sub;
+        }
+      }
+      input {
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: $radius-btn;
+        background: $color-lightGray;
+        border: 1px solid $color-borderGray;
+        font-size: 16px;
+        padding: 0 15px;
+        height: 50px;
+        font-size: 14px;
+      }
+    }
+    .eventModal_02 {
+      .modalCont {
+        max-height:70vh;
+        overflow-y: auto;;
+      }
+      .eventForm {
+        margin-bottom: 20px;
+      }
+      .subTit {
+        margin-bottom: 0;
+      }
+    }
+    .eventModal_03 {
+      .modalCont {
+        button[type="button"] {
+          height: 50px;
+          width: 100%;
+          border-radius: $radius-btn;
+          border: none;
+          background: $color-main;
+          font-size: 16px;
+          color: #fff;
+          padding-top: 3px;
+        }
+      }
+    }
+    .eventModal_04 {
+      ul {
+        gap:10px;
+        li {
+          position: relative;
+          &:not(:last-child):after {
+            display:none;
+          }
+          button {
+            padding: 20px 0 17px 0;
+            border: 1px solid $color-sub;
+            color: $color-sub;
+            border-radius: 5px;
+          }
+        }
+      }
+      .subTit {
+        margin-bottom: 0;
+        background:$color-main;
+        color:#fff;
+      }
+    }
+  }
+
+}
