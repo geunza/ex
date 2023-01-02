@@ -57,7 +57,7 @@ export let { modalOverflow } = modalState.actions;
 // 로그인여부
 let isLoggedIn = createSlice({
   name: "isLoggedIn",
-  initialState: false,
+  initialState: sessionStorage.getItem("isLoggedIn") ?? false,
   reducers: {
     signIn(state, action) {
       sessionStorage.setItem("isLoggedIn", "true");
@@ -128,7 +128,7 @@ export let { setSupportItemReady } = supportItemReady.actions;
 // 공통코드
 let supportInfo = createSlice({
   name: "supportInfo",
-  initialState: {
+  initialState: JSON.parse(sessionStorage.getItem("sessionSupportInfo")) ?? {
     bizp_type_cd: {
       name: "사업자형태",
       multiply: true,
@@ -260,6 +260,10 @@ let supportInfo = createSlice({
           stateCate.datas = [item];
         }
       }
+      sessionStorage.setItem(
+        "sessionSupportInfo",
+        JSON.stringify(current(state))
+      );
       function someItem(target, item) {
         if (target.length > 0) {
           return target.some(
@@ -286,6 +290,10 @@ let supportInfo = createSlice({
       const cate = data.name;
       const datas = data.datas;
       state[cate].datas = datas;
+      sessionStorage.setItem(
+        "sessionSupportInfo",
+        JSON.stringify(current(state))
+      );
     },
     setSupportInfoDefault(state, action) {
       return action.payload;

@@ -57,15 +57,19 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1023px) {
   .BoxListItem {
     width: 100%;
-    margin-bottom: 2%;
+    // margin-bottom: 2%;
+    margin-bottom: 0;
+    &:not(:nth-last-child(n + 1):nth-last-child(-n + 2)) {
+      margin-bottom: 0;
+    }
     button,
     a {
       padding: 15px;
       .title {
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 1;
         font-size: 16px;
       }
     }
