@@ -18,6 +18,8 @@ const MyItem = ({
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
   const endDateSource = item.si_end_dt;
+  const today = new Date();
+  const isEnd = endDateSource - today.getTime() < 0;
   const title = item.si_title;
   const cateName = item.target_cat_name;
   const locCode = item.loc_code;
@@ -137,14 +139,21 @@ const MyItem = ({
       </div>
       <div className={styles.rightArea}>
         <ul>
-          <li>
-            <img
-              src={require("assets/img/global/ico/ico_date.png")}
-              alt="마감일"
-            />
-            <span className={styles.dueDate}>
-              {endDate} ({endDay})
-            </span>
+          <li className={`${styles.dueDate} ` + (isEnd ? styles.end : "")}>
+            {isEnd ? (
+              <span>마감</span>
+            ) : (
+              <>
+                <img
+                  priority="true"
+                  src={require("assets/img/global/ico/ico_date.png")}
+                  alt="마감일"
+                />
+                <span>
+                  {endDate} ({endDay})
+                </span>
+              </>
+            )}
           </li>
           <li>
             <img
