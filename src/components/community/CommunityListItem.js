@@ -54,6 +54,9 @@ const CommunityListItem = ({
   const btnDelete = (value) => {
     // dispatch(loadingStart());
     const id = value.toString();
+    if (!window.confirm("게시글을 삭제하시겠습니까?")) {
+      return false;
+    }
     axios({
       headers: {
         "Content-Type": "application/json",

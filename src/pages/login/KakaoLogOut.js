@@ -9,7 +9,7 @@ const KakaoLogOut = () => {
   useEffect(() => {
     dispatch(signOut());
     dispatch(removeUserInfo());
-    navigate(sessionStorage.getItem("kakaoRedirectPath"));
+    navigate("/");
   }, []);
   return (
     <>

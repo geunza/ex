@@ -101,12 +101,15 @@ const SavedWrap = () => {
   ]);
 
   let baseCatName = [
-    { name: "사업화지원", order: 1, color: "#00d9a6" },
-    { name: "인건비지원", order: 2, color: "#7790fa" },
-    { name: "행사", order: 3, color: "#fed51f" },
-    { name: "마케팅홍보", order: 4, color: "#ff6565" },
-    { name: "시설공간", order: 5, color: "#c0cbd5" },
-    { name: "기타", order: 6, color: "#c777fa" },
+    { code: "01", name: "전체", order: 1, color: "#00d9a6" },
+    { code: "02", name: "사업화 지원", order: 2, color: "#7790fa" },
+    { code: "03", name: "시설공간", order: 3, color: "#fed51f" },
+    { code: "04", name: "인건비 지원", order: 4, color: "#ff6565" },
+    { code: "05", name: "마케팅 홍보", order: 5, color: "#c0cbd5" },
+    { code: "06", name: "멘토링・교육", order: 6, color: "#6633ff" },
+    { code: "07", name: "R&D", order: 7, color: "#0066cc" },
+    { code: "08", name: "행사", order: 8, color: "#cc6600" },
+    { code: "09", name: "기타", order: 9, color: "#c777fa" },
   ];
   const getDoughnutList = () => {
     axios({
@@ -127,8 +130,7 @@ const SavedWrap = () => {
           target = data.find((x) => x.target_cat_name == "기타");
         }
         for (let i = data.length - 1; i >= 0; i--) {
-          console.log(data);
-          if (!baseCatName.some((x) => x.name == data[i].target_cat_name)) {
+          if (!baseCatName.some((x) => x.code == data[i].target_cat_name)) {
             target.count += data[i].count;
             data.splice(i, 1);
           }
@@ -163,9 +165,11 @@ const SavedWrap = () => {
   function dataOrder(arr) {
     let newArr = [...arr].map((v, i) => {
       const name = v.target_cat_name;
-      let obj = baseCatName.find((x) => x.name == name);
+      let obj = baseCatName.find((x) => x.code == name);
       v.order = obj.order;
       v.color = obj.color;
+      v.name = obj.name;
+      console.log(v);
       return v;
     });
     newArr = newArr.sort((a, b) => {

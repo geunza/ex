@@ -179,6 +179,9 @@ const CommunityView = () => {
   // 게시글삭제 버튼
   const btnDelete = (value) => {
     // dispatch(loadingStart());
+    if (!window.confirm("게시글을 삭제하시겠습니까?")) {
+      return false;
+    }
     const id = value.toString();
     axios({
       headers: {

@@ -101,6 +101,23 @@ const CommunityModify = () => {
       })
       .catch((err) => console.log(err));
   };
+  const btnDelete = () => {
+    if (!window.confirm("게시글을 삭제하시겠습니까?")) {
+      return false;
+    }
+    axios({
+      url: "/mobile/community/delete",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        id: id,
+      },
+    }).then((res) => {
+      navigate("/community/communityList");
+    });
+  };
   useEffect(() => {
     getCommunityData();
     getCommunityFiles();
@@ -120,13 +137,6 @@ const CommunityModify = () => {
               <h3 className={`title`}>게시글 작성</h3>
               <p>주제에 맞는 카테고리 선택후 글을 작성해 주세요.</p>
             </div>
-            <button
-              type="button"
-              onClick={btnSubmit}
-              className={styles.btnSubmit}
-            >
-              등록
-            </button>
           </div>
         </div>
         <div className="inner">
@@ -193,6 +203,22 @@ const CommunityModify = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className={styles.modifySubmit}>
+          <button
+            type="button"
+            onClick={btnSubmit}
+            className={styles.btnSubmit}
+          >
+            수정
+          </button>
+          <button
+            type="button"
+            onClick={btnDelete}
+            className={styles.btnDelete}
+          >
+            삭제
+          </button>
         </div>
       </div>
     </>

@@ -345,6 +345,11 @@
           font-size: 18px;
           color: $color-main;
         }
+        &:nth-child(3) ~ .filterItem .filterItemModal {
+          top: unset;
+          top: none;
+          bottom: 0;
+        }
       }
       .filterItemModal {
         position: absolute;

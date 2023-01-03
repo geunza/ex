@@ -46,7 +46,7 @@ const SavedChart = ({
       setDoughnutSum((prev) => (prev += v.count));
     });
     setDoughnutdata({
-      labels: doughnutList.map((v) => v.target_cat_name),
+      labels: doughnutList.map((v) => v.name),
       datasets: [
         {
           data: doughnutList.map((v) => v.count),
@@ -206,16 +206,14 @@ const SavedChart = ({
               <div className={styles.legendArea}>
                 {doughnutList.map((item, idx) => {
                   return (
-                    <p key={item.target_cat_name}>
+                    <p key={item.name}>
                       <span
                         className={styles.circle}
                         style={{
                           backgroundColor: item.color,
                         }}
                       ></span>
-                      <span className={styles.name}>
-                        {item.target_cat_name}
-                      </span>
+                      <span className={styles.name}>{item.name}</span>
                     </p>
                   );
                 })}

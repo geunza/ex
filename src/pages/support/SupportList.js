@@ -54,13 +54,6 @@ const SupportList = ({}) => {
         headers: { user_id: "" },
         data: {
           ord: ord,
-          business_type: "01",
-          start_period: "999",
-          company_type: "01",
-          target_cat_name: "01",
-          business_ctg: "01",
-          tech_ctg: "01",
-          loc_code: "C99",
           keyword: keyword,
         },
       }).then((res) => {
@@ -80,13 +73,6 @@ const SupportList = ({}) => {
           },
           data: {
             ord: ord,
-            business_type: "01",
-            start_period: "999",
-            company_type: "01",
-            target_cat_name: "01",
-            business_ctg: "01",
-            tech_ctg: "01",
-            loc_code: "C99",
             keyword: keyword,
           },
         }).then((res) => {

@@ -17,11 +17,13 @@ const RecentItem = ({
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItem = useSelector((state) => state.supportItem);
+  const supportItemReady = useSelector((state) => state.supportItemReady);
   const endDateSource = item.si_end_dt;
   const today = new Date();
   const isEnd = endDateSource - today.getTime() < 0;
   const title = item.si_title;
-  const cateName = item.target_cat_name;
+  const cateCode = item.target_cat_name;
+  const [cateName, setCateName] = useState("");
   const locCode = item.loc_code;
   const locName = supportItem.loc_cd.find(
     (item) => item.code == locCode
@@ -29,7 +31,17 @@ const RecentItem = ({
   // const locName = "AA";
   const targetName = item.target_name;
   const [endDate, endDay] = stringTimeToISO(item.si_end_dt, "MMDD");
-  const [readDate, readDay] = [item.tl_cret_dt, getDay(item.tl_cret_dt)];
+  const [readDate, readDay] = [
+    getYMD(item.tl_cret_dt),
+    getDay(item.tl_cret_dt),
+  ];
+  function getYMD(dateSource) {
+    const dateSource1 = new Date(dateSource);
+    const year = dateSource1.getFullYear();
+    const month = ("00" + (Number(dateSource1.getMonth()) + 1)).slice(-2);
+    const date = ("00" + dateSource1.getDate()).slice(-2);
+    return `${year}-${month}-${date}`;
+  }
   function getDay(date) {
     const week = ["일", "월", "화", "수", "목", "금", "토"];
     return week[new Date(date).getDay()];
@@ -39,7 +51,11 @@ const RecentItem = ({
   typeof cost == "number"
     ? (costComma = addComma(item.target_cost_value))
     : (costComma = 0);
-
+  useEffect(() => {
+    if (supportItemReady) {
+      setCateName(supportItem.spt_cd.find((x) => x.code == cateCode).code_nm);
+    }
+  }, [supportItemReady]);
   const isZzim = item.mb_save_yn == "Y";
   const viewCount = item.view_cnt;
   function stringTimeToISO(stringDate, type) {

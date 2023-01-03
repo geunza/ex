@@ -27,7 +27,18 @@ const Header = ({}) => {
   const navigate = useNavigate();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const handleLogin = () => {
-    dispatch(setLoginCheck(true));
+    // dispatch(setLoginCheck(true));
+    axios({
+      url: "/user/getUserInfo",
+      method: "POST",
+      headers: { userId: "2300105629" },
+    }).then((res) => {
+      const data = res.data;
+      const id = data.id;
+      sessionStorage.setItem("userId", id);
+      dispatch(setUserInfo(data));
+      dispatch(signIn(data));
+    });
   };
   const temporarysignOut = () => {
     dispatch(removeUserInfo());

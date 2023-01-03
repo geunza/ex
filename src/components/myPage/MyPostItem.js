@@ -38,6 +38,9 @@ const MyPostItem = ({
     // dispatch(loadingStart());
     const id = value.toString();
     console.log(id);
+    if (!window.confirm("게시글을 삭제하시겠습니까?")) {
+      return false;
+    }
     axios({
       headers: {
         "Content-Type": "application/json",

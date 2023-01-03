@@ -108,7 +108,8 @@ const KakaoLogin = () => {
                         })
                         .then((res) => {
                           const rePath =
-                            sessionStorage.getItem("kakaoRedirectPath");
+                            sessionStorage.getItem("kakaoRedirectPath") ?? "/";
+
                           navigate(rePath);
                           sessionStorage.removeItem("kakaoRedirectPath");
                         });

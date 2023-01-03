@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginCheck } from "redux/store";
 import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 const SupportItem = ({
   item,
   getSupportCont,
@@ -16,16 +18,24 @@ const SupportItem = ({
   const location = useLocation();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
-  const cateName = item.target_cat_name;
+  const supportItemReady = useSelector((state) => state.supportItemReady);
+  const supportItem = useSelector((state) => state.supportItem);
+
+  const cateCode = item.target_cat_name;
   const locName = item.locname;
   const targetName = item.target_name;
   const title = item.si_title;
   const cost = item.target_cost_value;
+  const [cateName, setCateName] = useState("");
   let costComma;
   if (cost > 0) {
     costComma = addComma(item.target_cost_value);
   }
-
+  useEffect(() => {
+    if (supportItemReady) {
+      setCateName(supportItem.spt_cd.find((x) => x.code == cateCode).code_nm);
+    }
+  }, [supportItemReady]);
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const readDateSource = item.tl_cret_dt;
   const readDay = week[new Date(item.tl_cret_dt).getDay()];
