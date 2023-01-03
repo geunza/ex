@@ -15,33 +15,12 @@ const CommunityWrite = () => {
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
   const [editorFileData, setEditorFileData] = useState([]);
-  const [fileData, setFileData] = useState([
-    {
-      name: "file0",
-      datas: [],
-    },
-    {
-      name: "file1",
-      datas: [],
-    },
-    {
-      name: "file2",
-      datas: [],
-    },
-    {
-      name: "file3",
-      datas: [],
-    },
-    {
-      name: "file4",
-      datas: [],
-    },
-  ]);
-  const [file0, setFile0] = useState([]);
+  const [fileData, setFileData] = useState([]);
   const [file1, setFile1] = useState([]);
   const [file2, setFile2] = useState([]);
   const [file3, setFile3] = useState([]);
   const [file4, setFile4] = useState([]);
+  const [file5, setFile5] = useState([]);
   const [allFileLength, setAllFileLength] = useState(0);
   const btnSubmit = () => {
     if (title == "" && editorTxt == "") {
@@ -84,11 +63,6 @@ const CommunityWrite = () => {
         if (allFileLength > 0) {
           const formData2 = new FormData();
           formData2.append("content_id", res.data);
-          if (file0.length > 0) {
-            for (let i = 0; i < file0.length; i++) {
-              formData2.append("files", file0[i]);
-            }
-          }
           if (file1.length > 0) {
             for (let i = 0; i < file1.length; i++) {
               formData2.append("files", file1[i]);
@@ -107,6 +81,11 @@ const CommunityWrite = () => {
           if (file4.length > 0) {
             for (let i = 0; i < file4.length; i++) {
               formData2.append("files", file4[i]);
+            }
+          }
+          if (file5.length > 0) {
+            for (let i = 0; i < file5.length; i++) {
+              formData2.append("files", file5[i]);
             }
           }
           axios
@@ -232,8 +211,6 @@ const CommunityWrite = () => {
             <div className={styles.fileArea}>
               <FileUpload
                 styles={styles}
-                file0={file0}
-                setFile0={setFile0}
                 file1={file1}
                 setFile1={setFile1}
                 file2={file2}
@@ -242,10 +219,10 @@ const CommunityWrite = () => {
                 setFile3={setFile3}
                 file4={file4}
                 setFile4={setFile4}
+                file5={file5}
+                setFile5={setFile5}
                 allFileLength={allFileLength}
                 setAllFileLength={setAllFileLength}
-                fileData={fileData}
-                setFileData={setFileData}
               />
             </div>
           </div>
