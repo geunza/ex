@@ -15,7 +15,34 @@ const CommunityWrite = () => {
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
   const [editorFileData, setEditorFileData] = useState([]);
-  const [fileData, setFileData] = useState([]);
+  const [fileData, setFileData] = useState([
+    {
+      name: "file0",
+      datas: [],
+    },
+    {
+      name: "file1",
+      datas: [],
+    },
+    {
+      name: "file2",
+      datas: [],
+    },
+    {
+      name: "file3",
+      datas: [],
+    },
+    {
+      name: "file4",
+      datas: [],
+    },
+  ]);
+  const [file0, setFile0] = useState([]);
+  const [file1, setFile1] = useState([]);
+  const [file2, setFile2] = useState([]);
+  const [file3, setFile3] = useState([]);
+  const [file4, setFile4] = useState([]);
+  const [allFileLength, setAllFileLength] = useState(0);
   const btnSubmit = () => {
     if (title == "" && editorTxt == "") {
       alert("필수 입력사항을 입력해 주세요.");
@@ -54,11 +81,33 @@ const CommunityWrite = () => {
         },
       })
       .then((res) => {
-        if (fileData.length > 0) {
+        if (allFileLength > 0) {
           const formData2 = new FormData();
           formData2.append("content_id", res.data);
-          for (let i = 0; i < fileData.length; i++) {
-            formData2.append("files", fileData[i]);
+          if (file0.length > 0) {
+            for (let i = 0; i < file0.length; i++) {
+              formData2.append("files", file0[i]);
+            }
+          }
+          if (file1.length > 0) {
+            for (let i = 0; i < file1.length; i++) {
+              formData2.append("files", file1[i]);
+            }
+          }
+          if (file2.length > 0) {
+            for (let i = 0; i < file2.length; i++) {
+              formData2.append("files", file2[i]);
+            }
+          }
+          if (file3.length > 0) {
+            for (let i = 0; i < file3.length; i++) {
+              formData2.append("files", file3[i]);
+            }
+          }
+          if (file4.length > 0) {
+            for (let i = 0; i < file4.length; i++) {
+              formData2.append("files", file4[i]);
+            }
           }
           axios
             .post("/mobile/community/uploadFile", formData2, {
@@ -67,14 +116,14 @@ const CommunityWrite = () => {
               },
             })
             .then(() => {
-              navigate(`/community/communityView/${res.data}`);
+              // navigate(`/community/communityView/${res.data}`);
             })
             .catch((error) => {
               console.log(error);
             });
         } else {
           console.log(res.data);
-          navigate(`/community/communityView/${res.data}`);
+          // navigate(`/community/communityView/${res.data}`);
         }
         return res.data;
       })
@@ -182,9 +231,21 @@ const CommunityWrite = () => {
             </div>
             <div className={styles.fileArea}>
               <FileUpload
+                styles={styles}
+                file0={file0}
+                setFile0={setFile0}
+                file1={file1}
+                setFile1={setFile1}
+                file2={file2}
+                setFile2={setFile2}
+                file3={file3}
+                setFile3={setFile3}
+                file4={file4}
+                setFile4={setFile4}
+                allFileLength={allFileLength}
+                setAllFileLength={setAllFileLength}
                 fileData={fileData}
                 setFileData={setFileData}
-                styles={styles}
               />
             </div>
           </div>
