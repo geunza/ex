@@ -15,12 +15,28 @@ const CommunityWrite = () => {
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
   const [editorFileData, setEditorFileData] = useState([]);
-  const [fileData, setFileData] = useState([]);
-  const [file1, setFile1] = useState([]);
-  const [file2, setFile2] = useState([]);
-  const [file3, setFile3] = useState([]);
-  const [file4, setFile4] = useState([]);
-  const [file5, setFile5] = useState([]);
+  const [fileData, setFileData] = useState([
+    {
+      name: "file0",
+      datas: [],
+    },
+    {
+      name: "file1",
+      datas: [],
+    },
+    {
+      name: "file2",
+      datas: [],
+    },
+    {
+      name: "file3",
+      datas: [],
+    },
+    {
+      name: "file4",
+      datas: [],
+    },
+  ]);
   const [allFileLength, setAllFileLength] = useState(0);
   const btnSubmit = () => {
     if (title == "" && editorTxt == "") {
@@ -63,31 +79,14 @@ const CommunityWrite = () => {
         if (allFileLength > 0) {
           const formData2 = new FormData();
           formData2.append("content_id", res.data);
-          if (file1.length > 0) {
-            for (let i = 0; i < file1.length; i++) {
-              formData2.append("files", file1[i]);
+          fileData.forEach((v, i) => {
+            const fileItems = v.datas;
+            if (fileItems.length > 0) {
+              for (let i = 0; i < fileItems.length; i++) {
+                formData2.append("files", fileItems[i]);
+              }
             }
-          }
-          if (file2.length > 0) {
-            for (let i = 0; i < file2.length; i++) {
-              formData2.append("files", file2[i]);
-            }
-          }
-          if (file3.length > 0) {
-            for (let i = 0; i < file3.length; i++) {
-              formData2.append("files", file3[i]);
-            }
-          }
-          if (file4.length > 0) {
-            for (let i = 0; i < file4.length; i++) {
-              formData2.append("files", file4[i]);
-            }
-          }
-          if (file5.length > 0) {
-            for (let i = 0; i < file5.length; i++) {
-              formData2.append("files", file5[i]);
-            }
-          }
+          });
           axios
             .post("/mobile/community/uploadFile", formData2, {
               headers: {
@@ -95,14 +94,14 @@ const CommunityWrite = () => {
               },
             })
             .then(() => {
-              // navigate(`/community/communityView/${res.data}`);
+              navigate(`/community/communityView/${res.data}`);
             })
             .catch((error) => {
               console.log(error);
             });
         } else {
           console.log(res.data);
-          // navigate(`/community/communityView/${res.data}`);
+          navigate(`/community/communityView/${res.data}`);
         }
         return res.data;
       })
@@ -211,18 +210,10 @@ const CommunityWrite = () => {
             <div className={styles.fileArea}>
               <FileUpload
                 styles={styles}
-                file1={file1}
-                setFile1={setFile1}
-                file2={file2}
-                setFile2={setFile2}
-                file3={file3}
-                setFile3={setFile3}
-                file4={file4}
-                setFile4={setFile4}
-                file5={file5}
-                setFile5={setFile5}
                 allFileLength={allFileLength}
                 setAllFileLength={setAllFileLength}
+                fileData={fileData}
+                setFileData={setFileData}
               />
             </div>
           </div>
