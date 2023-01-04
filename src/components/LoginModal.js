@@ -4,6 +4,7 @@ import styles from "scss/components/Modal.module.scss";
 import { modalOverflow, setLoginCheck } from "redux/store";
 import { useEffect } from "react";
 import { REST_API_KEY, REDIRECT_URI } from "pages/login/KakaoLoginData";
+import AppleLoginBtn from "pages/login/AppleLoginBtn";
 const LoginModal = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -67,17 +68,7 @@ const LoginModal = () => {
                     alt="Kakao Icon"
                   />
                 </button>
-                <button type="button" className={styles.btnApple}>
-                  <img
-                    src={require("assets/img/home/sns_apple.png")}
-                    alt="Apple Icon"
-                  />
-                  <span>Apple 로그인</span>
-                  <img
-                    src={require("assets/img/home/sns_apple.png")}
-                    alt="Apple Icon"
-                  />
-                </button>
+                <AppleLoginBtn />
               </div>
             </div>
           </div>
