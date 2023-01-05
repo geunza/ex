@@ -651,6 +651,9 @@
       border-radius: $radius-btn;
       box-shadow: 0px 2px 5px 0px rgba(78, 78, 78, 0.3);
 
+      &:first-child {
+        background: #fae100;
+      }
       span {
         padding-top: 3px;
         font-size: 14px;
@@ -665,37 +668,34 @@
   }
 }
 
-
-
-
 /*반응형*/
 @media screen and (max-width: 1023px) {
   .modalWrap {
     .modalInner {
       width: calc(100% - 40px);
       &.full {
-        width:100%;
-        border-radius: 0;;
+        width: 100%;
+        border-radius: 0;
 
         .modalSubmit {
           border-radius: 0;
         }
       }
     }
-    
+
     .modalTop {
       .tit {
-        gap:2px;
+        gap: 2px;
         img {
-          transform: scale(.75);
+          transform: scale(0.75);
         }
         p {
-          font-size:17px;
+          font-size: 17px;
         }
       }
       button {
         img {
-          transform: scale(.75);
+          transform: scale(0.75);
         }
       }
     }
@@ -707,8 +707,7 @@
         display: block;
       }
     }
-    
-  
+
     .deleteAll {
       button {
         display: block;
@@ -743,7 +742,7 @@
       }
     }
   }
-  
+
   .communityModal {
     .modalCont {
       .commonList {
@@ -801,9 +800,9 @@
   }
   .LoginModal {
     .imgArea {
-      gap:5px;
+      gap: 5px;
       img {
-        transform:scale(0.8);
+        transform: scale(0.8);
       }
       p {
         font-size: 14px;
@@ -818,11 +817,8 @@
       gap: 15px;
       button {
         span {
-          font-weight:500;
+          font-weight: 500;
         }
-      }
-      button:first-child {
-        background:#fae100;
       }
     }
   }
@@ -831,10 +827,10 @@
       .para {
         font-size: 11px;
         margin-bottom: 15px;
-        background:#f0f4fd;
+        background: #f0f4fd;
         border-radius: 5px;
-        text-align: center;;
-        padding:20px 0 17px;
+        text-align: center;
+        padding: 20px 0 17px;
         span {
           display: block;
         }
@@ -862,8 +858,8 @@
     }
     .eventModal_02 {
       .modalCont {
-        max-height:70vh;
-        overflow-y: auto;;
+        max-height: 70vh;
+        overflow-y: auto;
       }
       .eventForm {
         margin-bottom: 20px;
@@ -888,11 +884,11 @@
     }
     .eventModal_04 {
       ul {
-        gap:10px;
+        gap: 10px;
         li {
           position: relative;
           &:not(:last-child):after {
-            display:none;
+            display: none;
           }
           button {
             padding: 20px 0 17px 0;
@@ -904,10 +900,9 @@
       }
       .subTit {
         margin-bottom: 0;
-        background:$color-main;
-        color:#fff;
+        background: $color-main;
+        color: #fff;
       }
     }
   }
-
 }

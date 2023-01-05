@@ -423,22 +423,6 @@
 /*반응형*/
 @media screen and (max-width: 1023px) {
   .SupportList {
-    .tit {
-      text-align: left;
-      margin-bottom: 20px;
-      h4 {
-        font-size: 17px;
-        margin-bottom: 0px;
-      }
-      p {
-        font-size: 12px;
-        color: $color-gray;
-        mark {
-          color: $color-sub;
-        }
-      }
-    }
-
     > div > .contArea {
       flex-direction: column;
 
@@ -449,10 +433,48 @@
         background: #f2f4f6;
         padding: 0 20px 20px 20px;
         padding: 15px;
+        .tit {
+          text-align: left;
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          h4 {
+            font-size: 17px;
+            margin-bottom: 0px;
+          }
+          p {
+            font-size: 12px;
+            color: $color-gray;
+            mark {
+              color: $color-sub;
+            }
+          }
+          .mobileOpen {
+            text-indent: -9999px;
+            font-size: 0;
+            overflow: hidden;
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+            min-height: 30px;
+            border: 1px solid $color-borderGray;
+            border-radius: 50%;
+            background: #fff
+              url("/assets/img/global/btn/btn_arr_bottom_thick.png") no-repeat
+              center / 50%;
+            &.opened {
+              transform: rotate(180deg);
+            }
+          }
+        }
       }
       .listArea {
         width: 100%;
         padding-top: 15px;
+        .total {
+          margin-bottom: 15px;
+        }
       }
       .recentArea {
         width: 100%;
@@ -508,14 +530,16 @@
   }
 
   .SupportItem {
-    padding: 30px 0px 25px 0;
+    padding: 20px 0px 15px 0;
     flex-direction: column;
+    position: relative;
     .leftArea {
       width: 100%;
       font-size: 13px;
       .itemTop {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         ol {
           gap: 8px;
           margin-bottom: 15px;
@@ -526,7 +550,9 @@
           }
         }
         p {
-          display: none;
+          width: 100%;
+          text-align: right;
+          padding-top: 0;
         }
       }
       .itemInfo {

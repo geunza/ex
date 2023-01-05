@@ -18,6 +18,7 @@ const SupportList = ({}) => {
   let keywordParam = searchParams.get("keyword");
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -222,35 +223,73 @@ const SupportList = ({}) => {
   useEffect(() => {
     console.log(supportFilterCont.length);
   }, [supportFilterCont]);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   return (
     <>
       <div className={styles.SupportList}>
         <MobileTitle title={"지원사업"} />
         <div className={`inner`}>
-          <div className={styles.tit}>
-            <h4>신청 가능한 지원사업 찾기</h4>
-            {keyword ? (
-              <p>
-                <mark>'{keywordParam}'</mark> 검색 결과 입니다.
-              </p>
-            ) : (
-              <p>
-                좌측 <mark>필터 설정</mark> 후 내 기업에 맞는 지원사업만
-                확인하세요.
-              </p>
-            )}
-          </div>
+          {!isMobile && (
+            <div className={styles.tit}>
+              <h4>신청 가능한 지원사업 찾기</h4>
+              {keyword ? (
+                <p>
+                  <mark>'{keywordParam}'</mark> 검색 결과 입니다.
+                </p>
+              ) : (
+                <p>
+                  좌측 <mark>필터 설정</mark> 후 내 기업에 맞는 지원사업만
+                  확인하세요.
+                </p>
+              )}
+            </div>
+          )}
+
           <div className={styles.contArea}>
             <div className={styles.filterArea}>
+              {isMobile && (
+                <div
+                  className={styles.tit}
+                  style={{ marginBottom: mobileFilterOpen ? "20px" : "0" }}
+                >
+                  <div className={styles.titInner}>
+                    <h4>신청 가능한 지원사업 찾기</h4>
+                    {keyword ? (
+                      <p>
+                        <mark>'{keywordParam}'</mark> 검색 결과 입니다.
+                      </p>
+                    ) : (
+                      <p>
+                        <mark>필터 설정</mark> 후 내 기업에 맞는 지원사업만
+                        확인하세요.
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => {
+                      setMobileFilterOpen((prev) => !prev);
+                    }}
+                    className={
+                      styles.mobileOpen +
+                      " " +
+                      (mobileFilterOpen ? styles.opened : "")
+                    }
+                  >
+                    열기
+                  </button>
+                </div>
+              )}
               <SupportFilter
                 supportInfo={supportInfo}
                 getSupportCont={getSupportCont}
                 setScrollStorage={setScrollStorage}
                 allSupport={allSupport}
                 setAllSupport={setAllSupport}
+                mobileFilterOpen={mobileFilterOpen}
               />
             </div>
             <div className={styles.listArea}>
+              {isMobile && <p className={styles.total}>전체 {total}개</p>}
               <SupportContent
                 count={count}
                 setCount={setCount}

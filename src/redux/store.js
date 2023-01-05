@@ -131,8 +131,9 @@ let supportInfo = createSlice({
   initialState: JSON.parse(sessionStorage.getItem("sessionSupportInfo")) ?? {
     bizp_type_cd: {
       name: "사업자형태",
-      multiply: true,
+      multiply: false,
       require: true,
+      cState: true,
       datas: [
         {
           code_nm: "예비창업자",
@@ -146,6 +147,7 @@ let supportInfo = createSlice({
       name: "기업형태",
       multiply: true,
       require: true,
+      cState: false,
       datas: [
         {
           code_nm: "중소기업",
@@ -159,6 +161,7 @@ let supportInfo = createSlice({
       name: "창업기간",
       multiply: false,
       require: true,
+      cState: false,
       datas: [
         {
           code_nm: "1년 미만",
@@ -172,6 +175,7 @@ let supportInfo = createSlice({
       name: "지원분야",
       multiply: true,
       require: true,
+      cState: true,
       datas: [
         {
           code_nm: "사업화 지원",
@@ -185,6 +189,7 @@ let supportInfo = createSlice({
       name: "사업분야",
       multiply: true,
       require: true,
+      cState: true,
       datas: [
         {
           code_nm: "제조",
@@ -198,6 +203,7 @@ let supportInfo = createSlice({
       name: "기술분야",
       multiply: true,
       require: true,
+      cState: true,
       datas: [
         {
           code_nm: "딥테크",
@@ -211,9 +217,10 @@ let supportInfo = createSlice({
       name: "지역",
       multiply: true,
       require: false,
+      cState: true,
       datas: [
         {
-          code_nm: "전국",
+          code_nm: "지역무관",
           code: "C82",
           ctg_cd: "loc_cd",
           ctg_nm: "지역",
@@ -230,34 +237,42 @@ let supportInfo = createSlice({
       const stateCate = state[cate];
       const require = stateCate.require;
       const multiply = stateCate.multiply;
-      if (multiply) {
-        if (name == "전체") {
-          if (
-            require &&
-            stateCate.datas.filter((x) => x.code_nm != "전체").length == 0
-          ) {
-            alert("한가지 이상 선택해주세요.");
-          }
-          stateCate.datas = [item];
-        } else {
-          stateCate.datas = stateCate.datas.filter((x) => x.code_nm != "전체");
-          if (someItem(stateCate.datas, item)) {
-            if (require && stateCate.datas.length == 1) {
+      const cState = stateCate.cState;
+      console.log(cState);
+      if (cState == false) {
+        alert("예비 창업자는 선택할 수 없습니다.");
+      } else {
+        if (multiply) {
+          if (name == "전체") {
+            if (
+              require &&
+              stateCate.datas.filter((x) => x.code_nm != "전체").length == 0
+            ) {
               alert("한가지 이상 선택해주세요.");
+            }
+            stateCate.datas = [item];
+          } else {
+            stateCate.datas = stateCate.datas.filter(
+              (x) => x.code_nm != "전체"
+            );
+            if (someItem(stateCate.datas, item)) {
+              if (require && stateCate.datas.length == 1) {
+                alert("한가지 이상 선택해주세요.");
+              } else {
+                stateCate.datas = filterItem(stateCate.datas, item);
+              }
             } else {
-              stateCate.datas = filterItem(stateCate.datas, item);
+              stateCate.datas = addItem(stateCate.datas, item);
+            }
+          }
+        } else {
+          if (someItem(stateCate.datas, item)) {
+            if (require) {
+              alert("한가지 이상 선택해주세요.");
             }
           } else {
-            stateCate.datas = addItem(stateCate.datas, item);
+            stateCate.datas = [item];
           }
-        }
-      } else {
-        if (someItem(stateCate.datas, item)) {
-          if (require) {
-            alert("한가지 이상 선택해주세요.");
-          }
-        } else {
-          stateCate.datas = [item];
         }
       }
       sessionStorage.setItem(

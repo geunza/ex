@@ -17,6 +17,7 @@ const SupportFilter = ({
   setScrollStorage,
   allSupport,
   setAllSupport,
+  mobileFilterOpen,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -210,7 +211,13 @@ const SupportFilter = ({
   }, [modalIdx, modalOn]);
   return (
     <>
-      <div className={styles.SupportFilter}>
+      <div
+        className={styles.SupportFilter}
+        style={{
+          padding: isMobile && !mobileFilterOpen ? 0 : null,
+          border: isMobile && !mobileFilterOpen ? "none" : null,
+        }}
+      >
         <h4>
           <span>
             조회 필터
@@ -227,21 +234,23 @@ const SupportFilter = ({
             </i>
           </span>
         </h4>
-        <div className={styles.chkArea}>
-          <input
-            type="checkbox"
-            id="chkAll"
-            checked={allSupport}
-            onChange={(e) => {
-              if (!isLoggedIn) {
-                dispatch(setLoginCheck(true));
-                return false;
-              }
-              setAllSupport(e.currentTarget.checked);
-            }}
-          />
-          <label htmlFor="chkAll">전체 지원사업 보기</label>
-        </div>
+        {!isMobile && (
+          <div className={styles.chkArea}>
+            <input
+              type="checkbox"
+              id="chkAll"
+              checked={allSupport}
+              onChange={(e) => {
+                if (!isLoggedIn) {
+                  dispatch(setLoginCheck(true));
+                  return false;
+                }
+                setAllSupport(e.currentTarget.checked);
+              }}
+            />
+            <label htmlFor="chkAll">전체 지원사업 보기</label>
+          </div>
+        )}
         {!isMobile ? (
           <div className={styles.filterBox}>
             <ul className={styles.filterList}>
@@ -484,23 +493,42 @@ const SupportFilter = ({
             </div>
           </div>
         ) : (
-          <div className={styles.filterBox}>
-            <SupportFilterMobile />
-            <div className={styles.submitArea}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    dispatch(setLoginCheck(true));
-                  } else {
-                    handleSubmitBtn();
-                  }
-                }}
-              >
-                <span>조회</span>
-              </button>
+          mobileFilterOpen && (
+            <div className={styles.filterBox}>
+              <SupportFilterMobile />
+              <div className={styles.submitArea}>
+                {isMobile && (
+                  <div className={styles.chkArea}>
+                    <input
+                      type="checkbox"
+                      id="chkAll"
+                      checked={allSupport}
+                      onChange={(e) => {
+                        if (!isLoggedIn) {
+                          dispatch(setLoginCheck(true));
+                          return false;
+                        }
+                        setAllSupport(e.currentTarget.checked);
+                      }}
+                    />
+                    <label htmlFor="chkAll">전체 지원사업 보기</label>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      dispatch(setLoginCheck(true));
+                    } else {
+                      handleSubmitBtn();
+                    }
+                  }}
+                >
+                  <span>조회</span>
+                </button>
+              </div>
             </div>
-          </div>
+          )
         )}
       </div>
     </>

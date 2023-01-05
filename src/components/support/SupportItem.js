@@ -16,6 +16,7 @@ const SupportItem = ({
 }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const isMobile = useSelector((state) => state.isMobile);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const supportItemReady = useSelector((state) => state.supportItemReady);
@@ -95,12 +96,17 @@ const SupportItem = ({
       <li className={styles.SupportItem}>
         <div className={styles.leftArea}>
           <div className={styles.itemTop}>
+            {isMobile && (
+              <p>{readDateSource && `${readDateSource} (${readDay}) 읽음`}</p>
+            )}
             <ol>
               <li>{cateName}</li>
               <li>{locName}</li>
               <li>{targetName}</li>
             </ol>
-            <p>{readDateSource && `${readDateSource} (${readDay}) 읽음`}</p>
+            {!isMobile && (
+              <p>{readDateSource && `${readDateSource} (${readDay}) 읽음`}</p>
+            )}
           </div>
           <div className={styles.itemInfo}>
             <h4>
