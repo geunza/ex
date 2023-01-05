@@ -51,7 +51,15 @@ const MobileNavigation = () => {
           </Link>
         </li>
         <li>
-          <Link to={"/saved"}>
+          <Link
+            to={"/saved"}
+            onClick={(e) => {
+              if (!isLoggedIn) {
+                e.preventDefault();
+                dispatch(setLoginCheck(true));
+              }
+            }}
+          >
             <img
               src={require("assets/img/global/ico/mNavSaved.png")}
               alt="찜"

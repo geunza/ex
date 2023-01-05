@@ -12,7 +12,6 @@ import AppRouter from "components/Router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
-import supportItems from "db/supportItems.json";
 import {
   setSupportItem,
   setCompanyInfo,
@@ -152,8 +151,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "예비창업자",
-                code: "02",
+                code_nm: "법인사업자",
+                code: "03",
                 ctg_cd: "bizp_type_cd",
                 ctg_nm: "사업자형태",
               },
@@ -204,8 +203,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "제조",
-                code: "02",
+                code_nm: "전체",
+                code: "01",
                 ctg_cd: "biz_cd",
                 ctg_nm: "사업분야",
               },
@@ -217,8 +216,8 @@ function App() {
             require: true,
             datas: [
               {
-                code_nm: "딥테크",
-                code: "02",
+                code_nm: "전체",
+                code: "01",
                 ctg_cd: "tech_cd",
                 ctg_nm: "기술분야",
               },

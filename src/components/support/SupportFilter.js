@@ -59,7 +59,7 @@ const SupportFilter = ({
     }).then((res) => {
       // dispatch(loadingEnd());
       navigate("./");
-      getSupportCont("전체", "");
+      // getSupportCont("전체", "");
       window.scrollTo(0, 0);
     });
   };
@@ -409,12 +409,20 @@ const SupportFilter = ({
                     </li>
                   );
                 }
+                const notReady =
+                  (cate == "prd_cd" || cate == "biz_type_cd") &&
+                  supportInfo.bizp_type_cd.datas[0].code == "02";
                 return (
                   <li className={styles.filterItem} key={idx}>
                     <button
                       type="button"
                       onClick={() => {
-                        modalControl(idx);
+                        notReady
+                          ? alert("예비창업자는 선택할 수 없습니다.")
+                          : modalControl(idx);
+                      }}
+                      style={{
+                        opacity: notReady ? 0.5 : null,
                       }}
                     >
                       <div className={styles.itemTit}>
@@ -426,7 +434,12 @@ const SupportFilter = ({
                           />
                         </div>
                       </div>
-                      <p className={styles.currentSelected}>
+                      <p
+                        className={styles.currentSelected}
+                        style={{
+                          color: notReady ? "#555" : null,
+                        }}
+                      >
                         {supportInfo[cate].datas.length > 1
                           ? `${supportInfo[cate].datas[0].code_nm} 외 ${
                               supportInfo[cate].datas.length - 1

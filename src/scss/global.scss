@@ -374,39 +374,41 @@ body {
   }
 }
 .isMobile {
-  display:none;
+  display: none;
 }
 
 /*반응형*/
 @media screen and (max-width: 1023px) {
   body {
-    min-width:375px;
+    min-width: 375px;
   }
   .commonListItemWrap {
-    padding:30px 20px;
+    padding: 30px 20px;
     .commonListItem {
-      border:1px solid #e1e2e1;
+      border: 1px solid #e1e2e1;
       border-radius: 4px;
-      padding:20px;
-      margin-bottom:17px;
+      padding: 20px;
+      margin-bottom: 17px;
       &:last-of-type {
-        border:1px solid #e1e2e1;
+        border: 1px solid #e1e2e1;
       }
       .cateArea {
-        margin-bottom:10px;
+        margin-bottom: 10px;
         .cate {
           font-size: 13px;
         }
       }
-      
+
       .leftArea {
         .title {
           font-size: 17px;
           font-weight: 500;
+          margin-bottom: 0;
         }
         .content {
           font-size: 14px;
-          margin-bottom:6px;
+          margin-bottom: 6px;
+          margin-top: 10px;
           > *:not(h3):not(p),
           > *:not(:first-child) {
             display: none;
@@ -452,10 +454,10 @@ body {
           justify-content: center;
           gap: 10px;
           img {
-            width:70%;
+            width: 70%;
           }
           span {
-            font-size:12px;
+            font-size: 12px;
           }
           .myPost {
             border: none;
@@ -464,7 +466,6 @@ body {
       }
     }
   }
-
 
   .commonTitleWrap {
     margin-top: -20px;
@@ -480,19 +481,19 @@ body {
     .rightArea {
       display: flex;
       justify-content: space-between;
-      width:100%;
+      width: 100%;
       gap: 10px;
       button {
         font-size: 12px;
         border: none;
-        background-color:#f6f6f6;
+        background-color: #f6f6f6;
         border-radius: 100px;
         padding: 10px 15px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 5px;
-        flex:1 1;
+        flex: 1 1;
         span {
           padding-top: 3px;
         }
@@ -531,16 +532,16 @@ body {
       font-size: 14px;
       margin-top: 10px;
       span {
-        font-size:12px;
+        font-size: 12px;
       }
     }
     .btns {
       margin-top: 30px;
       .emptyBtn {
-        border-radius: 100px;;
+        border-radius: 100px;
         gap: 5px;
         img {
-          transform: scale(.75);
+          transform: scale(0.75);
         }
         span {
           font-size: 12px;
@@ -551,16 +552,16 @@ body {
     }
   }
   .white {
-    background-color:#fff !important;
-    color:#101010 !important;
+    background-color: #fff !important;
+    color: #101010 !important;
   }
   .isMobile {
-    display:block;
+    display: block;
   }
   .req {
-    color:#d43d4e;
-    font-size:16px;
-    font-weight:500;
-    margin:0 4px
+    color: #d43d4e;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 4px;
   }
 }

@@ -96,9 +96,10 @@ const MyLogin = () => {
         },
         method: "POST",
       }).then((res) => {
+        navigate("/");
+        alert("탈퇴 되었습니다.");
         dispatch(signOut());
         dispatch(removeUserInfo());
-        navigate("/");
       });
     } else {
       alert("취소하였습니다.");

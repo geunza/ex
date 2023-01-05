@@ -132,12 +132,13 @@ const Home = ({}) => {
                     />
                     <span>커뮤니티</span>
                   </h3>
-                  <Link
+                  {/* <Link
                     className={styles.linkComm}
                     to="/community/communityList"
                   >
                     기업 운영에 관한 모든 것들을 커뮤니티에서 공유해봐요!
-                  </Link>
+                  </Link> */}
+                  <HomeCommunity setAxiosCount={setAxiosCount} />
                 </div>
                 <div className={styles.mobileBox}>
                   <h3 className={styles.mobileTit}>

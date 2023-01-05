@@ -9,6 +9,16 @@ const FilterButton = ({ item, onClick, idx, baseObj }) => {
   const disabled = !isLoggedIn;
   const [hasToolTip, setHasToolTip] = useState(false);
   const [hastooltipCont, setTooltipCont] = useState("");
+  const [notReady, setNotReady] = useState(
+    (item.ctg_cd == "prd_cd" || item.ctg_cd == "biz_type_cd") &&
+      supportInfo.bizp_type_cd.datas[0].code == "02"
+  );
+  useEffect(() => {
+    setNotReady(
+      (item.ctg_cd == "prd_cd" || item.ctg_cd == "biz_type_cd") &&
+        supportInfo.bizp_type_cd.datas[0].code == "02"
+    );
+  }, [supportInfo]);
   const tooltipOpen = (e) => {
     e.stopPropagation();
     const target = e.currentTarget.querySelector(".toolTipBox");
@@ -45,9 +55,9 @@ const FilterButton = ({ item, onClick, idx, baseObj }) => {
           (hasToolTip ? styles.tooltipBtn : ""))
       }
       onClick={(e) => {
-        onClick(item, e);
+        notReady ? alert("예비창업자는 선택할 수 없습니다.") : onClick(item, e);
       }}
-      data-disabled={disabled ? "disabled" : null}
+      data-disabled={disabled || notReady ? "disabled" : null}
     >
       {item.code_nm}
       {hasToolTip && (

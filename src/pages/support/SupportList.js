@@ -84,6 +84,22 @@ const SupportList = ({}) => {
         });
       } else {
         console.log("LIST SEARCH : 전체 지원사업 보기 X");
+        const thisData = {
+          ord: ord,
+          keyword: keyword,
+          business_type: dataToString("bizp_type_cd"),
+          target_cat_name: dataToString("spt_cd"),
+          business_ctg: dataToString("biz_cd"),
+          tech_ctg: dataToString("tech_cd"),
+          loc_code: dataToString("loc_cd"),
+        };
+        if (dataToString("bizp_type_cd") != "02") {
+          Object.assign(thisData, {
+            start_period: dataToString("prd_cd"),
+            company_type: dataToString("biz_type_cd"),
+          });
+        }
+        console.log(thisData);
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -221,9 +237,12 @@ const SupportList = ({}) => {
     }
   }, [keyword, supportData, supportFilterCont]);
   useEffect(() => {
-    console.log(supportFilterCont.length);
+    console.log("supportFilterCont.length", supportFilterCont.length);
   }, [supportFilterCont]);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  useEffect(() => {
+    isLoggedIn ? setMobileFilterOpen(true) : setMobileFilterOpen(false);
+  }, [isLoggedIn]);
   return (
     <>
       <div className={styles.SupportList}>

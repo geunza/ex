@@ -419,7 +419,6 @@
         &.homeNotice {
         }
       }
-
     }
   }
   .SnsLogin {
@@ -450,16 +449,16 @@
         min-width: 40%;
         position: relative;
         &:first-of-type button {
-          background:#30d6c2;
+          background: #30d6c2;
         }
         &:nth-of-type(2) button {
-          background:#00146b;
+          background: #00146b;
         }
         &:nth-of-type(3) button {
-          background:#ffb400;
+          background: #ffb400;
         }
         &:last-of-type button {
-          background:$color-sub;
+          background: $color-sub;
         }
         &:first-of-type button {
           background: #30d6c2;
@@ -486,7 +485,7 @@
         button {
           height: auto;
           padding: 15px 0;
-          border:none;
+          border: none;
           box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.3);
           border: none;
           box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.3);
@@ -508,7 +507,52 @@
       }
     }
   }
-
+  .HomeCommunity {
+    //
+    padding: 15px 0 12px 15px;
+    @include shadowBox;
+    .topArea {
+      padding-right: 15px;
+      p {
+        color: #fff;
+      }
+    }
+    .contArea {
+      //
+      overflow: hidden;
+      height: auto;
+      .mySwiper {
+        height: 50px;
+        .swiperSlide {
+          display: flex;
+          align-items: center;
+          .HomeCommunityItem {
+            a {
+              padding-right: 30px;
+              background: url("/assets/img/mobile/btn_next_purple.png")
+                no-repeat calc(100% - 15px) center/auto 13px;
+              h5 {
+                text-align: left;
+                font-size: 16px;
+                padding-bottom: 0px;
+              }
+              .countArea {
+                display: none;
+              }
+            }
+          }
+          h4 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+      ul {
+        //
+      }
+    }
+  }
   .CountArea {
     padding: 15px;
     display: flex;

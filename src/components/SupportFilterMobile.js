@@ -64,8 +64,22 @@ const SupportFilterMobile = ({}) => {
             </p>
             <div className={styles.filterModalBtnWrap}>
               <button
+                style={{
+                  opacity:
+                    supportInfo.bizp_type_cd.datas[0].code == "02" ? 0.5 : null,
+                  color:
+                    supportInfo.bizp_type_cd.datas[0].code == "02"
+                      ? "#555"
+                      : null,
+                  borderColor:
+                    supportInfo.bizp_type_cd.datas[0].code == "02"
+                      ? "#555"
+                      : null,
+                }}
                 onClick={() => {
-                  filterModalOpen(true, 4);
+                  supportInfo.bizp_type_cd.datas[0].code == "02"
+                    ? alert("예비창업자는 선택할 수 없습니다.")
+                    : filterModalOpen(true, 4);
                 }}
               >
                 {supportInfo.prd_cd.datas.length > 1
@@ -87,8 +101,22 @@ const SupportFilterMobile = ({}) => {
             </p>
             <div className={styles.filterModalBtnWrap}>
               <button
+                style={{
+                  opacity:
+                    supportInfo.bizp_type_cd.datas[0].code == "02" ? 0.5 : null,
+                  color:
+                    supportInfo.bizp_type_cd.datas[0].code == "02"
+                      ? "#555"
+                      : null,
+                  borderColor:
+                    supportInfo.bizp_type_cd.datas[0].code == "02"
+                      ? "#555"
+                      : null,
+                }}
                 onClick={() => {
-                  filterModalOpen(true, 5);
+                  supportInfo.bizp_type_cd.datas[0].code == "02"
+                    ? alert("예비창업자는 선택할 수 없습니다.")
+                    : filterModalOpen(true, 5);
                 }}
               >
                 {supportInfo.biz_type_cd.datas.length > 1

@@ -1,6 +1,5 @@
 import { current, configureStore, createSlice } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import supportItems from "db/supportItems.json";
 import { isCompositeComponent } from "react-dom/test-utils";
 
 // 모바일
@@ -133,11 +132,10 @@ let supportInfo = createSlice({
       name: "사업자형태",
       multiply: false,
       require: true,
-      cState: true,
       datas: [
         {
-          code_nm: "예비창업자",
-          code: "02",
+          code_nm: "법인사업자",
+          code: "03",
           ctg_cd: "bizp_type_cd",
           ctg_nm: "사업자형태",
         },
@@ -147,7 +145,6 @@ let supportInfo = createSlice({
       name: "기업형태",
       multiply: true,
       require: true,
-      cState: false,
       datas: [
         {
           code_nm: "중소기업",
@@ -161,7 +158,6 @@ let supportInfo = createSlice({
       name: "창업기간",
       multiply: false,
       require: true,
-      cState: false,
       datas: [
         {
           code_nm: "1년 미만",
@@ -175,7 +171,6 @@ let supportInfo = createSlice({
       name: "지원분야",
       multiply: true,
       require: true,
-      cState: true,
       datas: [
         {
           code_nm: "사업화 지원",
@@ -189,11 +184,10 @@ let supportInfo = createSlice({
       name: "사업분야",
       multiply: true,
       require: true,
-      cState: true,
       datas: [
         {
-          code_nm: "제조",
-          code: "02",
+          code_nm: "전체",
+          code: "01",
           ctg_cd: "biz_cd",
           ctg_nm: "사업분야",
         },
@@ -203,11 +197,10 @@ let supportInfo = createSlice({
       name: "기술분야",
       multiply: true,
       require: true,
-      cState: true,
       datas: [
         {
-          code_nm: "딥테크",
-          code: "02",
+          code_nm: "전체",
+          code: "01",
           ctg_cd: "tech_cd",
           ctg_nm: "기술분야",
         },
@@ -217,10 +210,9 @@ let supportInfo = createSlice({
       name: "지역",
       multiply: true,
       require: false,
-      cState: true,
       datas: [
         {
-          code_nm: "지역무관",
+          code_nm: "전국",
           code: "C82",
           ctg_cd: "loc_cd",
           ctg_nm: "지역",
@@ -237,42 +229,34 @@ let supportInfo = createSlice({
       const stateCate = state[cate];
       const require = stateCate.require;
       const multiply = stateCate.multiply;
-      const cState = stateCate.cState;
-      console.log(cState);
-      if (cState == false) {
-        alert("예비 창업자는 선택할 수 없습니다.");
-      } else {
-        if (multiply) {
-          if (name == "전체") {
-            if (
-              require &&
-              stateCate.datas.filter((x) => x.code_nm != "전체").length == 0
-            ) {
+      if (multiply) {
+        if (name == "전체") {
+          if (
+            require &&
+            stateCate.datas.filter((x) => x.code_nm != "전체").length == 0
+          ) {
+            alert("한가지 이상 선택해주세요.");
+          }
+          stateCate.datas = [item];
+        } else {
+          stateCate.datas = stateCate.datas.filter((x) => x.code_nm != "전체");
+          if (someItem(stateCate.datas, item)) {
+            if (require && stateCate.datas.length == 1) {
               alert("한가지 이상 선택해주세요.");
-            }
-            stateCate.datas = [item];
-          } else {
-            stateCate.datas = stateCate.datas.filter(
-              (x) => x.code_nm != "전체"
-            );
-            if (someItem(stateCate.datas, item)) {
-              if (require && stateCate.datas.length == 1) {
-                alert("한가지 이상 선택해주세요.");
-              } else {
-                stateCate.datas = filterItem(stateCate.datas, item);
-              }
             } else {
-              stateCate.datas = addItem(stateCate.datas, item);
+              stateCate.datas = filterItem(stateCate.datas, item);
             }
+          } else {
+            stateCate.datas = addItem(stateCate.datas, item);
+          }
+        }
+      } else {
+        if (someItem(stateCate.datas, item)) {
+          if (require) {
+            alert("한가지 이상 선택해주세요.");
           }
         } else {
-          if (someItem(stateCate.datas, item)) {
-            if (require) {
-              alert("한가지 이상 선택해주세요.");
-            }
-          } else {
-            stateCate.datas = [item];
-          }
+          stateCate.datas = [item];
         }
       }
       sessionStorage.setItem(

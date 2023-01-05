@@ -598,6 +598,7 @@
           }
           &.btnZzim {
             box-shadow: none;
+            border: 1px solid #e6e6e6;
             button {
               @include flexCenter(5px);
               width: 100%;
@@ -624,15 +625,15 @@
             background: $color-borderGray;
           }
           &:nth-child(2)::after {
-            content: "";
-            display: block;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            width: 1px;
-            height: 27px;
-            margin-top: -13px;
-            background: $color-borderGray;
+            // content: "";
+            // display: block;
+            // position: absolute;
+            // right: 0;
+            // top: 50%;
+            // width: 1px;
+            // height: 27px;
+            // margin-top: -13px;
+            // background: $color-borderGray;
           }
         }
       }
