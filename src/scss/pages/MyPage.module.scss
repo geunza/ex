@@ -224,9 +224,6 @@
 
 
 
-
-
-
 /*반응형*/
 @media screen and (max-width: 1023px) {
   .MyPage {
@@ -249,17 +246,20 @@
       margin-bottom: 50px;
     }
     .mainTit {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 15px;
+      font-size: 18px;
       span {
         position: relative;
       }
     }
-    .tit,
-    .filterTit {
-      font-size: 18px;
-      margin-bottom: 10px;
+    .notice {
+      text-align: center;
+      background-color:#f6f8fe;
+      border-radius: $radius-btn;
+      padding:14px 0 8px 0;
+      font-size:13px;
+      line-height:1.3em;
+      color:#727272;
+      margin-bottom:25px;
     }
     .box {
       padding: 0px;
@@ -278,6 +278,9 @@
           justify-content: left;
           flex-flow: row;
           gap: 0px;
+          background-image: url("/assets/img/global/btn/btn_next.png");
+          background-repeat:no-repeat;
+          background-position:center right 30px;
           .imgArea {
             height: 90px;
             transform: scale(.55);
@@ -293,27 +296,19 @@
     .myCompany {
       .box {
         .myPageForm {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
           gap: 20px;
           .halfItem {
-            width: 48%;
-          }
-          .fullItem {
             width: 100%;
           }
           label {
-            display: block;
+            font-size:16px;
+            margin-bottom:5px;
           }
           input[type="text"] {
             width: 100%;
             padding: 0 10px;
             border: 1px solid $color-borderGray;
             border-radius: $radius-btn;
-            height: 45px;
-            font-size: 14px;
-            outline: none;
           }
           .filterListWrap {
             width: 100%;
@@ -364,17 +359,10 @@
             padding: 0 10px;
           }
           .submitArea {
-            width: 100%;
-            padding-top: 20px;
-            border-top: 1px solid $color-borderGray;
             .btnSubmit {
-              background: $color-sub;
-              height: 60px;
-              font-size: 18px;
-              color: #fff;
-              border: none;
-              width: 100%;
-              border-radius: 50px;
+              height: 50px;
+              font-size: 16px;
+              padding-top:4px;
             }
           }
         }
@@ -384,22 +372,12 @@
       .loginSns {
         margin-bottom: 20px;
       }
-      input[type="text"] {
-      }
-      .box {
-        background: red;
+      .tit {
+        font-size:14px;
+        color:#888888;
       }
       button {
-        font-size: 14px;
-        padding-top: 3px;
-        height: 45px;
-        width: 140px;
-        border-radius: 50px;
-      }
-      .btnBlue {
-        background: #fff;
-        border: 1px solid $color-sub;
-        color: $color-sub;
+        width:calc(50% - 5px);
       }
       .btnGray {
         background: #fff;
@@ -417,7 +395,7 @@
       }
       .iptArea {
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 10px;
         input[type="text"] {
           padding: 0 15px;
           font-size: 13px;
@@ -435,7 +413,8 @@
       }
     }
   }
-
-
+  :global .btnToolTip {
+    display:none;
+  }
 
 }

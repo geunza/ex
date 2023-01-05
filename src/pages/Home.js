@@ -167,7 +167,7 @@ const Home = ({}) => {
                   <span>공지사항</span>
                 </h3>
                 <Link
-                  className={`${styles.linkComm} ${styles.homeNotice}`}
+                  className={`white ${styles.linkComm} ${styles.homeNotice}`}
                   to={`/notice/noticeList`}
                 >
                   {noticeList.title}

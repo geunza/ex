@@ -147,7 +147,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
   }, [alarmObj]);
   return (
     <div className={styles.modalWrap}>
-      <div className={styles.modalInner} style={{ maxWidth: "500px" }}>
+      <div className={`${styles.full} ${styles.modalInner}`} style={{ maxWidth: "500px" }}>
         <div className={styles.MyPageModal}>
           <div className={styles.modalTop}>
             <div className={styles.tit}>

@@ -564,6 +564,7 @@
       padding-top: 0;
     }
     .titleArea {
+      display:none;
       border-bottom: 1px solid #e1e2e3;
       .inner {
         flex-wrap: wrap;
@@ -584,9 +585,11 @@
     .m_written {
       display: flex;
       justify-content: space-between;
-      width: 100%;
+      width: calc(100% + 40px);
+      margin-left:-20px;
       gap: 10px;
-      padding: 15px 0 0;
+      padding: 15px 20px 20px;
+      border-bottom:1px solid #e1e2e3;
       button {
         font-size: 12px;
         border: none;
@@ -612,6 +615,7 @@
       padding: 0 20px;
       background: #fff;
       border-bottom: 1px solid #e1e2e3;
+      border-top:5px solid #f3f3f3;
       overflow-x: auto;
       button {
         white-space: nowrap;
@@ -842,5 +846,168 @@
         }
       }
     }
+  }
+
+  .CommunityWrite {
+    .titleFlex {
+      display:none;
+    }
+    :global .inner {
+      padding-top: 00px;
+    }
+    .writeArea {
+      > * {
+        padding: 0;
+      }
+      .cateArea {
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: none;
+        .cateTit {
+          font-size: 16px;
+          margin-bottom:8px
+        }
+        .cateItems {
+          width: 100%;
+          .currentCate {
+            border: 1px solid #222222;
+            border-radius: $radius-btn;
+            color: #222;
+            font-size: 14px;
+            text-align: center;;
+            padding: 12px 0 8px 0;
+          }
+          .cateItems {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: 10;
+            background-color: #fff;
+            width: 100%;
+            border: 1px solid $color-borderGray;
+            .cateItem {
+              &:not(:last-child) {
+                border-bottom: 1px solid $color-borderGray;
+              }
+              button {
+                width: 100%;
+                display: block;
+                text-align: left;
+                border: none;
+                font-size: 16px;
+                padding: 13px 0 10px 15px;
+              }
+            }
+          }
+        }
+      }
+      .txtArea {
+        .titleArea {
+          padding: 15px 0;
+          input[type="text"] {
+            font-size: 14px;
+            padding: 13px 20px 11px;
+            border: 1px solid $color-borderGray;
+            border-radius: $radius-btn;
+          }
+        }
+        .editorArea {
+          .editInform {
+            position: absolute;
+            left: 0;
+            top: 50px;
+            padding: 15px 25px;
+            pointer-events: none;
+            user-select: none;
+            .tit {
+              color: $color-gray;
+              font-size: 22px;
+              margin-bottom: 15px;
+            }
+            .para {
+              color: $color-gray;
+              font-size: 14px;
+              span {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+      .notice {
+        display:block;
+        text-align: right;
+        color:#888888;
+        font-size:12px;
+        margin-bottom:8px;
+      }
+      .fileArea {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        flex-direction: column;;
+        font-size: 14px;
+        border-top: none;
+        input[type="file"] {
+          display: none;
+        }
+        label {
+          width:100%;
+          justify-content: center;
+          gap: 10px;
+          border: 1px solid $color-sub;
+          background: #fff;
+          color: $color-sub;
+          padding: 9px 15px 7px;
+          border-radius: 5px;
+        }
+        .items {
+          width:100%;
+          flex-wrap: wrap;
+          background:#f6f8fe;
+          padding:0;
+          border-radius: 5px;
+          .item {
+            width:100%;
+            justify-content: space-between;
+            border: none;
+            color: $color-sub;
+            border-radius: 50px;
+            padding: 7px 15px 5px;
+            gap: 10px;
+            span {
+              display:block;
+              width:85%;
+              text-overflow: ellipsis;
+              white-space:nowrap;
+              overflow: hidden;
+              padding-top: 2px;
+              color:#666666;
+              font-size:13px;
+            }
+            &:first-of-type {
+              margin-top:20px;
+            }
+            &:last-of-type {
+              margin-bottom:20px;
+            }
+            img {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+  .mobileWrite {
+    width:100%;
+    background:$color-sub;
+    color:#fff;
+    border-radius: 50px;
+    outline:none;
+    border:none;
+    font-size:16px;
+    padding:17px 0 14px;
+    margin-top:25px;
   }
 }

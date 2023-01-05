@@ -86,3 +86,20 @@
 //     width: 100%;
 //   }
 // }
+
+
+
+
+/*반응형*/
+@media screen and (max-width: 1023px) {
+  .Banner .pagination {
+    display:block;
+    top:auto !important;
+    bottom:-30px;
+    height:auto !important;
+    text-align: center;
+    .swiper-pagination-bullet-active {
+      background:$color-main;
+    }
+  }
+}

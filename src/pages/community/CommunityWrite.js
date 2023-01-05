@@ -207,6 +207,7 @@ const CommunityWrite = () => {
                 />
               </div>
             </div>
+            <p className={styles.notice}><span className="req">*</span>파일 개당 20MB,최대 5개 업로드 가능</p>
             <div className={styles.fileArea}>
               <FileUpload
                 styles={styles}
@@ -217,6 +218,13 @@ const CommunityWrite = () => {
               />
             </div>
           </div>
+          <button
+              type="button"
+              onClick={btnSubmit}
+              className={`isMobile ${styles.mobileWrite} ${styles.btnSubmit}`}
+            >
+              등록
+            </button>
         </div>
       </div>
     </>

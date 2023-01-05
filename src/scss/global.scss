@@ -373,6 +373,9 @@ body {
     }
   }
 }
+.isMobile {
+  display:none;
+}
 
 /*반응형*/
 @media screen and (max-width: 1023px) {
@@ -547,5 +550,17 @@ body {
       }
     }
   }
-
+  .white {
+    background-color:#fff !important;
+    color:#101010 !important;
+  }
+  .isMobile {
+    display:block;
+  }
+  .req {
+    color:#d43d4e;
+    font-size:16px;
+    font-weight:500;
+    margin:0 4px
+  }
 }

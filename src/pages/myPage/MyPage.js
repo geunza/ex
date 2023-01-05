@@ -59,6 +59,7 @@ const MyPage = () => {
         <div className="inner">
           <div className={styles.myRecord}>
             <h4 className={styles.mainTit}>활동이력</h4>
+            <p className={`isMobile ${styles.notice}`}>회원님의 활동을 바로 확인할 수 있어요.</p>
             <div className={styles.box}>
               <button
                 type="button"
@@ -121,6 +122,7 @@ const MyPage = () => {
                 </i>
               </span>
             </h4>
+            <p className={`isMobile ${styles.notice}`}>지원사업 조건을 수정하면<br/>맞춤정보를 받을 수 있어요.</p>
             <div className={styles.box}>
               <MyCompany />
             </div>
@@ -142,6 +144,7 @@ const MyPage = () => {
                 </i>
               </span>
             </h4>
+            <p className={`isMobile ${styles.notice}`}>로그인 정보를 수정할 수 있어요.</p>
             <div className={styles.box}>
               <MyLogin />
             </div>
