@@ -448,6 +448,7 @@
         border: none;
         background: #f2f4f6;
         padding: 0 20px 20px 20px;
+        padding: 15px;
       }
       .listArea {
         width: 100%;
@@ -616,14 +617,18 @@
     left: auto;
     top: auto;
     background: #fff;
+    padding: 15px;
+    border: 1px solid $color-borderGray;
+    border-radius: $radius-btn;
+    padding: 15px;
     h4 {
       display: none;
     }
     .chkArea {
       display: flex;
       align-items: center;
-      margin-bottom: 0px;
-      background: #f1f2f1;
+      margin-bottom: 10px;
+      background: #fff;
       input[type="checkbox"] {
         margin-right: 10px;
       }
@@ -634,8 +639,7 @@
       }
     }
     .filterBox {
-      border: 1px solid $color-borderGray;
-      border-radius: $radius-btn;
+      border: none;
       .filterList {
         //
         padding: 15px 0;
@@ -727,15 +731,17 @@
       }
       .submitArea {
         //
-        padding: 20px;
+        padding: 15px 0 0;
         border-top: 1px solid $color-borderGray;
         button {
           @include flexCenter();
           width: 100%;
-          font-size: 16px;
-          border: 1px solid #222;
+          font-size: 14px;
+          border: none;
           border-radius: $radius-btn;
-          height: 50px;
+          background-color: $color-sub;
+          color: #fff;
+          height: 40px;
 
           span {
             padding-top: 2px;

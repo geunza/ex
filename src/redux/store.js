@@ -6,7 +6,7 @@ import { isCompositeComponent } from "react-dom/test-utils";
 // 모바일
 let isMobile = createSlice({
   name: "isMobile",
-  initialState: false,
+  initialState: window.innerWidth > 1023,
   reducers: {
     setIsMobile(state, action) {
       return action.payload;

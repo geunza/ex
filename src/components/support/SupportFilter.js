@@ -484,7 +484,23 @@ const SupportFilter = ({
             </div>
           </div>
         ) : (
-          <SupportFilterMobile />
+          <div className={styles.filterBox}>
+            <SupportFilterMobile />
+            <div className={styles.submitArea}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    dispatch(setLoginCheck(true));
+                  } else {
+                    handleSubmitBtn();
+                  }
+                }}
+              >
+                <span>조회</span>
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </>

@@ -140,7 +140,7 @@ const SupportContent = ({
         setMobileMore(true);
       }
     }
-  }, [mobilePage, supportFilterCont, supportData]);
+  }, [mobilePage, supportFilterCont, supportData, total]);
   useEffect(() => {
     if (lastCheckTarget) {
       window.addEventListener("scroll", listener);
@@ -149,7 +149,10 @@ const SupportContent = ({
       window.removeEventListener("scroll", listener);
     };
   }, [lastCheckTarget]);
-
+  useEffect(() => {
+    // console.log("isMobile", isMobile);
+    // console.log("mobileMore", mobileMore);
+  }, [isMobile, mobileMore]);
   return (
     <div className={styles.SupportContent}>
       <div className={styles.ordWrap}>
