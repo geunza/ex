@@ -389,6 +389,26 @@
       }
     }
   }
+  .modifySubmit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    button {
+      color: #fff;
+      border-radius: 50px;
+      font-size: 16px;
+      border: none;
+      padding: 16px 75px 13px;
+    }
+    .btnSubmit {
+      background: #4949db;
+    }
+    .btnDelete {
+      background: #555;
+    }
+  }
 }
 .CommunityListItem {
   .cate {
@@ -564,7 +584,7 @@
       padding-top: 0;
     }
     .titleArea {
-      display:none;
+      display: none;
       border-bottom: 1px solid #e1e2e3;
       .inner {
         flex-wrap: wrap;
@@ -586,10 +606,10 @@
       display: flex;
       justify-content: space-between;
       width: calc(100% + 40px);
-      margin-left:-20px;
+      margin-left: -20px;
       gap: 10px;
       padding: 15px 20px 20px;
-      border-bottom:1px solid #e1e2e3;
+      border-bottom: 1px solid #e1e2e3;
       button {
         font-size: 12px;
         border: none;
@@ -615,7 +635,7 @@
       padding: 0 20px;
       background: #fff;
       border-bottom: 1px solid #e1e2e3;
-      border-top:5px solid #f3f3f3;
+      border-top: 5px solid #f3f3f3;
       overflow-x: auto;
       button {
         white-space: nowrap;
@@ -756,7 +776,7 @@
       padding: 10px 15px 8px;
     }
     &.mainReply {
-      padding: 20px 0px;
+      padding: 20px;
     }
     .rightArea {
       display: flex;
@@ -806,7 +826,7 @@
       display: flex;
       align-items: center;
       gap: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 0;
       .reReplyTxt {
         margin: 0;
       }
@@ -814,11 +834,11 @@
     button {
       display: block;
       margin: 0 0 0 auto;
-      font-size: 16px;
+      font-size: 14px;
       background: $color-borderGray;
       color: $color-deepGray;
       border: none;
-      padding: 14px 20px 11px;
+      padding: 10px 15px 6px;
       border-radius: 50px;
       &:hover {
         color: #fff;
@@ -833,7 +853,8 @@
       flex-flow: row;
       align-items: center;
       width: 100%;
-      padding: 15px 0 15px 20px;
+      padding: 15px 15px 15px 20px;
+      margin: 0;
       .reReplyContWrap {
         padding: 20px 15px;
         border: 1px solid $color-borderGray;
@@ -850,7 +871,7 @@
 
   .CommunityWrite {
     .titleFlex {
-      display:none;
+      display: none;
     }
     :global .inner {
       padding-top: 00px;
@@ -865,7 +886,7 @@
         border-bottom: none;
         .cateTit {
           font-size: 16px;
-          margin-bottom:8px
+          margin-bottom: 8px;
         }
         .cateItems {
           width: 100%;
@@ -874,7 +895,7 @@
             border-radius: $radius-btn;
             color: #222;
             font-size: 14px;
-            text-align: center;;
+            text-align: center;
             padding: 12px 0 8px 0;
           }
           .cateItems {
@@ -919,6 +940,7 @@
             padding: 15px 25px;
             pointer-events: none;
             user-select: none;
+            resize: none;
             .tit {
               color: $color-gray;
               font-size: 22px;
@@ -935,24 +957,24 @@
         }
       }
       .notice {
-        display:block;
+        display: block;
         text-align: right;
-        color:#888888;
-        font-size:12px;
-        margin-bottom:8px;
+        color: #888888;
+        font-size: 12px;
+        margin-bottom: 8px;
       }
       .fileArea {
         display: flex;
         gap: 10px;
         align-items: flex-start;
-        flex-direction: column;;
+        flex-direction: column;
         font-size: 14px;
         border-top: none;
         input[type="file"] {
           display: none;
         }
         label {
-          width:100%;
+          width: 100%;
           justify-content: center;
           gap: 10px;
           border: 1px solid $color-sub;
@@ -962,13 +984,13 @@
           border-radius: 5px;
         }
         .items {
-          width:100%;
+          width: 100%;
           flex-wrap: wrap;
-          background:#f6f8fe;
-          padding:0;
+          background: #f6f8fe;
+          padding: 0;
           border-radius: 5px;
           .item {
-            width:100%;
+            width: 100%;
             justify-content: space-between;
             border: none;
             color: $color-sub;
@@ -976,20 +998,20 @@
             padding: 7px 15px 5px;
             gap: 10px;
             span {
-              display:block;
-              width:85%;
+              display: block;
+              width: 85%;
               text-overflow: ellipsis;
-              white-space:nowrap;
+              white-space: nowrap;
               overflow: hidden;
               padding-top: 2px;
-              color:#666666;
-              font-size:13px;
+              color: #666666;
+              font-size: 13px;
             }
             &:first-of-type {
-              margin-top:20px;
+              margin-top: 20px;
             }
             &:last-of-type {
-              margin-bottom:20px;
+              margin-bottom: 20px;
             }
             img {
               cursor: pointer;
@@ -1000,14 +1022,40 @@
     }
   }
   .mobileWrite {
-    width:100%;
-    background:$color-sub;
-    color:#fff;
+    width: 100%;
+    background: $color-sub;
+    color: #fff;
     border-radius: 50px;
-    outline:none;
-    border:none;
-    font-size:16px;
-    padding:17px 0 14px;
-    margin-top:25px;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    padding: 17px 0 14px;
+    margin-top: 25px;
+  }
+
+  .CommunityModify {
+    .modifySubmit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
+      padding: 0 20px;
+      button {
+        color: #fff;
+        border-radius: 50px;
+        font-size: 14px;
+        border: none;
+        padding: 17px 0 14px;
+        width: 100%;
+      }
+      .btnSubmit {
+        background: #4949db;
+      }
+      .btnDelete {
+        background: #555;
+      }
+    }
   }
 }

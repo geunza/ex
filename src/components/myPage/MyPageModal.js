@@ -101,10 +101,8 @@ const MyPageModal = ({ setAlaramOpen }) => {
         marketingPush: boolToYN(alarmAgree),
       },
     }).then((res) => {
-      // CHECK : response는 success지만 결과값 null 오는 상태, 확인 필요
-      console.log("res", res);
-
       setAlaramOpen(false);
+      alert("설정 완료되었습니다.");
     });
   };
   const getAlarmData = () => {
@@ -147,7 +145,10 @@ const MyPageModal = ({ setAlaramOpen }) => {
   }, [alarmObj]);
   return (
     <div className={styles.modalWrap}>
-      <div className={`${styles.full} ${styles.modalInner}`} style={{ maxWidth: "500px" }}>
+      <div
+        className={`${styles.full} ${styles.modalInner}`}
+        style={{ maxWidth: "500px" }}
+      >
         <div className={styles.MyPageModal}>
           <div className={styles.modalTop}>
             <div className={styles.tit}>

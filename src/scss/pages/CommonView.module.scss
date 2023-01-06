@@ -183,11 +183,10 @@
   }
 }
 
-
 /*반응형*/
 @media screen and (max-width: 1023px) {
   body {
-    background:#fff;
+    background: #fff;
   }
   .CommonView {
     //
@@ -212,17 +211,17 @@
     }
     .contWrap {
       padding: 25px 00px 0 0;
-      margin-bottom:0;
+      margin-bottom: 0;
       background-color: #fff;
       .contTop {
-        display:flex;
+        display: flex;
         flex-direction: column;
         border-bottom: 1px solid #e1e2e3;
         .writer {
           margin-bottom: 15px;
-          order:2;
+          order: 2;
           .nickname {
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 5px;
             line-height: 1;
           }
@@ -232,22 +231,22 @@
           }
         }
         .titleArea {
-          padding:0;
-          order:1;
+          padding: 0;
+          order: 1;
           h3 {
             font-size: 17px;
-            font-weight:700;
+            font-weight: 700;
             white-space: normal;
             text-overflow: clip;
-            margin-bottom:20px;
+            margin-bottom: 20px;
           }
         }
       }
       .cont {
-        padding:20px 0px;
+        padding: 20px 0px;
         color: $color-deepGray;
         font-size: 14px;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         p {
           word-break: break-all;
         }
@@ -256,9 +255,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-bottom:30px;
+        padding-bottom: 30px;
         .btnLike {
-          margin:0 0 0 auto;
+          margin: 0 0 0 auto;
         }
         .controlWrap {
           position: relative;
@@ -272,7 +271,7 @@
             padding: 10px 0;
             background-color: #fff;
             @include shadowBox;
-  
+
             button {
               width: 80px;
               border: none;
@@ -283,18 +282,17 @@
           }
         }
         :global .controlBoxWrap {
-          margin:0 0 0 auto;
+          margin: 0 0 0 auto;
           .controlBox {
-            left:20%;
+            left: 20%;
           }
         }
-        
       }
       .fileArea {
         display: flex;
         flex-wrap: wrap;
-        border-bottom:1px solid #e1e2e3;
-        padding:17px 20px 25px 20px;
+        border-bottom: 1px solid #e1e2e3;
+        padding: 17px 20px 25px 20px;
         margin: 35px -20px 0 -20px;
         li {
           a {
@@ -305,14 +303,14 @@
       }
     }
     .commentArea {
-      margin:0 -20px;
-      padding:0 20px;
-      border-top:5px solid #f3f3f3;
-      border-radius: 0;;
+      margin: 0 -20px;
+      padding: 0 20px;
+      border-top: 5px solid #f3f3f3;
+      border-radius: 0;
       textarea {
         padding: 15px;
         font-size: 14px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
       }
       .needSignIn {
         padding: 20px 40px;
@@ -325,7 +323,7 @@
           font-size: 16px;
           margin-bottom: 15px;
         }
-  
+
         button {
           font-size: 12px;
           background: #4949db;
@@ -336,6 +334,9 @@
             background-color: $color-sub;
           }
         }
+      }
+      > ul {
+        margin: 0 -20px;
       }
     }
   }
@@ -359,5 +360,4 @@
       }
     }
   }
-
 }

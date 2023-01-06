@@ -239,9 +239,9 @@ const SupportList = ({}) => {
   useEffect(() => {
     console.log("supportFilterCont.length", supportFilterCont.length);
   }, [supportFilterCont]);
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(!isLoggedIn);
   useEffect(() => {
-    isLoggedIn ? setMobileFilterOpen(true) : setMobileFilterOpen(false);
+    isLoggedIn ? setMobileFilterOpen(!true) : setMobileFilterOpen(!false);
   }, [isLoggedIn]);
   return (
     <>

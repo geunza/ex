@@ -30,6 +30,12 @@ const Home = ({}) => {
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
+  const [count, setCount] = useState({
+    total_cnt: 0,
+    week_cnt: 0,
+    user_cnt: 0,
+    target_cnt: 0,
+  });
   const modalOpener = (e) => {
     const {
       currentTarget: { name, value },
@@ -92,7 +98,7 @@ const Home = ({}) => {
             Modal1={Modal1}
           />
           <div className={styles.sec02}>
-            {!isMobile && <HomeCommunity setAxiosCount={setAxiosCount} />}
+            {!isMobile && <HomeCommunity />}
             {isMobile && (
               <>
                 <div className={styles.mobileBox}>
@@ -127,6 +133,19 @@ const Home = ({}) => {
                 <div className={styles.mobileBox}>
                   <h3 className={styles.mobileTit}>
                     <img
+                      src={require("assets/img/global/ico/ico_zzim_black.png")}
+                      alt="찜"
+                    />
+                    <span>모든 지원사업</span>
+                  </h3>
+                  <Link className={styles.linkSaved} to="/support/supportList">
+                    누적 지원사업
+                    <mark> {count.user_cnt.toLocaleString()}개</mark>
+                  </Link>
+                </div>
+                <div className={styles.mobileBox}>
+                  <h3 className={styles.mobileTit}>
+                    <img
                       src={require("assets/img/mobile/mobileComm.png")}
                       alt=""
                     />
@@ -138,7 +157,7 @@ const Home = ({}) => {
                   >
                     기업 운영에 관한 모든 것들을 커뮤니티에서 공유해봐요!
                   </Link> */}
-                  <HomeCommunity setAxiosCount={setAxiosCount} />
+                  <HomeCommunity />
                 </div>
                 <div className={styles.mobileBox}>
                   <h3 className={styles.mobileTit}>
@@ -157,9 +176,9 @@ const Home = ({}) => {
                 </div>
               </>
             )}
-            <CountArea setAxiosCount={setAxiosCount} />
+            <CountArea count={count} setCount={setCount} />
           </div>
-          <HomeSupport setAxiosCount={setAxiosCount} />
+          <HomeSupport />
           {isMobile && Object.keys(noticeList).length > 0 && (
             <>
               <div className={styles.mobileBox}>

@@ -155,7 +155,7 @@ const SupportFilter = ({
       target.classList.remove("active");
     } else {
       const allTarget = document
-        .querySelector('[class^="Support_modalCont"]')
+        // .querySelector('[class^="Support_modalCont"]')
         .querySelectorAll(".toolTipBox");
       allTarget.forEach((v) => v.classList.remove("active"));
       target.classList.add("active");
@@ -287,9 +287,9 @@ const SupportFilter = ({
                       {modalOn && modalIdx == idx && (
                         <div className={styles.filterItemModal}>
                           <div className={styles.modalCont}>
-                            <p className={styles.itemTit}>
+                            <div className={styles.itemTit}>
                               {supportInfo.biz_cd.name}
-                            </p>
+                            </div>
                             <ul>
                               {supportItem.biz_cd.map((item, idx) => {
                                 return (
@@ -310,7 +310,7 @@ const SupportFilter = ({
                                 );
                               })}
                             </ul>
-                            <p className={styles.itemTit}>
+                            <div className={styles.itemTit}>
                               <span>
                                 {supportInfo[cate].name}
                                 <i className="btnToolTip" onClick={tooltipOpen}>
@@ -343,7 +343,7 @@ const SupportFilter = ({
                                   </div>
                                 </i>
                               </span>
-                            </p>
+                            </div>
                             <ul>
                               {supportItem[cate].map((item, idx) => {
                                 let hasToolTip = false;
@@ -452,9 +452,9 @@ const SupportFilter = ({
                     {modalOn && modalIdx == idx && (
                       <div className={styles.filterItemModal}>
                         <div className={styles.modalCont}>
-                          <p className={styles.itemTit}>
+                          <div className={styles.itemTit}>
                             {supportInfo[cate].name}
-                          </p>
+                          </div>
                           <ul>
                             {supportItem[cate].map((item, idx) => {
                               return (

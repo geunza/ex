@@ -170,15 +170,12 @@ const SupportItem = ({
               >
                 <img
                   priority="true"
-                  src={require("assets/img/global/ico/ico_zzim_black.png")}
-                  style={{ display: isZzim ? "none" : null }}
-                  alt="찜X"
-                />
-                <img
-                  priority="true"
-                  src={require("assets/img/global/ico/ico_zzim.png")}
-                  style={{ display: !isZzim ? "none" : null }}
-                  alt="찜O"
+                  src={
+                    isZzim
+                      ? require("assets/img/global/ico/ico_zzim.png")
+                      : require("assets/img/global/ico/ico_zzim_black.png")
+                  }
+                  alt={`찜 : ${isZzim}`}
                 />
                 <span>찜</span>
               </button>

@@ -4,14 +4,9 @@ import styles from "scss/pages/Home.module.scss";
 import axios from "axios";
 import CountUp from "react-countup";
 import { useSelector } from "react-redux";
-const CountArea = ({ setAxiosCount }) => {
+const CountArea = ({ count, setCount }) => {
   const isMobile = useSelector((state) => state.isMobile);
-  const [count, setCount] = useState({
-    total_cnt: 0,
-    week_cnt: 0,
-    user_cnt: 0,
-    target_cnt: 0,
-  });
+
   let cancel;
   const CancelToken = axios.CancelToken;
   const getCount = () => {
@@ -28,7 +23,6 @@ const CountArea = ({ setAxiosCount }) => {
     }).then((res) => {
       let data = res.data[0];
       setCount(data);
-      setAxiosCount((prev) => prev + 1);
     });
   };
 

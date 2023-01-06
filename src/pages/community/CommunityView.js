@@ -193,7 +193,7 @@ const CommunityView = () => {
     })
       .then((res) => {
         // dispatch(loadingEnd());
-        navigate(-1);
+        navigate("/community/communityList");
       })
       .catch((err) => console.log(err));
   };
