@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Editor from "components/community/Editor";
+import EditorModify from "components/community/EditorModify";
 import FileUpload from "components/community/FileUpload";
 import styles from "scss/pages/Community.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -170,7 +170,7 @@ const CommunityModify = () => {
                 />
               </div>
               <div className={styles.editorArea}>
-                <Editor
+                <EditorModify
                   styles={styles}
                   editorTxt={editorTxt}
                   setEditorTxt={setEditorTxt}

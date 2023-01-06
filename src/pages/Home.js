@@ -26,7 +26,6 @@ const Home = ({}) => {
   const kakaoInform = useSelector((state) => state.kakaoInform);
   const isMobile = useSelector((state) => state.isMobile);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const [axiosCount, setAxiosCount] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const [Modal1, setModal1] = useState(false);
   const [Modal2, setModal2] = useState(false);
@@ -50,11 +49,6 @@ const Home = ({}) => {
     }
   };
   const [lastCheck, setLastCheck] = useState(false);
-  useEffect(() => {
-    if (axiosCount == 3) {
-      // dispatch(loadingEnd());
-    }
-  }, [axiosCount]);
   useEffect(() => {
     console.log(kakaoInform);
     if (kakaoInform.state) {

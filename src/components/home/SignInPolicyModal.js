@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate("");
+  const isMobile = useSelector((state) => state.isMobile);
   const userInfo = useSelector((state) => state.userInfo);
   const [allChecked, setAllChecked] = useState(false);
   const [policyObj, setPolicyObj] = useState({
@@ -210,20 +211,50 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
   }
 
   return (
-    <div className={styles.modalWrap}>
+    <div className={`${styles.modalWrap} ${styles.SignInPolicyModal}`}>
       <div className={styles.modalInner}>
-        <div className={styles.SignInPolicyModal}>
-          <div className={styles.modalTop}>
-            <div className={styles.tit}>
-              <img
-                src={require("assets/img/global/ico/ico_policy.png")}
-                alt="엑시토 서비스 이용을 위한 마지막 단계입니다."
-              />
-              <p>엑시토 서비스 이용을 위한 마지막 단계입니다.</p>
+        <div>
+          {isMobile ? (
+            <div className={styles.MobileTitle}>
+              <button
+                className={styles.btnBack}
+                onClick={() => {
+                  // navigate(-1);
+                  if (window.confirm("약관동의를 취소하시겠습니까?")) {
+                    setLastCheck(false);
+                  }
+                }}
+              >
+                <img
+                  src={require("assets/img/global/btn/btn_back_mobile.png")}
+                  alt="Back"
+                />
+              </button>
+              <h3>약관동의</h3>
             </div>
-          </div>
+          ) : (
+            <div className={styles.modalTop}>
+              <div className={styles.tit}>
+                <img
+                  src={require("assets/img/global/ico/ico_policy.png")}
+                  alt="엑시토 서비스 이용을 위한 마지막 단계입니다."
+                />
+                <p>엑시토 서비스 이용을 위한 마지막 단계입니다.</p>
+              </div>
+            </div>
+          )}
+
           <div className={styles.modalCont}>
-            <h4>엑시토 서비스 이용 필수 항목</h4>
+            {isMobile ? (
+              <h4>
+                엑시토 서비스 이용을 위한
+                <br />
+                마지막 단계입니다.
+              </h4>
+            ) : (
+              <h4>엑시토 서비스 이용 필수 항목</h4>
+            )}
+
             <div className={styles.email}>
               <p>이메일</p>
               <input
