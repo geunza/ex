@@ -92,6 +92,7 @@ const Editor2 = ({
         ref={editorRef}
         onLoad={onLoad}
         onChange={onChange}
+        autofocus={false}
         toolbarItems={[
           // 툴바 옵션 설정
           ["heading", "bold", "italic", "strike"],
