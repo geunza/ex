@@ -684,13 +684,14 @@
     }
 
     .modalTop {
+      padding: 10px 20px;
       .tit {
         gap: 2px;
         img {
           transform: scale(0.75);
         }
         p {
-          font-size: 17px;
+          font-size: 16px;
         }
       }
       button {
@@ -702,7 +703,7 @@
     .subTit {
       font-size: 11px;
       background-color: #f0f4fd;
-      padding: 20px 0 17px;
+      padding: 15px 0 10px;
       span {
         display: block;
       }
@@ -868,7 +869,7 @@
         background: #f0f4fd;
         border-radius: 5px;
         text-align: center;
-        padding: 20px 0 17px;
+        padding: 15px 0 10px;
         span {
           display: block;
         }
@@ -890,8 +891,8 @@
         border: 1px solid $color-borderGray;
         font-size: 16px;
         padding: 0 15px;
-        height: 50px;
-        font-size: 14px;
+        height: 30px;
+        font-size: 12px;
       }
     }
     .eventModal_02 {

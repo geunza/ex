@@ -161,12 +161,12 @@ const Home = ({}) => {
                     />
                     <span>엑시토 이벤트</span>
                   </h3>
-                  {/* <Event
+                  <Event
                     setModalOn={setModalOn}
                     modalOn={modalOn}
                     modalOpener={modalOpener}
                     Modal2={Modal2}
-                  /> */}
+                  />
                 </div>
               </>
             )}

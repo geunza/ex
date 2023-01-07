@@ -480,7 +480,7 @@ const CommunityList = ({}) => {
                     src={require("assets/img/global/ico/ico_bubble.png")}
                     alt="내가 작성한 게시글, 댓글"
                   />
-                  <span>내가 작성한 게시글/댓글</span>
+                  <span>내가 작성한 게시글{!isMobile && "/댓글"}</span>
                 </button>
                 <button
                   type="button"
