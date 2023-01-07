@@ -15,28 +15,7 @@ const CommunityWrite = () => {
   const [title, setTitle] = useState(""); //title
   const [editorTxt, setEditorTxt] = useState(""); //content
   const [editorFileData, setEditorFileData] = useState([]);
-  const [fileData, setFileData] = useState([
-    {
-      name: "file0",
-      datas: [],
-    },
-    {
-      name: "file1",
-      datas: [],
-    },
-    {
-      name: "file2",
-      datas: [],
-    },
-    {
-      name: "file3",
-      datas: [],
-    },
-    {
-      name: "file4",
-      datas: [],
-    },
-  ]);
+  const [fileData, setFileData] = useState([]);
   const [allFileLength, setAllFileLength] = useState(0);
   const btnSubmit = () => {
     if (title == "" && editorTxt == "") {
@@ -80,12 +59,7 @@ const CommunityWrite = () => {
           const formData2 = new FormData();
           formData2.append("content_id", res.data);
           fileData.forEach((v, i) => {
-            const fileItems = v.datas;
-            if (fileItems.length > 0) {
-              for (let i = 0; i < fileItems.length; i++) {
-                formData2.append("files", fileItems[i]);
-              }
-            }
+            formData2.append("files", v);
           });
           axios
             .post("/mobile/community/uploadFile", formData2, {
