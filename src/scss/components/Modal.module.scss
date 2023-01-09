@@ -861,6 +861,48 @@
     }
   }
 
+  .FilterModal {
+    .contArea {
+      .modalCont {
+        .title {
+          h5 {
+            font-size: 16px;
+          }
+          .multiply {
+            font-size: 14px;
+            margin-left: 10px;
+          }
+        }
+        .filterItems {
+          .item {
+            button {
+              //
+              height: 32px;
+              padding: 0 10px;
+              border: none;
+              border-radius: $radius-btn;
+              font-size: 13px;
+              padding-top: 2px;
+              margin-right: 0;
+              &.selected {
+                background: $color-main;
+                color: #fff;
+              }
+              &[data-disabled="disabled"] {
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+      }
+    }
+    .confirmArea {
+      button {
+        height: 35px;
+        font-size: 13px;
+      }
+    }
+  }
   .EventModal {
     .modalCont {
       .para {

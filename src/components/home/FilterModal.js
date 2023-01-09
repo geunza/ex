@@ -331,7 +331,7 @@ const FilterModal = ({
               {modalStep == 5 && (
                 <div className={styles.modalCont}>
                   <div className={styles.title}>
-                    <h5>기업형태</h5>
+                    <h5 className={styles.required}>기업형태</h5>
                     <span className={styles.multiply}>(중복가능)</span>
                   </div>
                   <ol className={styles.filterItems}>

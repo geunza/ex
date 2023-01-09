@@ -18,14 +18,6 @@ const CommunityWrite = () => {
   const [fileData, setFileData] = useState([]);
   const [allFileLength, setAllFileLength] = useState(0);
   const btnSubmit = () => {
-    console.log(editorTxt);
-    console.log(
-      editorTxt
-        .replaceAll(" ", "")
-        .replaceAll("<p>", "")
-        .replaceAll("</p>", "")
-        .replaceAll("<br>", "") == ""
-    );
     if (
       title == "" &&
       editorTxt
@@ -56,7 +48,7 @@ const CommunityWrite = () => {
       if (alt.slice(-4, alt.length) == "_NEW") {
         const newAlt = alt.slice(0, alt.length - 4);
         v.setAttribute("alt", newAlt);
-        v.setAttribute("src", "img/community/" + newAlt);
+        v.setAttribute("src", "/img/community/" + newAlt);
       }
     });
     const txtData = doc.querySelector("body").innerHTML;
