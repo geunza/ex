@@ -199,6 +199,7 @@ const CommunityWrite = () => {
                   setEditorTxt={setEditorTxt}
                   editorFileData={editorFileData}
                   setEditorFileData={setEditorFileData}
+                  setOpenCate={setOpenCate}
                 />
               </div>
             </div>

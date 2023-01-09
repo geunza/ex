@@ -13,6 +13,7 @@ const Editor2 = ({
   setEditorTxt,
   defaultValue,
   setEditorFileData,
+  setOpenCate,
 }) => {
   const [defaultTxt, setDefaultTxt] = useState(defaultValue);
   const [files, setFiles] = useState([]);
@@ -93,6 +94,9 @@ const Editor2 = ({
         onLoad={onLoad}
         onChange={onChange}
         autofocus={false}
+        onFocus={() => {
+          setOpenCate(false);
+        }}
         toolbarItems={[
           // 툴바 옵션 설정
           ["heading", "bold", "italic", "strike"],
