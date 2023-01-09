@@ -9,6 +9,7 @@ const KakaoLogOut = () => {
   useEffect(() => {
     dispatch(signOut());
     dispatch(removeUserInfo());
+    sessionStorage.removeItem("oAuthType");
     navigate("/");
   }, []);
   return (

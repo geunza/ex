@@ -103,6 +103,7 @@ const KakaoLogin = () => {
                           // console.log("data", data);
                           // console.log("userId", userId);
                           sessionStorage.setItem("userId", userId);
+                          sessionStorage.setItem("oAuthType", "kakao");
                           dispatch(signIn(data));
                           dispatch(setUserInfo(data));
                         })

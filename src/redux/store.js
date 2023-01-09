@@ -335,6 +335,16 @@ let kakaoInform = createSlice({
   },
 });
 export let { setKakaoInform } = kakaoInform.actions;
+let appleInform = createSlice({
+  name: "appleInform",
+  initialState: { state: false, datas: {} },
+  reducers: {
+    setAppleInform(state, action) {
+      return action.payload;
+    },
+  },
+});
+export let { setAppleInform } = appleInform.actions;
 export default configureStore({
   reducer: {
     // cart: cart.reducer,
@@ -349,6 +359,7 @@ export default configureStore({
     supportData: supportData.reducer,
     loginCheck: loginCheck.reducer,
     kakaoInform: kakaoInform.reducer,
+    appleInform: appleInform.reducer,
     isMobile: isMobile.reducer,
   },
 });

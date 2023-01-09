@@ -10,9 +10,10 @@ import {
   setUserInfo,
   signIn,
   setKakaoInform,
+  setAppleInform,
 } from "redux/store";
 import { useNavigate } from "react-router-dom";
-const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
+const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate("");
   const isMobile = useSelector((state) => state.isMobile);
@@ -118,7 +119,16 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
         return false;
       }
     }
-    let headers = { ...kakaoInform.datas };
+    let headers = {};
+    if (kakaoInform) {
+      headers = { ...kakaoInform.datas };
+      sessionStorage.setItem("oAuthType", "kakao");
+    }
+    if (appleInform) {
+      headers = { ...appleInform.datas };
+      sessionStorage.setItem("oAuthType", "apple");
+    }
+
     headers.username = encodeURI(nickname);
     headers.useremail = email;
     axios({
@@ -173,7 +183,12 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
                   marketingPush: marketingValue,
                 },
               }).then(() => {
-                dispatch(setKakaoInform({ state: false, datas: {} }));
+                if (kakaoInform) {
+                  dispatch(setKakaoInform({ state: false, datas: {} }));
+                }
+                if (appleInform) {
+                  dispatch(setAppleInform({ state: false, datas: {} }));
+                }
                 setLastCheck(false);
               });
             });
@@ -189,12 +204,24 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
   }, [policyObj]);
   useEffect(() => {
     dispatch(modalOverflow(true));
-    console.log(kakaoInform.datas);
-    if (kakaoInform.datas.useremail != undefined) {
-      setEmail(kakaoInform.datas.useremail);
+
+    if (kakaoInform.state) {
+      console.log("kakaoInform.datas", kakaoInform.datas);
+      if (kakaoInform.datas.useremail != undefined) {
+        setEmail(kakaoInform.datas.useremail);
+      }
+      if (kakaoInform.datas.username != undefined) {
+        setNickname(decodeURI(kakaoInform.datas.username).slice(0, 8));
+      }
     }
-    if (kakaoInform.datas.username != undefined) {
-      setNickname(decodeURI(kakaoInform.datas.username).slice(0, 8));
+    if (appleInform.state) {
+      console.log("appleInform.datas", appleInform.datas);
+      if (appleInform.datas.useremail != undefined) {
+        setEmail(appleInform.datas.useremail);
+      }
+      if (appleInform.datas.username != undefined) {
+        setNickname(decodeURI(appleInform.datas.username).slice(0, 8));
+      }
     }
     return () => {
       dispatch(modalOverflow(false));
@@ -213,6 +240,13 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform }) => {
   return (
     <div className={`${styles.modalWrap} ${styles.SignInPolicyModal}`}>
       <div className={styles.modalInner}>
+        <button
+          onClick={() => {
+            setEmail("test@test.com");
+          }}
+        >
+          Apple로그인시 이메일 밀어넣기
+        </button>
         <div>
           {isMobile ? (
             <div className={styles.MobileTitle}>

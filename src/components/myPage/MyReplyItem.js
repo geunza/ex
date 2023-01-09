@@ -128,13 +128,12 @@ const MyReplyItem = ({
                 {/* CHECK : 좋아요 내역 확인하는 API 필요 */}
                 <img
                   style={{ display: item.thumb_up != true ? "none" : null }}
-                  src={require("assets/img/global/ico/ico_like_selected.png")}
-                  alt=""
-                />
-                <img
-                  style={{ display: item.thumb_up == true ? "none" : null }}
-                  src={require("assets/img/global/ico/ico_like.png")}
-                  alt=""
+                  src={
+                    item.thumb_up == true
+                      ? require("assets/img/global/ico/ico_like_selected.png")
+                      : require("assets/img/global/ico/ico_like.png")
+                  }
+                  alt={item.thumb_up == true ? "좋아요 ON" : "좋아요 OFF"}
                 />
                 <span>{item.like_count}</span>
               </button>

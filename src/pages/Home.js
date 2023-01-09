@@ -24,6 +24,7 @@ import {
 const Home = ({}) => {
   const dispatch = useDispatch();
   const kakaoInform = useSelector((state) => state.kakaoInform);
+  const appleInform = useSelector((state) => state.appleInform);
   const isMobile = useSelector((state) => state.isMobile);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const [modalOn, setModalOn] = useState(false);
@@ -50,11 +51,12 @@ const Home = ({}) => {
   };
   const [lastCheck, setLastCheck] = useState(false);
   useEffect(() => {
-    console.log(kakaoInform);
-    if (kakaoInform.state) {
+    // console.log("kakaoInform", kakaoInform);
+    // console.log("appleInform", appleInform);
+    if (kakaoInform.state || appleInform.state) {
       setLastCheck(true);
     }
-  }, [kakaoInform]);
+  }, [kakaoInform, appleInform]);
   const [noticeList, setNoticeList] = useState({});
   useEffect(() => {
     if (isMobile) {
@@ -206,6 +208,7 @@ const Home = ({}) => {
         <SignInPolicyModal
           setLastCheck={setLastCheck}
           kakaoInform={kakaoInform}
+          appleInform={appleInform}
         />
       )}
     </>

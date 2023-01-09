@@ -35,6 +35,9 @@ const CommunityView = () => {
     axios({
       method: "GET",
       url: `/mobile/community/one?id=${id}`,
+      headers: {
+        user_id: userInfo.id,
+      },
     }).then((res) => {
       if (res.data == "") {
         alert("삭제되었거나 없는 게시글입니다.");
@@ -281,8 +284,12 @@ const CommunityView = () => {
                 onClick={btnLike}
               >
                 <img
-                  src={require("assets/img/global/ico/ico_like.png")}
-                  alt="like icon"
+                  src={
+                    post.thumb_up == true
+                      ? require("assets/img/global/ico/ico_like_selected.png")
+                      : require("assets/img/global/ico/ico_like.png")
+                  }
+                  alt={post.thumb_up == true ? "좋아요 ON" : "좋아요 OFF"}
                 />
                 <span>{post.like_cnt}</span>
               </button>

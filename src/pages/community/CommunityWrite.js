@@ -18,13 +18,34 @@ const CommunityWrite = () => {
   const [fileData, setFileData] = useState([]);
   const [allFileLength, setAllFileLength] = useState(0);
   const btnSubmit = () => {
-    if (title == "" && editorTxt == "") {
+    console.log(editorTxt);
+    console.log(
+      editorTxt
+        .replaceAll(" ", "")
+        .replaceAll("<p>", "")
+        .replaceAll("</p>", "")
+        .replaceAll("<br>", "") == ""
+    );
+    if (
+      title == "" &&
+      editorTxt
+        .replaceAll(" ", "")
+        .replaceAll("<p>", "")
+        .replaceAll("</p>", "")
+        .replaceAll("<br>", "") == ""
+    ) {
       alert("필수 입력사항을 입력해 주세요.");
       return false;
     } else if (title == "") {
       alert("제목은 필수 입력사항입니다.");
       return false;
-    } else if (editorTxt == "") {
+    } else if (
+      editorTxt
+        .replaceAll(" ", "")
+        .replaceAll("<p>", "")
+        .replaceAll("</p>", "")
+        .replaceAll("<br>", "") == ""
+    ) {
       alert("내용은 필수 입력사항입니다.");
       return false;
     }

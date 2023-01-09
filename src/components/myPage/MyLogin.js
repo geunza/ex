@@ -108,13 +108,20 @@ const MyLogin = () => {
   function encoding(string) {
     return encodeURI(string);
   }
+  const temporarysignOut = () => {
+    dispatch(removeUserInfo());
+    dispatch(signOut());
+  };
   const handleLogout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      if (userInfo.id.length == 10) {
+      if (sessionStorage.getItem("oAuthType") == "kakao") {
         //카카오
-        const token = localStorage.getItem("kakaoToken");
-        console.log(token);
+        console.log("카카오");
         window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+      } else if (sessionStorage.getItem("oAuthType") == "apple") {
+        console.log("애플");
+        temporarysignOut();
+        sessionStorage.removeItem("oAuthType");
       }
     }
   };
