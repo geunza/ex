@@ -60,6 +60,7 @@ const FileUpload = ({
     target.value = "";
   };
   useEffect(() => {
+    // console.log(fileData);
     const leng = fileData.length;
     setAllFileLength(leng);
   }, [fileData]);
