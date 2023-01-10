@@ -75,15 +75,11 @@ const CommunityWrite = () => {
             formData2.append("files", v);
           });
           axios
-            .post(
-              "http://218.38.52.223/mobile/community/uploadFile",
-              formData2,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                },
-              }
-            )
+            .post("/community/uploadFile", formData2, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
             .then(() => {
               navigate(`/community/communityView/${res.data}`);
             })

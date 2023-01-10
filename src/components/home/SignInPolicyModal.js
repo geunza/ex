@@ -181,7 +181,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
                   spCommentlikePush: "N",
                   spContentCommentPush: "N",
                   spCommunityCommentlikePush: "N",
-                  spCommunityRecommßentPush: "N",
+                  spCommunityRecommentPush: "N",
                   marketingPush: marketingValue,
                 },
               }).then(() => {

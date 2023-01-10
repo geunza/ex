@@ -151,7 +151,6 @@ const CommunityView = () => {
     }).then((res) => {
       getContent();
     });
-    ß;
   };
 
   const btnPostClick = (e) => {
