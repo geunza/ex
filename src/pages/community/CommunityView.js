@@ -138,13 +138,10 @@ const CommunityView = () => {
     setCmtText(value);
   };
   const btnLike = () => {
-    console.log("AAA");
     if (!isLoggedIn) {
-      console.log("BBB");
       dispatch(setLoginCheck(true));
       return false;
     }
-    console.log("CCC");
     console.log(userInfo.id);
     axios({
       url: "/mobile/community/like",
@@ -153,9 +150,8 @@ const CommunityView = () => {
       data: { content_id: parseInt(id) },
     }).then((res) => {
       getContent();
-      console.log("DDD");
     });
-    console.log("EEE");
+    ß;
   };
 
   const btnPostClick = (e) => {
