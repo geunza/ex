@@ -32,7 +32,6 @@ import LoginModal from "components/LoginModal";
 import KakaoLogin from "pages/login/KakaoLogin";
 import KakaoLogOut from "pages/login/KakaoLogOut";
 import AppleLoginPage from "pages/login/AppleLoginPage";
-import AppleLogoutPage from "pages/login/AppleLogoutPage";
 const AppRouter = ({}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -82,11 +81,6 @@ const AppRouter = ({}) => {
           <Route path="/KakaoLogin" exact element={<KakaoLogin />}></Route>
           <Route path="/KakaoLogOut" exact element={<KakaoLogOut />}></Route>
           <Route path="/AppleLogin" exact element={<AppleLoginPage />}></Route>
-          <Route
-            path="/AppleLogout"
-            exact
-            element={<AppleLogoutPage />}
-          ></Route>
           <Route path="*" element={<Navigate replace to="/" />}></Route>
         </Routes>
         <Footer />

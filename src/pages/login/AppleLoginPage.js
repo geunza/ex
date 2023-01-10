@@ -31,6 +31,11 @@ const AppleLoginPage = () => {
         navigate("/");
         return false;
       }
+      const headersData = {
+        code: paramObj.code,
+        id_token: paramObj.userid,
+      };
+      console.log("headersData", headersData);
       axios({
         url: "/user/getUserInfo",
         method: "POST",
@@ -41,22 +46,21 @@ const AppleLoginPage = () => {
         const data = result.data;
         if (data == null) {
           // 최초 가입
-          // console.log("최초 가입 입니다.");
+          console.log("최초 가입 입니다.");
           axios({
             url: "/apple/login",
             method: "POST",
-            headers: {
-              code: paramObj.code,
-              id_token: paramObj.id_token,
-            },
+            headers: headersData,
           }).then((res2) => {
             const userData = res2.data;
+            console.log(res2);
             Object.assign(paramObj, userData);
             const dataObj = {
               userid: paramObj.userid,
               useremail: paramObj.useremail,
               username: paramObj.usernickname,
             };
+
             dispatch(setAppleInform({ state: true, datas: dataObj }));
             navigate("/");
           });
@@ -64,14 +68,11 @@ const AppleLoginPage = () => {
           // 정보가 있음
           if (data.usernickname == "탈퇴회원") {
             // 탈퇴 회원
-            // console.log("탈퇴 회원 입니다.");
+            console.log("탈퇴 회원 입니다.");
             axios({
               url: "/apple/login",
               method: "POST",
-              headers: {
-                code: paramObj.code,
-                id_token: paramObj.id_token,
-              },
+              headers: headersData,
             }).then((res2) => {
               const userData = res2.data;
               console.log("userData", userData);
@@ -87,7 +88,7 @@ const AppleLoginPage = () => {
             });
           } else {
             // 기존 회원
-            // console.log("기존 회원 입니다.");
+            console.log("기존 회원 입니다.");
             const userId = data.id;
             // console.log("data", data);
             // console.log("userId", userId);
