@@ -120,17 +120,19 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
       }
     }
     let headers = {};
-    if (kakaoInform) {
+    if (kakaoInform.state) {
       headers = { ...kakaoInform.datas };
       sessionStorage.setItem("oAuthType", "kakao");
     }
-    if (appleInform) {
+    if (appleInform.state) {
       headers = { ...appleInform.datas };
       sessionStorage.setItem("oAuthType", "apple");
     }
-
     headers.username = encodeURI(nickname);
     headers.useremail = email;
+    console.log("kakaoInform", kakaoInform);
+    console.log("appleInform", appleInform);
+    console.log("headers", headers);
     axios({
       url: "/kakao/login",
       method: "POST",
@@ -138,7 +140,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
     })
       .then(() => {
         // console.log("로그인 완료");
-        console.log(headers);
+        console.log("headers", headers);
         axios({
           url: `/user/updateUserInfo?usernickname=${encodeURI(nickname)}`,
           method: "POST",
@@ -179,14 +181,14 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
                   spCommentlikePush: "N",
                   spContentCommentPush: "N",
                   spCommunityCommentlikePush: "N",
-                  spCommunityRecommentPush: "N",
+                  spCommunityRecommßentPush: "N",
                   marketingPush: marketingValue,
                 },
               }).then(() => {
-                if (kakaoInform) {
+                if (kakaoInform.state) {
                   dispatch(setKakaoInform({ state: false, datas: {} }));
                 }
-                if (appleInform) {
+                if (appleInform.state) {
                   dispatch(setAppleInform({ state: false, datas: {} }));
                 }
                 setLastCheck(false);
