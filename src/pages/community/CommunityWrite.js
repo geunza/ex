@@ -72,10 +72,12 @@ const CommunityWrite = () => {
           const formData2 = new FormData();
           formData2.append("content_id", res.data);
           fileData.forEach((v, i) => {
+            console.log(v);
             formData2.append("files", v);
           });
+          console.log(formData2);
           axios
-            .post("/community/uploadFile", formData2, {
+            .post("/mobile/community/uploadFile", formData2, {
               headers: {
                 "Content-Type": "multipart/form-data",
               },
