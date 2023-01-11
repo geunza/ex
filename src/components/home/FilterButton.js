@@ -48,23 +48,12 @@ const FilterButton = ({ item, onClick, idx, baseObj }) => {
         " " +
         ((baseObj[item.ctg_cd].datas.find(
           (x) => Object.entries(x).toString() == Object.entries(item).toString()
-        )
+        ) && !notReady
           ? styles.selected
           : "") +
           " " +
           (hasToolTip ? styles.tooltipBtn : ""))
       }
-      // className={
-      //   styles.filterBtn +
-      //   " " +
-      //   ((baseObj[item.ctg_cd].datas.find(
-      //     (x) => Object.entries(x).toString() == Object.entries(item).toString()
-      //   ) && !notReady
-      //     ? styles.selected
-      //     : "") +
-      //     " " +
-      //     (hasToolTip ? styles.tooltipBtn : ""))
-      // }
       onClick={(e) => {
         notReady ? alert("예비창업자는 선택할 수 없습니다.") : onClick(item, e);
       }}
