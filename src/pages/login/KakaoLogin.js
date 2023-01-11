@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { REST_API_KEY, REDIRECT_URI } from "./KakaoLoginData";
+import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "pages/login/LoginData";
 import {
   signIn,
   setUserInfo,
@@ -26,7 +26,7 @@ const KakaoLogin = () => {
       headers: {
         "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
-      body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+      body: `grant_type=authorization_code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${KAKAO_CODE}`,
     })
       .then((res) => res.json())
       .then((data) => {

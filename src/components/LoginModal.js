@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import styles from "scss/components/Modal.module.scss";
 import { modalOverflow, setLoginCheck } from "redux/store";
 import { useEffect } from "react";
-import { REST_API_KEY, REDIRECT_URI } from "pages/login/KakaoLoginData";
+import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "pages/login/LoginData";
 import AppleLoginBtn from "pages/login/AppleLoginBtn";
 const LoginModal = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const LoginModal = () => {
       dispatch(modalOverflow(false));
     };
   }, []);
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
   const handleKakao = () => {
     sessionStorage.setItem("kakaoRedirectPath", window.location.pathname);
     window.location.href = KAKAO_AUTH_URL;

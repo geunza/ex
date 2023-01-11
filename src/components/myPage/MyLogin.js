@@ -6,10 +6,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { signOut, removeUserInfo } from "redux/store";
 import {
-  REST_API_KEY,
-  REDIRECT_URI,
-  LOGOUT_REDIRECT_URI,
-} from "pages/login/KakaoLoginData";
+  KAKAO_REST_API_KEY,
+  KAKAO_REDIRECT_URI,
+  KAKAO_LOGOUT_REDIRECT_URI,
+} from "pages/login/LoginData";
 const MyLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -117,9 +117,10 @@ const MyLogin = () => {
       if (sessionStorage.getItem("oAuthType") == "kakao") {
         //카카오
         console.log("카카오");
-        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${KAKAO_REST_API_KEY}&logout_redirect_uri=${KAKAO_LOGOUT_REDIRECT_URI}`;
       } else if (sessionStorage.getItem("oAuthType") == "apple") {
         console.log("애플");
+        navigate("/");
         temporarysignOut();
         sessionStorage.removeItem("oAuthType");
       }

@@ -13,10 +13,10 @@ import axios from "axios";
 import { useEffect } from "react";
 
 import {
-  REST_API_KEY,
-  REDIRECT_URI,
-  LOGOUT_REDIRECT_URI,
-} from "pages/login/KakaoLoginData";
+  KAKAO_REST_API_KEY,
+  KAKAO_REDIRECT_URI,
+  KAKAO_LOGOUT_REDIRECT_URI,
+} from "pages/login/LoginData";
 import SearchForm from "components/SearchForm";
 const Header = ({}) => {
   const location = useLocation();
@@ -48,14 +48,14 @@ const Header = ({}) => {
 
   const handleLogout = () => {
     sessionStorage.setItem("kakaoRedirectPath", window.location.pathname);
+    const oAuthType = sessionStorage.getItem("oAuthType");
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      if (sessionStorage.getItem("oAuthType") == "kakao") {
+      if (oAuthType == "kakao") {
         //카카오
-        console.log("카카오");
-        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
-      } else if (sessionStorage.getItem("oAuthType") == "apple") {
-        console.log("애플");
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${KAKAO_REST_API_KEY}&logout_redirect_uri=${KAKAO_LOGOUT_REDIRECT_URI}`;
+      } else if (oAuthType == "apple") {
         temporarysignOut();
+        navigate("/");
       }
     }
   };

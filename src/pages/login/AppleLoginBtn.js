@@ -5,7 +5,7 @@ import {
   APPLE_REDIRECT_URI,
   APPLE_RESPONSE_TYPE,
   APPLE_RESPONSE_MODE,
-} from "./AppleLoginData";
+} from "pages/login/LoginData";
 const AppleLoginBtn = () => {
   useEffect(() => {
     sessionStorage.setItem("appleRedirectPath", window.location.pathname);

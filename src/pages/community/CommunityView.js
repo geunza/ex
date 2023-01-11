@@ -247,7 +247,7 @@ const CommunityView = () => {
   return (
     <>
       <div className={`${styles.CommunityView} ${styles.CommonView}`}>
-        <MobileTitle title={"게시글 상세"} />
+        <MobileTitle title={"게시글 상세"} link={"/community/communityList"} />
         <div className={`inner ${styles.inner}`}>
           <div className={styles.btns}>
             <button

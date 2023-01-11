@@ -8,7 +8,7 @@ import { redirect, useNavigate } from "react-router-dom";
 import FilterModal from "components/home/FilterModal";
 import HomeSupportFilter from "components/HomeSupportFilter";
 import { setLoginCheck } from "redux/store";
-import { REST_API_KEY, REDIRECT_URI } from "pages/login/KakaoLoginData";
+import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "pages/login/LoginData";
 const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Filter = () => {
       navigate("/support/supportList");
     });
   };
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
   const handleKakao = () => {
     sessionStorage.setItem("kakaoRedirectPath", window.location.pathname);
     window.location.href = KAKAO_AUTH_URL;

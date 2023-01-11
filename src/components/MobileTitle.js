@@ -11,16 +11,18 @@ import {
   setLoginCheck,
 } from "redux/store";
 import {
-  REST_API_KEY,
-  REDIRECT_URI,
-  LOGOUT_REDIRECT_URI,
-} from "pages/login/KakaoLoginData";
-const MobileTitle = ({ title, title2 }) => {
+  KAKAO_REST_API_KEY,
+  KAKAO_REDIRECT_URI,
+  KAKAO_LOGOUT_REDIRECT_URI,
+} from "pages/login/LoginData";
+import { useEffect } from "react";
+const MobileTitle = ({ title, title2, link }) => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
   const isMobile = useSelector((state) => state.isMobile);
   const isTitle2 = title2 ?? false;
+  const isLink = link ?? false;
   const dispatch = useDispatch();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const handleLogin = () => {
@@ -33,7 +35,7 @@ const MobileTitle = ({ title, title2 }) => {
         //카카오
         const token = localStorage.getItem("kakaoToken");
         console.log(token);
-        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${KAKAO_REST_API_KEY}&logout_redirect_uri=${KAKAO_LOGOUT_REDIRECT_URI}`;
       }
     }
   };
@@ -44,7 +46,7 @@ const MobileTitle = ({ title, title2 }) => {
           <button
             className={styles.btnBack}
             onClick={() => {
-              navigate(-1);
+              isLink == false ? navigate(-1) : navigate(isLink);
             }}
           >
             <img

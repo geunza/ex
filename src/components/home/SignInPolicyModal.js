@@ -125,7 +125,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
       sessionStorage.setItem("oAuthType", "kakao");
     }
     if (appleInform.state) {
-      headers = { ...appleInform.datas };
+      headers = { userid: appleInform.datas.userid };
       sessionStorage.setItem("oAuthType", "apple");
     }
     headers.username = encodeURI(nickname);
@@ -216,15 +216,6 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
         setNickname(decodeURI(kakaoInform.datas.username).slice(0, 8));
       }
     }
-    if (appleInform.state) {
-      console.log("appleInform.datas", appleInform.datas);
-      if (appleInform.datas.useremail != undefined) {
-        setEmail(appleInform.datas.useremail);
-      }
-      if (appleInform.datas.username != undefined) {
-        setNickname(decodeURI(appleInform.datas.username).slice(0, 8));
-      }
-    }
     return () => {
       dispatch(modalOverflow(false));
     };
@@ -296,11 +287,15 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
               <input
                 type="email"
                 placeholder="Ex_exito@exito.com"
-                readOnly
+                readOnly={appleInform.state ? false : true}
                 value={email}
-                // onChange={(e) => {
-                //   setEmail(e.currentTarget.value);
-                // }}
+                onChange={
+                  appleInform.state
+                    ? (e) => {
+                        setEmail(e.currentTarget.value);
+                      }
+                    : null
+                }
               />
             </div>
             <div className={styles.nickname}>

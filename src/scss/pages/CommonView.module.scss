@@ -105,6 +105,7 @@
       display: flex;
       gap: 10px;
       border-top: 1px solid $color-borderGray;
+      flex-wrap: wrap;
       li {
         a {
           font-size: 14px;
