@@ -24,7 +24,7 @@ import BoxListItemCommunity from "components/community/BoxListItemCommunity";
 import CommunityModalBlockUser from "components/community/CommunityModalBlockUser";
 import { useMediaQuery } from "react-responsive";
 import MobileTitle from "components/MobileTitle";
-const CommunityList = ({}) => {
+const CommunityList = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
   const userInfo = useSelector((state) => state.userInfo);
@@ -274,7 +274,6 @@ const CommunityList = ({}) => {
     } else {
       totalData = { category: cateDummy };
     }
-    console.log(totalData);
     axios({
       url: "/mobile/community/totalCnt",
       method: "POST",
@@ -352,15 +351,11 @@ const CommunityList = ({}) => {
         if (trigger < 0) {
           infiniteState = false;
           let mobilePage = sessionStorage.getItem("c_mo_page");
-          console.log(mobilePage);
           if (mobilePage == null) {
-            console.log("A");
             sessionStorage.setItem("c_mo_page", 2);
           } else {
-            console.log("B");
             sessionStorage.setItem("c_mo_page", parseInt(mobilePage) + 1);
           }
-          console.log(sessionStorage.getItem("c_mo_page"));
           getParamMobile();
           setTimeout(() => {
             infiniteState = true;

@@ -149,10 +149,7 @@ const SupportContent = ({
       window.removeEventListener("scroll", listener);
     };
   }, [lastCheckTarget]);
-  useEffect(() => {
-    // console.log("isMobile", isMobile);
-    // console.log("mobileMore", mobileMore);
-  }, [isMobile, mobileMore]);
+  useEffect(() => {}, [isMobile, mobileMore]);
   return (
     <div className={styles.SupportContent}>
       <div className={styles.ordWrap}>

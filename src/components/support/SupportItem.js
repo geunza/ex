@@ -6,14 +6,7 @@ import { setLoginCheck } from "redux/store";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-const SupportItem = ({
-  item,
-  getSupportCont,
-  getRecent,
-  setScrollStorage,
-  ord,
-  keyword,
-}) => {
+const SupportItem = ({ item, getSupportCont, getRecent, ord, keyword }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const isMobile = useSelector((state) => state.isMobile);
@@ -65,7 +58,6 @@ const SupportItem = ({
       headers: { user_id: userInfo.id },
       data: { mb_addidx: idx, mb_save_yn: mb_save_yn },
     }).then((res) => {
-      console.log(ord, keyword);
       getSupportCont(ord, keyword);
     });
   };
@@ -80,7 +72,6 @@ const SupportItem = ({
         },
         data: { support_info: idx.toString() },
       }).then((res) => {
-        console.log(idx);
         getRecent();
       });
     }

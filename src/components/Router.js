@@ -32,7 +32,7 @@ import LoginModal from "components/LoginModal";
 import KakaoLogin from "pages/login/KakaoLogin";
 import KakaoLogOut from "pages/login/KakaoLogOut";
 import AppleLoginPage from "pages/login/AppleLoginPage";
-const AppRouter = ({}) => {
+const AppRouter = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const loginCheck = useSelector((state) => state.loginCheck);

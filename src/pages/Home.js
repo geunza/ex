@@ -21,7 +21,7 @@ import {
   setLoginCheck,
 } from "redux/store";
 
-const Home = ({}) => {
+const Home = () => {
   const dispatch = useDispatch();
   const kakaoInform = useSelector((state) => state.kakaoInform);
   const appleInform = useSelector((state) => state.appleInform);
@@ -51,8 +51,6 @@ const Home = ({}) => {
   };
   const [lastCheck, setLastCheck] = useState(false);
   useEffect(() => {
-    // console.log("kakaoInform", kakaoInform);
-    // console.log("appleInform", appleInform);
     if (kakaoInform.state || appleInform.state) {
       setLastCheck(true);
     }
@@ -65,7 +63,6 @@ const Home = ({}) => {
         method: "GET",
       }).then((res) => {
         setNoticeList(res.data[0]);
-        console.log(res.data);
       });
     }
   }, [isMobile]);
@@ -136,7 +133,7 @@ const Home = ({}) => {
                   </h3>
                   <Link className={styles.linkSaved} to="/support/supportList">
                     누적 지원사업
-                    <mark> {count.user_cnt.toLocaleString()}개</mark>
+                    <mark> {count.total_cnt.toLocaleString()}개</mark>
                   </Link>
                 </div>
                 <div className={styles.mobileBox}>

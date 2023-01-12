@@ -130,9 +130,6 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
     }
     headers.username = encodeURI(nickname);
     headers.useremail = email;
-    console.log("kakaoInform", kakaoInform);
-    console.log("appleInform", appleInform);
-    console.log("headers", headers);
     axios({
       url: "/kakao/login",
       method: "POST",
@@ -140,7 +137,6 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
     })
       .then(() => {
         // console.log("로그인 완료");
-        console.log("headers", headers);
         axios({
           url: `/user/updateUserInfo?usernickname=${encodeURI(nickname)}`,
           method: "POST",
@@ -156,8 +152,6 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
             .then((res4) => {
               const data = res4.data;
               const userId = data.id;
-              // console.log("data", data);
-              // console.log("userId", userId);
               sessionStorage.setItem("userId", userId);
               dispatch(signIn(data));
               dispatch(setUserInfo(data));
@@ -208,7 +202,6 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
     dispatch(modalOverflow(true));
 
     if (kakaoInform.state) {
-      console.log("kakaoInform.datas", kakaoInform.datas);
       if (kakaoInform.datas.useremail != undefined) {
         setEmail(kakaoInform.datas.useremail);
       }

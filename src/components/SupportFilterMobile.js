@@ -6,7 +6,7 @@ import FilterButton from "components/home/FilterButton";
 import { setLoginCheck } from "redux/store";
 import FilterModal from "components/home/FilterModal";
 import styles from "scss/components/SupportFilterMobile.module.scss";
-const SupportFilterMobile = ({}) => {
+const SupportFilterMobile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);

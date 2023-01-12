@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadingStart, loadingEnd } from "redux/store";
 import BoxListItemHome from "components/home/BoxListItemHome";
 import styles from "scss/pages/Home.module.scss";
-const HomeSupport = ({}) => {
+const HomeSupport = () => {
   let count = 0;
   let cancel;
   const CancelToken = axios.CancelToken;

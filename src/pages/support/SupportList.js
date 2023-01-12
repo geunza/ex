@@ -10,19 +10,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { setSupportData } from "redux/store";
 import MobileTitle from "components/MobileTitle";
 let axiosCount = 0;
-const SupportList = ({}) => {
+const SupportList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   let keywordParam = searchParams.get("keyword");
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
   const isMobile = useSelector((state) => state.isMobile);
-  const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const supportItemReady = useSelector((state) => state.supportItemReady);
   const [total, setTotal] = useState(0);
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState(1);
@@ -65,7 +62,6 @@ const SupportList = ({}) => {
       });
     } else {
       if (allSupport) {
-        console.log("LIST SEARCH : 전체 지원사업 보기 O");
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -83,7 +79,6 @@ const SupportList = ({}) => {
           // dispatch(loadingEnd());
         });
       } else {
-        console.log("LIST SEARCH : 전체 지원사업 보기 X");
         const thisData = {
           ord: ord,
           keyword: keyword,
@@ -99,7 +94,6 @@ const SupportList = ({}) => {
             company_type: dataToString("biz_type_cd"),
           });
         }
-        console.log(thisData);
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -201,12 +195,6 @@ const SupportList = ({}) => {
     if (ord != ordDummy || keyword != keywordDummy) {
       getSupportCont(ordDummy, keywordDummy);
     }
-    if (page != pageDummy) {
-      // console.log("page바뀜");
-    }
-    if (count != countDummy) {
-      // console.log("count바뀜");
-    }
     setOrd(ordDummy);
     setPage(pageDummy);
     setKeyword(keywordDummy);
@@ -236,9 +224,6 @@ const SupportList = ({}) => {
       setTotal(supportData.length);
     }
   }, [keyword, supportData, supportFilterCont]);
-  useEffect(() => {
-    console.log("supportFilterCont.length", supportFilterCont.length);
-  }, [supportFilterCont]);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(!isLoggedIn);
   useEffect(() => {
     isLoggedIn ? setMobileFilterOpen(!true) : setMobileFilterOpen(!false);

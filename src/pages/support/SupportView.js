@@ -2,13 +2,11 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadingStart, loadingEnd } from "redux/store";
+import { useSelector } from "react-redux";
 import styles from "scss/pages/Support.module.scss";
 import SupportItem from "components/support/SupportItem";
-const SupportView = ({}) => {
+const SupportView = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const [item, setItem] = useState({});
   const [ready, setReady] = useState(false);
@@ -65,20 +63,13 @@ const SupportView = ({}) => {
   useEffect(() => {
     getSupportItem();
   }, [userInfo]);
-  const setScrollStorage = (target) => {
-    console.log(target);
-  };
   return (
     <div className={styles.SupportView}>
       <div className="inner">
         {ready && (
           <>
             <ul className={styles.listWrap}>
-              <SupportItem
-                item={item}
-                getSupportCont={getSupportItem}
-                setScrollStorage={setScrollStorage}
-              />
+              <SupportItem item={item} getSupportCont={getSupportItem} />
             </ul>
 
             <div className={styles.supportViewCont}>

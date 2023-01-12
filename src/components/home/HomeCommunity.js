@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
 import HomeCommunityItem from "./HomeCommunityItem";
-const HomeCommunity = ({}) => {
+const HomeCommunity = () => {
   const [community, setCommunity] = useState([]);
   let cancel;
   const CancelToken = axios.CancelToken;

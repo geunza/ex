@@ -116,10 +116,9 @@ const MyLogin = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       if (sessionStorage.getItem("oAuthType") == "kakao") {
         //카카오
-        console.log("카카오");
         window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${KAKAO_REST_API_KEY}&logout_redirect_uri=${KAKAO_LOGOUT_REDIRECT_URI}`;
       } else if (sessionStorage.getItem("oAuthType") == "apple") {
-        console.log("애플");
+        //애플
         navigate("/");
         temporarysignOut();
         sessionStorage.removeItem("oAuthType");

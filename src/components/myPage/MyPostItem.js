@@ -27,7 +27,6 @@ const MyPostItem = ({
     const {
       currentTarget: { value },
     } = e;
-    console.log(value);
     navigate(`/community/CommunityModify/${value}`);
   };
   // 게시글삭제 버튼
@@ -37,7 +36,6 @@ const MyPostItem = ({
     } = e;
     // dispatch(loadingStart());
     const id = value.toString();
-    console.log(id);
     if (!window.confirm("게시글을 삭제하시겠습니까?")) {
       return false;
     }
@@ -50,7 +48,6 @@ const MyPostItem = ({
       method: "POST",
     })
       .then((res) => {
-        console.log(res.data);
         getMyPost();
         // dispatch(loadingEnd());
       })

@@ -34,7 +34,6 @@ const MobileTitle = ({ title, title2, link }) => {
       if (userInfo.id.length == 10) {
         //카카오
         const token = localStorage.getItem("kakaoToken");
-        console.log(token);
         window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${KAKAO_REST_API_KEY}&logout_redirect_uri=${KAKAO_LOGOUT_REDIRECT_URI}`;
       }
     }

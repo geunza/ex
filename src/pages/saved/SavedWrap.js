@@ -168,7 +168,6 @@ const SavedWrap = () => {
       v.order = obj.order;
       v.color = obj.color;
       v.name = obj.name;
-      console.log(v);
       return v;
     });
     newArr = newArr.sort((a, b) => {

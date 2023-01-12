@@ -35,7 +35,6 @@ const AppleLoginPage = () => {
         code: paramObj.code,
         id_token: paramObj.userid,
       };
-      console.log("headersData", headersData);
       axios({
         url: "/user/getUserInfo",
         method: "POST",
@@ -46,7 +45,6 @@ const AppleLoginPage = () => {
         const data = result.data;
         if (data == null) {
           // 최초 가입
-          console.log("최초 가입 입니다.");
 
           dispatch(setAppleInform({ state: true, datas: paramObj }));
           navigate("/");
@@ -54,15 +52,11 @@ const AppleLoginPage = () => {
           // 정보가 있음
           if (data.usernickname == "탈퇴회원") {
             // 탈퇴 회원
-            console.log("탈퇴 회원 입니다.");
             dispatch(setAppleInform({ state: true, datas: paramObj }));
             navigate("/");
           } else {
             // 기존 회원
-            console.log("기존 회원 입니다.");
             const userId = data.id;
-            // console.log("data", data);
-            // console.log("userId", userId);
             sessionStorage.setItem("userId", userId);
             const rePath = sessionStorage.getItem("appleRedirectPath") ?? "/";
             sessionStorage.setItem("oAuthType", "apple");
@@ -81,12 +75,6 @@ const AppleLoginPage = () => {
   useEffect(() => {
     getAppleData();
   }, []);
-  useEffect(() => {
-    console.log("appleInform", appleInform);
-  }, [appleInform]);
-  // console.log("id_token", id_token);
-  // console.log("code", code);
-  // console.log("user_id", user_id);
 
   return (
     <>

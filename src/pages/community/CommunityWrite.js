@@ -4,7 +4,7 @@ import FileUpload from "components/community/FileUpload";
 import styles from "scss/pages/Community.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MobileTitle from "components/MobileTitle";
 const CommunityWrite = () => {
   const navigate = useNavigate();
@@ -72,10 +72,8 @@ const CommunityWrite = () => {
           const formData2 = new FormData();
           formData2.append("content_id", res.data);
           fileData.forEach((v, i) => {
-            console.log(v);
             formData2.append("files", v);
           });
-          console.log(formData2);
           axios
             .post("/mobile/community/uploadFile", formData2, {
               headers: {
@@ -89,7 +87,6 @@ const CommunityWrite = () => {
               console.log(error);
             });
         } else {
-          console.log(res.data);
           navigate(`/community/communityView/${res.data}`);
         }
         return res.data;

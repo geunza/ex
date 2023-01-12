@@ -36,14 +36,6 @@ const CommunityModalReport = ({
     } else {
       desc = selectedReport.value;
     }
-    console.log(
-      "userInfo.id:" + userInfo.id + "\n",
-      "targetId:" + writerId + "\n",
-      "targetIdx:" + targetIdx + "\n",
-      "category:" + category + "\n",
-      "desc:" + desc + "\n",
-      "status:" + status + "\n"
-    );
     axios({
       url: "/mobile/community/insertReport",
       method: "POST",

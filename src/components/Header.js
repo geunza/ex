@@ -18,7 +18,7 @@ import {
   KAKAO_LOGOUT_REDIRECT_URI,
 } from "pages/login/LoginData";
 import SearchForm from "components/SearchForm";
-const Header = ({}) => {
+const Header = () => {
   const location = useLocation();
   const userInfo = useSelector((state) => state.userInfo);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);

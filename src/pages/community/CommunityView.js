@@ -142,7 +142,6 @@ const CommunityView = () => {
       dispatch(setLoginCheck(true));
       return false;
     }
-    console.log(userInfo.id);
     axios({
       url: "/mobile/community/like",
       method: "POST",

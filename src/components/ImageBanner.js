@@ -1,15 +1,13 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "swiper/css";
 import "swiper/css/pagination";
-import styles from "scss/components//Banner.scss";
+import "scss/components/Banner.scss";
 import { useState } from "react";
 import { useEffect } from "react";
 const ImageBanner = () => {
-  const navigate = useNavigate();
   const [banner, setBanner] = useState([]);
   const getBannerData = () => {
     axios({
@@ -43,8 +41,6 @@ const ImageBanner = () => {
           pagination={swiperParam.pagination}
           className="swiper"
           loop={true}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // onSlideChange={() => console.log("slide change")}
         >
           {banner &&
             banner.map((img, idx) => {

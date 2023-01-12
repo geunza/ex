@@ -147,7 +147,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
         method: "POST",
         headers: { user_id: userInfo.id },
         data: { keyword: item },
-      }).then((res) => console.log(res));
+      }).then((res) => {});
     });
     onlyNew.forEach((item) => {
       axios({
@@ -155,20 +155,8 @@ const EventModal = ({ modalOpener, modalTab }) => {
         method: "POST",
         headers: { user_id: userInfo.id },
         data: { keyword: item },
-      }).then((res) => console.log(res));
+      }).then((res) => {});
     });
-    // 기존 : 스타트업2, 스타트업3
-    // 최종 : bbccdd, bbcc, bb, aa, 스타트업3
-    //   axios({
-    //     url: "/mainpage/insertKeyword",
-    //     method: "POST",
-    //     headers: {
-    //       user_id: userInfo.id,
-    //     },
-    //     data: { keyword: "스타트업" },
-    //   })
-    //     .then((res) => getUserKeyword())
-    //     .catch((err) => console.log(err));
   };
   useEffect(() => {
     let copy = [...userKeyword];

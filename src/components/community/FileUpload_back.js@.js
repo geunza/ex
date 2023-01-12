@@ -23,7 +23,6 @@ const FileUpload = ({
     // dispatch(loadingStart());
 
     const target = document.getElementById("multipleFiles" + fileStep);
-    // console.log("multipleFiles" + fileStep);
     const fileLengthLimit = 5;
     const fileSizeLimit = 20;
     const files = target.files;

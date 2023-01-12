@@ -18,9 +18,7 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
           user_id: userInfo.id,
         },
         data: { support_info: idx.toString() },
-      }).then((res) => {
-        console.log(idx);
-      });
+      }).then((res) => {});
     }
     axios({
       url: `/mainpage/upViewCnt?si_idx=${idx}`,
