@@ -95,9 +95,9 @@ const SavedWrap = () => {
   };
   const [doughnutList, setDoughnutList] = useState([]);
   const [barList, setBarList] = useState([
-    { name: "찜", count: 0, color: "#30d6c2" },
-    { name: "지원", count: 0, color: "#c0cbd5" },
-    { name: "선정", count: 0, color: "#c0cbd5" },
+    { cate: "save_cnt", name: "찜", count: 0, color: "#30d6c2" },
+    { cate: "req_cnt", name: "지원", count: 0, color: "#c0cbd5" },
+    { cate: "done_cnt", name: "선정", count: 0, color: "#c0cbd5" },
   ]);
 
   let baseCatName = [
@@ -145,19 +145,18 @@ const SavedWrap = () => {
     barList.forEach((v, i) => {
       const name = v.name;
       axios({
-        url: "/saved/getMySavedBook",
+        url: "/saved/getSavedTotalCount",
         method: "POST",
         headers: {
           user_id: userInfo.id,
-        },
-        data: {
-          cat: name,
         },
       }).then((res) => {
         const data = res.data;
         const count = data.length;
         let copy = [...barList];
-        copy.filter((item) => item.name == name)[0].count = count;
+        for (let key in data) {
+          copy.find((item) => item.cate == key).count = data[key];
+        }
         setBarList(copy);
       });
     });

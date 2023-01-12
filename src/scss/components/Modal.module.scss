@@ -642,24 +642,10 @@
     flex-flow: column;
     gap: 15px;
     button {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
+      padding: 0;
       border: none;
-      border-radius: $radius-btn;
-      box-shadow: 0px 2px 5px 0px rgba(78, 78, 78, 0.3);
-
-      &:first-child {
-        background: #fae100;
-      }
-      span {
-        padding-top: 3px;
-        font-size: 14px;
-      }
-      img:last-child {
-        opacity: 0;
+      img {
+        display: block;
       }
     }
   }
@@ -850,14 +836,6 @@
       }
     }
     .sns {
-      display: flex;
-      flex-flow: column;
-      gap: 15px;
-      button {
-        span {
-          font-weight: 500;
-        }
-      }
     }
   }
 

@@ -59,12 +59,7 @@ const LoginModal = () => {
                   onClick={handleKakao}
                 >
                   <img
-                    src={require("assets/img/home/sns_kakao.png")}
-                    alt="Kakao Icon"
-                  />
-                  <span>카카오 로그인</span>
-                  <img
-                    src={require("assets/img/home/sns_kakao.png")}
+                    src={require("assets/img/global/btn/btn_kakao.png")}
                     alt="Kakao Icon"
                   />
                 </button>
