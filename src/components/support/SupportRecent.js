@@ -27,9 +27,6 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
       // getSupportCont();
     });
   };
-  useEffect(() => {
-    getRecent();
-  }, [isLoggedIn, userInfo]);
   return (
     <div className={styles.SupportRecent}>
       <>

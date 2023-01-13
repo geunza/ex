@@ -39,11 +39,10 @@ const SupportList = () => {
     sessionStorage.setItem("sOffset", value);
   };
   const getSupportCont = (ord, keyword) => {
-    // dispatch(loadingStart());
     const thisCount = axiosCount;
     axiosCount = axiosCount + 1;
-
     // 첫랜더
+    dispatch(loadingStart());
     if (!(sessionStorage.getItem("isLoggedIn") ?? false)) {
       // 로그인X => 전체
       axios({
@@ -58,10 +57,11 @@ const SupportList = () => {
         if (thisCount + 1 == axiosCount) {
           dispatch(setSupportData(res.data));
         }
-        // dispatch(loadingEnd());
+        dispatch(loadingEnd());
       });
     } else {
       if (allSupport) {
+        console.log("LIST SEARCH : 전체 지원사업 보기 O");
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -76,9 +76,10 @@ const SupportList = () => {
           if (thisCount + 1 == axiosCount) {
             dispatch(setSupportData(res.data));
           }
-          // dispatch(loadingEnd());
+          dispatch(loadingEnd());
         });
       } else {
+        console.log("LIST SEARCH : 전체 지원사업 보기 X");
         const thisData = {
           ord: ord,
           keyword: keyword,
@@ -94,6 +95,7 @@ const SupportList = () => {
             company_type: dataToString("biz_type_cd"),
           });
         }
+        console.log(thisData);
         axios({
           url: "/support/getSupportInfoList",
           method: "POST",
@@ -116,7 +118,7 @@ const SupportList = () => {
           if (thisCount + 1 == axiosCount) {
             dispatch(setSupportData(res.data));
           }
-          // dispatch(loadingEnd());
+          dispatch(loadingEnd());
         });
       }
     }
@@ -128,6 +130,7 @@ const SupportList = () => {
     }
   };
   const getRecent = () => {
+    console.log("AAAAAAAAAAA");
     axios({
       headers: { user_id: userInfo.id },
       data: {
@@ -157,17 +160,11 @@ const SupportList = () => {
     let pageDummy = "";
     let countDummy = "";
     let keywordDummy = "";
-    let allDummy = "";
     let viewDummy = "";
     searchArr.forEach((v) => {
       const arrObj = v.split("=");
       searchObj[arrObj[0]] = arrObj[1];
     });
-    if (searchObj.all == "true") {
-      allDummy = true;
-    } else if (searchObj.all == "false") {
-      allDummy = false;
-    }
     if (searchObj.ord == undefined) {
       ordDummy = "전체";
     } else {
@@ -191,9 +188,6 @@ const SupportList = () => {
       countDummy = 30;
     } else {
       countDummy = searchObj.count;
-    }
-    if (ord != ordDummy || keyword != keywordDummy) {
-      getSupportCont(ordDummy, keywordDummy);
     }
     setOrd(ordDummy);
     setPage(pageDummy);

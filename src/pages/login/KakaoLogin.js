@@ -30,7 +30,7 @@ const KakaoLogin = () => {
         if (data.access_token) {
           localStorage.setItem("kakaoToken", data.access_token);
         }
-
+        console.log("data", data);
         axios({
           method: "POST",
           url: "https://kapi.kakao.com/v2/user/me",
@@ -81,6 +81,7 @@ const KakaoLogin = () => {
                 } else {
                   // 기존 회원
                   const headers = obj;
+                  console.log("headers", headers);
                   axios({
                     url: "/kakao/login",
                     method: "POST",

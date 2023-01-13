@@ -307,17 +307,15 @@ const SupportContent = ({
                     .slice((page - 1) * count, page * count)
                     .map((item, idx) => {
                       return (
-                        <>
-                          <SupportItem
-                            getRecent={getRecent}
-                            key={item.si_idx}
-                            item={item}
-                            setScrollStorage={setScrollStorage}
-                            getSupportCont={getSupportCont}
-                            keyword={keyword}
-                            ord={ord}
-                          />
-                        </>
+                        <SupportItem
+                          getRecent={getRecent}
+                          key={item.si_idx}
+                          item={item}
+                          setScrollStorage={setScrollStorage}
+                          getSupportCont={getSupportCont}
+                          keyword={keyword}
+                          ord={ord}
+                        />
                       );
                     })}
                 </ul>
