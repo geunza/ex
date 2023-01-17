@@ -102,18 +102,7 @@ const SupportList = () => {
           headers: {
             user_id: userInfo.id,
           },
-          data: {
-            ord: ord,
-            business_type: dataToString("bizp_type_cd"),
-            start_period: dataToString("prd_cd"),
-            company_type: dataToString("biz_type_cd"),
-            target_cat_name: dataToString("spt_cd"),
-            business_ctg: dataToString("biz_cd"),
-            tech_ctg: dataToString("tech_cd"),
-            loc_code: dataToString("loc_cd"),
-            keyword: keyword,
-            // keyword: searchTxt,
-          },
+          data: thisData,
         }).then((res) => {
           if (thisCount + 1 == axiosCount) {
             dispatch(setSupportData(res.data));
