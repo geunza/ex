@@ -183,7 +183,6 @@
         flex-flow: column;
         gap: 15px;
         width: 100%;
-        gap: 15px;
         button {
           width: 100%;
           display: flex;
@@ -198,11 +197,8 @@
           }
           span {
             padding-top: 3px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
-          }
-          img:last-child {
-            opacity: 0;
           }
         }
       }

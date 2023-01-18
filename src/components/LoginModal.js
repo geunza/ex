@@ -55,13 +55,14 @@ const LoginModal = () => {
               <div className={styles.sns}>
                 <button
                   type="button"
-                  className={styles.btnKakao}
+                  className="btnLogin btnKakaoLogin"
                   onClick={handleKakao}
                 >
                   <img
-                    src={require("assets/img/global/btn/btn_kakao.png")}
-                    alt="Kakao Icon"
+                    src={require("assets/img/global/ico/ico_kakao.png")}
+                    alt="kakao icon"
                   />
+                  <span>Kakao로 로그인</span>
                 </button>
                 <AppleLoginBtn />
               </div>

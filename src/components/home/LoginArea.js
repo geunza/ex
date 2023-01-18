@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoginCheck } from "redux/store";
 import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "pages/login/LoginData";
+import AppleLoginBtn from "pages/login/AppleLoginBtn";
 const SnsLogin = () => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userInfo = useSelector((state) => state.userInfo);
@@ -52,7 +53,7 @@ const SnsLogin = () => {
               >
                 <img
                   src={require("assets/img/global/ico/ico_zzim.png")}
-                  alt="Apple Icon"
+                  alt="찜"
                 />
                 <span>찜</span>
               </button>
@@ -65,7 +66,7 @@ const SnsLogin = () => {
               >
                 <img
                   src={require("assets/img/global/ico/ico_setting.png")}
-                  alt="Apple Icon"
+                  alt="기업정보"
                 />
                 <span>기업정보</span>
               </button>
@@ -80,22 +81,16 @@ const SnsLogin = () => {
             <div className={styles.sns}>
               <button
                 type="button"
-                className={styles.btnKakao}
+                className={`btnLogin btnKakaoLogin ${styles.btnKakao}`}
                 onClick={handleKakao}
               >
                 <img
-                  src={require("assets/img/home/sns_kakao.png")}
-                  alt="Kakao Icon"
+                  src={require("assets/img/global/ico/ico_kakao.png")}
+                  alt="kakao icon"
                 />
-                <span>카카오로그인</span>
+                <span>Kakao로 로그인</span>
               </button>
-              <button type="button" className={styles.btnApple}>
-                <img
-                  src={require("assets/img/home/sns_apple.png")}
-                  alt="Apple Icon"
-                />
-                <span>Apple로그인</span>
-              </button>
+              <AppleLoginBtn />
             </div>
             <div className={styles.zzim}>
               <button
@@ -108,7 +103,7 @@ const SnsLogin = () => {
               >
                 <img
                   src={require("assets/img/global/ico/ico_zzim.png")}
-                  alt="Apple Icon"
+                  alt="찜"
                 />
                 <span>찜</span>
               </button>
@@ -122,7 +117,7 @@ const SnsLogin = () => {
               >
                 <img
                   src={require("assets/img/global/ico/ico_setting.png")}
-                  alt="Apple Icon"
+                  alt="기업정보"
                 />
                 <span>기업정보</span>
               </button>

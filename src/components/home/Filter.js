@@ -9,6 +9,7 @@ import FilterModal from "components/home/FilterModal";
 import HomeSupportFilter from "components/HomeSupportFilter";
 import { setLoginCheck } from "redux/store";
 import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "pages/login/LoginData";
+import AppleLoginBtn from "pages/login/AppleLoginBtn";
 const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -136,30 +137,16 @@ const Filter = () => {
             <div className={styles.sns}>
               <button
                 type="button"
-                className={styles.btnKakao}
+                className={`btnLogin btnKakaoLogin ${styles.btnKakao}`}
                 onClick={handleKakao}
               >
                 <img
-                  src={require("assets/img/home/sns_kakao.png")}
-                  alt="Kakao Icon"
+                  src={require("assets/img/global/ico/ico_kakao.png")}
+                  alt="kakao icon"
                 />
-                <span>카카오 로그인</span>
-                <img
-                  src={require("assets/img/home/sns_kakao.png")}
-                  alt="Kakao Icon"
-                />
+                <span>Kakao로 로그인</span>
               </button>
-              <button type="button" className={styles.btnApple}>
-                <img
-                  src={require("assets/img/home/sns_apple.png")}
-                  alt="Apple Icon"
-                />
-                <span>Apple 로그인</span>
-                <img
-                  src={require("assets/img/home/sns_apple.png")}
-                  alt="Apple Icon"
-                />
-              </button>
+              <AppleLoginBtn />
             </div>
           </div>
         )}

@@ -290,44 +290,39 @@
     }
   }
   .sns {
-    margin: auto auto 15px;
+    margin: auto auto 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     button {
-      width: 50%;
-      height: 50px;
-      border: none;
-      @include flexCenter(10px);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      height: 45px;
       span {
         padding-top: 2px;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 500;
       }
     }
     .btnKakao {
-      background-color: #ffffff;
-      border-radius: $radius-btn 0 0 $radius-btn;
-      position: relative;
       &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 1px;
-        height: 50%;
-        background: $color-borderGray;
+        content: none;
       }
     }
-    .btnApple {
-      background-color: #ffffff;
-      border-radius: 0 $radius-btn $radius-btn 0;
+    :global .btnAppleLogin {
+      &:after {
+        content: none;
+      }
     }
   }
   .zzim {
     button {
       @include flexCenter(8px);
       width: 48%;
-      height: 55px;
+      height: 45px;
       border: 1px solid #6a6af3;
       border-radius: $radius-btn;
       background-color: #3939c7;
@@ -336,8 +331,11 @@
       &:hover {
         border-color: #fff;
       }
+      img {
+        height: 20px;
+      }
       span {
-        font-size: 20px;
+        font-size: 16px;
         padding: 3px 0 0 0;
       }
     }

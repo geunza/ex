@@ -33,6 +33,18 @@
   font-weight: 300;
   font-style: normal;
 }
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("../../public/public_assets/fonts/AppleSDGothicNeoM.eot");
+  src: url("../../public/public_assets/fonts/AppleSDGothicNeoM.ttf")
+      format("truetype"),
+    url("../../public/public_assets/fonts/AppleSDGothicNeoM.woff")
+      format("woff"),
+    url("../../public/public_assets/fonts/AppleSDGothicNeoM.woff2")
+      format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
 img {
   max-width: 100%;
 }
@@ -379,7 +391,44 @@ body {
 .isMobile {
   display: none;
 }
-
+.btnLogin {
+  font-family: "AppleSDGothicNeo", "GmarketSans";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-radius: 12px;
+  gap: 15px;
+  font-size: 16px;
+  &:after {
+    content: "";
+    display: block;
+  }
+  &:after,
+  img,
+  svg {
+    width: 20px;
+  }
+  img:last-child,
+  svg:last-child {
+    opacity: 0;
+  }
+  span {
+    padding-top: 3px;
+  }
+}
+.btnKakaoLogin {
+  border: none;
+  background: #fee500;
+  span {
+  }
+}
+.btnAppleLogin {
+  background: #000;
+  span {
+    color: #fff;
+  }
+}
 /*반응형*/
 @media screen and (max-width: 1023px) {
   body {
