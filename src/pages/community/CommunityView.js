@@ -14,6 +14,7 @@ const CommunityView = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
+  const isMobile = useSelector((state) => state.isMobile);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const [post, setPost] = useState({});
   const [time, setTime] = useState("");
@@ -249,18 +250,20 @@ const CommunityView = () => {
       <div className={`${styles.CommunityView} ${styles.CommonView}`}>
         <MobileTitle title={"게시글 상세"} link={"/community/communityList"} />
         <div className={`inner ${styles.inner}`}>
-          <div className={styles.btns}>
-            <button
-              onClick={() => navigate("/community/communityList")}
-              className={styles.btnBack}
-            >
-              <img
-                src={require("assets/img/global/btn/btn_back.png")}
-                alt="전체 게시글"
-              />
-              <span>전체 게시글</span>
-            </button>
-          </div>
+          {!isMobile && (
+            <div className={styles.btns}>
+              <button
+                onClick={() => navigate("/community/communityList")}
+                className={styles.btnBack}
+              >
+                <img
+                  src={require("assets/img/global/btn/btn_back.png")}
+                  alt="전체 게시글"
+                />
+                <span>전체 게시글</span>
+              </button>
+            </div>
+          )}
           <div className={styles.contWrap}>
             <div className={styles.contTop}>
               <div className={styles.writer}>
