@@ -278,18 +278,20 @@ const SupportList = ({}) => {
                       </p>
                     )}
                   </div>
-                  <button
-                    onClick={() => {
-                      setMobileFilterOpen((prev) => !prev);
-                    }}
-                    className={
-                      styles.mobileOpen +
-                      " " +
-                      (mobileFilterOpen ? styles.opened : "")
-                    }
-                  >
-                    열기
-                  </button>
+                  {keyword == "" && (
+                    <button
+                      onClick={() => {
+                        setMobileFilterOpen((prev) => !prev);
+                      }}
+                      className={
+                        styles.mobileOpen +
+                        " " +
+                        (mobileFilterOpen ? styles.opened : "")
+                      }
+                    >
+                      열기
+                    </button>
+                  )}
                 </div>
               )}
               <SupportFilter
