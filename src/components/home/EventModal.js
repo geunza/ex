@@ -32,7 +32,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
       ) {
         axios({
           method: "POST",
-          url: process.env.REACT_APP_API_URL + "/saved/insertDeliverEmail",
+          url: process.env.REACT_APP_API_RESOURCE + "/saved/insertDeliverEmail",
           headers: {
             user_id: userInfo.id,
           },
@@ -58,7 +58,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
   const getUserKeyword = () => {
     // dispatch(loadingStart());
     axios({
-      url: process.env.REACT_APP_API_URL + "/mainpage/getKeyword",
+      url: process.env.REACT_APP_API_RESOURCE + "/mainpage/getKeyword",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -114,7 +114,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
 
   const deleteTargetKeyword = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/mainpage/delKeyword",
+      url: process.env.REACT_APP_API_RESOURCE + "/mainpage/delKeyword",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -126,7 +126,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
   };
   const deleteAllKeyword = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/mainpage/delAllKeyword",
+      url: process.env.REACT_APP_API_RESOURCE + "/mainpage/delAllKeyword",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -143,7 +143,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
     const onlyNew = newKey.filter((x) => !defaultKey.includes(x)); //새로 추가
     onlyDefault.forEach((item) => {
       axios({
-        url: process.env.REACT_APP_API_URL + "/mainpage/delKeyword",
+        url: process.env.REACT_APP_API_RESOURCE + "/mainpage/delKeyword",
         method: "POST",
         headers: { user_id: userInfo.id },
         data: { keyword: item },
@@ -151,7 +151,7 @@ const EventModal = ({ modalOpener, modalTab }) => {
     });
     onlyNew.forEach((item) => {
       axios({
-        url: process.env.REACT_APP_API_URL + "/mainpage/insertKeyword",
+        url: process.env.REACT_APP_API_RESOURCE + "/mainpage/insertKeyword",
         method: "POST",
         headers: { user_id: userInfo.id },
         data: { keyword: item },

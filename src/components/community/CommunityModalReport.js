@@ -37,7 +37,8 @@ const CommunityModalReport = ({
       desc = selectedReport.value;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/insertReport",
+      url:
+        process.env.REACT_APP_API_RESOURCE + "/mobile/community/insertReport",
       method: "POST",
       headers: { user_id: userInfo.id, target_user_id: writerId },
       data: {

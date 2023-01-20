@@ -18,6 +18,7 @@ const SupportFilter = ({
   allSupport,
   setAllSupport,
   mobileFilterOpen,
+  keyword,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,7 +54,9 @@ const SupportFilter = ({
     }
     axios({
       url:
-        process.env.REACT_APP_API_URL + "/user/updateCompanyInfo?" + paramUrl,
+        process.env.REACT_APP_API_RESOURCE +
+        "/user/updateCompanyInfo?" +
+        paramUrl,
       method: "POST",
       headers: {
         userId: userInfo.id,
@@ -216,58 +219,222 @@ const SupportFilter = ({
   }, [modalIdx, modalOn]);
   return (
     <>
-      <div
-        className={styles.SupportFilter}
-        style={{
-          padding: isMobile && !mobileFilterOpen ? 0 : null,
-          border: isMobile && !mobileFilterOpen ? "none" : null,
-        }}
-      >
-        <h4>
-          <span>
-            조회 필터
-            <i className="btnToolTip" onClick={tooltipOpen}>
-              <img
-                src={require("assets/img/global/btn/btn_tooltip.png")}
-                alt="tooltip"
+      {keyword == "" ? (
+        <div
+          className={styles.SupportFilter}
+          style={{
+            padding: isMobile && !mobileFilterOpen ? 0 : null,
+            border: isMobile && !mobileFilterOpen ? "none" : null,
+          }}
+        >
+          <h4>
+            <span>
+              조회 필터
+              <i className="btnToolTip" onClick={tooltipOpen}>
+                <img
+                  src={require("assets/img/global/btn/btn_tooltip.png")}
+                  alt="tooltip"
+                />
+                <Tooltip
+                  cont={
+                    "입력한 정보는 저장되며 해당 정보를 기반으로 맞춤 추천이 진행됩니다."
+                  }
+                />
+              </i>
+            </span>
+          </h4>
+          {!isMobile && (
+            <div className={styles.chkArea}>
+              <input
+                type="checkbox"
+                id="chkAll"
+                checked={allSupport}
+                onChange={(e) => {
+                  if (!isLoggedIn) {
+                    dispatch(setLoginCheck(true));
+                    return false;
+                  }
+                  setAllSupport(e.currentTarget.checked);
+                }}
               />
-              <Tooltip
-                cont={
-                  "입력한 정보는 저장되며 해당 정보를 기반으로 맞춤 추천이 진행됩니다."
-                }
-              />
-            </i>
-          </span>
-        </h4>
-        {!isMobile && (
-          <div className={styles.chkArea}>
-            <input
-              type="checkbox"
-              id="chkAll"
-              checked={allSupport}
-              onChange={(e) => {
-                if (!isLoggedIn) {
-                  dispatch(setLoginCheck(true));
-                  return false;
-                }
-                setAllSupport(e.currentTarget.checked);
-              }}
-            />
-            <label htmlFor="chkAll">전체 지원사업 보기</label>
-          </div>
-        )}
-        {!isMobile ? (
-          <div className={styles.filterBox}>
-            <ul className={styles.filterList}>
-              {renderItems.map((cate, idx) => {
-                if (cate == "biz_cd") return false;
-                if (cate == "tech_cd") {
+              <label htmlFor="chkAll">전체 지원사업 보기</label>
+            </div>
+          )}
+          {!isMobile ? (
+            <div className={styles.filterBox}>
+              <ul className={styles.filterList}>
+                {renderItems.map((cate, idx) => {
+                  if (cate == "biz_cd") return false;
+                  if (cate == "tech_cd") {
+                    return (
+                      <li className={styles.filterItem} key={idx}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            modalControl(idx);
+                          }}
+                        >
+                          <div className={styles.itemTit}>
+                            <span>{supportInfo[cate].name}</span>
+                            <div className={styles.arr}>
+                              <img
+                                src={require("assets/img/global/btn/btn_arr.png")}
+                                alt="Select"
+                              />
+                            </div>
+                          </div>
+                          <p className={styles.currentSelected}>
+                            {supportInfo[cate].datas.length > 1
+                              ? `${supportInfo[cate].datas[0].code_nm} 외 ${
+                                  supportInfo[cate].datas.length - 1
+                                }건`
+                              : supportInfo[cate].datas.length == 1
+                              ? supportInfo[cate].datas[0].code_nm
+                              : "선택"}
+                          </p>
+                        </button>
+                        {modalOn && modalIdx == idx && (
+                          <div className={styles.filterItemModal}>
+                            <div className={styles.modalCont}>
+                              <div className={styles.itemTit}>
+                                {supportInfo.biz_cd.name}
+                              </div>
+                              <ul>
+                                {supportItem.biz_cd.map((item, idx) => {
+                                  return (
+                                    <li key={idx}>
+                                      <button
+                                        className={
+                                          someItem(objDummy.biz_cd.datas, item)
+                                            ? styles.selected
+                                            : null
+                                        }
+                                        onClick={(e) => {
+                                          filterBtnClick(item, e);
+                                        }}
+                                      >
+                                        {item.code_nm}
+                                      </button>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                              <div className={styles.itemTit}>
+                                <span>
+                                  {supportInfo[cate].name}
+                                  <i
+                                    className="btnToolTip"
+                                    onClick={tooltipOpen}
+                                  >
+                                    <img
+                                      src={require("assets/img/global/btn/btn_tooltip.png")}
+                                      alt="tooltip"
+                                    />
+                                    <div className="toolTipBox">
+                                      <p className="txt">
+                                        사업공고 출처기관에서 명시한 분야로
+                                        분류합니다. 해당되는 분야 키워드를 중복
+                                        선택하시고 조회/추천되는 지원사업에 따라
+                                        수정해 보세요!
+                                      </p>
+                                      <p className="exTxt">
+                                        AI를 활용한 수산물 밀키트 판매 커머스
+                                      </p>
+                                      <div className="exBox">
+                                        <img
+                                          src={require("assets/img/global/ico/ico_ex.png")}
+                                          alt="ico_example"
+                                          className="ico_ex"
+                                        />
+                                        <span>딥테크</span>
+                                        <span>커머스</span>
+                                        <span>푸드/농업</span>
+                                        <span>기타(수산물)</span>
+                                        선택
+                                      </div>
+                                    </div>
+                                  </i>
+                                </span>
+                              </div>
+                              <ul>
+                                {supportItem[cate].map((item, idx) => {
+                                  let hasToolTip = false;
+                                  let toolTipCont = "";
+                                  if (cate == "tech_cd") {
+                                    if (item.code_nm == "기타") {
+                                      hasToolTip = true;
+                                      toolTipCont =
+                                        "뷰티/화장품, 패션, 예술, 광고/마케팅, 화학, 유아/출산, 부동산/건설, 소셜미디어/커뮤니티, 화학, 인사/비지니스/법률 등을 포함합니다.";
+                                    }
+                                    if (item.code_nm == "딥테크") {
+                                      hasToolTip = true;
+                                      toolTipCont =
+                                        "AI,자율주행, 블록체인, 나노소재, 5G/6G, 스마트팜, 빅데이터 스마트홈 등을 포함하는 분야입니다.";
+                                    }
+                                  }
+                                  return (
+                                    <li
+                                      className={
+                                        hasToolTip ? styles.hasToolTip : null
+                                      }
+                                      key={idx}
+                                    >
+                                      <button
+                                        className={
+                                          someItem(objDummy[cate].datas, item)
+                                            ? styles.selected
+                                            : " "
+                                        }
+                                        onClick={(e) => {
+                                          filterBtnClick(item, e);
+                                        }}
+                                      >
+                                        {item.code_nm}
+                                      </button>
+                                      {hasToolTip && (
+                                        <i
+                                          className="btnToolTip"
+                                          onClick={tooltipOpen}
+                                        >
+                                          <img
+                                            src={require("assets/img/global/btn/btn_tooltip.png")}
+                                            alt="tooltip"
+                                          />
+                                          <Tooltip cont={toolTipCont} />
+                                        </i>
+                                      )}
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </div>
+                            <div className={styles.modalConfirm}>
+                              <button
+                                className={styles.submitBtn}
+                                onClick={filterModalSubmit}
+                              >
+                                선택완료
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  }
+                  const notReady =
+                    (cate == "prd_cd" || cate == "biz_type_cd") &&
+                    supportInfo.bizp_type_cd.datas[0].code == "02";
                   return (
                     <li className={styles.filterItem} key={idx}>
                       <button
                         type="button"
                         onClick={() => {
-                          modalControl(idx);
+                          notReady
+                            ? alert("예비창업자는 선택할 수 없습니다.")
+                            : modalControl(idx);
+                        }}
+                        style={{
+                          opacity: notReady ? 0.5 : null,
                         }}
                       >
                         <div className={styles.itemTit}>
@@ -279,7 +446,12 @@ const SupportFilter = ({
                             />
                           </div>
                         </div>
-                        <p className={styles.currentSelected}>
+                        <p
+                          className={styles.currentSelected}
+                          style={{
+                            color: notReady ? "#555" : null,
+                          }}
+                        >
                           {supportInfo[cate].datas.length > 1
                             ? `${supportInfo[cate].datas[0].code_nm} 외 ${
                                 supportInfo[cate].datas.length - 1
@@ -293,15 +465,15 @@ const SupportFilter = ({
                         <div className={styles.filterItemModal}>
                           <div className={styles.modalCont}>
                             <div className={styles.itemTit}>
-                              {supportInfo.biz_cd.name}
+                              {supportInfo[cate].name}
                             </div>
                             <ul>
-                              {supportItem.biz_cd.map((item, idx) => {
+                              {supportItem[cate].map((item, idx) => {
                                 return (
                                   <li key={idx}>
                                     <button
                                       className={
-                                        someItem(objDummy.biz_cd.datas, item)
+                                        someItem(objDummy[cate].datas, item)
                                           ? styles.selected
                                           : null
                                       }
@@ -311,91 +483,6 @@ const SupportFilter = ({
                                     >
                                       {item.code_nm}
                                     </button>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                            <div className={styles.itemTit}>
-                              <span>
-                                {supportInfo[cate].name}
-                                <i className="btnToolTip" onClick={tooltipOpen}>
-                                  <img
-                                    src={require("assets/img/global/btn/btn_tooltip.png")}
-                                    alt="tooltip"
-                                  />
-                                  <div className="toolTipBox">
-                                    <p className="txt">
-                                      사업공고 출처기관에서 명시한 분야로
-                                      분류합니다. 해당되는 분야 키워드를 중복
-                                      선택하시고 조회/추천되는 지원사업에 따라
-                                      수정해 보세요!
-                                    </p>
-                                    <p className="exTxt">
-                                      AI를 활용한 수산물 밀키트 판매 커머스
-                                    </p>
-                                    <div className="exBox">
-                                      <img
-                                        src={require("assets/img/global/ico/ico_ex.png")}
-                                        alt="ico_example"
-                                        className="ico_ex"
-                                      />
-                                      <span>딥테크</span>
-                                      <span>커머스</span>
-                                      <span>푸드/농업</span>
-                                      <span>기타(수산물)</span>
-                                      선택
-                                    </div>
-                                  </div>
-                                </i>
-                              </span>
-                            </div>
-                            <ul>
-                              {supportItem[cate].map((item, idx) => {
-                                let hasToolTip = false;
-                                let toolTipCont = "";
-                                if (cate == "tech_cd") {
-                                  if (item.code_nm == "기타") {
-                                    hasToolTip = true;
-                                    toolTipCont =
-                                      "뷰티/화장품, 패션, 예술, 광고/마케팅, 화학, 유아/출산, 부동산/건설, 소셜미디어/커뮤니티, 화학, 인사/비지니스/법률 등을 포함합니다.";
-                                  }
-                                  if (item.code_nm == "딥테크") {
-                                    hasToolTip = true;
-                                    toolTipCont =
-                                      "AI,자율주행, 블록체인, 나노소재, 5G/6G, 스마트팜, 빅데이터 스마트홈 등을 포함하는 분야입니다.";
-                                  }
-                                }
-                                return (
-                                  <li
-                                    className={
-                                      hasToolTip ? styles.hasToolTip : null
-                                    }
-                                    key={idx}
-                                  >
-                                    <button
-                                      className={
-                                        someItem(objDummy[cate].datas, item)
-                                          ? styles.selected
-                                          : " "
-                                      }
-                                      onClick={(e) => {
-                                        filterBtnClick(item, e);
-                                      }}
-                                    >
-                                      {item.code_nm}
-                                    </button>
-                                    {hasToolTip && (
-                                      <i
-                                        className="btnToolTip"
-                                        onClick={tooltipOpen}
-                                      >
-                                        <img
-                                          src={require("assets/img/global/btn/btn_tooltip.png")}
-                                          alt="tooltip"
-                                        />
-                                        <Tooltip cont={toolTipCont} />
-                                      </i>
-                                    )}
                                   </li>
                                 );
                               })}
@@ -413,125 +500,9 @@ const SupportFilter = ({
                       )}
                     </li>
                   );
-                }
-                const notReady =
-                  (cate == "prd_cd" || cate == "biz_type_cd") &&
-                  supportInfo.bizp_type_cd.datas[0].code == "02";
-                return (
-                  <li className={styles.filterItem} key={idx}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        notReady
-                          ? alert("예비창업자는 선택할 수 없습니다.")
-                          : modalControl(idx);
-                      }}
-                      style={{
-                        opacity: notReady ? 0.5 : null,
-                      }}
-                    >
-                      <div className={styles.itemTit}>
-                        <span>{supportInfo[cate].name}</span>
-                        <div className={styles.arr}>
-                          <img
-                            src={require("assets/img/global/btn/btn_arr.png")}
-                            alt="Select"
-                          />
-                        </div>
-                      </div>
-                      <p
-                        className={styles.currentSelected}
-                        style={{
-                          color: notReady ? "#555" : null,
-                        }}
-                      >
-                        {supportInfo[cate].datas.length > 1
-                          ? `${supportInfo[cate].datas[0].code_nm} 외 ${
-                              supportInfo[cate].datas.length - 1
-                            }건`
-                          : supportInfo[cate].datas.length == 1
-                          ? supportInfo[cate].datas[0].code_nm
-                          : "선택"}
-                      </p>
-                    </button>
-                    {modalOn && modalIdx == idx && (
-                      <div className={styles.filterItemModal}>
-                        <div className={styles.modalCont}>
-                          <div className={styles.itemTit}>
-                            {supportInfo[cate].name}
-                          </div>
-                          <ul>
-                            {supportItem[cate].map((item, idx) => {
-                              return (
-                                <li key={idx}>
-                                  <button
-                                    className={
-                                      someItem(objDummy[cate].datas, item)
-                                        ? styles.selected
-                                        : null
-                                    }
-                                    onClick={(e) => {
-                                      filterBtnClick(item, e);
-                                    }}
-                                  >
-                                    {item.code_nm}
-                                  </button>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                        <div className={styles.modalConfirm}>
-                          <button
-                            className={styles.submitBtn}
-                            onClick={filterModalSubmit}
-                          >
-                            선택완료
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-            <div className={styles.submitArea}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    dispatch(setLoginCheck(true));
-                  } else {
-                    handleSubmitBtn();
-                  }
-                }}
-              >
-                <span>조회</span>
-              </button>
-            </div>
-          </div>
-        ) : (
-          mobileFilterOpen && (
-            <div className={styles.filterBox}>
-              <SupportFilterMobile />
+                })}
+              </ul>
               <div className={styles.submitArea}>
-                {isMobile && (
-                  <div className={styles.chkArea}>
-                    <input
-                      type="checkbox"
-                      id="chkAll"
-                      checked={allSupport}
-                      onChange={(e) => {
-                        if (!isLoggedIn) {
-                          dispatch(setLoginCheck(true));
-                          return false;
-                        }
-                        setAllSupport(e.currentTarget.checked);
-                      }}
-                    />
-                    <label htmlFor="chkAll">전체 지원사업 보기</label>
-                  </div>
-                )}
                 <button
                   type="button"
                   onClick={() => {
@@ -546,9 +517,46 @@ const SupportFilter = ({
                 </button>
               </div>
             </div>
-          )
-        )}
-      </div>
+          ) : (
+            mobileFilterOpen && (
+              <div className={styles.filterBox}>
+                <SupportFilterMobile />
+                <div className={styles.submitArea}>
+                  {isMobile && (
+                    <div className={styles.chkArea}>
+                      <input
+                        type="checkbox"
+                        id="chkAll"
+                        checked={allSupport}
+                        onChange={(e) => {
+                          if (!isLoggedIn) {
+                            dispatch(setLoginCheck(true));
+                            return false;
+                          }
+                          setAllSupport(e.currentTarget.checked);
+                        }}
+                      />
+                      <label htmlFor="chkAll">전체 지원사업 보기</label>
+                    </div>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!isLoggedIn) {
+                        dispatch(setLoginCheck(true));
+                      } else {
+                        handleSubmitBtn();
+                      }
+                    }}
+                  >
+                    <span>조회</span>
+                  </button>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      ) : null}
     </>
   );
 };

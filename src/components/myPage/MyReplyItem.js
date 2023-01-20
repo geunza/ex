@@ -38,7 +38,8 @@ const MyReplyItem = ({
     if (!window.confirm("댓글을 수정하시겠습니까?")) return false;
     axios({
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/mobile/community/updateComment",
+      url:
+        process.env.REACT_APP_API_RESOURCE + "/mobile/community/updateComment",
       data: {
         id: item.id, // CHECK!!
         description: currentReply,
@@ -53,7 +54,8 @@ const MyReplyItem = ({
     axios({
       method: "POST",
       url:
-        process.env.REACT_APP_API_URL + "/mobile/community/insertCommentLike",
+        process.env.REACT_APP_API_RESOURCE +
+        "/mobile/community/insertCommentLike",
       headers: {
         user_id: userInfo.id,
       },
@@ -76,7 +78,7 @@ const MyReplyItem = ({
 
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return false;
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delComment",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/delComment",
       method: "POST",
       data: {
         id: parseInt(value),

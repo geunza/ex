@@ -52,7 +52,7 @@ const CommunityModify = () => {
     }
     axios
       .put(
-        process.env.REACT_APP_API_URL + "/mobile/community/edit",
+        process.env.REACT_APP_API_RESOURCE + "/mobile/community/edit",
         formData1,
         {
           headers: {
@@ -76,7 +76,8 @@ const CommunityModify = () => {
     // dispatch(loadingStart());
     axios({
       method: "GET",
-      url: process.env.REACT_APP_API_URL + `/mobile/community/one?id=${id}`,
+      url:
+        process.env.REACT_APP_API_RESOURCE + `/mobile/community/one?id=${id}`,
     }).then((res) => {
       const data = res.data;
       const userId = data.user_id;
@@ -96,7 +97,7 @@ const CommunityModify = () => {
   };
   const getCommunityFiles = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/getFile",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/getFile",
       method: "POST",
       data: { content_id: parseInt(id) },
     })
@@ -110,7 +111,7 @@ const CommunityModify = () => {
       return false;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delete",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/delete",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

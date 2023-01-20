@@ -13,7 +13,7 @@ const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
   // 차단유저 GET
   const getBlockedUser = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/blockAll",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/blockAll",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -31,7 +31,8 @@ const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
       return false;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delBlockUser",
+      url:
+        process.env.REACT_APP_API_RESOURCE + "/mobile/community/delBlockUser",
       method: "POST",
       data: {
         blockidx: idx,
@@ -49,7 +50,9 @@ const CommunityModalBlockUser = ({ setModalOn, setBlockedModalOn }) => {
       return false;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delAllBlockUser",
+      url:
+        process.env.REACT_APP_API_RESOURCE +
+        "/mobile/community/delAllBlockUser",
       method: "POST",
       headers: { user_id: userInfo.id },
     }).then((res) => {

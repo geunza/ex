@@ -15,7 +15,7 @@ const CountArea = ({ count, setCount }) => {
         "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
       },
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/mainpage/getTotalCount",
+      url: process.env.REACT_APP_API_RESOURCE + "/mainpage/getTotalCount",
       cancelToken: new CancelToken(function executor(c) {
         // excutor 함수는 cancel 함수를 매개 변수로 받습니다.
         cancel = c;

@@ -12,7 +12,7 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
     window.open(url, "_blank", "noopener,noreferrer");
     if (Object.keys(userInfo).length > 0) {
       axios({
-        url: process.env.REACT_APP_API_URL + "/mainpage/insertTimeLine",
+        url: process.env.REACT_APP_API_RESOURCE + "/mainpage/insertTimeLine",
         method: "POST",
         headers: {
           user_id: userInfo.id,
@@ -21,7 +21,9 @@ const SupportRecent = ({ userInfo, savedBook, setSavedBook, getRecent }) => {
       }).then((res) => {});
     }
     axios({
-      url: process.env.REACT_APP_API_URL + `/mainpage/upViewCnt?si_idx=${idx}`,
+      url:
+        process.env.REACT_APP_API_RESOURCE +
+        `/mainpage/upViewCnt?si_idx=${idx}`,
       method: "POST",
     }).then((res) => {
       // getSupportCont();

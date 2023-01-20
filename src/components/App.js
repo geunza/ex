@@ -29,7 +29,9 @@ function App() {
   const userCompany = useSelector((state) => state.userCompany);
   const getFilterData = (code) => {
     axios({
-      url: process.env.REACT_APP_API_URL + `/common/codeDtlList?ctgCd=${code}`,
+      url:
+        process.env.REACT_APP_API_RESOURCE +
+        `/common/codeDtlList?ctgCd=${code}`,
       method: "POST",
     }).then((res) => {
       dispatch(setSupportItem({ cate: code, arr: res.data }));
@@ -52,7 +54,7 @@ function App() {
   }, []);
   const defaultSignIn = (id) => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
+      url: process.env.REACT_APP_API_RESOURCE + "/user/getUserInfo",
       method: "POST",
       headers: { userId: id },
     }).then((res) => {
@@ -64,7 +66,7 @@ function App() {
   };
   const getUserCompany = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/user/getCompanyInfo",
+      url: process.env.REACT_APP_API_RESOURCE + "/user/getCompanyInfo",
       method: "POST",
       headers: {
         userId: userInfo.id,

@@ -23,7 +23,7 @@ const SearchBox = ({
       return false;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mainpage/delMyRecentKeyword",
+      url: process.env.REACT_APP_API_RESOURCE + "/mainpage/delMyRecentKeyword",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { tl_event: word },
@@ -42,7 +42,8 @@ const SearchBox = ({
       return false;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mainpage/delMyAllRecentKeyword",
+      url:
+        process.env.REACT_APP_API_RESOURCE + "/mainpage/delMyAllRecentKeyword",
       method: "POST",
       headers: {
         user_id: userInfo.id,

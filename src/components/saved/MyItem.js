@@ -78,7 +78,7 @@ const MyItem = ({
   }
   const applyClick = (mb_addidx, mb_req_save_yn, mb_done_save_yn) => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/saved/isReqSavedMyBook",
+      url: process.env.REACT_APP_API_RESOURCE + "/saved/isReqSavedMyBook",
       method: "POSt",
       headers: {
         user_id: userInfo.id,
@@ -104,7 +104,7 @@ const MyItem = ({
     window.open(url, "_blank", "noopener,noreferrer");
     if (Object.keys(userInfo).length > 0) {
       axios({
-        url: process.env.REACT_APP_API_URL + "/mainpage/insertTimeLine",
+        url: process.env.REACT_APP_API_RESOURCE + "/mainpage/insertTimeLine",
         method: "POST",
         headers: {
           user_id: userInfo.id,
@@ -113,7 +113,9 @@ const MyItem = ({
       });
     }
     axios({
-      url: process.env.REACT_APP_API_URL + `/mainpage/upViewCnt?si_idx=${idx}`,
+      url:
+        process.env.REACT_APP_API_RESOURCE +
+        `/mainpage/upViewCnt?si_idx=${idx}`,
       method: "POST",
     }).then(() => {
       getMyItems(ord);

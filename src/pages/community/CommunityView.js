@@ -34,7 +34,8 @@ const CommunityView = () => {
   const getContent = () => {
     axios({
       method: "GET",
-      url: process.env.REACT_APP_API_URL + `/mobile/community/one?id=${id}`,
+      url:
+        process.env.REACT_APP_API_RESOURCE + `/mobile/community/one?id=${id}`,
       headers: {
         user_id: userInfo.id,
       },
@@ -66,7 +67,7 @@ const CommunityView = () => {
   };
   const getReply = (userId) => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/comment",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/comment",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: {
@@ -84,7 +85,7 @@ const CommunityView = () => {
   };
   const getFiles = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/getFile",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/getFile",
       method: "POST",
       data: {
         content_id: parseInt(id),
@@ -95,7 +96,6 @@ const CommunityView = () => {
         loadEnd();
       })
       .catch((err) => {
-        console.log("filesError");
         loadEnd();
       });
   };
@@ -112,7 +112,8 @@ const CommunityView = () => {
     const step = 1;
     axios({
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/mobile/community/insertComment",
+      url:
+        process.env.REACT_APP_API_RESOURCE + "/mobile/community/insertComment",
       headers: {
         user_id: userInfo.id,
       },
@@ -143,7 +144,7 @@ const CommunityView = () => {
       return false;
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/like",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/like",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { content_id: parseInt(id) },
@@ -190,7 +191,7 @@ const CommunityView = () => {
         "Content-Type": "application/json",
       },
       data: { id: id.toString() },
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delete",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/delete",
       method: "POST",
     })
       .then((res) => {
@@ -219,7 +220,7 @@ const CommunityView = () => {
     }
     axios({
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/mobile/community/insertBlock",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/insertBlock",
       headers: {
         user_id: userInfo.id,
         target_id: post.user_id,

@@ -36,7 +36,7 @@ const AppleLoginPage = () => {
         id_token: paramObj.userid,
       };
       axios({
-        url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
+        url: process.env.REACT_APP_API_RESOURCE + "/user/getUserInfo",
         method: "POST",
         headers: {
           userId: paramObj.userid,

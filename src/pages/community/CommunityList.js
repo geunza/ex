@@ -60,9 +60,11 @@ const CommunityList = () => {
     // dispatch(loadingStart());
     axios({
       method: "GET",
-      // url: process.env.REACT_APP_API_URL + "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
+      // url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
       url:
-        process.env.REACT_APP_API_URL + "/mobile/community/all" + stringParams,
+        process.env.REACT_APP_API_RESOURCE +
+        "/mobile/community/all" +
+        stringParams,
     })
       .then((res) => {
         const data = res.data;
@@ -80,9 +82,11 @@ const CommunityList = () => {
     // dispatch(loadingStart());
     axios({
       method: "GET",
-      // url: process.env.REACT_APP_API_URL + "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
+      // url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/all?select_cat=전체&ord=최신순&cnt_sql=0&search_array=스타트업, 뉴스",
       url:
-        process.env.REACT_APP_API_URL + "/mobile/community/all" + stringParams,
+        process.env.REACT_APP_API_RESOURCE +
+        "/mobile/community/all" +
+        stringParams,
     })
       .then((res) => {
         const data = res.data;
@@ -102,7 +106,7 @@ const CommunityList = () => {
         user_id: userInfo.id,
       },
       method: "POST",
-      url: process.env.REACT_APP_API_URL + `/mobile/community/popularAll`,
+      url: process.env.REACT_APP_API_RESOURCE + `/mobile/community/popularAll`,
     })
       .then((res) => {
         setPopular(res.data);
@@ -193,7 +197,7 @@ const CommunityList = () => {
       totalData = { category: cateDummy };
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/totalCnt",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/totalCnt",
       method: "POST",
       data: totalData,
     }).then((res) => {
@@ -277,7 +281,7 @@ const CommunityList = () => {
       totalData = { category: cateDummy };
     }
     axios({
-      url: process.env.REACT_APP_API_URL + "/mobile/community/totalCnt",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/totalCnt",
       method: "POST",
       data: totalData,
     })

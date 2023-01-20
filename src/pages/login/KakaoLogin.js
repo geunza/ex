@@ -62,7 +62,7 @@ const KakaoLogin = () => {
               }
             }
             axios({
-              url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
+              url: process.env.REACT_APP_API_RESOURCE + "/user/getUserInfo",
               method: "POST",
               headers: {
                 userId: id,
@@ -83,15 +83,15 @@ const KakaoLogin = () => {
                   const headers = obj;
                   console.log("headers", headers);
                   axios({
-                    url: process.env.REACT_APP_API_URL + "/kakao/login",
+                    url: process.env.REACT_APP_API_RESOURCE + "/kakao/login",
                     method: "POST",
                     headers: headers,
                   })
                     .then(() => {
-                      // console.log("로그인 완료");
                       axios({
                         url:
-                          process.env.REACT_APP_API_URL + "/user/getUserInfo",
+                          process.env.REACT_APP_API_RESOURCE +
+                          "/user/getUserInfo",
                         method: "POST",
                         headers: { userId: id },
                       })
@@ -112,7 +112,7 @@ const KakaoLogin = () => {
                         });
                     })
                     .catch((err) => {
-                      // console.log(err);
+                      console.log(err);
                     });
                 }
               }

@@ -46,9 +46,8 @@ const SupportList = ({}) => {
     axiosCount = axiosCount + 1;
     dispatch(loadingStart());
     if (!(sessionStorage.getItem("isLoggedIn") ?? false)) {
-      console.log("로그인X, 검색O, 전체O");
       axios({
-        url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
+        url: process.env.REACT_APP_API_RESOURCE + "/support/getSupportInfoList",
         method: "POST",
         headers: { user_id: "" },
         data: {
@@ -63,9 +62,9 @@ const SupportList = ({}) => {
       });
     } else {
       if (keyword != "") {
-        console.log("로그인O, 검색O, 전체O");
         axios({
-          url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
+          url:
+            process.env.REACT_APP_API_RESOURCE + "/support/getSupportInfoList",
           method: "POST",
           headers: { user_id: "" },
           data: {
@@ -80,9 +79,10 @@ const SupportList = ({}) => {
         });
       } else {
         if (allSupport) {
-          console.log("로그인O, 검색X, 전체O");
           axios({
-            url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
+            url:
+              process.env.REACT_APP_API_RESOURCE +
+              "/support/getSupportInfoList",
             method: "POST",
             headers: {
               user_id: userInfo.id,
@@ -97,7 +97,6 @@ const SupportList = ({}) => {
             dispatch(loadingEnd());
           });
         } else {
-          console.log("로그인O, 검색X, 전체X");
           const thisData = {
             ord: ord,
             business_type: dataToString("bizp_type_cd"),
@@ -115,9 +114,10 @@ const SupportList = ({}) => {
           const queryString = Object.entries(thisData)
             .map(([key, value]) => `${key}=${value}`)
             .join("&\n");
-          console.log(queryString);
           axios({
-            url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
+            url:
+              process.env.REACT_APP_API_RESOURCE +
+              "/support/getSupportInfoList",
             method: "POST",
             headers: {
               user_id: userInfo.id,
@@ -146,7 +146,7 @@ const SupportList = ({}) => {
         ord: "전체",
       },
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/saved/getRecentlyMySavedBook",
+      url: process.env.REACT_APP_API_RESOURCE + "/saved/getRecentlyMySavedBook",
     })
       .then((res) => {
         setSavedBook(res.data.slice(0, 3));
@@ -299,6 +299,7 @@ const SupportList = ({}) => {
                 allSupport={allSupport}
                 setAllSupport={setAllSupport}
                 mobileFilterOpen={mobileFilterOpen}
+                keyword={keyword}
               />
             </div>
             <div className={styles.listArea}>

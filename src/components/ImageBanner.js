@@ -15,7 +15,7 @@ const ImageBanner = () => {
         "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
       },
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/mainpage/getBannerList",
+      url: process.env.REACT_APP_API_RESOURCE + "/mainpage/getBannerList",
     }).then((res) => {
       setBanner(res.data);
     });

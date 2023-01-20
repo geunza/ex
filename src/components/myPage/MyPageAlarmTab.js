@@ -81,7 +81,7 @@ const MyPageAlarmTab = ({ setAlaramOpen, styles }) => {
   }
   const submitAlarm = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/user/updatePushSetting",
+      url: process.env.REACT_APP_API_RESOURCE + "/user/updatePushSetting",
       method: "POST",
       headers: {
         userId: userInfo.id,
@@ -106,7 +106,7 @@ const MyPageAlarmTab = ({ setAlaramOpen, styles }) => {
   };
   const getAlarmData = () => {
     axios({
-      url: process.env.REACT_APP_API_URL + "/user/getPushSetting",
+      url: process.env.REACT_APP_API_RESOURCE + "/user/getPushSetting",
       method: "POST",
       headers: {
         userId: userInfo.id,

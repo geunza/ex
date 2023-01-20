@@ -59,7 +59,7 @@ const Home = () => {
   useEffect(() => {
     if (isMobile) {
       axios({
-        url: process.env.REACT_APP_API_URL + "/cms/notice/api",
+        url: process.env.REACT_APP_API_RESOURCE + "/cms/notice/api",
         method: "GET",
       }).then((res) => {
         setNoticeList(res.data[0]);

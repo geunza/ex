@@ -44,7 +44,7 @@ const MyPostItem = ({
         "Content-Type": "application/json",
       },
       data: { id: id },
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delete",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/delete",
       method: "POST",
     })
       .then((res) => {

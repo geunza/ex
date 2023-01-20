@@ -62,11 +62,15 @@ const CommunityWrite = () => {
       formData1.append("files", editorFileData[i]);
     }
     axios
-      .post(process.env.REACT_APP_API_URL + "/mobile/community/", formData1, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post(
+        process.env.REACT_APP_API_RESOURCE + "/mobile/community/",
+        formData1,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
         if (allFileLength > 0) {
           const formData2 = new FormData();
@@ -76,7 +80,8 @@ const CommunityWrite = () => {
           });
           axios
             .post(
-              process.env.REACT_APP_API_URL + "/mobile/community/uploadFile",
+              process.env.REACT_APP_API_RESOURCE +
+                "/mobile/community/uploadFile",
               formData2,
               {
                 headers: {

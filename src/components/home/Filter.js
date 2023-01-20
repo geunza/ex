@@ -39,7 +39,9 @@ const Filter = () => {
     }
     axios({
       url:
-        process.env.REACT_APP_API_URL + "/user/updateCompanyInfo?" + paramUrl,
+        process.env.REACT_APP_API_RESOURCE +
+        "/user/updateCompanyInfo?" +
+        paramUrl,
       method: "POST",
       headers: {
         userId: userInfo.id,

@@ -62,7 +62,7 @@ const CommunityListItem = ({
         "Content-Type": "application/json",
       },
       data: { id: id.toString() },
-      url: process.env.REACT_APP_API_URL + "/mobile/community/delete",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/delete",
       method: "POST",
     })
       .then((res) => {
@@ -99,7 +99,7 @@ const CommunityListItem = ({
       : (targetId = parseInt(writerId));
     axios({
       method: "POST",
-      url: process.env.REACT_APP_API_URL + "/mobile/community/insertBlock",
+      url: process.env.REACT_APP_API_RESOURCE + "/mobile/community/insertBlock",
       headers: {
         user_id: userInfo.id,
         target_id: targetId,
