@@ -31,6 +31,7 @@ const SupportFilter = ({
   const [modalIdx, setModalIDx] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const handleSubmitBtn = () => {
+    const searchExist = window.location.search != "";
     // dispatch(loadingStart());
     let paramUrl = "";
     const obj = {
@@ -51,15 +52,19 @@ const SupportFilter = ({
       paramUrl += `${key}=${obj[key]}&`;
     }
     axios({
-      url: "/user/updateCompanyInfo?" + paramUrl,
+      url:
+        process.env.REACT_APP_API_URL + "/user/updateCompanyInfo?" + paramUrl,
       method: "POST",
       headers: {
         userId: userInfo.id,
       },
     }).then((res) => {
       // dispatch(loadingEnd());
-      navigate("./");
-      // getSupportCont("전체", "");
+      if (searchExist) {
+        navigate("./");
+      } else {
+        getSupportCont("전체", "");
+      }
       window.scrollTo(0, 0);
     });
   };

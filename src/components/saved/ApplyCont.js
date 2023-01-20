@@ -25,7 +25,7 @@ const MyCont = ({
   const [applyItems, setApplyItems] = useState([]);
   const getApplyItems = () => {
     axios({
-      url: "/saved/getMySavedBook",
+      url: process.env.REACT_APP_API_URL + "/saved/getMySavedBook",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { cat: "지원", ord: ord },

@@ -88,7 +88,7 @@ const SavedWrap = () => {
         user_id: userInfo.id,
       },
       method: "POST",
-      url: "/saved/getTotalCountList",
+      url: process.env.REACT_APP_API_URL + "/saved/getTotalCountList",
     }).then((res) => {
       setTotalCount(res.data);
     });
@@ -113,7 +113,7 @@ const SavedWrap = () => {
   ];
   const getDoughnutList = () => {
     axios({
-      url: "/saved/getCatList",
+      url: process.env.REACT_APP_API_URL + "/saved/getCatList",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -145,7 +145,7 @@ const SavedWrap = () => {
     barList.forEach((v, i) => {
       const name = v.name;
       axios({
-        url: "/saved/getSavedTotalCount",
+        url: process.env.REACT_APP_API_URL + "/saved/getSavedTotalCount",
         method: "POST",
         headers: {
           user_id: userInfo.id,

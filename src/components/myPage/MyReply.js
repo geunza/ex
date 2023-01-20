@@ -19,7 +19,7 @@ const MyReply = ({ page, postLimit }) => {
   const getMyReply = () => {
     // dispatch(loadingStart());
     axios({
-      url: "/mobile/community/myComment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/myComment",
       method: "POST",
       headers: {
         user_id: userInfo.id,

@@ -38,7 +38,8 @@ const Filter = () => {
       paramUrl += `${key}=${obj[key]}&`;
     }
     axios({
-      url: "/user/updateCompanyInfo?" + paramUrl,
+      url:
+        process.env.REACT_APP_API_URL + "/user/updateCompanyInfo?" + paramUrl,
       method: "POST",
       headers: {
         userId: userInfo.id,

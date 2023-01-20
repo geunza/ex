@@ -30,7 +30,7 @@ const NeedModal = ({ setModalOn }) => {
   };
   const getUserNeed = () => {
     axios({
-      url: "/saved/getUserNeed",
+      url: process.env.REACT_APP_API_URL + "/saved/getUserNeed",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -57,7 +57,7 @@ const NeedModal = ({ setModalOn }) => {
   const needSubmit = (e) => {
     if (idx >= 0) {
       axios({
-        url: "/saved/updateUserNeed",
+        url: process.env.REACT_APP_API_URL + "/saved/updateUserNeed",
         method: "POST",
         headers: {
           user_id: userInfo.id,
@@ -78,7 +78,7 @@ const NeedModal = ({ setModalOn }) => {
         });
     } else {
       axios({
-        url: "/saved/updateUserNeed",
+        url: process.env.REACT_APP_API_URL + "/saved/updateUserNeed",
         method: "POST",
         headers: {
           user_id: userInfo.id,

@@ -51,11 +51,15 @@ const CommunityModify = () => {
       formData1.append("files", editorFileData[i]);
     }
     axios
-      .put("/mobile/community/edit", formData1, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .put(
+        process.env.REACT_APP_API_URL + "/mobile/community/edit",
+        formData1,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
         navigate(`/community/communityView/${id}`);
       })
@@ -72,7 +76,7 @@ const CommunityModify = () => {
     // dispatch(loadingStart());
     axios({
       method: "GET",
-      url: `/mobile/community/one?id=${id}`,
+      url: process.env.REACT_APP_API_URL + `/mobile/community/one?id=${id}`,
     }).then((res) => {
       const data = res.data;
       const userId = data.user_id;
@@ -92,7 +96,7 @@ const CommunityModify = () => {
   };
   const getCommunityFiles = () => {
     axios({
-      url: "/mobile/community/getFile",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/getFile",
       method: "POST",
       data: { content_id: parseInt(id) },
     })
@@ -106,7 +110,7 @@ const CommunityModify = () => {
       return false;
     }
     axios({
-      url: "/mobile/community/delete",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/delete",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

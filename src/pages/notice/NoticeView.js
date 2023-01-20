@@ -22,7 +22,7 @@ const NoticeView = () => {
     // dispatch(loadingStart());
     axios({
       method: "GET",
-      url: "/cms/notice/api",
+      url: process.env.REACT_APP_API_URL + "/cms/notice/api",
     }).then((res) => {
       const data = res.data;
       const target = data.find((item) => item.id == id);

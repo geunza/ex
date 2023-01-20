@@ -19,7 +19,7 @@ const HomeCommunity = () => {
         "Access-Control-Allow-Origin": "strict-origin-when-cross-origin",
       },
       method: "POST",
-      url: "/mobile/community/popularAll",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/popularAll",
       cancelToken: new CancelToken(function executor(c) {
         // excutor 함수는 cancel 함수를 매개 변수로 받습니다.
         cancel = c;

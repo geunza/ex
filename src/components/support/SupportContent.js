@@ -302,7 +302,6 @@ const SupportContent = ({
             ) : !isMobile ? (
               // 필터 PC <div>키워드X / 갯수 > 0 / PC</div>
               <>
-                "supportFilterCont"
                 <ul>
                   {supportFilterCont
                     .slice((page - 1) * count, page * count)
@@ -332,7 +331,6 @@ const SupportContent = ({
             ) : (
               // 필터 Mob <div>키워드X / 갯수 > 0 / MOB</div>
               <>
-                "supportFilterCont"
                 <ul>
                   {supportFilterCont
                     .slice(0, count * mobilePage)
@@ -424,7 +422,6 @@ const SupportContent = ({
           ) : !isMobile ? (
             // 검색 PC <div>키워드O / 갯수 > 0 / PC</div>
             <>
-              "supportData"
               <ul>
                 {supportData
                   .slice((page - 1) * count, page * count)
@@ -454,7 +451,6 @@ const SupportContent = ({
           ) : (
             // 검색 Mob <div>키워드O / 갯수 > 0 / Mob</div>
             <>
-              "supportData MOB"
               <ul>
                 {supportData.slice(0, count * mobilePage).map((item, idx) => {
                   return (

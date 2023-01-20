@@ -37,7 +37,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     if (!window.confirm("댓글을 수정하시겠습니까?")) return false;
     axios({
       method: "POST",
-      url: "/mobile/community/updateComment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/updateComment",
       data: {
         id: cmtId,
         description: currentReply,
@@ -57,7 +57,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
 
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return false;
     axios({
-      url: "/mobile/community/delComment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/delComment",
       method: "POST",
       data: {
         id: parseInt(value),
@@ -80,7 +80,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
   // 대댓글 호출
   const getReReply = () => {
     axios({
-      url: "/mobile/community/recomment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/recomment",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -109,7 +109,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
 
     axios({
       method: "POST",
-      url: "/mobile/community/insertBlock",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/insertBlock",
       headers: {
         user_id: userInfo.id,
         target_id: writerId,
@@ -128,7 +128,8 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     }
     axios({
       method: "POST",
-      url: "/mobile/community/insertCommentLike",
+      url:
+        process.env.REACT_APP_API_URL + "/mobile/community/insertCommentLike",
       headers: {
         user_id: userInfo.id,
       },
@@ -150,7 +151,7 @@ const CommunityViewReplyItem = ({ item, getReply }) => {
     if (!window.confirm("댓글을 등록하시겠습니까?")) return false;
     axios({
       method: "POST",
-      url: "/mobile/community/insertComment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/insertComment",
       data: {
         c_content_id: contId,
         description: reReplyTxt,

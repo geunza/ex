@@ -11,7 +11,7 @@ const NoticeList = () => {
   const getNoticeData = () => {
     // dispatch(loadingStart());
     axios({
-      url: "/cms/notice/api",
+      url: process.env.REACT_APP_API_URL + "/cms/notice/api",
       method: "GET",
     }).then((res) => {
       setNoticeData(res.data);

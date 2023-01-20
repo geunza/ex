@@ -27,7 +27,7 @@ const AppleLoginBtn = () => {
   return (
     <>
       <button onClick={btnClick} className="btnLogin btnAppleLogin">
-        <AppleLogo width="20" height="auto" fill="#fff" />
+        <AppleLogo width="20" height="100%" fill="#fff" />
         <span>Apple로 로그인</span>
       </button>
     </>

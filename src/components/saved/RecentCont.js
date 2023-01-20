@@ -30,7 +30,7 @@ const RecentCont = ({
       },
       data: { ord: ord },
       method: "POST",
-      url: "/saved/getRecentlyMySavedBook",
+      url: process.env.REACT_APP_API_URL + "/saved/getRecentlyMySavedBook",
     }).then((res) => {
       setRecentItems(res.data.filter((x) => x.si_title != null));
       // dispatch(loadingEnd());

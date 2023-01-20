@@ -50,7 +50,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
     }
     // dispatch(loadingStart());
     axios({
-      url: "/user/checkNickname",
+      url: process.env.REACT_APP_API_URL + "/user/checkNickname",
       method: "POST",
       headers: {
         usernickname: encoding(nickname),
@@ -131,21 +131,23 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
     headers.username = encodeURI(nickname);
     headers.useremail = email;
     axios({
-      url: "/kakao/login",
+      url: process.env.REACT_APP_API_URL + "/kakao/login",
       method: "POST",
       headers: headers,
     })
       .then(() => {
         // console.log("로그인 완료");
         axios({
-          url: `/user/updateUserInfo?usernickname=${encodeURI(nickname)}`,
+          url:
+            process.env.REACT_APP_API_URL +
+            `/user/updateUserInfo?usernickname=${encodeURI(nickname)}`,
           method: "POST",
           headers: {
             userid: headers.userid,
           },
         }).then((res) => {
           axios({
-            url: "/user/getUserInfo",
+            url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
             method: "POST",
             headers: { userId: headers.userid },
           })
@@ -162,7 +164,7 @@ const SignInPolicyModal = ({ setLastCheck, kakaoInform, appleInform }) => {
                 marketingValue = "Y";
               }
               axios({
-                url: "/user/updatePushSetting",
+                url: process.env.REACT_APP_API_URL + "/user/updatePushSetting",
                 method: "POST",
                 headers: {
                   userId: headers.userid,

@@ -44,7 +44,7 @@ const MyLogin = () => {
     }
     // dispatch(loadingStart());
     axios({
-      url: "/user/checkNickname",
+      url: process.env.REACT_APP_API_URL + "/user/checkNickname",
       method: "POST",
       headers: {
         usernickname: encoding(nickname),
@@ -58,7 +58,9 @@ const MyLogin = () => {
     if (nicknameCheck) {
       // dispatch(loadingStart());
       axios({
-        url: `/user/updateUserInfo?usernickname=${encoding(nickname)}`,
+        url:
+          process.env.REACT_APP_API_URL +
+          `/user/updateUserInfo?usernickname=${encoding(nickname)}`,
         method: "POST",
         headers: {
           userid: userInfo.id,
@@ -74,7 +76,7 @@ const MyLogin = () => {
   };
   const userInfoUpdate = (id) => {
     axios({
-      url: "/user/getUserInfo",
+      url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
       method: "POST",
       headers: { userId: id },
     }).then((res) => {
@@ -90,7 +92,7 @@ const MyLogin = () => {
       )
     ) {
       axios({
-        url: "/user/withdraw",
+        url: process.env.REACT_APP_API_URL + "/user/withdraw",
         headers: {
           userId: userInfo.id,
         },

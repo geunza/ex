@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { setSupportData } from "redux/store";
 import MobileTitle from "components/MobileTitle";
 let axiosCount = 0;
-const SupportList = () => {
+const SupportList = ({}) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -18,8 +18,10 @@ const SupportList = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const supportInfo = useSelector((state) => state.supportInfo);
   const isMobile = useSelector((state) => state.isMobile);
+  const supportItem = useSelector((state) => state.supportItem);
   const supportData = useSelector((state) => state.supportData);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const supportItemReady = useSelector((state) => state.supportItemReady);
   const [total, setTotal] = useState(0);
   const [ord, setOrd] = useState("전체");
   const [page, setPage] = useState(1);
@@ -39,14 +41,14 @@ const SupportList = () => {
     sessionStorage.setItem("sOffset", value);
   };
   const getSupportCont = (ord, keyword) => {
+    // dispatch(loadingStart());
     const thisCount = axiosCount;
     axiosCount = axiosCount + 1;
-    // 첫랜더
     dispatch(loadingStart());
     if (!(sessionStorage.getItem("isLoggedIn") ?? false)) {
-      // 로그인X => 전체
+      console.log("로그인X, 검색O, 전체O");
       axios({
-        url: "/support/getSupportInfoList",
+        url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
         method: "POST",
         headers: { user_id: "" },
         data: {
@@ -60,14 +62,12 @@ const SupportList = () => {
         dispatch(loadingEnd());
       });
     } else {
-      if (allSupport) {
-        console.log("LIST SEARCH : 전체 지원사업 보기 O");
+      if (keyword != "") {
+        console.log("로그인O, 검색O, 전체O");
         axios({
-          url: "/support/getSupportInfoList",
+          url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
           method: "POST",
-          headers: {
-            user_id: userInfo.id,
-          },
+          headers: { user_id: "" },
           data: {
             ord: ord,
             keyword: keyword,
@@ -79,36 +79,57 @@ const SupportList = () => {
           dispatch(loadingEnd());
         });
       } else {
-        console.log("LIST SEARCH : 전체 지원사업 보기 X");
-        const thisData = {
-          ord: ord,
-          keyword: keyword,
-          business_type: dataToString("bizp_type_cd"),
-          target_cat_name: dataToString("spt_cd"),
-          business_ctg: dataToString("biz_cd"),
-          tech_ctg: dataToString("tech_cd"),
-          loc_code: dataToString("loc_cd"),
-        };
-        if (dataToString("bizp_type_cd") != "02") {
-          Object.assign(thisData, {
-            start_period: dataToString("prd_cd"),
-            company_type: dataToString("biz_type_cd"),
+        if (allSupport) {
+          console.log("로그인O, 검색X, 전체O");
+          axios({
+            url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
+            method: "POST",
+            headers: {
+              user_id: userInfo.id,
+            },
+            data: {
+              ord: ord,
+            },
+          }).then((res) => {
+            if (thisCount + 1 == axiosCount) {
+              dispatch(setSupportData(res.data));
+            }
+            dispatch(loadingEnd());
+          });
+        } else {
+          console.log("로그인O, 검색X, 전체X");
+          const thisData = {
+            ord: ord,
+            business_type: dataToString("bizp_type_cd"),
+            target_cat_name: dataToString("spt_cd"),
+            business_ctg: dataToString("biz_cd"),
+            tech_ctg: dataToString("tech_cd"),
+            loc_code: dataToString("loc_cd"),
+          };
+          if (dataToString("bizp_type_cd") != "02") {
+            Object.assign(thisData, {
+              start_period: dataToString("prd_cd"),
+              company_type: dataToString("biz_type_cd"),
+            });
+          }
+          const queryString = Object.entries(thisData)
+            .map(([key, value]) => `${key}=${value}`)
+            .join("&\n");
+          console.log(queryString);
+          axios({
+            url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
+            method: "POST",
+            headers: {
+              user_id: userInfo.id,
+            },
+            data: thisData,
+          }).then((res) => {
+            if (thisCount + 1 == axiosCount) {
+              dispatch(setSupportData(res.data));
+            }
+            dispatch(loadingEnd());
           });
         }
-        console.log(thisData);
-        axios({
-          url: "/support/getSupportInfoList",
-          method: "POST",
-          headers: {
-            user_id: userInfo.id,
-          },
-          data: thisData,
-        }).then((res) => {
-          if (thisCount + 1 == axiosCount) {
-            dispatch(setSupportData(res.data));
-          }
-          dispatch(loadingEnd());
-        });
       }
     }
     setMobilePage(1);
@@ -119,14 +140,13 @@ const SupportList = () => {
     }
   };
   const getRecent = () => {
-    console.log("AAAAAAAAAAA");
     axios({
       headers: { user_id: userInfo.id },
       data: {
         ord: "전체",
       },
       method: "POST",
-      url: "/saved/getRecentlyMySavedBook",
+      url: process.env.REACT_APP_API_URL + "/saved/getRecentlyMySavedBook",
     })
       .then((res) => {
         setSavedBook(res.data.slice(0, 3));
@@ -178,11 +198,17 @@ const SupportList = () => {
     } else {
       countDummy = searchObj.count;
     }
+    if (
+      ordDummy != ord ||
+      keywordDummy != keyword ||
+      firstMount ||
+      searchTxt == ""
+    ) {
+      getSupportCont(ordDummy, keywordDummy);
+    }
     setOrd(ordDummy);
     setPage(pageDummy);
     setKeyword(keywordDummy);
-
-    getSupportCont(ordDummy, keywordDummy);
   }, [location]);
   useEffect(() => {
     if (isLoggedIn) {

@@ -18,7 +18,7 @@ const BoxListItemHome = ({
     window.open(url, "_blank", "noopener,noreferrer");
     if (Object.keys(userInfo).length > 0) {
       axios({
-        url: "/mainpage/insertTimeLine",
+        url: process.env.REACT_APP_API_URL + "/mainpage/insertTimeLine",
         method: "POST",
         headers: {
           user_id: userInfo.id,
@@ -27,7 +27,7 @@ const BoxListItemHome = ({
       }).then((res) => {});
     }
     axios({
-      url: `/mainpage/upViewCnt?si_idx=${idx}`,
+      url: process.env.REACT_APP_API_URL + `/mainpage/upViewCnt?si_idx=${idx}`,
       method: "POST",
     }).then((res) => {
       getHomeSupport(category.category, category.url, category.cat_name);

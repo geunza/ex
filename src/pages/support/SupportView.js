@@ -13,7 +13,7 @@ const SupportView = () => {
   const getSupportItem = () => {
     // dispatch(loadingStart());
     axios({
-      url: "/support/getSupportInfoList",
+      url: process.env.REACT_APP_API_URL + "/support/getSupportInfoList",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -46,7 +46,7 @@ const SupportView = () => {
   useEffect(() => {
     if (Object.keys(userInfo).length > 0) {
       axios({
-        url: "/mainpage/insertTimeLine",
+        url: process.env.REACT_APP_API_URL + "/mainpage/insertTimeLine",
         method: "POST",
         headers: {
           user_id: userInfo.id,
@@ -55,7 +55,7 @@ const SupportView = () => {
       }).then((res) => {});
     }
     axios({
-      url: `/mainpage/upViewCnt?si_idx=${id}`,
+      url: process.env.REACT_APP_API_URL + `/mainpage/upViewCnt?si_idx=${id}`,
       method: "POST",
     }).then((res) => {});
     getSupportItem();

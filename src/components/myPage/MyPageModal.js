@@ -82,7 +82,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
   }
   const submitAlarm = () => {
     axios({
-      url: "/user/updatePushSetting",
+      url: process.env.REACT_APP_API_URL + "/user/updatePushSetting",
       method: "POST",
       headers: {
         userId: userInfo.id,
@@ -107,7 +107,7 @@ const MyPageModal = ({ setAlaramOpen }) => {
   };
   const getAlarmData = () => {
     axios({
-      url: "/user/getPushSetting",
+      url: process.env.REACT_APP_API_URL + "/user/getPushSetting",
       method: "POST",
       headers: {
         userId: userInfo.id,

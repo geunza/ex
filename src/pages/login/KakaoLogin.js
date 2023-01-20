@@ -62,7 +62,7 @@ const KakaoLogin = () => {
               }
             }
             axios({
-              url: "/user/getUserInfo",
+              url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
               method: "POST",
               headers: {
                 userId: id,
@@ -83,14 +83,15 @@ const KakaoLogin = () => {
                   const headers = obj;
                   console.log("headers", headers);
                   axios({
-                    url: "/kakao/login",
+                    url: process.env.REACT_APP_API_URL + "/kakao/login",
                     method: "POST",
                     headers: headers,
                   })
                     .then(() => {
                       // console.log("로그인 완료");
                       axios({
-                        url: "/user/getUserInfo",
+                        url:
+                          process.env.REACT_APP_API_URL + "/user/getUserInfo",
                         method: "POST",
                         headers: { userId: id },
                       })

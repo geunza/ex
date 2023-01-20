@@ -19,7 +19,7 @@ const SearchForm = ({ setMobileSearchOpen }) => {
   const [sessionKeyword, setSessionKeyword] = useState([]);
   const getPopluarKeyword = () => {
     axios({
-      url: "/mainpage/getSearchHotKeyWord",
+      url: process.env.REACT_APP_API_URL + "/mainpage/getSearchHotKeyWord",
       method: "POST",
     }).then((res) => {
       setPopularKeyword(res.data);
@@ -40,7 +40,7 @@ const SearchForm = ({ setMobileSearchOpen }) => {
     }
     if (isLoggedIn) {
       axios({
-        url: "/mainpage/insertTimeLine",
+        url: process.env.REACT_APP_API_URL + "/mainpage/insertTimeLine",
         method: "POST",
         headers: {
           user_id: userInfo.id,
@@ -65,7 +65,7 @@ const SearchForm = ({ setMobileSearchOpen }) => {
   };
   const getMyKeyword = () => {
     axios({
-      url: "/mainpage/getMyRecentKeyword",
+      url: process.env.REACT_APP_API_URL + "/mainpage/getMyRecentKeyword",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -76,7 +76,7 @@ const SearchForm = ({ setMobileSearchOpen }) => {
         if (i >= 10) {
           // dispatch(loadingStart());
           axios({
-            url: "/mainpage/delMyRecentKeyword",
+            url: process.env.REACT_APP_API_URL + "/mainpage/delMyRecentKeyword",
             method: "POST",
             headers: { user_id: userInfo.id },
             data: { tl_event: v.tl_event },

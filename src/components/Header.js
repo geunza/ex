@@ -29,7 +29,7 @@ const Header = () => {
   const handleLogin = () => {
     dispatch(setLoginCheck(true));
     // axios({
-    //   url: "/user/getUserInfo",
+    //   url: process.env.REACT_APP_API_URL + "/user/getUserInfo",
     //   method: "POST",
     //   // headers: { userId: "2300105629" },
     //   headers: { userId: userInfo.id },

@@ -15,25 +15,25 @@ const HomeSupport = () => {
     {
       category: "실시간인기",
       item: [],
-      url: "/mainpage/getPopularList",
+      url: process.env.REACT_APP_API_URL + "/mainpage/getPopularList",
       cat_name: "실시간",
     },
     {
       category: "엑시토추천",
       item: [],
-      url: "/mainpage/getPushBookList",
+      url: process.env.REACT_APP_API_URL + "/mainpage/getPushBookList",
       cat_name: "엑시토추천",
     },
     {
       category: "찜인기",
       item: [],
-      url: "/mainpage/getPopularList",
+      url: process.env.REACT_APP_API_URL + "/mainpage/getPopularList",
       cat_name: "찜",
     },
     {
       category: "예비창업자 대상",
       item: [],
-      url: "/mainpage/getPopularList",
+      url: process.env.REACT_APP_API_URL + "/mainpage/getPopularList",
       cat_name: "예비창업자",
     },
   ]);

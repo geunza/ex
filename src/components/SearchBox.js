@@ -23,7 +23,7 @@ const SearchBox = ({
       return false;
     }
     axios({
-      url: "/mainpage/delMyRecentKeyword",
+      url: process.env.REACT_APP_API_URL + "/mainpage/delMyRecentKeyword",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { tl_event: word },
@@ -42,7 +42,7 @@ const SearchBox = ({
       return false;
     }
     axios({
-      url: "/mainpage/delMyAllRecentKeyword",
+      url: process.env.REACT_APP_API_URL + "/mainpage/delMyAllRecentKeyword",
       method: "POST",
       headers: {
         user_id: userInfo.id,
@@ -62,7 +62,7 @@ const SearchBox = ({
         {popularKeyword.length > 0 ? (
           <ul className={styles.keywordPopular}>
             {popularKeyword.map((word, idx) => (
-              <li>
+              <li key={idx}>
                 <Link to={`/support/supportList?keyword=${word.tl_event}`}>
                   #{word.tl_event}
                 </Link>

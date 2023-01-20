@@ -34,7 +34,7 @@ const CommunityView = () => {
   const getContent = () => {
     axios({
       method: "GET",
-      url: `/mobile/community/one?id=${id}`,
+      url: process.env.REACT_APP_API_URL + `/mobile/community/one?id=${id}`,
       headers: {
         user_id: userInfo.id,
       },
@@ -66,7 +66,7 @@ const CommunityView = () => {
   };
   const getReply = (userId) => {
     axios({
-      url: "/mobile/community/comment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/comment",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: {
@@ -84,7 +84,7 @@ const CommunityView = () => {
   };
   const getFiles = () => {
     axios({
-      url: "/mobile/community/getFile",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/getFile",
       method: "POST",
       data: {
         content_id: parseInt(id),
@@ -112,7 +112,7 @@ const CommunityView = () => {
     const step = 1;
     axios({
       method: "POST",
-      url: "/mobile/community/insertComment",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/insertComment",
       headers: {
         user_id: userInfo.id,
       },
@@ -143,7 +143,7 @@ const CommunityView = () => {
       return false;
     }
     axios({
-      url: "/mobile/community/like",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/like",
       method: "POST",
       headers: { user_id: userInfo.id },
       data: { content_id: parseInt(id) },
@@ -190,7 +190,7 @@ const CommunityView = () => {
         "Content-Type": "application/json",
       },
       data: { id: id.toString() },
-      url: "/mobile/community/delete",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/delete",
       method: "POST",
     })
       .then((res) => {
@@ -219,7 +219,7 @@ const CommunityView = () => {
     }
     axios({
       method: "POST",
-      url: "/mobile/community/insertBlock",
+      url: process.env.REACT_APP_API_URL + "/mobile/community/insertBlock",
       headers: {
         user_id: userInfo.id,
         target_id: post.user_id,
